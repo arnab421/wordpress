@@ -1,0 +1,55 @@
+***************************
+function wpb_reviews_shortcode()
+{
+	ob_start();
+
+	$args = array(
+		'post_type' => 'services',
+		'posts_per_page' => -1,
+		'post_status' => 'publish',
+		'order' => 'DESC',
+	);
+	// $services = new WP_Query($args);
+	// $html = "";
+?>
+	<div class="services-sec srvc-page common-padd">
+		<div class="services-btm-sec">
+			<div class="container">
+				<div class="row">
+					<?php
+					$services = new WP_Query($args);
+					if ($services->have_posts()) {
+						while ($services->have_posts()) {
+							$services->the_post();
+							$service_image = wp_get_attachment_image_src(get_post_thumbnail_id($services->ID), 'full');
+
+					?>
+							<div class="col-lg-4">
+								<div class="sngl-box">
+									<a href="<?php echo get_the_permalink($services->ID); ?>">
+										<div class="imge-box">
+											<img src="<?php echo $service_image[0]; ?>">
+										</div>
+										<div class="content-box">
+											<h4><?php echo get_the_title(); ?></h4>
+
+											<?php echo get_the_excerpt($services->ID); ?>
+										</div>
+									</a>
+								</div>
+							</div>
+					<?php }
+					}
+
+					wp_reset_postdata(); ?>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php
+	$output = ob_get_contents();
+	ob_end_clean();
+	return $output;
+}
+add_shortcode('reviews', 'wpb_reviews_shortcode');
+********************************************************
