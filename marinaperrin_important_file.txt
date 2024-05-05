@@ -1,0 +1,571 @@
+front page start 
+**************start******
+<?php get_header(); ?>
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+        <!--banner sction-->
+        <section class="banner-section">
+            <div class="banner-main-wrap">
+                <?php
+                if (have_rows('banner_details')) {
+                    while (have_rows('banner_details')) {
+                        the_row();
+                        $banner_back_image = get_sub_field('banner_back_image');
+                        $banner_heading = get_sub_field('banner_heading');
+                        $galley_image = get_sub_field('image_gallery');
+
+                ?>
+                        <div class="banner-slide-item">
+                            <!-- Dynamic banner Section -->
+
+                            <div class="img-wrap">
+                                <img src="<?php echo $banner_back_image; ?>" alt="">
+                            </div>
+                            <div class="content-wrap">
+                                <div class="container">
+                                    <h1><?php echo $banner_heading; ?></h1>
+                                </div>
+                            </div>
+
+                            <ul class="slider-item slider-nav">
+                                <?php foreach ($galley_image as $image_url) : ?>
+                                    <li><img src="<?php echo $image_url; ?>" alt=""></li>
+
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                <?php }
+                } ?>
+
+                <!-- <div class="banner-slide-item">
+         <div class="img-wrap">
+          <img src="<?php echo get_template_directory_uri(); ?>/images/slider-img2.jpg" alt="">
+         </div>
+         <div class="content-wrap">
+          <div class="container">
+         <h1>Luxury Residential <br>Homes & New Construction <br>Projects</h1>
+          </div>
+         </div>
+         <ul class="slider-item slider-nav">
+            <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt=""></li>
+            <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider2.jpg" alt=""></li>
+            <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider3.jpg" alt=""></li>
+            <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider4.jpg" alt=""></li>
+            <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider5.jpg" alt=""></li>
+         </ul>
+          </div> -->
+                <!-- <div class="banner-slide-item">
+         <div class="img-wrap">
+           <img src="<?php echo get_template_directory_uri(); ?>/images/slider-img3.jpg" alt="">
+         </div>
+         <div class="content-wrap">
+           <div class="container">
+           <h1>Luxury Residential <br>Homes & New Construction <br>Projects</h1>
+           </div>
+         </div>
+         <ul class="slider-item slider-nav">
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt=""></li>
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider2.jpg" alt=""></li>
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider3.jpg" alt=""></li>
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider4.jpg" alt=""></li>
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider5.jpg" alt=""></li>
+         </ul>
+         </div> -->
+                <!-- <div class="banner-slide-item">
+         <div class="img-wrap">
+           <img src="<?php echo get_template_directory_uri(); ?>/images/slider-img4.jpeg" alt="">
+         </div>
+         <div class="content-wrap">
+           <div class="container">
+           <h1>Luxury Residential <br>Homes & New Construction <br>Projects</h1>
+           </div>
+         </div>
+         <ul class="slider-item slider-nav">
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt=""></li>
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider2.jpg" alt=""></li>
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider3.jpg" alt=""></li>
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider4.jpg" alt=""></li>
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider5.jpg" alt=""></li>
+         </ul>
+         </div> -->
+                <!-- <div class="banner-slide-item">
+         <div class="img-wrap">
+           <img src="<?php echo get_template_directory_uri(); ?>/images/slider-img5.png" alt="" style="height: 900px;">
+         </div>
+         <div class="content-wrap">
+           <div class="container">
+           <h1>Luxury Residential <br>Homes & New Construction <br>Projects</h1>
+           </div>
+         </div>
+         <ul class="slider-item slider-nav">
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider1.jpg" alt=""></li>
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider2.jpg" alt=""></li>
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider3.jpg" alt=""></li>
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider4.jpg" alt=""></li>
+           <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider5.jpg" alt=""></li>
+         </ul>
+         </div> -->
+            </div>
+            <div class="search-area">
+                <form>
+                    <div class="map-srch-form">
+                        <div class="map-icon">
+                            <img src="<?php echo get_template_directory_uri(); ?>/images/searchbar-map.svg" alt="">
+                        </div>
+                        <input type="text" class="form-control" id="exampleInputSearch" aria-describedby="SearchHelp" placeholder="Search by location">
+                        <input type="submit" name="">
+                    </div>
+                </form> 
+                <?php echo do_shortcode('[wpdreams_ajaxsearchlite]'); ?>
+            </div>
+        </section>
+        <!--banner sction-->
+        <!--content sction-->
+        <main>
+            <section class="aboutus-area">
+                <div class="container abt-cont">
+                    <div class="row">
+                        <div class="col-lg-6">
+                             <?php the_content(); ?>
+                            <a href="<?php echo get_field('learn_more_button_link'); ?>" class="btn"><?php echo get_field('learn_more_text'); ?> <img src="<?php echo get_field('learn_more_image'); ?>" alt=""></a>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="abt-rt"> 
+                                <?php $about_section_image=get_field('about_section_image'); 
+                                if($about_section_image != '') {?>
+                                <div class="marina-img"><img src="<?php echo get_field('about_section_image'); ?>" alt=""></div> 
+                                <?php } ?>
+                                <h3><?php echo get_field('year_of_experience'); ?></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rotate-text">
+                    <?php echo get_field('who_am_i_text'); ?>
+                </div>
+            </section>
+            <section class="all-skill-section">
+                <section class="skills-area common-padd">
+                    <div class="container-fluid allskill-area">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="skill-img"> 
+                                    <?php $section_back_image=get_field('section_back_image'); 
+                                    if($section_back_image != '') {?>
+                                    <img src="<?php echo get_field('section_back_image'); ?>" alt=""> 
+                                    <?php } ?> 
+                                    <?php $section_front_image=get_field('section_front_image'); 
+                                    if($section_front_image != '')  {?>
+                                    <img src="<?php echo get_field('section_front_image'); ?>" alt="" class="over-img"> 
+                                    <?php } ?>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="lft-skill-area">
+                                    
+                                    <?php echo get_field('skills_short_description'); ?>
+                                    <div class="skill-box">
+                                        <img src="<?php echo get_field('tick_image'); ?>" alt="">
+                                        <div class="box-text"><?php echo get_field('tick_short_text'); ?>
+                                        </div>
+                                    </div>
+                                    
+                                    <a href="<?php echo get_field('button_link'); ?>" class="btn"><?php echo get_field('button_text'); ?> <img src="<?php echo get_field('button_svg_image'); ?>" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="circle-img">
+                            <img src="<?php echo get_field('circle_svg_image'); ?>" alt="">
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <section class="license-area common-padd">
+                <div class="container">
+                    <div class="license-cont-bg">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="license-text">
+                                    
+                                    <?php echo get_field('license_short_text'); ?>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="license-img">
+                                    <img src="<?php echo get_field('license_section_image'); ?>" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="license-circle-img"><img src="<?php echo get_field('license_circle_image'); ?>" alt=""></div>
+                </div>
+            </section>
+            <section class="residences common-padd-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="heading-center">
+                                 <?php echo get_field('properties_short_text'); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="residence-box">
+                    <div class="residence-bg-overlay"></div>
+                    <div class="container all-slider-img">
+                        <div class="owl-carousel owl-theme residence-slider">
+                            <?php
+                            $args = array(
+                                'post_type' => 'properties',
+                                'posts_per_page' => 4,
+                                'order' => 'ASC',
+                            );
+                            $properties = get_posts($args);
+                            if (!empty($properties)) {
+                                foreach ($properties as $property) {
+                                    $property_image = wp_get_attachment_image_src(get_post_thumbnail_id($property->ID), 'full');
+                            ?>
+                                    <div class="item"> 
+                                        <?php  
+                                          if($property_image != '') {?> 
+                                        <img src="<?php echo $property_image[0]; ?>" alt=""> 
+                                        <?php } ?>
+                                        <div class="box-content">
+                                            <ul>
+                                                <li><?php echo get_field('apartment_text', $property->ID); ?></li>
+                                                <li><?php echo get_field('room_number', $property->ID); ?></li>
+                                            </ul>
+                                            <h5><?php echo $property->post_title; ?></h5>
+                                            <p><?php echo get_the_excerpt($property->ID); ?> </p>
+                                            <h3><?php echo get_field('room_price', $property->ID); ?></h3>
+                                            <a href="<?php echo get_the_permalink($property->ID); ?>">View details <img src="<?php echo get_template_directory_uri(); ?>/images/btn-blue-arrow.svg" alt=""></a>
+                                        </div>
+                                    </div>
+                            <?php }
+                            } ?>
+                           
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="testimonial-area common-padd-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="heading-center">
+                                <?php echo get_field('testimonial_short_text'); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-box">
+                    <div class="container">
+                        <div class="owl-carousel owl-theme testimonial-slider"> 
+                        <?php
+                            $args = array(
+                                'post_type' => 'testimonials',
+                                'posts_per_page' => -1,
+                                'order' => 'ASC',
+                            );
+                            $testimonials = get_posts($args);
+                            if (!empty($testimonials)) {
+                                foreach ($testimonials as $testimonial) {
+                                    $testimonial_image = wp_get_attachment_image_src(get_post_thumbnail_id($testimonial->ID), 'full');
+                            ?>
+                           <div class="item"> 
+                                <?php if($testimonial_image != '') {?>
+                                <img src="<?php echo $testimonial_image[0]; ?>" alt="" class="client-img"> 
+                                <?php } ?>
+                                <div class="testimonial-cont">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/images/coma.svg" alt="" class="coma">
+                                    <h3></h3><?php echo $testimonial->post_title; ?>
+                                    <h6><?php echo get_field('testimonial_short_text', $testimonial->ID); ?></h6>
+                                    <p><?php echo get_the_excerpt($testimonial->ID); ?></p>
+                                </div>
+                            </div>
+                       
+                          <?php } } ?>
+                            
+                        </div>
+                    </div>
+                    <!-- <div class="testimonialbox-bg"><img src="Images/testimonial-bg (1).jpg" alt=""></div> -->
+                </div>
+            </section>
+            <section class="contact-area common-padd">
+                <div class="container contact-bg">
+                    <div class="row"> 
+                        <?php $contact_us_background_image=get_field('contact_us_background_image'); 
+                         if($contact_us_background_image !='') {?>
+                        <div class="col-lg-4">
+                            <img src="<?php echo get_field('contact_us_background_image'); ?>" alt="">
+                        </div> 
+                        <?php } ?>
+                        <div class="col-lg-8">
+                            <div class="contact-text">
+                                <?php echo get_field('contact_us_short_text'); ?>
+                                <a href="<?php echo get_field('view_details_button_link'); ?>"><?php echo get_field('view_details_text'); ?> <img src="<?php echo get_field('view_details_button_arrow_image'); ?>" alt=""> </a>
+                            </div>
+                            <div class="contacts">
+                                <div class="call"><i><img src="<?php echo get_field('phone_image'); ?>" alt=""></i><?php echo get_field('phone_number_text'); ?></div>
+                                <div class="email"><i><img src="<?php echo get_field('email_image'); ?>" alt=""></i><?php echo get_field('email_text'); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    <?php endwhile;
+endif; ?>
+    <?php get_footer(); ?>
+**************End**********  
+
+
+marina perrin listing page start******
+<?php /*Template Name: Layout: Listing*/?>
+<?php get_header(); ?>  
+<!--banner sction-->
+<?php get_sidebar('banner'); ?>
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+
+<section class="property-list-map common-padd">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12"> 
+        <?php $map=get_field('listing_page_map'); 
+          if($map!='') {?>
+        <div class="map-box">
+            <?php echo get_field('listing_page_map'); ?>
+        </div> 
+        <?php } ?>
+      </div>      
+    </div>
+  </div>
+</section>
+
+
+
+<section class="prop-list-wrap common-padd pt-0">
+  <div class="container">
+    <div class="row"> 
+    <?php
+                            $args = array(
+                                'post_type' => 'properties',
+                                'posts_per_page' => -1, 
+                                'post_status' => 'publish',
+                                'order' => 'ASC',
+                            );
+                             
+                            $properties = new WP_Query($args);
+                              if ($properties->have_posts()) {
+                                while($properties->have_posts()) { 
+                                  $properties->the_post();
+                                    $property_image = wp_get_attachment_image_src(get_post_thumbnail_id($properties->ID), 'full');
+                            ?>
+      <div class="col-lg-4 col-md-6">
+        <div class="proprty-list-box"> 
+          <?php   $image=$property_image ;
+            if($image !='') {?>
+          <div class="imgbox"><a href="<?php echo get_the_permalink($properties->ID); ?>"><img src="<?php echo $property_image[0]; ?>" alt=""></a></div> 
+            <?php } ?>
+          <div class="info">
+            <h4><a href="<?php echo get_the_permalink($properties->ID); ?>"><?php echo get_the_title(); ?></a></h4>
+            <ul class="meta">
+              <li>
+                <i class="fas fa-building"></i> <?php echo get_field('total_no_of_rooms', $properties->ID); ?>
+              </li>
+              <li>
+                <i class="fas fa-bed"></i> <?php echo get_field('total_bed', $properties->ID); ?>
+              </li>
+              <li>
+                <i class="fas fa-vector-square"></i> <?php echo get_field('total_area', $properties->ID); ?>
+              </li>
+            </ul>
+            <div class="prc"><?php echo get_field('total_price', $properties->ID); ?></div>
+            <a href="<?php echo get_the_permalink($properties->ID); ?>" class="list-link">View details <img src="<?php echo get_template_directory_uri(); ?>/images/btn-blue-arrow.svg" alt=""></a>
+          </div>
+        </div>
+      </div> 
+      <?php } } 
+      
+      wp_reset_postdata();?>
+
+     
+
+    </div>
+  </div>
+</section>
+<?php get_footer(); ?>
+***********End************************ 
+
+*******single-properties.php page start******
+<?php get_header(); ?>
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+        <?php get_sidebar('banner'); ?>
+        <!--banner sction-->
+
+        <!--content sction-->
+        <main>
+
+            <section class="property-top-info common-padd">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            
+                            <?php the_content(); ?>
+                            
+                        <!-- New Slider change html start -->
+                            <div class="prop-gall">
+                                <div class="gal-slide-box"> 
+                                <?php
+							 	if( have_rows('particular_post_image_gallery') ){ while (have_rows('particular_post_image_gallery')) { the_row(); 
+										$image_in_gallery = get_sub_field('image_in_gallery');
+										
+								?>
+                                    <div class="imgbox">
+                                        <img src="<?php echo $image_in_gallery; ?>" alt="">
+                                    </div> 
+                                    <?php } } ?>
+                                    <!-- <div class="imgbox">
+                                        <img src="<?php echo get_template_directory_uri(); ?>/images/slider-img2.jpg" alt="">
+                                    </div>
+                                    <div class="imgbox">
+                                        <img src="<?php echo get_template_directory_uri(); ?>/images/proprty-list-4.jpg" alt="">
+                                    </div>
+                                    <div class="imgbox">
+                                        <img src="<?php echo get_template_directory_uri(); ?>/images/proprty-list-6.jpg" alt="">
+                                    </div>
+                                    <div class="imgbox">
+                                        <img src="<?php echo get_template_directory_uri(); ?>/images/proprty-list-4.jpg" alt="">
+                                    </div> -->
+                                </div>
+                                <ul class="gal-slider-nav"> 
+                                <?php
+							 	if( have_rows('particular_post_image_gallery') ){ while (have_rows('particular_post_image_gallery')) { the_row(); 
+										$image_in_gallery = get_sub_field('image_in_gallery');
+										
+								?>
+                                    <li><img src="<?php echo $image_in_gallery; ?>" alt=""></li> 
+                                <?php } } ?>
+                                    <!-- <li><img src="<?php echo get_template_directory_uri(); ?>/images/slider-img2.jpg" alt=""></li>
+                                    <li><img src="<?php echo get_template_directory_uri(); ?>/images/proprty-list-4.jpg" alt=""></li>
+                                    <li><img src="<?php echo get_template_directory_uri(); ?>/images/proprty-list-6.jpg" alt=""></li>
+                                    <li><img src="<?php echo get_template_directory_uri(); ?>/images/proprty-list-4.jpg" alt=""></li> -->
+                                </ul>
+
+                            </div> 
+                            <!-- New slider End  -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="all-details common-padd pt-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="all-details-box">
+                                <h2><?php echo get_field('sold_price'); ?></h2>
+                                <div class="adrs-info">
+                                    <address>
+                                        <?php echo get_field('particular_address'); ?>
+                                    </address>
+                                    <ul>
+                                        <?php echo get_field('particular_no_beds_and_baths'); ?>
+                                    </ul>
+                                </div>
+                                <ul class="other-info">
+                                    
+                                    <?php echo get_field('other_information'); ?>
+                                </ul>
+                            </div>
+
+                            <div class="btn-set">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <a href="<?php echo get_field('request_information_button_link'); ?>" class="btn w-100"><?php echo get_field('request_infomation_button_text'); ?></a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="<?php echo get_field('schedule_a_showing_button_link'); ?>" class="btn w-100"><?php echo get_field('schedule_a_showing_button_text'); ?></a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="<?php echo get_field('print_brochure_button_link'); ?>" class="btn w-100"><?php echo get_field('print_brochure_button_text'); ?></a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="property-list-map common-padd-small pt-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="loc-share">
+                                <h4><?php echo get_field('mapped_location_heading'); ?></h4>
+                                <ul>
+                                    <li><?php echo get_field('share_this_listing_heading'); ?></li>
+                                    <li><a href="https://www.facebook.com/sharer?u=<?php the_permalink(); ?>&amp;t=<?php the_title(); ?>" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a></li>
+                                    <!-- <li><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li> -->
+                                    <li><a href="http://twitter.com/intent/tweet?text=<?php the_title(); ?>&amp;url=<?php the_permalink(); ?>" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-fw"></i></a></li>
+
+                                    <li><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php the_permalink() ?>&amp;title=<?php the_title(); ?>&amp;summary=&amp;source=<?php bloginfo('name'); ?>" target="_new" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a></li>
+                                    <!-- Dynamic option facebook share  -->
+                                    <!-- <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=&lt;?php the_permalink() ?&gt;&amp;title=&lt;?php the_title(); ?&gt;&amp;summary=&amp;source=&lt;?php bloginfo('name'); ?&gt;" target="_new" rel="noopener noreferrer">
+
+                                    </a> -->
+                                    <!-- Dynamic twitter link -->
+                                </ul>
+                            </div> 
+                            <?php $particular_map=get_field('particular_map'); 
+                            if($particular_map != '') {?>
+                            <div class="map-box">
+                                 <?php echo get_field('particular_map'); ?>
+                            </div> 
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <section class="contact-for-proprty common-padd-small pt-0">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <h4><?php echo get_field('interested_in_listing_text'); ?></h4>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="excutive">
+                                <div class="imgbox"><img src="<?php echo get_field('interested_in_listing_image'); ?>" alt=""></div>
+                                <div class="info">
+                                     <?php echo get_field('section_short_text'); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <ul class="call-mail">
+                                <li>
+                                    <i><img src="<?php echo get_field('phone_no_icon'); ?>" alt=""></i> <?php echo get_field('particular_phone_no'); ?>
+                                </li>
+                                <li>
+                                    <i><img src="<?php echo get_field('email_id_icon'); ?>" alt=""></i> <?php echo get_field('particular_email_id'); ?>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-12">
+                            <p><?php echo get_field('bottom_short_description'); ?></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    <?php endwhile;
+endif; ?>
+    <?php get_footer(); ?>
+**********************End********************
+

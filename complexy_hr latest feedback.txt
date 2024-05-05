@@ -1,0 +1,563 @@
+1.I see than menu on top don’t match with menu in buttom in FR and EN section, 
+Ans:Menu on Top and Bottom Are same now.
+2.on home page, in every 4 slide can you remove this boutton please?
+It will not be usefull anymore. 
+Ans:Home page slider Explore Now button is Removed.
+3.In the POSITION and CANDIDATES post creation section, we have to keep this simple.
+We only have to see these fiels to fill for POSITION section  
+Ans:Removing the field is not possiable,beacuse this field data is showing in the detailpage. 
+4.When we are on the website in a specific CANDIDATE page or POSITION page and we hit the CONTACT US boutton we get a pop up with contact form who appear.
+This is great, but we just need to get details about WICH POSITION or CANDIDATES the email is about.. Tell me if it’s slear or not.
+Ans:In the email we get the detail of position and candidate.
+ 
+today work 
+1.position list page button link remove.
+2.candidate list page button link remove.
+3.old postion and candidate page option remove.
+4.header pop up from add.
+
+complexy_hr basecamp link:
+https://3.basecamp.com/3468572/projects/24713885
+
+complexy_hr 
+position form problem
+1.position form 
+2.contact form
+******************
+
+jerome credential 
+[_site_admin_email], jerome@taktikcom.com
+
+
+
+Nested tax query
+https://developer.wordpress.org/reference/classes/wp_query/  
+https://www.codewall.co.uk/add-jquery-ajax-loading-spinners-to-your-website/
+in complexy_hr
+contact form change into pop up. 
+
+contact form code in english
+**********
+<div class="row">
+                            <div class="col-lg-6">
+            [text* firstname-708 id:firstname1 class:form-control placeholder"First name"]
+</div>
+                            <div class="col-lg-6">
+            [text* surname-709 id:surname1 class:form-control placeholder"Surname"]
+                            </div>
+                            <div class="col-lg-6">
+            [email* email-258 id:email1 class:form-control placeholder"E-mail"]
+                            </div>
+                            <div class="col-lg-6">
+            [tel* tel-953 id:phone1 class:form-control placeholder"Call"]
+                            </div>
+                            <div class="col-lg-12">
+   [textarea textarea-828 id:message1 class:form-control placeholder"Enter your message..."]
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="cwrap">
+                                 <h4>Are you looking for one?</h4>
+                                 [radio  label_first default:2 "POSITION" "CANDIDATE"]
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                [submit class:btn class:submit  "Submit your application"]
+                            </div>
+                        </div>
+						
+message body 
+From: [firstname-708]<[email-258]>
+Subject: Contact Form
+
+Message Body:
+First Name: [firstname-708] 
+Surname: [surname-709]
+Email: [email-258] 
+Phone: [tel-953]
+Message: [textarea-828] 
+Looking for one? : [label_first]
+
+-- 
+This e-mail was sent from a contact form on [_site_title] ([_site_url])						
+********** 
+contact form in french 
+***********
+<div class="row">
+                            <div class="col-lg-6">
+            [text* firstname-708 id:firstname1 class:form-control placeholder"Prénom"]
+</div>
+                            <div class="col-lg-6">
+            [text* surname-709 id:surname1 class:form-control placeholder"Nom de famille"]
+                            </div>
+                            <div class="col-lg-6">
+            [email* email-258 id:email1 class:form-control placeholder"E-mail"]
+                            </div>
+                            <div class="col-lg-6">
+            [tel* tel-953 id:phone1 class:form-control placeholder"Appel"]
+                            </div>
+                            <div class="col-lg-12">
+   [textarea textarea-828 id:message1 class:form-control placeholder"Entrez votre message..."]
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="cwrap">
+                                 <h4>Vous en cherchez un ?</h4>
+                                 [radio  label_first default:2 "POSTE" "CANDIDAT"]
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                [submit class:btn class:submit  "Soumettez votre candidature"]
+                            </div>
+                        </div>
+						
+						From: [firstname-708]<[email-258]>
+Subject: Formulaire de contact
+
+Message Body:
+Prénom: [firstname-708] 
+Nom de famille: [surname-709]
+Email: [email-258] 
+Téléphoner: [tel-953]
+Message: [textarea-828] 
+Vous en cherchez un ? : [label_first]
+
+-- 
+This e-mail was sent from a contact form on [_site_title] ([_site_url])
+*****************
+Contact form in french.
+
+
+squrda
+custom.js file
+
+// for sticky header
+jQuery(window).scroll(function () {
+    if (jQuery(window).scrollTop() >= 300) {
+        jQuery('body').addClass('header-sticky');
+    }
+    else {
+        jQuery('body').removeClass('header-sticky');
+    }
+});
+
+
+// for toggle menu
+jQuery(document).ready(function() {
+    jQuery('.hamburger-nav').click(function() {
+        jQuery('.main-header').toggleClass('mega-menu-open');
+    });
+
+
+jQuery('.bnr_slider').slick({
+    dots: true,
+    arrows: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    adaptiveHeight: true,
+    centerPadding: '0px',
+    responsive: [
+      {
+        breakpoint: 991,
+        settings: {
+          centerPadding: '0px',
+          slidesToShow: 1
+        }
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          centerPadding: '0px',
+          slidesToShow: 1
+        }
+      },
+      
+    ]
+    
+  }); 
+
+  //Add external code for instragram image gallery 
+  //  jQuery('#instra_slider').slick({
+  //   dots: true,
+  //   infinite: false,
+  //   speed: 300,
+  //   slidesToShow: 5,
+  //   slidesToScroll: 3,
+  //   responsive: [
+  //     {
+  //       breakpoint: 1024,
+  //       settings: {
+  //         slidesToShow: 3,
+  //         slidesToScroll: 3,
+  //         infinite: true,
+  //         dots: true
+  //       }
+  //     },
+  //     {
+  //       breakpoint: 600,
+  //       settings: {
+  //         slidesToShow: 2,
+  //         slidesToScroll: 2
+  //       }
+  //     },
+  //     {
+  //       breakpoint: 480,
+  //       settings: {
+  //         slidesToShow: 1,
+  //         slidesToScroll: 1
+  //       }
+  //     }
+      
+  //   ]
+  // });
+  
+   //Add external code for instragram image gallery  
+  //Related Blog Slider 
+   jQuery('.related_slider').slick({
+    dots: true,
+    infinite: false,
+    nav: true,
+    speed: 300,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+      
+    ]
+  }); 
+ // Related Blog Slider
+
+ jQuery(".brand, .year").change(function(){
+  //  alert(jQuery(this).val());
+  //  var brandname=jQuery(this).val();
+  var brandname=jQuery(".brand").val();
+   var year=jQuery(".year").val();
+  //  console.log(myvar);
+   
+   jQuery.ajax({
+         url: ajax.ajaxurl,
+         data: {
+              action : 'filter',
+              brand : brandname,
+              year : year
+         },
+         dataType: 'json',
+         type:'post',
+         success: function(response) {
+           if(response) {
+            // console.log(response.result); 
+            // console.log(response.year);
+            jQuery("#inventoryfilter").empty();
+            jQuery("#inventoryfilter").html(response.result);
+           } 
+        }
+        })
+
+});
+
+
+});  
+
+
+functins.php file
+
+file code
+
+<?php
+/*****************************************
+* Weaver's Web Functions & Definitions *
+*****************************************/
+$functions_path = get_template_directory().'/functions/';
+$post_type_path = get_template_directory().'/inc/post-types/';
+$post_meta_path = get_template_directory().'/inc/post-metabox/';
+$theme_function_path = get_template_directory().'/inc/theme-functions/';
+/*--------------------------------------*/
+/* Multipost Thumbnail Functions
+/*--------------------------------------*/
+require_once($functions_path.'multipost-thumbnail/multi-post-thumbnails.php');
+if(class_exists('MultiPostThumbnails')){
+	$types = array('page');
+	foreach($types as $type){
+		new MultiPostThumbnails(array(
+			'label' => 'Top Banner Image',
+			'id' => 'top-banner-image',
+			'post_type' => $type
+			));
+		}		
+	}
+add_image_size('top-banner-size-image', 1920, 700,true);
+/*--------------------------------------*/
+/* Optional Panel Helper Functions
+/*--------------------------------------*/
+require_once($functions_path.'admin-functions.php');
+require_once($functions_path.'admin-interface.php');
+require_once($functions_path.'theme-options.php');
+function weaversweb_ftn_wp_enqueue_scripts(){
+    if(!is_admin()){
+        wp_enqueue_script('jquery');
+        if(is_singular()and get_site_option('thread_comments')){
+            wp_print_scripts('comment-reply');
+			}
+		}
+	}
+add_action('wp_enqueue_scripts','weaversweb_ftn_wp_enqueue_scripts');
+function weaversweb_ftn_get_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    if(isset($options[$name]))
+        return $options[$name];
+	}
+function weaversweb_ftn_update_option($name, $value){
+    $options = get_option('weaversweb_ftn_options');
+    $options[$name] = $value;
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function weaversweb_ftn_delete_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    unset($options[$name]);
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function get_theme_value($field){
+	$field1 = weaversweb_ftn_get_option($field);
+	if(!empty($field1)){
+		$field_val = $field1;
+		}
+	return	$field_val;
+	}
+/*--------------------------------------*/
+/* Post Type Helper Functions
+/*--------------------------------------*/
+require_once($post_type_path.'clients.php');
+require_once($post_type_path.'jobs.php');
+require_once($post_type_path.'services.php');
+require_once($post_type_path.'team_member.php');
+require_once($post_type_path.'testimonials.php'); 
+require_once($post_type_path.'inventories.php');
+/*--------------------------------------*/
+/* Post Meta Helper Functions
+/*--------------------------------------*/
+require_once($post_meta_path.'casestudy-metabox.php');
+/*--------------------------------------*/
+/* Theme Functions
+/*--------------------------------------*/
+require_once($theme_function_path.'extra-functions.php');
+/*--------------------------------------*/
+/* Theme Helper Functions
+/*--------------------------------------*/
+if(!function_exists('weaversweb_theme_setup')):
+	function weaversweb_theme_setup(){
+		add_theme_support('title-tag');
+		add_theme_support('post-thumbnails');
+		register_nav_menus(array(
+			'primary' => __('Primary Menu','weaversweb'),
+			'secondary'  => __('Secondary Menu','weaversweb'),
+			));
+		add_theme_support('html5',array('search-form','comment-form','comment-list','gallery','caption'));
+		}
+	endif;
+add_action('after_setup_theme','weaversweb_theme_setup');
+function weaversweb_widgets_init(){
+	register_sidebar(array(
+		'name'          => __('Widget Area','weaversweb'),
+		'id'            => 'sidebar-1',
+		'description'   => __('Add widgets here to appear in your sidebar.','weaversweb'),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+		));
+	}
+add_action('widgets_init','weaversweb_widgets_init');
+function weaversweb_scripts(){
+
+	wp_enqueue_style('weaversweb-main',get_template_directory_uri().'/css/theme.css',array());
+	wp_enqueue_style('vl-main-bootstrap',get_template_directory_uri().'/css/bootstrap.min.css',array()); 
+	// wp_enqueue_style('vl-bootstrap-all-min',get_template_directory_uri().'/css/all.min.css',array());
+	wp_enqueue_style('vl-slick-css',get_template_directory_uri().'/css/slick.min.css',array());
+	wp_enqueue_style('vl-slick-theme-min-css',get_template_directory_uri().'/css/slick-theme.min.css',array());
+	wp_enqueue_style('vl-custom-css',get_template_directory_uri().'/css/custom.css',array());
+	wp_enqueue_style('weaversweb-style',get_stylesheet_uri());
+	
+	// Load the Internet Explorer specific script.
+	global $wp_scripts;
+	wp_register_script('html5shiv-ie',get_template_directory_uri().'/js/html5shiv.js',array());
+	wp_register_script('respond-ie',get_template_directory_uri().'/js/respond.min.js',array());
+	$wp_scripts->add_data('html5shiv-ie','conditional','lt IE 9');
+	$wp_scripts->add_data('respond-ie','conditional','lt IE 9');
+    
+	wp_enqueue_script('vl-bootstrap-min-js',get_template_directory_uri().'/js/bootstrap.bundle.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vl-slick-min-js',get_template_directory_uri().'/js/slick.min.js',array('jquery'),'',true);
+	// wp_enqueue_script('vl-slick-min-js',get_template_directory_uri().'/js/slick.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vl-custom-js',get_template_directory_uri().'/js/custom.js',array('jquery'),'',true);
+    wp_localize_script( 'vl-custom-js', 'ajax', array(
+		'ajaxurl' => admin_url( 'admin-ajax.php' ), // WordPress AJAX
+		
+	) );
+	
+	
+	}
+add_action('wp_enqueue_scripts','weaversweb_scripts');
+// // External code Added with filter
+// function misha_my_load_more_scripts() {
+ 
+// 	global $wp_query; 
+ 
+	
+// 	// wp_enqueue_script('jquery');
+ 
+	
+// 	// wp_register_script( 'my_loadmore', get_stylesheet_directory_uri() . '/js/filter.js', array('jquery') );
+ 
+	
+	
+ 
+//  	wp_enqueue_script( 'my_loadmore' );
+// }
+ 
+// add_action( 'wp_enqueue_scripts', 'misha_my_load_more_scripts' );
+
+function filter(){
+		$brand=$_REQUEST['brand'];
+		$year=$_REQUEST['year'];
+		// echo $currentvalue;
+		$age = array("brand"=>$brand , "year"=>$year);
+        $args = array(
+			'post_type' => 'inventories',
+			'post_status' => 'publish',
+			'posts_per_page' => -1,
+			'tax_query' => array(
+				'relation' => 'OR',
+				array(
+					'taxonomy' => 'inventory_brand',
+					'field'    => 'slug',
+					'terms'    => array( $brand ),
+				),
+				array(
+					'taxonomy' => 'inventory_year',
+					'field'    => 'slug',
+					'terms'    => array( $year ),
+				),
+			),
+		);
+		$inventory = new WP_Query($args);
+        $post=[];
+		$html="";
+		if ($inventory->have_posts()) {
+			while ($inventory->have_posts()) {
+				$inventory->the_post();
+				$inventory_image = wp_get_attachment_image_src(get_post_thumbnail_id($inventory->ID), 'full');
+				$post[]=[
+					"postlink"=>get_the_permalink($inventory->ID),
+					"excerpt"=>get_the_excerpt($inventory->ID),
+					"title"=>get_the_title(),
+					"image"=>$inventory_image[0]
+				]; 
+				$html.='<div class="col-lg-4 col-md-6">';
+				$html.='<div class="classic_inr_dv">';
+				$html.='<div class="classic_img">';
+				$html.='<img src="'.$inventory_image[0].'" alt="">';
+				$html.='</div>';
+				$html.='<div class="classic_txt">';
+				$html.='<div class="classic_hdng hdr_bdr_bttm">';
+				$html.='<h4>'.get_the_title().' </h4>';
+				$html.='</div>';
+				$html.='<p>'.get_the_excerpt($inventory->ID).'  </p>';
+				$html.='<div class="classic_btn">';
+				$html.='<a href="'.get_the_permalink($inventory->ID).' ?>" class="read_more">read more</a>';
+				$html.='</div>';
+				$html.='</div>';
+				$html.='</div>';
+				$html.='</div>';
+
+				             
+			} 
+		} 
+		            if($post){
+						$return = array(
+							'message'  => 'posts',
+							'status'       => 1,
+							'result'=>$html
+						); 
+						wp_send_json($return);
+					}
+					else{
+						$return = array(
+							'message'  => 'No Post Found',
+							'status'       => 0
+						);
+						 
+						wp_send_json($return);
+					}
+        // echo json_encode($age); 
+		die();
+}
+ 
+ 
+ 
+add_action('wp_ajax_filter', 'filter'); // wp_ajax_{action}
+add_action('wp_ajax_nopriv_filter', 'filter'); // wp_ajax_nopriv_{action}
+// external code add load more
+add_filter('comments_template','legacy_comments');
+function legacy_comments($file){
+	if(!function_exists('wp_list_comments'))	$file = TEMPLATEPATH .'/legacy.comments.php';
+	return $file;
+	} 
+	
+	open_popup  
+***************************	
+complexy_hr credentials:
+cPanel:
+https://cpanel.taktikcommunication.com/
+user :                    grsw9
+uspwd :                               s8909@(sduA%a9d8seO*Sd8
+ 
+FTP:
+ftp.TaktikCommunication.com
+user :                    grsw9
+uspwd :                               s8909@(sduA%a9d8seO*Sd8
+ 
+ 
+WORDPRESS:
+https://consultationgrsw.com/wp-admin/
+http://consultationgrsw.com/206%209ieme%20Avenue/wp-admin/
+ 
+user :                    TaktikDev
+pwd :                    GcpHIm&sdgas5%O9pNkR&NC	
+
+******************************************************************* 
+
+
+
+Latest feedback Update:
+1.Home Banner design
+Ans: Done.
+2.Active Menu Showing in Candidate and Position Detail page 
+Ans:Done
+3.Candidate and Position Auto field Value 
+Ans:Done 
+Auto filled Value set in english language is done,but auto field value set in English and French is not possiable at the same time,Beacuse of  Limitations of the plugin. 
+4.Candidate and Position List page Banner image in full screen 
+Ans:Done.   
+
+*6bTW7n7$

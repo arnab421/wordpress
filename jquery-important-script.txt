@@ -1,0 +1,204 @@
+*****jquery script for go to a particular Section *****
+<script>
+  jQuery(document).ready(function() {
+    jQuery('#submit').click(function(e) {
+      // var href = jQuery(this).prop('href');
+      //  alert(href); 
+      e.preventDefault();  
+      var href = jQuery(this).attr('href');
+      jQuery('html, body').animate({
+        scrollTop: jQuery(href).offset().top
+      }, 200);
+    })
+  });
+</script>
+******End******** 
+jquery script for on hover field show hide
+*******start****
+jQuery(".mailpoet_text").hide();
+  jQuery(".ftr-newsltr-form").hover(function(){
+    jQuery(".mailpoet_text").show();
+    }, function(){
+      jQuery(".mailpoet_text").hide();
+  });
+*******end****** 
+jquery script for on hover field show End
+mailchimp password:Arnab@123
+mailchimp api key=708a4a4e6afe3b3fb8139f16c1837510-us9
+News Letter Sign up Form
+<p>
+	<label>Email address: 
+		<input type="email" name="EMAIL" placeholder="Your email address" required />
+</label>
+</p>
+
+<p>
+	<input type="submit" value="Sign up" />
+</p>
+default html
+Design fixing Need in Complexe Site 
+
+*********header section
+1.language switcher 
+2.Newsletter Form Design fixing
+3.Contact Form submit Button Arrow 
+******************* 
+Complexe_Hr Update
+Backend Access:
+https://consultationgrsw.com/wp-admin/ 
+user :                    TaktikDev
+pwd :                    GcpHIm&sdgas5%O9pNkR&NC
+English Page
+https://consultationgrsw.com/
+https://consultationgrsw.com/positions-available/
+https://consultationgrsw.com/candidates/ 
+https://consultationgrsw.com/in-regards-to/ 
+https://consultationgrsw.com/contact/  
+French Page 
+https://consultationgrsw.com/fr/ 
+https://consultationgrsw.com/fr/positions-avaliable-fr/ 
+https://consultationgrsw.com/fr/candidates-fr/ 
+https://consultationgrsw.com/fr/in-regards-to-fr/ 
+https://consultationgrsw.com/fr/contact-fr/ 
+
+
+Design Fixing Needed
+Header Section ->
+1.language switcher 
+Footer Section ->
+2.Newsletter Form Design fixing
+Contact Form ->
+3.Contact Form submit Button Design Fixing 
+4.404 page Design Fixing 
+5.fav icon needed
+
+***Notes Work Not Done:
+issue:
+1.After Submit Newsletter Subscription Form
+Thank You Page Thankyou message language is not changed in French.
+ 
+
+
+
+form using get_text method 
+
+add_filter( 'gettext', 'theme_change_comment_field_names', 20, 3 );
+/**
+ * Change comment form default field names.
+ *
+ * @link https://codex.wordpress.org/Plugin_API/Filter_Reference/gettext
+ */
+function theme_change_comment_field_names( $translated_text, $text, $domain ) {
+ 
+    if ( is_singular() ) {
+ 
+        switch ( $translated_text ) {
+ 
+            case 'Enter your mail id' :
+ 
+                $translated_text = __( 'Entrez votre identifiant de messagerie', 'theme_text_domain' );
+                break;
+ 
+            case 'Subscribe' :
+ 
+                $translated_text = __( 'S'abonner', 'theme_text_domain' );
+                break;
+        }
+ 
+    }
+ 
+    return $translated_text;
+}
+
+
+
+
+
+mc4wp-form-fields 
+
+
+text change function .....
+<?php
+$my_current_lang = apply_filters('wpml_current_language', NULL);
+if ($my_current_lang == 'fr') { ?>
+    <script>
+        jQuery(document).ready(function() {
+            $("input").change(function() {
+                
+            });
+
+        });
+    </script>
+
+<?php } ?>
+
+
+$(selector).attr(attribute,value) 
+ul class=parsley-id-7 
+li class=parsley-custom-error-message
+using .text to chage the text
+
+
+jquery code for mailpoet form 
+<?php
+$my_current_lang = apply_filters('wpml_current_language', NULL);
+if ($my_current_lang == 'fr') { ?>
+    <script>
+        jQuery(document).ready(function() {
+            
+			jquery(".parsley-custom-error-message").text("Veuillez spécifier une adresse e-mail valide.");
+            
+        });
+    </script>
+
+<?php } ?> 
+End
+
+Final Jquery Code for mailchimp form
+<?php
+$my_current_lang = apply_filters('wpml_current_language', NULL);
+if ($my_current_lang == 'fr') { ?>
+    <script>
+        jQuery(document).ready(function() {
+            jQuery('.mc4wp-form-fields input[name="EMAIL"]').attr('placeholder', 'Entrez votre identifiant de messagerie');
+            jQuery('.mc4wp-form-fields input[type="submit"]').val("S'abonner");
+        });
+    </script>
+
+<?php } ?> 
+End **
+
+Site URL: https://trees.weavers-web.com
+
+Backend Access:-
+URL: https://trees.weavers-web.com/wp-login.php
+User: trees@Developer@16522
+Pass: up~^g1nNcQlcEqJe
+
+!!! Set up Wordfence security plugin to secure the site !!!
+
+SSH | SFTP:-
+Host: ip-128-199-28-33.server.weavers-web.com
+User: trees
+Pass: n6NXrD5Gg,UbZP,MTc
+Port: 2021
+Path: /home/trees/public_html
+
+Database:-
+URL: https://ip-128-199-28-33.server.weavers-web.com/dbadminforweaversweb
+Host: localhost
+Name: db_trees
+User: usr_trees
+Pass: ,k_BIynQ:r7mlYLZ9:
+
+!!! If any credentials did not work then contact your system administrator !!!
+
+
+Wp Personal Fleture Russia Urussia Program Link
+Russia and Eurasia Program
+Russia and Eurasia Program 
+Russia and Eurasia Program
+
+ 
+
+ 

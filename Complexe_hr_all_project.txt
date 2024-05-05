@@ -1,0 +1,150 @@
+Template candidate page
+**************start*******
+<?php /*Template Name: Layout: Candidate New*/ ?>
+<?php get_header(); ?>
+
+<section class="inner-banner">
+    <!-- <img src="https://consultationgrsw.com/wp-content/uploads/2022/05/inner-banner-1.png" alt="Car-Image">  -->
+    <?php
+    $image_in_banner = get_field('image_in_banner');
+    if ($image_in_banner != '') { ?>
+        <img src="<?php echo get_field('image_in_banner'); ?>" alt="Car-Image">
+    <?php } else { ?>
+        <img src="<?php echo get_template_directory_uri(); ?>/images/inner-banner-2.png" alt="Car-Image">
+    <?php } ?>
+</section>
+<div class="candidats-area lightgray common-padd">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="hdr text-center">
+                    <h3><?php echo get_field('content_heading'); ?> </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bluebg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="bluebghdr">
+                        <h3><?php echo get_field('content_short_text'); ?> </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="candidats-list">
+        <div class="container">
+            <div class="row">
+                <?php
+                $args = array(
+                    'post_type' => 'candidates',
+                    'posts_per_page' => -1,
+                    'post_status' => 'publish',
+                    'order' => 'DESC',
+                );
+
+                $candidates = new WP_Query($args);
+                if ($candidates->have_posts()) {
+                    while ($candidates->have_posts()) {
+                        $candidates->the_post();
+                        // $property_image = wp_get_attachment_image_src(get_post_thumbnail_id($properties->ID), 'full');
+                ?>
+                        
+                            <a href="<?php echo get_the_permalink($candidates->ID); ?>"><div class="col-lg-10 offset-lg-1">
+                                <a class="pinkbtn" href="<?php echo get_the_permalink($candidates->ID); ?>"><?php echo get_field('top_button_text', $candidates->ID); ?></a>
+
+                                <div class="candidats-item">
+                                    <div class="candidats-left">
+                                        <!-- <h6>Text who describe candidate </h6>
+                                        <h6><span>Champs d’expertise:  </span> Ingénérie<br>
+                                        <span>Années d’expérience :    </span> 15</h6>  -->
+                                        <?php echo get_field('candidate_short_description', $candidates->ID); ?>
+                                        <!-- <h6 class="lightgreen"><span>Echelle salariale : 18,00 $ de lheure   </span> 15</h6> -->
+                                        <h6 class="lightgreen"><?php echo get_field('candidate_salary_scale', $candidates->ID); ?></h6>
+                                    </div>
+                                    <div class="candidats-right">
+                                        <h6><?php the_time('j  F  Y'); ?></h6>
+                                        <!-- <a class="shortlistnow" href="<?php echo get_the_permalink($candidates->ID); ?>"><i class="far fa-heart"></i></a> -->
+                                    </div>
+                                </div>
+                            </div> </a>
+                        
+                <?php }
+                }
+
+                wp_reset_postdata(); ?>
+                <!-- <div class="col-lg-10 offset-lg-1">
+                <a class="pinkbtn" href="#">Nouveau</a>
+                <div class="candidats-item">
+                    <div class="candidats-left">
+                        <h6>Text who describe candidate </h6>
+                        <h6><span>Champs d’expertise:  </span> Ingénérie<br>
+                        <span>Années d’expérience :    </span> 15</h6>
+                        <h6 class="lightgreen"><span>Echelle salariale : 18,00 $ de lheure   </span> 15</h6>
+                    </div>
+                    <div class="candidats-right">
+                        <h6>14 February 2022</h6>
+                        <a class="shortlistnow" href="#"><i class="far fa-heart"></i></a>
+                    </div>                    
+                </div>
+            </div> -->
+                <!-- <div class="col-lg-10 offset-lg-1">
+                <a class="pinkbtn" href="#">Nouveau</a>
+                <div class="candidats-item">
+                    <div class="candidats-left">
+                        <h6>Text who describe candidate </h6>
+                        <h6><span>Champs d’expertise:  </span> Ingénérie<br>
+                        <span>Années d’expérience :    </span> 15</h6>
+                        <h6 class="lightgreen"><span>Echelle salariale : 18,00 $ de lheure   </span> 15</h6>
+                    </div>
+                    <div class="candidats-right">
+                        <h6>14 February 2022</h6>
+                        <a class="shortlistnow" href="#"><i class="far fa-heart"></i></a>
+                    </div>                    
+                </div>
+            </div> -->
+                <!-- <div class="col-lg-10 offset-lg-1">
+                <a class="pinkbtn" href="#">Nouveau</a>
+                <div class="candidats-item">
+                    <div class="candidats-left">
+                        <h6>Text who describe candidate </h6>
+                        <h6><span>Champs d’expertise:  </span> Ingénérie<br>
+                        <span>Années d’expérience :    </span> 15</h6>
+                        <h6 class="lightgreen"><span>Echelle salariale : 18,00 $ de lheure   </span> 15</h6>
+                    </div>
+                    <div class="candidats-right">
+                        <h6>14 February 2022</h6>
+                        <a class="shortlistnow" href="#"><i class="far fa-heart"></i></a>
+                    </div>                    
+                </div>
+            </div> -->
+                <div class="col-lg-10 offset-lg-1 text-center">
+                    <a class="btn btn-shadow" href="<?php echo get_field('buttom_button_link'); ?>"><?php echo get_field('bottom_button_text'); ?></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php get_footer(); ?>  
+<a class="pinkbtn" href="<?php echo get_the_permalink($candidates->ID); ?>"><?php echo get_field('top_button_text', $candidates->ID); ?></a>
+
+
+
+English
+form email class name=mailpoet_text
+form submit button class name=mailpoet_submit 
+
+
+<h6>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </h6>
+<h6><span>Société:  </span> Netobill<br>
+<span>Emplacement:    </span> 1613 Worley Avenue Lynchburg, VA 24504</h6>
+***********************End********* 
+
+
+
+Design Fixing Needed
+1.Footer Menu Fixing.
+2.Position Listing,Candidate Listing Page section color chage.
+3.News Letter Form In french Blank submit Red Border in Formfield.

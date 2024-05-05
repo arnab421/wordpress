@@ -1,0 +1,1519 @@
+Squrda custom.js file
+**************************strart*************
+// for sticky header
+jQuery(window).scroll(function () {
+    if (jQuery(window).scrollTop() >= 300) {
+        jQuery('body').addClass('header-sticky');
+    }
+    else {
+        jQuery('body').removeClass('header-sticky');
+    }
+});
+
+
+// for toggle menu
+jQuery(document).ready(function() {
+
+  jQuery("a.group").fancybox({
+		'transitionIn'	:	'elastic',
+		'transitionOut'	:	'elastic',
+		'speedIn'		:	600, 
+		'speedOut'		:	200, 
+		'overlayShow'	:	false
+	 });
+
+    jQuery('.hamburger-nav').click(function() {
+        jQuery('.main-header').toggleClass('mega-menu-open');
+    });
+
+
+jQuery('.bnr_slider').slick({
+    dots: true,
+    arrows: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    adaptiveHeight: true,
+    centerPadding: '0px',
+    responsive: [
+      {
+        breakpoint: 991,
+        settings: {
+          centerPadding: '0px',
+          slidesToShow: 1
+        }
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          centerPadding: '0px',
+          slidesToShow: 1
+        }
+      },
+      
+    ]
+    
+  }); 
+
+  //Add external code for instragram image gallery 
+  //  jQuery('#instra_slider').slick({
+  //   dots: true,
+  //   infinite: false,
+  //   speed: 300,
+  //   slidesToShow: 5,
+  //   slidesToScroll: 3,
+  //   responsive: [
+  //     {
+  //       breakpoint: 1024,
+  //       settings: {
+  //         slidesToShow: 3,
+  //         slidesToScroll: 3,
+  //         infinite: true,
+  //         dots: true
+  //       }
+  //     },
+  //     {
+  //       breakpoint: 600,
+  //       settings: {
+  //         slidesToShow: 2,
+  //         slidesToScroll: 2
+  //       }
+  //     },
+  //     {
+  //       breakpoint: 480,
+  //       settings: {
+  //         slidesToShow: 1,
+  //         slidesToScroll: 1
+  //       }
+  //     }
+      
+  //   ]
+  // });
+  
+   //Add external code for instragram image gallery  
+  //Related Blog Slider 
+   jQuery('.related_slider').slick({
+    dots: false,
+    arrows: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    adaptiveHeight: true,
+    centerPadding: '0px',
+    responsive: [
+      
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+        
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+      
+    ]
+  }); 
+ // Related Blog Slider
+
+ // Inventory filter
+ jQuery(".brand, .year").change(function(){
+  //  alert(jQuery(this).val());
+  //  var brandname=jQuery(this).val();
+  var brandname=jQuery(".brand").val();
+   var year=jQuery(".year").val();
+  //  console.log(myvar);
+   
+   jQuery.ajax({
+         url: ajax.ajaxurl,
+         data: {
+              action : 'filter',
+              brand : brandname,
+              year : year
+         },
+         dataType: 'json',
+         type:'post',
+         beforeSend: function () { 
+          jQuery('#loader').show();
+        },
+         success: function(response) {
+           if(response) {
+            // console.log(response.result); 
+            // console.log(response.year);
+            jQuery("#inventoryfilter").empty();
+            jQuery("#inventoryfilter").html(response.result);
+           } 
+        }, 
+        complete: function () { 
+          jQuery('#loader').hide();
+        },
+        })
+
+});
+// Inventory filter End
+
+// Avaliable Inventory Filter
+jQuery(".avaliablebrand, .avaliableyear").change(function(){
+  
+  var brandname=jQuery(".avaliablebrand").val();
+   var year=jQuery(".avaliableyear").val();
+    console.log(brandname);
+    console.log(year); 
+
+    jQuery.ajax({
+      url: ajax.ajaxurl,
+      data: {
+           action : 'avaliablefilter',
+           brand : brandname,
+           year : year
+      },
+      dataType: 'json',
+      type:'post',
+      beforeSend: function () { 
+        jQuery('#loaderavaliable').show();
+      },
+      success: function(response) {
+        if(response) {
+          //console.log(response.result); 
+         // console.log(response.year);
+            jQuery("#inventoryavaliablefilter").empty();
+            jQuery("#inventoryavaliablefilter").html(response.result);
+        }
+        
+     },
+     complete: function () { 
+      jQuery('#loaderavaliable').hide();
+     },
+     })
+   
+
+}); 
+//Avaliable inventory Filter End 
+
+//Sold inventory Filter start
+jQuery(".soldbrand, .soldyear").change(function(){
+  
+  var brandname=jQuery(".soldbrand").val();
+   var year=jQuery(".soldyear").val();
+    console.log(brandname);
+    console.log(year); 
+    jQuery.ajax({
+      url: ajax.ajaxurl,
+      data: {
+           action : 'soldfilter',
+           brand : brandname,
+           year : year
+      },
+      dataType: 'json',
+      type:'post',
+      beforeSend: function () { 
+        jQuery('#loadersold').show();
+      },
+      success: function(response) {
+        if(response) {
+          console.log(response.result); 
+         // console.log(response.year);
+             jQuery("#inventorysoldfilter").empty();
+             jQuery("#inventorysoldfilter").html(response.result);
+        } 
+     },
+     complete: function () { 
+      jQuery('#loadersold').hide();
+     },
+     })
+
+});
+//Sold Inventory Filter end
+
+});
+*************************end*****************
+
+
+functions.php file 
+*****start*******
+ <?php
+/*****************************************
+* Weaver's Web Functions & Definitions *
+*****************************************/
+$functions_path = get_template_directory().'/functions/';
+$post_type_path = get_template_directory().'/inc/post-types/';
+$post_meta_path = get_template_directory().'/inc/post-metabox/';
+$theme_function_path = get_template_directory().'/inc/theme-functions/';
+/*--------------------------------------*/
+/* Multipost Thumbnail Functions
+/*--------------------------------------*/
+require_once($functions_path.'multipost-thumbnail/multi-post-thumbnails.php');
+if(class_exists('MultiPostThumbnails')){
+	$types = array('page');
+	foreach($types as $type){
+		new MultiPostThumbnails(array(
+			'label' => 'Top Banner Image',
+			'id' => 'top-banner-image',
+			'post_type' => $type
+			));
+		}		
+	}
+add_image_size('top-banner-size-image', 1920, 700,true);
+/*--------------------------------------*/
+/* Optional Panel Helper Functions
+/*--------------------------------------*/
+require_once($functions_path.'admin-functions.php');
+require_once($functions_path.'admin-interface.php');
+require_once($functions_path.'theme-options.php');
+function weaversweb_ftn_wp_enqueue_scripts(){
+    if(!is_admin()){
+        wp_enqueue_script('jquery');
+        if(is_singular()and get_site_option('thread_comments')){
+            wp_print_scripts('comment-reply');
+			}
+		}
+	}
+add_action('wp_enqueue_scripts','weaversweb_ftn_wp_enqueue_scripts');
+function weaversweb_ftn_get_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    if(isset($options[$name]))
+        return $options[$name];
+	}
+function weaversweb_ftn_update_option($name, $value){
+    $options = get_option('weaversweb_ftn_options');
+    $options[$name] = $value;
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function weaversweb_ftn_delete_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    unset($options[$name]);
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function get_theme_value($field){
+	$field1 = weaversweb_ftn_get_option($field);
+	if(!empty($field1)){
+		$field_val = $field1;
+		}
+	return	$field_val;
+	}
+/*--------------------------------------*/
+/* Post Type Helper Functions
+/*--------------------------------------*/
+// require_once($post_type_path.'clients.php');
+// require_once($post_type_path.'jobs.php');
+// require_once($post_type_path.'services.php');
+// require_once($post_type_path.'team_member.php');
+// require_once($post_type_path.'testimonials.php'); 
+require_once($post_type_path.'inventories.php');
+/*--------------------------------------*/
+/* Post Meta Helper Functions
+/*--------------------------------------*/
+require_once($post_meta_path.'casestudy-metabox.php');
+/*--------------------------------------*/
+/* Theme Functions
+/*--------------------------------------*/
+require_once($theme_function_path.'extra-functions.php');
+/*--------------------------------------*/
+/* Theme Helper Functions
+/*--------------------------------------*/
+if(!function_exists('weaversweb_theme_setup')):
+	function weaversweb_theme_setup(){
+		add_theme_support('title-tag');
+		add_theme_support('post-thumbnails');
+		register_nav_menus(array(
+			'primary' => __('Primary Menu','weaversweb'),
+			'secondary'  => __('Secondary Menu','weaversweb'),
+			));
+		add_theme_support('html5',array('search-form','comment-form','comment-list','gallery','caption'));
+		}
+	endif;
+add_action('after_setup_theme','weaversweb_theme_setup');
+function weaversweb_widgets_init(){
+	register_sidebar(array(
+		'name'          => __('Widget Area','weaversweb'),
+		'id'            => 'sidebar-1',
+		'description'   => __('Add widgets here to appear in your sidebar.','weaversweb'),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+		));
+	}
+add_action('widgets_init','weaversweb_widgets_init');
+function weaversweb_scripts(){
+
+	wp_enqueue_style('weaversweb-main',get_template_directory_uri().'/css/theme.css',array());
+	wp_enqueue_style('vl-main-bootstrap',get_template_directory_uri().'/css/bootstrap.min.css',array()); 
+	// wp_enqueue_style('vl-bootstrap-all-min',get_template_directory_uri().'/css/all.min.css',array());
+	wp_enqueue_style('vl-slick-css',get_template_directory_uri().'/css/slick.min.css',array());
+	wp_enqueue_style('vl-slick-theme-min-css',get_template_directory_uri().'/css/slick-theme.min.css',array());
+	wp_enqueue_style('vl-fancybox-css',get_template_directory_uri().'/css/jquery.fancybox.min.css',array());
+	wp_enqueue_style('vl-custom-css',get_template_directory_uri().'/css/custom.css',array());
+	wp_enqueue_style('weaversweb-style',get_stylesheet_uri());
+	
+	// Load the Internet Explorer specific script.
+	global $wp_scripts;
+	wp_register_script('html5shiv-ie',get_template_directory_uri().'/js/html5shiv.js',array());
+	wp_register_script('respond-ie',get_template_directory_uri().'/js/respond.min.js',array());
+	$wp_scripts->add_data('html5shiv-ie','conditional','lt IE 9');
+	$wp_scripts->add_data('respond-ie','conditional','lt IE 9');
+    
+	wp_enqueue_script('vl-bootstrap-min-js',get_template_directory_uri().'/js/bootstrap.bundle.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vl-slick-min-js',get_template_directory_uri().'/js/slick.min.js',array('jquery'),'',true);
+	// wp_enqueue_script('vl-slick-min-js',get_template_directory_uri().'/js/slick.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vl-fancybox-js',get_template_directory_uri().'/js/jquery.fancybox.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vl-custom-js',get_template_directory_uri().'/js/custom.js',array('jquery'),'',true);
+    wp_localize_script( 'vl-custom-js', 'ajax', array(
+		'ajaxurl' => admin_url( 'admin-ajax.php' ), // WordPress AJAX
+		
+	) );
+	
+	
+	}
+add_action('wp_enqueue_scripts','weaversweb_scripts');
+// // External code Added with filter
+// function misha_my_load_more_scripts() {
+ 
+// 	global $wp_query; 
+ 
+	
+// 	// wp_enqueue_script('jquery');
+ 
+	
+// 	// wp_register_script( 'my_loadmore', get_stylesheet_directory_uri() . '/js/filter.js', array('jquery') );
+ 
+	
+	
+ 
+//  	wp_enqueue_script( 'my_loadmore' );
+// }
+ 
+// add_action( 'wp_enqueue_scripts', 'misha_my_load_more_scripts' );
+//Inventory Page Filter Function
+function filter(){
+		$brand=$_REQUEST['brand'];
+		$year=$_REQUEST['year'];
+		// echo $currentvalue;
+		//if brand=Brand year=Year
+		$args1 = array(
+
+			'post_type' => 'inventories',
+			'posts_per_page' => -1,
+			
+			'post_status' => 'publish',
+			'order' => 'DESC'
+
+		);
+		// if brand!=Brand && year!=Year
+		$args2 = array(
+			'post_type' => 'inventories',
+			'post_status' => 'publish',
+			'posts_per_page' => -1,
+			'tax_query' => array(
+				'relation' => 'AND',
+				array(
+					'taxonomy' => 'inventory_brand',
+					'field'    => 'slug',
+					'terms'    => array( $brand ),
+				),
+				array(
+					'taxonomy' => 'inventory_year',
+					'field'    => 'slug',
+					'terms'    => array( $year ),
+				),
+			),
+		);
+
+		$age = array("brand"=>$brand , "year"=>$year);
+        $args = array(
+			'post_type' => 'inventories',
+			'post_status' => 'publish',
+			'posts_per_page' => -1,
+			'tax_query' => array(
+				'relation' => 'OR',
+				array(
+					'taxonomy' => 'inventory_brand',
+					'field'    => 'slug',
+					'terms'    => array( $brand ),
+				),
+				array(
+					'taxonomy' => 'inventory_year',
+					'field'    => 'slug',
+					'terms'    => array( $year ),
+				),
+			),
+		);
+		if($brand == "BRAND" && $year == "YEAR")
+		{
+			$inventory = new WP_Query($args1);
+		}
+		else if($brand != "BRAND" && $year != "YEAR")
+		{
+			$inventory = new WP_Query($args2);
+		}
+		else {
+			$inventory = new WP_Query($args);
+		}
+
+		
+		// $inventory = new WP_Query($args);
+        $post=[];
+		$html="";
+		if ($inventory->have_posts()) {
+			while ($inventory->have_posts()) {
+				$inventory->the_post();
+				$inventory_image = wp_get_attachment_image_src(get_post_thumbnail_id($inventory->ID), 'full');
+				$post[]=[
+					"postlink"=>get_the_permalink($inventory->ID),
+					"excerpt"=>get_the_excerpt($inventory->ID),
+					"title"=>get_the_title(),
+					"image"=>$inventory_image[0]
+				]; 
+				$html.='<div class="col-lg-4 col-md-6">';
+				$html.='<div class="classic_inr_dv">';
+				$html.='<div class="classic_img">';
+				$html.='<img src="'.$inventory_image[0].'" alt="">';
+				$html.='</div>';
+				$html.='<div class="classic_txt">';
+				$html.='<div class="classic_hdng hdr_bdr_bttm">';
+				$html.='<h4>'.get_the_title().' </h4>';
+				$html.='</div>';
+				$html.='<p>'.get_the_excerpt($inventory->ID).'  </p>';
+				$html.='<div class="classic_btn">';
+				$html.='<a href="'.get_the_permalink($inventory->ID).' ?>" class="read_more">read more</a>';
+				$html.='</div>';
+				$html.='</div>';
+				$html.='</div>';
+				$html.='</div>';
+
+				             
+			} 
+		} 
+		            if($post){
+						$return = array(
+							'message'  => 'posts',
+							'status'       => 1,
+							'result'=>$html
+						); 
+						wp_send_json($return);
+					}
+					else{
+						$return = array(
+							'message'  => 'No Post Found',
+							'status'       => 0
+						);
+						 
+						wp_send_json($return);
+					}
+        // echo json_encode($age); 
+		die();
+} 
+//Inventory Page Filter Function End 
+
+//Avaliable Inventory Filter start
+
+//Avaliable Inventory Filter End
+ 
+ 
+add_action('wp_ajax_filter', 'filter'); // wp_ajax_{action}
+add_action('wp_ajax_nopriv_filter', 'filter'); // wp_ajax_nopriv_{action}
+
+//Avaliable Inventory Filter start
+function avaliablefilter(){
+	$brand=$_REQUEST['brand'];
+	$year=$_REQUEST['year'];
+	// echo $currentvalue;
+	//if brand or year only one present
+	$args = array(
+		'post_type' => 'inventories',
+		'post_status' => 'publish',
+		'posts_per_page' => -1,
+		'tax_query' => array(
+			'relation' => 'AND',
+			array(
+				'taxonomy' => 'inventory_type',
+				'field'    => 'slug',
+				'terms'    => array('avaliable'),
+				'operator' => 'IN'
+			),
+			array(
+				'relation' => 'OR',
+				array(
+					'taxonomy' => 'inventory_brand',
+					'field'    => 'slug',
+					'terms'    => array( $brand ),
+				),
+				array(
+					'taxonomy' => 'inventory_year',
+					'field'    => 'slug',
+					'terms'    => array( $year ),
+				),
+				
+           ),
+		),
+	); 
+	//if brand and year both absent
+	$args1 = array(
+		'post_type' => 'inventories',
+		'post_status' => 'publish',
+		'posts_per_page' => -1,
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'inventory_type',
+				'field'    => 'slug',
+				'terms'    => array('avaliable'),
+				'operator' => 'IN'
+			),
+		),
+	); 
+
+	//if brand and year both  present
+	$args2 = array(
+		'post_type' => 'inventories',
+		'post_status' => 'publish',
+		'posts_per_page' => -1,
+		'tax_query' => array(
+			'relation' => 'AND',
+			array(
+				'taxonomy' => 'inventory_type',
+				'field'    => 'slug',
+				'terms'    => array('avaliable'),
+				'operator' => 'IN'
+			),
+			array(
+				'relation' => 'AND',
+				array(
+					'taxonomy' => 'inventory_brand',
+					'field'    => 'slug',
+					'terms'    => array( $brand ),
+				),
+				array(
+					'taxonomy' => 'inventory_year',
+					'field'    => 'slug',
+					'terms'    => array( $year ),
+				),
+				
+           ),
+		),
+	);
+
+	if($brand == "BRAND" && $year == "YEAR")
+	{
+		$inventory = new WP_Query($args1);
+	}
+	else if($brand != "BRAND" && $year != "YEAR")
+	{
+		$inventory = new WP_Query($args2);
+	}
+	else {
+		$inventory = new WP_Query($args);
+	} 
+	//$inventory = new WP_Query($args);
+
+	
+	// $inventory = new WP_Query($args);
+	$post=[];
+	 $html="";
+	if ($inventory->have_posts()) {
+		while ($inventory->have_posts()) {
+			$inventory->the_post();
+			$inventory_image = wp_get_attachment_image_src(get_post_thumbnail_id($inventory->ID), 'full');
+			$post[]=[
+				"postlink"=>get_the_permalink($inventory->ID),
+				"excerpt"=>get_the_excerpt($inventory->ID),
+				"title"=>get_the_title(),
+				"image"=>$inventory_image[0]
+			]; 
+			$html.='<div class="col-lg-4 col-md-6">';
+				$html.='<div class="classic_inr_dv">';
+				$html.='<div class="classic_img">';
+				$html.='<img src="'.$inventory_image[0].'" alt="">';
+				$html.='</div>';
+				$html.='<div class="classic_txt">';
+				$html.='<div class="classic_hdng hdr_bdr_bttm">';
+				$html.='<h4>'.get_the_title().' </h4>';
+				$html.='</div>';
+				$html.='<p>'.get_the_excerpt($inventory->ID).'  </p>';
+				$html.='<div class="classic_btn">';
+				$html.='<a href="'.get_the_permalink($inventory->ID).' ?>" class="read_more">read more</a>';
+				$html.='</div>';
+				$html.='</div>';
+				$html.='</div>';
+				$html.='</div>';
+
+						 
+		} 
+	} 
+				if($post){
+					$return = array(
+						'message'  => 'posts',
+						'status'       => 1,
+						'result'=>$html
+					); 
+					wp_send_json($return);
+				}
+				else{
+					$return = array(
+						'message'  => 'No Post Found',
+						'status'       => 0
+					);
+					 
+					wp_send_json($return);
+				}
+	// echo json_encode($age); 
+	die();
+} 
+
+add_action('wp_ajax_avaliablefilter', 'avaliablefilter'); // wp_ajax_{action}
+add_action('wp_ajax_nopriv_avaliablefilter', 'avaliablefilter'); // wp_ajax_nopriv_{action}
+//Avaliable Inventory Filter End
+
+//Sold Inventory Filter
+function soldfilter(){ 
+	$brand=$_REQUEST['brand'];
+	$year=$_REQUEST['year']; 
+
+	// echo $currentvalue;
+	//if brand or year only one present
+	$args = array(
+		'post_type' => 'inventories',
+		'post_status' => 'publish',
+		'posts_per_page' => -1,
+		'tax_query' => array(
+			'relation' => 'AND',
+			array(
+				'taxonomy' => 'inventory_type',
+				'field'    => 'slug',
+				'terms'    => array('sold'),
+				'operator' => 'IN'
+			),
+			array(
+				'relation' => 'OR',
+				array(
+					'taxonomy' => 'inventory_brand',
+					'field'    => 'slug',
+					'terms'    => array( $brand ),
+				),
+				array(
+					'taxonomy' => 'inventory_year',
+					'field'    => 'slug',
+					'terms'    => array( $year ),
+				),
+				
+           ),
+		),
+	); 
+	//if brand and year both absent
+	$args1 = array(
+		'post_type' => 'inventories',
+		'post_status' => 'publish',
+		'posts_per_page' => -1,
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'inventory_type',
+				'field'    => 'slug',
+				'terms'    => array('sold'),
+				'operator' => 'IN'
+			),
+		),
+	); 
+
+	//if brand and year both  present
+	$args2 = array(
+		'post_type' => 'inventories',
+		'post_status' => 'publish',
+		'posts_per_page' => -1,
+		'tax_query' => array(
+			'relation' => 'AND',
+			array(
+				'taxonomy' => 'inventory_type',
+				'field'    => 'slug',
+				'terms'    => array('sold'),
+				'operator' => 'IN'
+			),
+			array(
+				'relation' => 'AND',
+				array(
+					'taxonomy' => 'inventory_brand',
+					'field'    => 'slug',
+					'terms'    => array( $brand ),
+				),
+				array(
+					'taxonomy' => 'inventory_year',
+					'field'    => 'slug',
+					'terms'    => array( $year ),
+				),
+				
+           ),
+		),
+	);
+
+	if($brand == "BRAND" && $year == "YEAR")
+	{
+		$inventory = new WP_Query($args1);
+	}
+	else if($brand != "BRAND" && $year != "YEAR")
+	{
+		$inventory = new WP_Query($args2);
+	}
+	else {
+		$inventory = new WP_Query($args);
+	} 
+	//$inventory = new WP_Query($args);
+
+	
+	// $inventory = new WP_Query($args);
+	$post=[];
+	 $html="";
+	if ($inventory->have_posts()) {
+		while ($inventory->have_posts()) {
+			$inventory->the_post();
+			$inventory_image = wp_get_attachment_image_src(get_post_thumbnail_id($inventory->ID), 'full');
+			$post[]=[
+				"postlink"=>get_the_permalink($inventory->ID),
+				"excerpt"=>get_the_excerpt($inventory->ID),
+				"title"=>get_the_title(),
+				"image"=>$inventory_image[0]
+			]; 
+			$html.='<div class="col-lg-4 col-md-6">';
+				$html.='<div class="classic_inr_dv">';
+				$html.='<div class="classic_img">';
+				$html.='<img src="'.$inventory_image[0].'" alt="">';
+				$html.='</div>';
+				$html.='<div class="classic_txt">';
+				$html.='<div class="classic_hdng hdr_bdr_bttm">';
+				$html.='<h4>'.get_the_title().' </h4>';
+				$html.='</div>';
+				$html.='<p>'.get_the_excerpt($inventory->ID).'  </p>';
+				$html.='<div class="classic_btn">';
+				$html.='<a href="'.get_the_permalink($inventory->ID).' ?>" class="read_more">read more</a>';
+				$html.='</div>';
+				$html.='</div>';
+				$html.='</div>';
+				$html.='</div>';
+
+						 
+		} 
+	} 
+				if($post){
+					$return = array(
+						'message'  => 'posts',
+						'status'       => 1,
+						'result'=>$html
+					); 
+					wp_send_json($return);
+				}
+				else{
+					$return = array(
+						'message'  => 'No Post Found',
+						'status'       => 0
+					);
+					 
+					wp_send_json($return);
+				}
+	// echo json_encode($age); 
+	die();
+
+} 
+add_action('wp_ajax_soldfilter', 'soldfilter'); // wp_ajax_{action}
+add_action('wp_ajax_nopriv_soldfilter', 'soldfilter'); // wp_ajax_nopriv_{action}
+//Sold Inventory Filter End
+add_filter('comments_template','legacy_comments');
+function legacy_comments($file){
+	if(!function_exists('wp_list_comments'))	$file = TEMPLATEPATH .'/legacy.comments.php';
+	return $file;
+	}
+************end******* 
+
+Inventory page
+****************start***********
+<?php /*Template Name: Layout: Inventory*/ ?>
+<?php get_header(); ?>
+<section class="inner-banner ">
+    <div class="container-fluid paddng-0">
+        <div class="bnner-img">
+            <div class="bnr-ovly"></div>
+            <?php 
+            $inner_banner_image = get_field('inner_banner_image');
+            if($inner_banner_image != '') 
+            {?>
+            <img src="<?php echo get_field('inner_banner_image'); ?>" alt=""> 
+            <?php } ?>
+            <div class="bnnr_uppr cmn_h1">
+                <h1><?php echo get_field('inner_banner_heading'); ?></h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<main>
+    <?php
+    // Get the taxonomy's terms
+    $brands = get_terms(
+        array(
+            'taxonomy'   => 'inventory_brand',
+            'hide_empty' => false,
+        )
+    ); 
+    // print_r($terms);
+    ?> 
+    <?php
+    // Get the taxonomy's terms
+    $years = get_terms(
+        array(
+            'taxonomy'   => 'inventory_year',
+            'hide_empty' => false,
+        )
+    ); 
+    
+    ?>
+    <section class="filter">
+        <div class="container">
+            <div class="inventory-select-frm">
+                <div class="row">
+                    <div class="col-lg-2 ">
+                        <div class="filter-txt text-center ">
+                            <h4><img src="<?php echo get_field('inventory_filter_icon'); ?>" alt="" /> <?php echo get_field('inventory_filter_text'); ?></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="select-frm-dropdwn">
+                            <form>
+                                <div class="frm-flx">
+                                    <div class="col-md-6 frm-col">
+                                        <select class="form-select brand" name="brand" aria-label="Default select example">
+                                            <option selected>BRAND</option>
+                                            <?php 
+                                        if(!empty($brands)){
+                                                foreach($brands as $brand){
+                                                ?>
+                                            <option value="<?php echo $brand->slug;?>"><?php echo $brand->name; ?></option>
+                                            <?php } } ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 frm-col">
+                                        <select class="form-select year" name="year" aria-label="Default select example">
+                                            <option selected>YEAR</option>
+                                            <?php 
+                                        if(!empty($years)){
+                                                foreach($years as $year){
+                                                ?>
+                                            <option value="<?php echo $year->slug;?>"><?php echo $year->name; ?></option>
+                                             <?php } } ?>
+                                        </select>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="classic_super inventory-page">
+        <div class="container">
+            <div class="classic_hdr">
+                <div class="cmn_hdr bdr-lft text-left">
+                    <h2 class="m-0"><?php echo get_field('inventory_classic_supercars_text'); ?></h2>
+                </div>
+
+            </div>
+
+            <div class="classic_innr">
+                <div class="row inventoryfilter" id="inventoryfilter">
+
+                    <?php
+
+                    $args = array(
+
+                        'post_type' => 'inventories',
+                        'posts_per_page' => -1,
+                        
+                        'post_status' => 'publish',
+                        'order' => 'DESC'
+
+                    );
+
+                    $inventory = new WP_Query($args);
+                    if ($inventory->have_posts()) {
+                        while ($inventory->have_posts()) {
+                            $inventory->the_post();
+                            $inventory_image = wp_get_attachment_image_src(get_post_thumbnail_id($inventory->ID), 'full');
+                    ?>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="classic_inr_dv"> 
+                                    <?php 
+                                    if($inventory_image != '') {?>
+                                    <div class="classic_img">
+                                        <img src="<?php echo $inventory_image[0]; ?>" alt="">
+                                    </div>
+                                    <?php } ?>
+                                    <div class="classic_txt">
+                                        <div class="classic_hdng hdr_bdr_bttm">
+                                            <h4><?php echo get_the_title(); ?></h4>
+                                        </div>
+                                        <p><?php echo get_the_excerpt($inventory->ID); ?> </p>
+                                        <div class="classic_btn">
+                                            <a href="<?php echo get_the_permalink($inventory->ID); ?>" class="read_more">read more</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    <?php }
+                    }
+                    wp_reset_postdata();
+                    ?>
+
+
+
+
+                </div>
+                <div id="loader" style='display: none;'>
+                    <!-- <h1>loading</h1> -->
+                    <!-- <img src='reload.gif' width='32px' height='32px'> -->
+                    <img class="imageclass" src="<?php echo get_template_directory_uri(); ?>/images/loader-image.png" alt="">
+                </div>  
+            </div>
+        </div>
+    </section>
+
+
+</main> 
+<script type="text/javascript">
+  function get_data(val) {
+     window.location = val;  
+  } 
+
+  function get_data_tag(value) {
+     window.location = value;  
+  }  
+
+//   function get_data_author(value) {
+//      window.location = value;  
+//   }
+</script>
+<?php get_footer(); ?>
+************end*****************
+inventory sold page 
+********************start************
+<?php /*Template Name: Layout: Sold*/ ?>
+<?php get_header(); ?>
+<section class="inner-banner ">
+    <div class="container-fluid paddng-0">
+        <div class="bnner-img">
+            <div class="bnr-ovly"></div>
+            <?php 
+              $inner_banner_image = get_field('inner_banner_image');
+              if($inner_banner_image != '')
+             { ?>
+            <img src="<?php echo get_field('inner_banner_image'); ?>" alt="">
+             <?php } ?>
+            <div class="bnnr_uppr cmn_h1">
+                <h1><?php echo get_field('inner_banner_heading'); ?></h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<main>
+    <?php
+    // Get the taxonomy's terms
+    $brands = get_terms(
+        array(
+            'taxonomy'   => 'inventory_brand',
+            'hide_empty' => false,
+        )
+    );
+    // print_r($terms);
+    ?>
+    <?php
+    // Get the taxonomy's terms
+    $years = get_terms(
+        array(
+            'taxonomy'   => 'inventory_year',
+            'hide_empty' => false,
+        )
+    );
+
+    ?>
+    <section class="filter">
+        <div class="container">
+            <div class="inventory-select-frm">
+                <div class="row">
+                    <div class="col-lg-2 ">
+                        <div class="filter-txt text-center ">
+                            <h4><img src="<?php echo get_field('sold_page_filter_icon'); ?>" alt="" /> <?php echo get_field('sold_page_filter_text'); ?>:</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="select-frm-dropdwn">
+                            <form>
+                                <div class="frm-flx">
+                                    <div class="col-md-6 frm-col">
+                                        <select class="form-select soldbrand" name="soldbrand" aria-label="Default select example">
+                                            <option selected>BRAND</option>
+                                            <!-- <option value="1">One</option> -->
+                                            <?php
+                                            if (!empty($brands)) {
+                                                foreach ($brands as $brand) {
+                                            ?>
+                                                    <option value="<?php echo $brand->slug; ?>"><?php echo $brand->name; ?></option>
+                                            <?php }
+                                            } ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 frm-col">
+                                        <select class="form-select soldyear" name="soldyear" aria-label="Default select example">
+                                            <option selected>YEAR</option>
+                                            <!-- <option value="1">One</option> -->
+                                            <?php
+                                            if (!empty($years)) {
+                                                foreach ($years as $year) {
+                                            ?>
+                                                    <option value="<?php echo $year->slug; ?>"><?php echo $year->name; ?></option>
+                                            <?php }
+                                            } ?>
+                                         </select>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="classic_super inventory-page">
+        <div class="container">
+            <div class="classic_hdr">
+                <div class="cmn_hdr bdr-lft text-left">
+                    <h2 class="m-0"><?php echo get_field('sold_page_classic_cars_text'); ?></h2>
+                </div>
+
+            </div>
+
+            <div class="classic_innr">
+                <div class="row inventorysoldfilter" id="inventorysoldfilter">
+                    <?php
+
+                    $args = array(
+                        'post_type' => 'inventories',
+                        'post_status' => 'publish',
+                        'posts_per_page' => -1,
+                        'tax_query' => array(
+                            array(
+                                'taxonomy' => 'inventory_type',
+                                'field'    => 'slug',
+                                'terms'    => array('sold'),
+                                'operator' => 'IN'
+                            ),
+                        ),
+                    );
+
+                    $inventory = new WP_Query($args);
+                    if ($inventory->have_posts()) {
+                        while ($inventory->have_posts()) {
+                            $inventory->the_post();
+                            $inventory_image = wp_get_attachment_image_src(get_post_thumbnail_id($inventory->ID), 'full');
+                    ?>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="classic_inr_dv">
+                                    <?php 
+                                     if($inventory_image != '')
+                                    { ?>
+                                    <div class="classic_img">
+                                        <img src="<?php echo $inventory_image[0]; ?>" alt="">
+                                    </div>
+                                    <?php } ?>
+                                    <div class="classic_txt">
+                                        <div class="classic_hdng hdr_bdr_bttm">
+                                            <h4><?php echo get_the_title(); ?></h4>
+                                        </div>
+                                        <p><?php echo get_the_excerpt($inventory->ID); ?> </p>
+                                        <div class="classic_btn">
+                                            <a href="<?php echo get_the_permalink($inventory->ID); ?>" class="read_more">read more</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    <?php }
+                    }
+                    wp_reset_postdata();
+                    ?>
+
+
+
+
+                </div>
+                <div id="loadersold" class="loading" style='display: none;'>
+                    <!-- <h1>loading</h1> -->
+                    <!-- <img src='reload.gif' width='32px' height='32px'> -->
+                    <img class="imageclass" src="<?php echo get_template_directory_uri(); ?>/images/loader-image.png" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</main>
+<?php get_footer(); ?>
+*******************end***************
+
+inventory avaliable 
+********************start***********
+<?php /*Template Name: Layout: Avaliable*/ ?>
+<?php get_header(); ?>
+<section class="inner-banner ">
+    <div class="container-fluid paddng-0">
+        <div class="bnner-img">
+            <div class="bnr-ovly"></div>
+            <?php 
+             $inner_banner_image = get_field('inner_banner_image');
+             if($inner_banner_image != '')
+            {?>
+            <img src="<?php echo get_field('inner_banner_image'); ?>" alt=""> 
+            <?php } ?>
+            <div class="bnnr_uppr cmn_h1">
+                <h1><?php echo get_field('inner_banner_heading'); ?></h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<main>
+    <?php
+    // Get the taxonomy's terms
+    $brands = get_terms(
+        array(
+            'taxonomy'   => 'inventory_brand',
+            'hide_empty' => false,
+        )
+    );
+    // print_r($terms);
+    ?>
+    <?php
+    // Get the taxonomy's terms
+    $years = get_terms(
+        array(
+            'taxonomy'   => 'inventory_year',
+            'hide_empty' => false,
+        )
+    );
+
+    ?>
+    <section class="filter">
+        <div class="container">
+            <div class="inventory-select-frm">
+                <div class="row">
+                    <div class="col-lg-2 ">
+                        <div class="filter-txt text-center ">
+                            <h4><img src="<?php echo get_field('avaliable_page_filter_icon'); ?>" alt="" /> <?php echo get_field('avaliable_page_filter_text'); ?>:</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="select-frm-dropdwn">
+                            <form>
+                                <div class="frm-flx">
+                                    <div class="col-md-6 frm-col">
+                                        <select class="form-select avaliablebrand" name="avaliablebrand" aria-label="Default select example">
+                                            <option selected>BRAND</option>
+                                            <!-- <option value="1">One</option> -->
+                                            <?php
+                                            if (!empty($brands)) {
+                                                foreach ($brands as $brand) {
+                                            ?>
+                                                    <option value="<?php echo $brand->slug; ?>"><?php echo $brand->name; ?></option>
+                                            <?php }
+                                            } ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 frm-col">
+                                        <select class="form-select avaliableyear" name="avaliableyear" aria-label="Default select example">
+                                            <option selected>YEAR</option>
+                                            <!-- <option value="1">One</option> -->
+                                            <?php
+                                            if (!empty($years)) {
+                                                foreach ($years as $year) {
+                                            ?>
+                                                    <option value="<?php echo $year->slug; ?>"><?php echo $year->name; ?></option>
+                                            <?php }
+                                            } ?>
+                                        </select>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="classic_super inventory-page">
+        <div class="container">
+            <div class="classic_hdr">
+                <div class="cmn_hdr bdr-lft text-left">
+                    <h2 class="m-0"><?php echo get_field('avaliable_page_classic_car_text'); ?></h2>
+                </div>
+
+            </div>
+
+            <div class="classic_innr">
+                <div class="row inventoryavaliablefilter" id="inventoryavaliablefilter">
+                    <?php
+
+                    $args = array(
+                        'post_type' => 'inventories',
+                        'post_status' => 'publish',
+                        'posts_per_page' => -1,
+                        'tax_query' => array(
+                            array(
+                                'taxonomy' => 'inventory_type',
+                                'field'    => 'slug',
+                                'terms'    => array('avaliable'),
+                                'operator' => 'IN'
+                            ),
+                        ),
+                    );
+
+                    $inventory = new WP_Query($args);
+                    if ($inventory->have_posts()) {
+                        while ($inventory->have_posts()) {
+                            $inventory->the_post();
+                            $inventory_image = wp_get_attachment_image_src(get_post_thumbnail_id($inventory->ID), 'full');
+                    ?>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="classic_inr_dv">
+                                    <?php 
+                                     if($inventory_image != '')
+                                    {?>
+                                    <div class="classic_img">
+                                        <img src="<?php echo $inventory_image[0]; ?>" alt="">
+                                    </div> 
+                                    <?php } ?>
+                                    <div class="classic_txt">
+                                        <div class="classic_hdng hdr_bdr_bttm">
+                                            <h4><?php echo get_the_title(); ?></h4>
+                                        </div>
+                                        <p><?php echo get_the_excerpt($inventory->ID); ?> </p>
+                                        <div class="classic_btn">
+                                            <a href="<?php echo get_the_permalink($inventory->ID); ?>" class="read_more">read more</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    <?php }
+                    }
+                    wp_reset_postdata();
+                    ?>
+
+
+
+
+                </div>
+                <div id="loaderavaliable" class="loading" style='display: none;'>
+                    <!-- <h1>loading</h1> -->
+                    <!-- <img src='reload.gif' width='32px' height='32px'> -->
+                    <img class="imageclass" src="<?php echo get_template_directory_uri(); ?>/images/loader-image.png" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</main>
+<?php get_footer(); ?>
+************end********************* 
+
+inventory post type creation 
+***************start************
+<?php
+/***
+* Inventories Post Type
+***/
+
+if(! class_exists('Progressive_Inventories_Post_Type')):
+class Progressive_Inventories_Post_Type{
+
+	function __construct(){
+		// Adds the inventories post type 
+		add_action('init',array(&$this,'inventories_init'),0);
+		// Thumbnail support for inventories posts
+		add_theme_support('post-thumbnails',array('inventories'));
+	}
+	
+
+	function inventories_init(){
+		/**
+		 * Enable the Inventories custom post type
+		 * http://codex.wordpress.org/Function_Reference/register_post_type
+		 */
+		$labels = array(
+			'name'					=> __('Inventories','Progressive'),
+			'singular_name'		=> __('Inventories','Progressive'),
+			'add_new'				=> __('Add New','Progressive'),
+			'add_new_item'			=> __('Add New Inventory','Progressive'),
+			'edit_item'			=> __('Edit Inventory','Progressive'),
+			'new_item'				=> __('Add New Inventory','Progressive'),
+			'view_item'			=> __('View Inventory','Progressive'),
+			'search_items'			=> __('Search Inventories','Progressive'),
+			'not_found'			=> __('No Inventories items found','Progressive'),
+			'not_found_in_trash'	=> __('No Inventories found in trash','Progressive')
+		);
+		
+		$args = array(
+		    'labels' => $labels,
+			'public' => true,
+			'publicly_queryable' => true,
+			'show_ui' => true,
+			'query_var' => true,
+			'menu_icon' => 'dashicons-clipboard',			
+			'map_meta_cap' => true,
+			'hierarchical' => false,
+			'menu_position' => 5,
+			'supports' => array('title','thumbnail','editor','page-attributes','excerpt')
+		); 
+				
+		$args = apply_filters('Progressive_inventories_args',$args);
+		
+		register_post_type('inventories',$args);
+		
+		// Add new taxonomy,NOT hierarchical(like tags)
+		$labels_one = array(
+			'name'                       => _x('Inventory Types','taxonomy general name'),
+			'singular_name'              => _x('Inventory Type','taxonomy singular name'),
+			'search_items'               => __('Search Inventory Types'),
+			'popular_items'              => __('Popular Inventory Types'),
+			'all_items'                  => __('All Inventory Types'),
+			'parent_item'                => null,
+			'parent_item_colon'          => null,
+			'edit_item'                  => __('Edit Inventory Type'),
+			'update_item'                => __('Update Inventory Type'),
+			'add_new_item'               => __('Add New Inventory Type'),
+			'new_item_name'              => __('New Inventory Type Name'),
+			'separate_items_with_commas' => __('Separate inventory types with commas'),
+			'add_or_remove_items'        => __('Add or remove inventory types'),
+			'choose_from_most_used'      => __('Choose from the most used inventory types'),
+			'not_found'                  => __('No inventory types found.'),
+			'menu_name'                  => __('Inventory Types'),
+		);
+	
+		$args_one = array(
+			'hierarchical'          => true,
+			'labels'                => $labels_one,
+			'show_ui'               => true,
+			'show_admin_column'     => true,
+			'update_count_callback' => '_update_post_term_count',
+			'query_var'             => true,
+			'rewrite'               => array('slug' => 'inventory_type'),
+		);
+	
+		register_taxonomy('inventory_type','inventories',$args_one); 
+		
+		//New brand Taxonomy
+		$labels_two = array(
+			'name'                       => _x('Inventory Brands','taxonomy general name'),
+			'singular_name'              => _x('Inventory Brand','taxonomy singular name'),
+			'search_items'               => __('Search Inventory Brands'),
+			'popular_items'              => __('Popular Inventory Brands'),
+			'all_items'                  => __('All Inventory Brands'),
+			'parent_item'                => null,
+			'parent_item_colon'          => null,
+			'edit_item'                  => __('Edit Inventory Brand'),
+			'update_item'                => __('Update Inventory Brand'),
+			'add_new_item'               => __('Add New Inventory Brand'),
+			'new_item_name'              => __('New Inventory Brand Name'),
+			'separate_items_with_commas' => __('Separate inventory brands with commas'),
+			'add_or_remove_items'        => __('Add or remove inventory brands'),
+			'choose_from_most_used'      => __('Choose from the most used inventory brands'),
+			'not_found'                  => __('No inventory brands found.'),
+			'menu_name'                  => __('Inventory Brands'),
+		);
+	
+		$args_two = array(
+			'hierarchical'          => true,
+			'labels'                => $labels_two,
+			'show_ui'               => true,
+			'show_admin_column'     => true,
+			'update_count_callback' => '_update_post_term_count',
+			'query_var'             => true,
+			'rewrite'               => array('slug' => 'inventory_brand'),
+		);
+	
+		register_taxonomy('inventory_brand','inventories',$args_two); 
+		//End 
+		//New brand Years Taxonomy
+        $labels_three = array(
+			'name'                       => _x('Inventory Years','taxonomy general name'),
+			'singular_name'              => _x('Inventory Year','taxonomy singular name'),
+			'search_items'               => __('Search Inventory Years'),
+			'popular_items'              => __('Popular Inventory Years'),
+			'all_items'                  => __('All Inventory Years'),
+			'parent_item'                => null,
+			'parent_item_colon'          => null,
+			'edit_item'                  => __('Edit Inventory Year'),
+			'update_item'                => __('Update Inventory Year'),
+			'add_new_item'               => __('Add New Inventory Year'),
+			'new_item_name'              => __('New Inventory Year Name'),
+			'separate_items_with_commas' => __('Separate inventory years with commas'),
+			'add_or_remove_items'        => __('Add or remove inventory years'),
+			'choose_from_most_used'      => __('Choose from the most used inventory years'),
+			'not_found'                  => __('No inventory years found.'),
+			'menu_name'                  => __('Inventory Years'),
+		);
+	
+		$args_three = array(
+			'hierarchical'          => true,
+			'labels'                => $labels_three,
+			'show_ui'               => true,
+			'show_admin_column'     => true,
+			'update_count_callback' => '_update_post_term_count',
+			'query_var'             => true,
+			'rewrite'               => array('slug' => 'inventory_year'),
+		);
+	
+		register_taxonomy('inventory_year','inventories',$args_three);
+        //End
+
+	}
+}
+
+new Progressive_Inventories_Post_Type;
+endif;
+**************end****************
+ 
+

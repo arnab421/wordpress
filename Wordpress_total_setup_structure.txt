@@ -1,0 +1,3775 @@
+Footer file proper structure
+********Start 
+</main>
+<footer class="main-footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="foot-add">
+                        <div class="logo-footer">
+                            <a href="<?php  echo home_url();?>">
+                                <img src="<?php echo get_theme_value('onword_capital_footer_logo'); ?>" alt="Site Logo">
+                            </a>
+                        </div>
+                        <div>
+                            <h6><?php echo get_theme_value('onword_capital_footer_site_title'); ?></h6>
+                            <?php echo get_theme_value('onword_capital_footer_address'); ?>
+                            <p><?php echo get_theme_value('onword_capital_footer_phone'); ?></p>
+                         </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="social-icon">
+                        <ul>
+                        <?php 
+                            $facebook_link = get_theme_value('footer_facebook_link');
+                            $instragram_link = get_theme_value('footer_instragram_link');
+                            $twitter_link = get_theme_value('footer_twitter_link');
+                            $twitter_link = get_theme_value('footer_yelp_link');
+                            if($facebook_link !=''){ ?>
+                                <li><a href="<?php echo $facebook_link; ?> "target="_blank"><i class="fab fa-facebook"></i></a></li> 
+                             <?php } ?>
+                            <?php if($instragram_link !=''){ ?>
+                                <li><a href="<?php echo $instragram_link; ?> "target="_blank"><i class="fab fa-instagram"></i></a></li> 
+                            <?php } ?>
+                            <?php if($twitter_link !=''){ ?>
+                                <li><a href="<?php echo $twitter_link; ?>" target="_blank"><i class="fab fa-twitter"></i></a></li> 
+                            <?php } ?>
+                            <?php if($twitter_link !=''){ ?>
+                                <li><a href="<?php echo $twitter_link; ?> "target="_blank"><i class="fab fa-yelp"></i></a></li> 
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-btm white">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p><?php echo get_theme_value('onword_capital_footer_copyright'); ?></p>
+                </div>
+                <div class="col-lg-12 text-center">
+                    <?php wp_nav_menu(array(
+                        'theme_location' => 'secondary',
+                        'container' => '',
+                        'items_wrap' => '<ul>%3$s</ul>',
+                    )); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<?php wp_footer(); ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>   
+****************End  
+
+Header proper stucture
+***********Start 
+
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+    <meta charset="<?php bloginfo('charset'); ?>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
+     <header>
+        <div class="hdr-top">
+            <div class="container-fluid max-width">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="hdr-top-wrap">
+                            <div class="hdr-logo"><a href="<?php echo home_url(); ?>"><img src="<?php echo get_theme_value('onword_capital_header_logo'); ?>" alt="" /></a></div>
+                            <div class="hdr-navigation-area">
+                                <div onClick="menu_open()" class="nav_btn">
+                                    <div></div>
+                                </div>
+                                <div class=" menu_wrap" id="m_menu">
+                                    <div class="main_menu">
+                                        <?php wp_nav_menu(array(
+                                            'theme_location' => 'primary',
+                                            'container' => '',
+                                            'items_wrap' => '<ul class="list-inline m-0" id="primary">%3$s</ul>',
+                                        )); ?>
+                                    </div>
+                                    <div class="nav_close" onClick="menu_close()"><i class="far fa-times-circle"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+***********End 
+
+Front page proper structure  
+
+**********Start********
+
+<?php get_header();
+if (have_posts()) : while (have_posts()) : the_post();
+?>
+<main>
+<section class="home-banner">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12 p-0">
+				<div class="home-banner-info">
+					<?php $banner_image = get_field('banner_image');
+						if($banner_image !=''){?>
+							<div class="img"><img src="<?php echo $banner_image; ?>" alt="Banner Image"></div>
+						<?php } ?>
+						<div class="owl-carousel owl-theme home-banner-slider">	
+							<?php
+							 	if( have_rows('repeater_data') ){ while (have_rows('repeater_data')) { the_row(); 
+										$banner_title = get_sub_field('onword_capital_title');
+										$banner_desc = get_sub_field('onword_capital_description');
+										$banner_button = get_sub_field('see_your_work_text');
+										$banner_button_link = get_sub_field('see_your_work_link');
+								?>
+								<div class="item">
+									<div class="home-banner-info-desc max-width">
+										<h1 class="animated fadeInUp"><?php echo $banner_title; ?></h1>
+										<p class="animated fadeInUp"><?php echo $banner_desc; ?></p>
+										<a class="btn btn-bdr btn-simple animated fadeInUp" href="<?php echo $banner_button_link; ?>">
+											<?php echo $banner_button; ?></a>
+									</div>
+								</div>	
+							<?php } } ?>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="our-story-area common-padding">
+	<div class="container">
+		<div class="row">
+			<?php $about_id = get_field('choose_about_content');
+			if($about_id){?>
+				<div class="col-lg-12">
+					<div class="text-center">
+						<span class="sub-text"><?php echo get_field('animated_text_one', $about_id); ?></span>
+						<h2><?php echo get_field('about_page_heading', $about_id); ?></h2>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="our-story-desc">
+						<?php echo get_the_content( $about_id ); ?>
+					</div>
+				</div>
+			<?php } ?>
+			<?php get_sidebar('progressbar'); ?>
+		</div>
+	</div>
+</section>
+<?php get_sidebar('commonsections'); ?>
+<?php endwhile; endif; ?>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery('#show_map').click(function() {
+			jQuery('.google-map-section').toggle();
+		});
+	});
+</script>
+<?php get_footer(); ?>
+
+
+**********End********** 
+
+Functions.php file start*******
+
+
+<?php
+/*****************************************
+* Weaver's Web Functions & Definitions *
+*****************************************/
+$functions_path = get_template_directory().'/functions/';
+$post_type_path = get_template_directory().'/inc/post-types/';
+$post_meta_path = get_template_directory().'/inc/post-metabox/';
+$theme_function_path = get_template_directory().'/inc/theme-functions/';
+/*--------------------------------------*/
+/* Multipost Thumbnail Functions
+/*--------------------------------------*/
+require_once($functions_path.'multipost-thumbnail/multi-post-thumbnails.php');
+if(class_exists('MultiPostThumbnails')){
+	$types = array('page');
+	foreach($types as $type){
+		new MultiPostThumbnails(array(
+			'label' => 'Top Banner Image',
+			'id' => 'top-banner-image',
+			'post_type' => $type
+			));
+		}		
+	}
+add_image_size('top-banner-size-image', 1920, 700,true);
+/*--------------------------------------*/
+/* Optional Panel Helper Functions
+/*--------------------------------------*/
+require_once($functions_path.'admin-functions.php');
+require_once($functions_path.'admin-interface.php');
+require_once($functions_path.'theme-options.php');
+function weaversweb_ftn_wp_enqueue_scripts(){
+    if(!is_admin()){
+        wp_enqueue_script('jquery');
+        if(is_singular()and get_site_option('thread_comments')){
+            wp_print_scripts('comment-reply');
+			}
+		}
+	}
+add_action('wp_enqueue_scripts','weaversweb_ftn_wp_enqueue_scripts');
+function weaversweb_ftn_get_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    if(isset($options[$name]))
+        return $options[$name];
+	}
+function weaversweb_ftn_update_option($name, $value){
+    $options = get_option('weaversweb_ftn_options');
+    $options[$name] = $value;
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function weaversweb_ftn_delete_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    unset($options[$name]);
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function get_theme_value($field){
+	$field1 = weaversweb_ftn_get_option($field);
+	if(!empty($field1)){
+		$field_val = $field1;
+		return	$field_val;
+		}
+	}
+/*--------------------------------------*/
+/* Post Type Helper Functions
+/*--------------------------------------*/
+require_once($post_type_path.'services.php');
+require_once($post_type_path.'project.php');
+/*--------------------------------------*/
+/* Theme Helper Functions
+/*--------------------------------------*/
+if(!function_exists('weaversweb_theme_setup')):
+	function weaversweb_theme_setup(){
+		add_theme_support('title-tag');
+		add_theme_support('post-thumbnails');
+		register_nav_menus(array(
+			'primary' => __('Primary Menu','weaversweb'),
+			'secondary'  => __('Secondary Menu','weaversweb'),
+			));
+		add_theme_support('html5',array('search-form','comment-form','comment-list','gallery','caption'));
+		}
+	endif;
+add_action('after_setup_theme','weaversweb_theme_setup');
+
+// Outside function inserted
+function onward_capital_theme_setup(){
+    add_theme_support('custom-logo');
+    add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+    add_image_size('home-featured', 680, 400, array('center','center'));
+    add_image_size('single-img', 600, 550,array('center','center'));
+    add_theme_support('automatic-feed-links');
+    register_nav_menus( array(
+       'primary' => __('primary Menu', 'Onwardcapital')
+    )
+    );  
+};
+
+add_action('after_setup_theme','onward_capital_theme_setup');
+//out side function inserted
+function weaversweb_widgets_init(){
+	register_sidebar(array(
+		'name'          => __('Widget Area','weaversweb'),
+		'id'            => 'sidebar-1',
+		'description'   => __('Add widgets here to appear in your sidebar.','weaversweb'),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+		));
+	}
+add_action('widgets_init','weaversweb_widgets_init');
+function weaversweb_scripts(){
+
+	wp_enqueue_style('bootstrap.min.css',get_template_directory_uri().'/css/bootstrap.min.css',array());
+	wp_enqueue_style('font-awesome-all.min.css',get_template_directory_uri().'/css/font-awesome-all.min.css',array());
+    wp_enqueue_style('aos.css',get_template_directory_uri().'/css/aos.css',array());
+	wp_enqueue_style('oc-owl-css',get_template_directory_uri().'/css/owl.carousel.css',array());
+	wp_enqueue_style('oc-owl-theme-css',get_template_directory_uri().'/css/owl.theme.default.css',array());
+	wp_enqueue_style('animate.min.css',get_template_directory_uri().'/css/animate.min.css',array());
+	wp_enqueue_style('custom.css',get_template_directory_uri().'/css/custom.css',array());
+	wp_enqueue_style('weaversweb-style',get_stylesheet_uri());
+	
+	wp_enqueue_script('bootstrap.min.js',get_template_directory_uri().'/js/bootstrap.min.js',array('jquery'),'20170808',true);
+	wp_enqueue_script('oc-owl-js',get_template_directory_uri().'/js/owl.carousel.js',array('jquery'),'20170808',true);
+	wp_enqueue_script('wow.min.js',get_template_directory_uri().'/js/wow.min.js',array('jquery'),'20170808',true);
+	wp_enqueue_script('aos.js',get_template_directory_uri().'/js/aos.js',array('jquery'),'20170808',true);
+	wp_enqueue_script('script-jquery-counterup',get_template_directory_uri().'/js/jquery.counterup.min.js',array('jquery'),'20210101',true);
+	wp_enqueue_script('waypoints-jquery-counterup',get_template_directory_uri().'/js/waypoints.min.js',array('jquery'),'20210101',true);
+	wp_enqueue_script('custom.js',get_template_directory_uri().'/js/custom.js',array('jquery'),'20170808',true);
+}
+add_action('wp_enqueue_scripts','weaversweb_scripts');
+add_filter('comments_template','legacy_comments');
+function legacy_comments($file){
+	if(!function_exists('wp_list_comments'))	$file = TEMPLATEPATH .'/legacy.comments.php';
+	return $file;
+}
+**********end******* 
+
+Concept of sidebar 
+
+File Name convenction:sidebar-progressbar.php 
+
+****start*******
+<?php 
+	$development_title = get_theme_value('oc_progress_development_title');
+	$investment_title = get_theme_value('oc_progress_investment_title');
+	$design_consulting_title = get_theme_value('oc_progress_design_consulting_title');
+	$construction_title = get_theme_value('oc_progress_construction_title');
+	$brokerage_title = get_theme_value('oc_progress_brokerage_title');
+
+	$development_percentage = get_theme_value('oc_progress_development_percentage');
+	$investment_percentage = get_theme_value('oc_progress_investment_percentage');
+	$design_consulting_percentage = get_theme_value('oc_progress_design_consulting_percentage');
+	$construction_percentage = get_theme_value('oc_progress_construction_percentage');
+	$brokerage_percentage = get_theme_value('oc_progress_brokerage_percentage');
+?>
+
+<div class="col-lg-6">
+<div class="progress-wrap">
+	<p><?php echo $development_title; ?></p>
+	<div class="progress">
+		<div class="wow progress-bar" role="progressbar" aria-valuenow="<?php echo $development_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="max-width: <?php echo $development_percentage; ?>%">
+			<span class="title"><?php echo $development_percentage; ?>%</span>
+		</div>
+	</div>
+</div>
+
+<div class="progress-wrap">
+	<p><?php echo $investment_title; ?></p>
+	<div class="progress">
+		<div class="wow progress-bar" role="progressbar" aria-valuenow="<?php echo $investment_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="max-width: <?php echo $investment_percentage; ?>%">
+			<span class="title"><?php echo $investment_percentage; ?>%</span>
+		</div>
+	</div>
+</div>
+
+<div class="progress-wrap">
+	<p><?php echo $design_consulting_title; ?></p>
+	<div class="progress">
+		<div class="wow progress-bar" role="progressbar" aria-valuenow="<?php echo $investment_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="max-width: <?php echo $investment_percentage; ?>%">
+			<span class="title"><?php echo $design_consulting_percentage; ?>%</span>
+		</div>
+	</div>
+</div>
+
+<div class="progress-wrap">
+	<p><?php echo $construction_title; ?></p>
+	<div class="progress">
+		<div class="wow progress-bar" role="progressbar" aria-valuenow="<?php echo $construction_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="max-width: <?php echo $construction_percentage; ?>%">
+			<span class="title"><?php echo $construction_percentage; ?>%</span>
+		</div>
+	</div>
+</div>
+
+<div class="progress-wrap">
+	<p><?php echo $brokerage_title; ?></p>
+	<div class="progress">
+		<div class="wow progress-bar" role="progressbar" aria-valuenow="<?php echo $brokerage_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="max-width: <?php echo $brokerage_percentage; ?>%">
+			<span class="title"><?php echo $brokerage_percentage; ?>%</span>
+		</div>
+	</div>
+</div>
+</div>
+*****End********
+sidebar-commonsections.php
+******start******
+<?php if( ( !is_singular( 'services' ) ) && ( !is_page('contact'))){?> 
+<section class="counter-section common-padding">
+	<div class="container">
+		<div class="row countup">
+			<div class="col-lg-3 col-md-6">
+				<div class="counter-wrap">
+					<h3><span class="counterup"><?php echo get_theme_value('sq_feed_value'); ?></span></h3>
+					<p><?php echo get_theme_value('sq_feed_devloped'); ?></p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="counter-wrap">
+					<h3><span class="counterup"><?php echo get_theme_value('year_of_experience_value'); ?></span></h3>
+					<p><?php echo get_theme_value('year_of_experience'); ?></p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="counter-wrap">
+					<h3><span class="counterup"><?php echo get_theme_value('dollar_in_sales_value'); ?></span></h3>
+					<p><?php echo get_theme_value('dollar_in_sales'); ?></p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="counter-wrap">
+					<h3><span class="counterup"><?php echo get_theme_value('project_value'); ?></span></h3>
+					<p><?php echo get_theme_value('project_text'); ?></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="btn-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<a class="btn btn-bdr" href="<?php echo get_theme_value('have_a_project_inmind_link'); ?>"><?php echo get_theme_value('have_a_project_inmind_text'); ?></a>
+		</div>
+	</div>
+</section>
+<?php } ?>
+
+<section class="contect-section common-padding">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="text-center">
+					<span class="sub-text"><?php echo get_theme_value('say_hallo_text'); ?></span>
+					<h2><?php echo get_theme_value('contact_us_text'); ?></h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="row justify-content-between">
+			<div class="contect-wrap">
+				<img src="<?php echo get_template_directory_uri(); ?>/images/mi-1.png" alt="Phone Icon">
+				<p><?php echo get_theme_value('phone_number_text'); ?></p>
+			</div>
+
+			<div class="contect-wrap">
+				<img src="<?php echo get_template_directory_uri(); ?>/images/mi1-1.png" alt="Location Icon">
+				<p><?php echo get_theme_value('address'); ?></p>
+			</div>
+
+			<div class="contect-wrap">
+				<img src="<?php echo get_template_directory_uri(); ?>/images/mi2-1.png" alt="Email Icon">
+				<p><?php echo get_theme_value('email'); ?></p>
+			</div>
+		</div>
+
+		<div class="contect-form">
+			<?php echo do_shortcode('[contact-form-7 id="79" title="contact_us"]'); ?>
+		</div>
+	</div>
+</section>
+
+<section class="map-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<a href="javascript:void(0);" id="show_map"><?php echo get_theme_value('oc_location_map_text'); ?>&nbsp;<i class="fas fa-chevron-down"></i></a>
+		</div>
+	</div>
+</section>
+
+<section class="google-map-section" style="display: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<?php echo get_theme_value('oc_location_map_iframe'); ?>
+			</div>
+		</div>
+	</div>
+</section>
+jquery code srart#######
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery('#show_map').click(function() {
+			jQuery('.google-map-section').toggle();
+		});
+	});
+</script>
+jquery code end##########
+ 
+******End******** 
+
+service Template Page
+*******Start*******
+<?php /*Template Name: Layout: Service*/ ?>
+<?php get_header('inner');
+?>
+<main>
+	<section class="service-section common-padding">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 mb-4">
+					<div class="text-center text-uppercase">
+						<h2>OUR <?php the_title(); ?></h2>
+					</div>
+					<div class="text-center">
+						<?php the_content(); ?>
+					</div>
+				</div>
+				<?php
+				$args = array(
+					'post_type' => 'services', 
+					'posts_per_page' => -1, 
+					'order' => 'ASC', 
+				);
+				$services = get_posts($args);
+				if(!empty($services)){
+				foreach ($services as $service) {
+					$service_image = wp_get_attachment_image_src(get_post_thumbnail_id($service->ID), 'full');
+				?>
+				<div class="col-lg-4 col-md-6">
+					<div class="service-desc">
+					<?php if(!empty($service_image)){?>
+						<div class="s-icon"><img src="<?php echo $service_image[0]; ?>" alt="Service Image"></div>
+					<?php } ?>	
+						<h5><?php echo $service->post_title; ?></h5>
+						<p><?php echo get_the_excerpt( $service->ID ); ?></p>
+						<a href="<?php echo get_the_permalink($service->ID); ?>" class="learn-more">Learn More<i class="fas fa-arrow-right"></i></a>
+					</div>
+				</div>
+				<?php } } ?>
+			</div>
+		</div>
+	</section>
+<?php get_sidebar('commonsections'); ?>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery('#show_map').click(function() {
+			jQuery('.google-map-section').toggle();
+		});
+	});
+</script>
+<?php get_footer(); ?> 
+*******End*********** 
+
+Template project page 
+******Start**********
+<?php /*Template Name: Layout: Project*/ ?>
+<?php get_header('inner');
+?>
+<main>
+	<section class="project-details common-padd-sm ">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="text-center header-inner text-uppercase">
+						<h2><span>OUR <?php the_title(); ?></span></h2>
+					</div>
+					<div class="text-center header-inner">
+						<?php the_content(); ?>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<h5 class="nav-link active" data-bs-toggle="tab" data-bs-target="#home" role="tab" aria-controls="home" aria-selected="true">ALL WORK</h5>
+						</li>
+						<li class="nav-item" role="presentation">
+							<h5 class="nav-link " data-bs-toggle="tab" data-bs-target="#profile" role="tab" aria-controls="profile" aria-selected="true">IN PROGRESS</h5>
+						</li>
+						<li class="nav-item" role="presentation">
+							<h5 class="nav-link" data-bs-toggle="tab" data-bs-target="#contact" role="tab" aria-controls="contact" aria-selected="true">COMPLETED</h5>
+						</li>
+					</ul>
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+							<div class="row">
+
+								<!-- Dynamin -->
+								<?php
+								$testargs = array('post_type' => 'project', 'posts_per_page' => -1, 'order' => 'DESC', 'orderby' => 'date');
+								$testims = get_posts($testargs);
+								foreach ($testims as $testim) {
+									$image_test = wp_get_attachment_image_src(get_post_thumbnail_id($testim->ID), 'full');
+								?>
+									<!-- Dynamic -->
+									<div class="col-md-6">
+										<a href="<?php echo get_the_permalink($testim->ID); ?>">
+											<div class="overlay-wrap">
+												<?php if(!empty($image_test)){?>
+													<img src="<?php echo $image_test[0]; ?>" width="100%" class="image" alt="">
+												<?php } ?>	
+												<div class="overlay">
+													<!-- <h3 class="text">Dauphin Street</h3> -->
+													<h3 class="text"><?php echo $testim->post_title; ?></h3>
+												</div>
+											</div>
+										</a>
+									</div>
+								<?php } ?>
+
+							</div>
+
+						</div>
+						<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+							<div class="row">
+								<?php
+								$testargs1 = get_posts(
+									array(
+										'showposts' => -1,
+										'post_type' => 'project',
+										'tax_query' => array(
+											array(
+												'taxonomy' => 'project_type',
+												'field' => 'slug',
+												'terms' => 'in-progress'
+											)
+										),
+										'orderby' => 'title',
+										'order' => 'DESC'
+									)
+								);
+								foreach ($testargs1 as $testim1) {
+									$image_test = wp_get_attachment_image_src(get_post_thumbnail_id($testim1->ID), 'full');
+								?>
+									<!-- Dynamic -->
+									<div class="col-md-6">
+										<a href="<?php echo get_the_permalink($testim1->ID); ?>">
+											<div class="overlay-wrap">
+												<?php if(!empty($image_test)){?>
+													<img src="<?php echo $image_test[0]; ?>" width="100%" class="image" alt="">
+												<?php } ?>		
+												<div class="overlay">
+													<!-- <h3 class="text">Dauphin Street</h3> -->
+													<h3 class="text"><?php echo $testim1->post_title; ?></h3>
+												</div>
+											</div>
+										</a>
+									</div>
+								<?php } ?>
+
+							</div>
+
+						</div>
+						<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+							<div class="row">
+								<?php
+								$testargs2 = get_posts(
+									array(
+										'showposts' => -1,
+										'post_type' => 'project',
+										'tax_query' => array(
+											array(
+												'taxonomy' => 'project_type',
+												'field' => 'slug',
+												'terms' => 'completed'
+											)
+										),
+										'orderby' => 'title',
+										'order' => 'DESC'
+									)
+								);
+								//echo '<pre>'; print_r($testims);
+								foreach ($testargs2 as $testim2) {
+									$image_test = wp_get_attachment_image_src(get_post_thumbnail_id($testim2->ID), 'full');
+								?>
+									<!-- Dynamic -->
+									<div class="col-md-6">
+										<a href="<?php echo get_the_permalink($testim2->ID); ?>">
+											<div class="overlay-wrap">
+												<?php if(!empty($image_test)){?>
+													<img src="<?php echo $image_test[0]; ?>" width="100%" class="image" alt="">
+												<?php } ?>
+												<div class="overlay">
+													<!-- <h3 class="text">Dauphin Street</h3> -->
+													<h3 class="text"><?php echo $testim2->post_title; ?></h3>
+												</div>
+											</div>
+										</a>
+									</div>
+								<?php } ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+<?php get_sidebar('commonsections'); ?>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery('#show_map').click(function() {
+			jQuery('.google-map-section').toggle();
+		});
+	});
+</script>
+<?php get_footer(); ?>
+*****End************** 
+
+Template page about 
+******Start********
+<?php /*Template Name: Layout: About*/ ?>
+<?php get_header('inner');
+?>
+<main>
+	<section class="our-story-area common-padding">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="text-center">
+						<span class="sub-text"><?php echo get_field('animated_text_one'); ?></span>
+						<h2><?php echo get_field('about_page_heading'); ?></h2>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="our-story-desc">
+						<?php the_content(); ?>
+					</div>
+				</div>
+				<?php get_sidebar('progressbar'); ?>
+			</div>
+		</div>
+	</section>
+<?php get_sidebar('commonsections'); ?>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery('#show_map').click(function() {
+			jQuery('.google-map-section').toggle();
+		});
+	});
+</script>
+<?php get_footer(); ?> 
+******End**********  
+
+Template page Contact 
+*********Start*********
+<?php /*Template Name: Layout: About*/ ?>
+<?php get_header('inner');
+?>
+<main>
+	<section class="our-story-area common-padding">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="text-center">
+						<span class="sub-text"><?php echo get_field('animated_text_one'); ?></span>
+						<h2><?php echo get_field('about_page_heading'); ?></h2>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="our-story-desc">
+						<?php the_content(); ?>
+					</div>
+				</div>
+				<?php get_sidebar('progressbar'); ?>
+			</div>
+		</div>
+	</section>
+<?php get_sidebar('commonsections'); ?>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery('#show_map').click(function() {
+			jQuery('.google-map-section').toggle();
+		});
+	});
+</script>
+<?php get_footer(); ?>
+********End*************  
+
+Template sitemap
+********Start********
+<?php /*Template Name: Layout: Sitemap*/ ?>
+<?php get_header('inner');
+?>
+<main>
+	<section class="site-map-wrap common-padding">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-left">
+					<h2>Pages</h2>
+					<ul>
+					<?php
+					wp_list_pages( array( 
+					  'exclude' => '1',
+					  'title_li' => '',
+					) ); ?>
+					</ul>
+
+					<h2>Posts</h2>
+					<?php 
+					$cats = get_categories('exclude=');
+					foreach ($cats as $cat) {
+					  echo '<h4>' . $cat->cat_name . '</h4>';
+					  echo '<ul>';
+					  query_posts('posts_per_page=-1&cat=' . $cat->cat_ID);
+					  while(have_posts()) {
+					    the_post();
+					    $category = get_the_category();
+					    if ($category[0]->cat_ID == $cat->cat_ID) {
+					      echo '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>'; 
+					    }
+					  }
+					  echo '</ul>';
+					} ?>
+				<?php
+					foreach( get_post_types( array('public' => true) ) as $post_type ) {
+					  if ( in_array( $post_type, array('post','page','attachment') ) ) {
+					    continue;
+					  }
+					  
+					  $pt = get_post_type_object( $post_type );
+
+					  echo '<h2>' . $pt->labels->name . '</h2>';
+					  echo '<ul>';
+					  query_posts('post_type=' . $post_type . '&posts_per_page=-1');
+					  while( have_posts() ) {
+					    the_post();
+					    echo '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
+					  }
+					  echo '</ul>';
+					}
+?>
+				</div>
+			</div>
+		</div>
+	</section>					
+</main>	
+<?php get_footer(); ?>
+********End**********
+Single page of post types are not done yet 
+sigle-services.php*****start******
+<?php get_header('inner');
+if (have_posts()) : while (have_posts()) : the_post();
+?>
+<main>
+<section class="service-details">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="text-center service-texts">
+					<h3><?php the_title(); ?></h3>
+					<?php the_content(); ?>
+				</div>
+			</div>
+			<div class="col-lg-12 text-center">
+				<?php
+				$prev_post = get_previous_post();
+				if ($prev_post) { ?>
+					<a href="<?php echo get_the_permalink($prev_post->ID) ?>" class="link_a previous"><i class="far fa-arrow-alt-circle-left"></i>Previous</a>
+				<?php
+				}
+				?>
+				<?php
+				$next_post = get_next_post();
+				if ($next_post) { ?>
+					<a href="<?php echo get_the_permalink($next_post->ID) ?>" class="link_a next">Next<i class="far fa-arrow-alt-circle-right"></i></a>
+				<?php
+				}
+				?>
+			</div>
+		</div>
+	</div>
+</section>
+<?php get_sidebar('commonsections'); ?>			
+<?php endwhile; endif; ?>
+<script type="text/javascript">
+	jQuery( document ).ready(function() {
+	    jQuery('#show_map').click(function(){
+	  		jQuery('.google-map-section').toggle();
+		});
+	});
+</script>
+<?php get_footer(); ?>
+******End******* 
+
+single-project.php******start******
+ <?php get_header('inner');
+if (have_posts()) : while (have_posts()) : the_post();
+?>
+		<main>
+			<section class="project-details common-padd-sm ">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="text-center header-inner">
+								<!-- Confuction part -->
+								<h3><?php the_title(); ?></h3>
+								<p><?php the_content(); ?></p>
+								<!-- Confuction part -->
+							</div>
+						</div>
+						<?php
+						if (have_rows('project_infomation')) : while (have_rows('project_infomation')) : the_row();
+						?>
+						<div class="col-lg-4 col-md-6">
+							<div class="project-text">
+								<p><?php echo get_sub_field('project_title') ?></p>
+								<span><?php echo get_sub_field('project_short_text') ?></span>
+							</div>
+						</div>
+						<?php endwhile; endif; ?>
+					</div>
+					<!-- Not showing the data -->
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="gallery-grid">
+								<?php
+								$i = 1;
+								if (have_rows('image_gallery')) : while (have_rows('image_gallery')) : the_row();
+
+								?>
+										<div class="item<?php echo $i; ?>"><img src="<?php echo get_sub_field('project_gallery_image') ?>" alt=""></div>
+								<?php
+										$i++;
+									endwhile;
+								endif; ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+<?php get_sidebar('commonsections'); ?>
+<?php endwhile; endif; ?>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery('#show_map').click(function() {
+			jQuery('.google-map-section').toggle();
+		});
+	});
+</script>
+<?php get_footer(); ?>
+********End************************
+
+*******error404page******start*****
+<?php get_header('inner'); ?>
+<section class="our-story-area common-padding">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="text-center">
+					<h2>Error 404 - Not Found</h2>
+					<h4>This is somewhat embarrassing, isn’t it?</h4>
+					<p>It seems we can’t find what you’re looking for.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<?php get_footer(); ?>
+******End**************** 
+
+***********page.php////start*****
+<?php get_header('inner'); ?>
+<section class="our-story-area common-padding">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="text-center">
+					<h2><?php the_title(); ?></h2>
+					<?php the_content(); ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<?php get_footer(); ?>
+*************End*****************  
+
+****************theme-options****start****
+<?php
+add_action('init','weaversweb_ftn_options');
+if(!function_exists('weaversweb_ftn_options')){
+	function weaversweb_ftn_options(){
+		// If using image radio buttons,define a directory path
+		$imagepath = get_stylesheet_directory_uri().'/images/'; 
+		$options = array(
+		/* ---------------------------------------------------------------------------- */
+		/* Header Setting */
+		/* ---------------------------------------------------------------------------- */
+		array("name" => "Header Section",
+			  "type" => "heading"),
+		array("name" => "Choose Site Logo ( Header )",
+			  "desc" => "Choose Site Logo ( Header )",
+			  "id"   => "onword_capital_header_logo",
+			  "std"  => "",
+			  "type" => "upload"),
+		array("name" => "Choose Site Logo ( Inner Pages )",
+			  "desc" => "Choose Site Logo ( Inner Pages )",
+			  "id"   => "onword_capital_innner_page_header_logo",
+			  "std"  => "",
+			  "type" => "upload"),
+		/* ---------------------------------------------------------------------------- */
+		/* Footer Setting */
+		/* ---------------------------------------------------------------------------- */
+		array("name" => "Footer Section",
+			  "type" => "heading"),
+		array("name" => "Choose Site Logo ( Footer )",
+			  "desc" => "Choose Site Logo ( Footer )",
+			  "id"   => "onword_capital_footer_logo",
+			  "std"  => "",
+			  "type" => "upload"),
+		array("name" => "Bottom Copyright",
+			  "desc" => "Enter Copyright Text Content",
+			  "id"   => "onword_capital_footer_copyright",
+			  "std"  => "",
+			  "type" => "textarea"),
+		array("name" => "Site Title",
+			  "desc" => "Enter Site Title",
+			  "id"   => "onword_capital_footer_site_title",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Address",
+			  "desc" => "Enter Address",
+			  "id"   => "onword_capital_footer_address",
+			  "std"  => "",
+			  "type" => "textarea"),
+		array("name" => "Phone",
+			  "desc" => "Enter Phone",
+			  "id"   => "onword_capital_footer_phone",
+			  "std"  => "",
+			  "type" => "textarea"),
+		/* ---------------------------------------------------------------------------- */
+		/* Social Section */
+	    /* ---------------------------------------------------------------------------- */
+		array("name" => "Social Section",
+			  "type" => "heading"),
+		array("name" => "facebook link",
+			  "desc" => "Enter link url.",
+			  "id"   => "footer_facebook_link",
+			  "std"  => "",
+			  "type" => "textarea"),
+		array("name" => "instragram link",
+			  "desc" => "Enter link url.",
+			  "id"   => "footer_instragram_link",
+			  "std"  => "",
+			  "type" => "textarea"),
+		array("name" => "twitter link",
+			  "desc" => "Enter link url.",
+			  "id"   => "footer_twitter_link",
+			  "std"  => "",
+			  "type" => "textarea"),
+		array("name" => "yelp link",
+			  "desc" => "Enter link url.",
+			  "id"   => "footer_yelp_link",
+			  "std"  => "",
+			  "type" => "textarea"),
+		/* ---------------------------------------------------------------------------- */
+		/* Progress Bar Section */
+	    /* ---------------------------------------------------------------------------- */
+		array("name" => "Progress Bar Section",
+			  "type" => "heading"),
+		array("name" => "Development Title",
+			  "desc" => "Enter Development Title",
+			  "id"   => "oc_progress_development_title",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Development Progress Percentage",
+			  "desc" => "Enter Development Progress Percentage",
+			  "id"   => "oc_progress_development_percentage",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Investment Title",
+			  "desc" => "Enter Investment Title",
+			  "id"   => "oc_progress_investment_title",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Investment Progress Percentage",
+			  "desc" => "Enter Investment Progress Percentage",
+			  "id"   => "oc_progress_investment_percentage",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Design Consulting Title",
+			  "desc" => "Enter Design Consulting Title",
+			  "id"   => "oc_progress_design_consulting_title",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Design Consulting Progress Percentage",
+			  "desc" => "Enter Design Consulting Progress Percentage",
+			  "id"   => "oc_progress_design_consulting_percentage",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Construction Title",
+			  "desc" => "Enter Construction Title",
+			  "id"   => "oc_progress_construction_title",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Construction Progress Percentage",
+			  "desc" => "Enter Construction Progress Percentage",
+			  "id"   => "oc_progress_construction_percentage",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Brokerage Title",
+			  "desc" => "Enter Brokerage Title",
+			  "id"   => "oc_progress_brokerage_title",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Brokerage Progress Percentage",
+			  "desc" => "Enter Brokerage Progress Percentage",
+			  "id"   => "oc_progress_brokerage_percentage",
+			  "std"  => "",
+			  "type" => "text"),
+		/* ---------------------------------------------------------------------------- */
+		/* Common Counter Section */
+	    /* ---------------------------------------------------------------------------- */
+		array("name" => "Counter Section",
+		"type" => "heading"),
+		array("name" => "SQ Feet Developed Title",
+			  "desc" => "Enter Feet Developed Title",
+			  "id"   => "sq_feed_devloped",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Total SQ Feet Developed",
+			  "desc" => "Enter Total SQ Feet Developed",
+			  "id"   => "sq_feed_value",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Experience Title",
+			  "desc" => "Enter Experience Title",
+			  "id"   => "year_of_experience",
+			  "std"  => "",
+			  "type" => "text"),
+	   array("name" => "Total Experience",
+			  "desc" => "Total Experience",
+			  "id"   => "year_of_experience_value",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Sales Title",
+			  "desc" => "Enter Sales Title",
+			  "id"   => "dollar_in_sales",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Total Sales",
+			  "desc" => "Enter Total Sales",
+			  "id"   => "dollar_in_sales_value",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Projects Title",
+			  "desc" => "Enter Projects Title",
+			  "id"   => "project_text",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Total Projects",
+			  "desc" => "Enter Total Projects",
+			  "id"   => "project_value",
+			  "std"  => "",
+			  "type" => "text"),
+		/* ---------------------------------------------------------------------------- */
+		/* Have Project Section */
+	    /* ---------------------------------------------------------------------------- */
+		array("name" => "Project Section",
+		"type" => "heading"),
+		array("name" => "Project Button Text",
+			  "desc" => "Enter Project Button Text",
+			  "id"   => "have_a_project_inmind_text",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Project Button Link",
+			  "desc" => "Enter Project Button Link",
+			  "id"   => "have_a_project_inmind_link",
+			  "std"  => "",
+			  "type" => "textarea"),
+		
+		/* ---------------------------------------------------------------------------- */
+		/* Contact Page Setting */
+		/* ---------------------------------------------------------------------------- */
+		array("name" => "Contact Section",
+			  "type" => "heading"),
+		array("name" => "Contact Title",
+			  "desc" => "Enter Contact Title",
+			  "id"   => "say_hallo_text",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Contact Sub Title",
+			  "desc" => "Enter Contact Sub Title",
+			  "id"   => "contact_us_text",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Contact Phone",
+			  "desc" => "Enter Contact Phone",
+			  "id"   => "phone_number_text",
+			  "std"  => "",
+			  "type" => "textarea"),
+		array("name" => "Contact Address",
+			  "desc" => "Enter Contact Address",
+			  "id"   => "address",
+			  "std"  => "",
+			  "type" => "textarea"),
+		array("name" => "Contact Email",
+			  "desc" => "Enter Contact Email",
+			  "id"   => "email",
+			  "std"  => "",
+			  "type" => "textarea"),
+		 /* ---------------------------------------------------------------------------- */
+		/* Location Map Section */
+	    /* ---------------------------------------------------------------------------- */
+		array("name" => "Map Section",
+			  "type" => "heading"),
+		array("name" => "Location Map Text",
+			  "desc" => "Enter Location Map Text",
+			  "id"   => "oc_location_map_text",
+			  "std"  => "",
+			  "type" => "text"),
+		array("name" => "Location Map Iframe",
+			  "desc" => "Enter Location Map Iframe",
+			  "id"   => "oc_location_map_iframe",
+			  "std"  => "",
+			  "type" => "textarea"),
+		/* ---------------------------------------------------------------------------- */
+			);		
+		weaversweb_ftn_update_option('of_template',$options);
+		}
+	}
+?> 
+***********end*****************************   
+
+Project Name: CaliberLaw
+PHP Version (available versions are 7.3, 7.4, 8.0): 7.4
+Project Type (Web App / Mobile App Backend): Web App
+Project Framework (WordPress / Laravel / NodeJS / Magento): WordPress
+Site URL (Optional):
+Basecamp URL: https://3.basecamp.com/3468572/projects/26265915
+Project Manager: Shanu Dey  
+
+phone number link process footer section 
+C: <a href="tel: 310-870-1931">310-870-1931</a>  
+
+Phone number
+Phone: <a href=" tel: (310) 870 1931">(310) 870 1931</a> 
+
+email link 
+<a href="mailto:office@onwardcapitalre.com">office@onwardcapitalre.com</a> 
+
+ 
+All html links Caliber law : 
+
+https://html.weavers-web.com/Caliber-Law/index.html
+https://html.weavers-web.com/Caliber-Law/about-us.html
+https://html.weavers-web.com/Caliber-Law/services.html
+https://html.weavers-web.com/Caliber-Law/blogs.html
+https://html.weavers-web.com/Caliber-Law/single-blog.html
+https://html.weavers-web.com/Caliber-Law/contact-us.html    
+
+
+//menu of caliber law 
+<ul>
+              <li><a class="current-menu-item" href="index.html">Home</a></li>
+              <li><a href="about-us.html">About us</a></li>
+              <li class="dropdown"><a href="services.html">Services</a>
+                <ul class="dropdown-content">
+                  <li><a href="#">Immigration</a></li>
+                  <li><a href="#">Real Estate</a></li>
+                  <li><a href="#">Wills & Estates</a></li>
+                </ul>
+              </li>
+              <li><a href="blogs.html">Blog</a></li>
+              <li><a href="contact-us.html">Contact us</a></li>  
+            </ul>
+//menu of caliber law  
+
+
+caliber law reference site:www.nihanglaw.ca  
+
+date format in blog page  <?php echo get_post_time('d-m-Y'); ?>
+date format in home page <?php echo date('d M Y',strtotime($mypost->post_date)); ?>
+To in contact form: [_site_admin_email] contact form to section 
+front page image url -$image = wp_get_attachment_image_src( get_post_thumbnail_id( $mypost->ID ), 'full' );
+single page date of post in php - <?php echo get_post_time('d-m-Y'); ?>  
+
+code of filter  
+
+<div class="row blog-section mt-5">
+           <?php 
+              $paged = (get_query_var('paged')) ? get_query_var('paged') : 1; 
+               $args = array(
+                 'post_type' => 'post',
+                 'paged' => $paged ,
+                 'order' => 'ASC',
+                 'post_per_page' => 3,
+                 'meta_query' => array(
+                         array(
+                           'key' => 'category',
+                           'value' => $category
+                         )
+                 )
+               );
+               $query = new WP_Query($args);
+               while($query -> have_posts()) : $query -> the_post(); 
+               
+           ?> 
+            <div class="col-lg-4">
+              <div class="card"> 
+                <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); 
+                	if ( has_post_thumbnail() ) {?>
+                <img src="<?php echo $image[0]; ?>" class="card-img-top" alt="..."> 
+                <?php
+                	}
+                  ?>
+                <div class="card-body">
+                  <span><a href=""><i class="far fa-clock"></i> <?php echo get_the_date(); ?></a></span>
+                  <h5 class="card-title"><?php echo get_the_title(); ?></h5> 
+                  <?php   $in=get_the_content();
+                           $out = strlen($in) > 10 ? substr($in,0,230)."..." : $in;
+                             ?>
+                  <!-- <p class="card-text"><?php echo $out; ?></p> -->
+                  <p class="card-text"><?php echo get_the_excerpt( $post->ID ); ?></p>
+                  <a href="<?php echo get_permalink(); ?>">Read More</a>
+                </div>
+              </div>
+            </div>  
+            <?php endwhile; ?>  
+            <div class="blog-pagination">
+              <nav aria-label="Page navigation example">
+                  <!-- Dynamic pagination --> 
+                  <?php
+                if ( ! function_exists( 'post_pagination' ) ) :
+                   function post_pagination() {
+                     global $wp_query;
+                     $pager = 999999999; // need an unlikely integer
+                 
+                        echo paginate_links( array(
+                             'base' => str_replace( $pager, '%#%', esc_url( get_pagenum_link( $pager ) ) ),
+                             'format' => '?paged=%#%',
+                             'current' => max( 1, get_query_var('paged') ),
+                             'total' => $wp_query->max_num_pages
+                        ) );
+                   }
+                endif;
+                ?> 
+                  <!-- Dynamic pagination -->
+                <ul class="pagination">
+                     <?php post_pagination(); ?>
+                </ul>
+              </nav>
+            </div>
+
+
+          </div>  
+		  
+		  end  
+		  
+		  
+		  Dynamic code 
+		  
+		  
+		  
+		  <div class="container">
+          <div class="row blog-container-box">
+              <span>Filter by</span>
+              <?php 
+                  $args = array(
+                    'hide_empty'      => false,
+                );
+                $target=get_categories($args); //This returns both used and unused categories
+                // echo count($target);
+                //  print_r($target);
+                // echo count($target);
+              ?>
+          
+              <!-- <div class="col-lg-4 col-md-4">
+                <select class="form-select" name="category" aria-label="Default select example">
+                  <option selected disabled>Categories</option> 
+                  <?php foreach($target as $tar) { ?>
+                  <option value="<?php echo $tar['slug']; ?>"><?php echo $tar['name'];?></option>
+                  
+                  <?php } ?>
+                </select>
+              </div> -->
+              <div class="col-lg-4 col-md-4">
+                <select class="form-select" name="tags" aria-label="Default select example">
+                  <option selected disabled>Tags</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+              <div class="col-lg-4 col-md-4">
+                <select class="form-select" name="authors" aria-label="Default select example">
+                  <option selected disabled>Authors</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+              
+
+      </div>  
+	  option link
+	   <option value="<?php echo $tar->slug; ?>"><?php echo $tar->name;?></option> 
+
+
+   <?php $categories = get_categories( array(
+    'orderby' => 'name',
+    'order'   => 'ASC'
+     ) );?>	   
+	   
+	   
+	   
+	   <select id="cat_filter" name="cat_filter" onchange="get_data(this.value);" >
+                  <option value="">Select Category</option>
+                  <?php 
+                  if(!empty($categories)){
+                        foreach($categories as $category){
+                          ?>
+                    <option value="<?php echo get_category_link( $category->term_id ) ?>" <?php if(is_category( $category->slug ) ) {echo 'selected'; }?>><?php echo $category->name; ?></option>
+                  <?php } } ?>
+                </select>  
+				
+				selected disabled 
+	page.php data 
+	<?php get_header(); ?>
+
+<?php if(have_posts()): while(have_posts()): the_post(); ?>  
+<h1><?php the_title(); ?></h1>
+<?php the_content(); ?>
+<?php endwhile; else: ?>
+<h1><?php _e('Not Found')?></h1>
+<p><?php _e('Sorry,no posts matched your criteria.'); ?></p>
+<?php endif; ?>
+
+<?php get_footer(); ?>  
+
+Single service page section if else  
+<section class="service-accordion common-padd-two">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-1 side-wrap">
+            <div class="accordion-container">
+              <img src="<?php echo get_field('accordion_side_image'); ?>" alt="">
+            </div>
+          </div>
+          <div class="col-lg-11">
+            <div class="row service-inner-box">
+              <!-- Dynamic accordian -->
+
+              <?php 
+              $i=1;
+							 	if( have_rows('accordion_details') ){ while (have_rows('accordion_details')) { the_row(); 
+										$serial_no = get_sub_field('serial_no');
+										$heading = get_sub_field('heading');
+										$description = get_sub_field('description');
+										
+								?> 
+              <!-- Dynamic accordian -->
+              <?php if($i==1) {?>
+              <div class="col-lg-1 col-md-1">
+                <div class="service-number">
+                  <p><?php echo $serial_no; ?></p>
+                </div>
+              </div>
+              <div class="col-lg-11 col-md-11">
+                <div class="service-box">
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="heading<?php echo $i;?>">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $i;?>" aria-expanded="true" aria-controls="collapse<?php echo $i;?>">
+                        <?php echo $heading; ?>
+                        </button>
+                      </h2>
+                      <div id="collapse<?php echo $i;?>" class="accordion-collapse collapse show" aria-labelledby="heading<?php echo $i;?>" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        <?php echo $description; ?> 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+              <?php } else {?> 
+                 
+                 <div class="col-lg-1 col-md-1">
+                <div class="service-number">
+                  <p><?php echo $serial_no; ?></p>
+                </div>
+              </div>
+              <div class="col-lg-11 col-md-11">
+                <div class="service-box">
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="heading<?php echo $i;?>">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $i;?>" aria-expanded="false" aria-controls="collapse<?php echo $i;?>">
+                        <?php echo $heading; ?>
+                        </button>
+                      </h2>
+                      <div id="collapse<?php echo $i;?>" class="accordion-collapse collapse" aria-labelledby="heading<?php echo $i;?>" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        <?php echo $description; ?> 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                 <!-- Else part -->
+                <?php } ?> 
+              <?php $i++; ?> 
+              <?php } } ?>
+              <!-- <div class="col-lg-1 col-md-1">
+                <div class="service-number">
+                  <p>02</p>
+                </div>
+              </div> -->
+              <!-- <div class="col-lg-11 col-md-11">
+                <div class="service-box">
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                          Quebec-Selected Skilled Workers Program
+                        </button>
+                      </h2>
+                      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quo dignissimos facilis nisi obcaecati quidem odit asperiores ducimus dolorum adipisci?</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="col-lg-1 col-md-1">
+                <div class="service-number">
+                  <p>03</p>
+                </div>
+              </div> -->
+              <!-- <div class="col-lg-11 col-md-11">
+                <div class="service-box">
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="heading4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                          Family Class
+                        </button>
+                      </h2>
+                      <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quo dignissimos facilis nisi obcaecati quidem odit asperiores ducimus dolorum adipisci?</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="col-lg-1 col-md-1">
+                <div class="service-number">
+                  <p>04</p>
+                </div>
+              </div> -->
+              <!-- <div class="col-lg-11 col-md-11">
+                <div class="service-box">
+                  <div class="accordion" id="accordionExample1">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="heading5">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                          Student Visas
+                        </button>
+                      </h2>
+                      <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#accordionExample1">
+                        <div class="accordion-body">
+                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quo dignissimos facilis nisi obcaecati quidem odit asperiores ducimus dolorum adipisci?</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="col-lg-1 col-md-1">
+                <div class="service-number">
+                  <p>05</p>
+                </div>
+              </div> -->
+              <!-- <div class="col-lg-11 col-md-11">
+                <div class="service-box">
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="heading6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                          Federal Skilled Worker Class
+                        </button>
+                      </h2>
+                      <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6" data-bs-parent="#accordionExample1">
+                        <div class="accordion-body">
+                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quo dignissimos facilis nisi obcaecati quidem odit asperiores ducimus dolorum adipisci?</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="col-lg-1 col-md-1">
+                <div class="service-number">
+                  <p>06</p>
+                </div>
+              </div> -->
+              <!-- <div class="col-lg-11 col-md-11">
+                <div class="service-box">
+                  <div class="accordion" id="accordionExample1">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="heading7">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                          Express Entry
+                        </button>
+                      </h2>
+                      <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quo dignissimos facilis nisi obcaecati quidem odit asperiores ducimus dolorum adipisci?</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="col-lg-1 col-md-1">
+                <div class="service-number">
+                  <p>07</p>
+                </div>
+              </div> -->
+              <!-- <div class="col-lg-11 col-md-11">
+                <div class="service-box">
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="heading8">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                          Federal Skilled Trades Class
+                        </button>
+                      </h2>
+                      <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading8" data-bs-parent="#accordionExample1">
+                        <div class="accordion-body">
+                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quo dignissimos facilis nisi obcaecati quidem odit asperiores ducimus dolorum adipisci?</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="col-lg-1 col-md-1">
+                <div class="service-number">
+                  <p>08</p>
+                </div>
+              </div> -->
+              <!-- <div class="col-lg-11 col-md-11">
+                <div class="service-box">
+                  <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="heading9">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
+                          Provincial Entrepreneur and Investor Immigration Programs
+                        </button>
+                      </h2>
+                      <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading9" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quo dignissimos facilis nisi obcaecati quidem odit asperiores ducimus dolorum adipisci?</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+End
+*******Important file  for service page****   
+Calier law single-services backup file**************start*********
+<?php get_header(); ?>
+ <?php if (have_posts()) : while (have_posts()) : the_post();?>
+
+ <!--banner sction-->
+ <section class="slider-wrapper">
+    <img src="<?php echo get_field('inner_banner_image'); ?>" alt="banner">
+    <div class="container">
+      <div class="inner-content-wrapper text-center text-white">
+        <h1><?php echo get_field('inner_banner_heading'); ?></h1>
+      </div>
+    </div>
+  </section>
+  <!--banner sction-->
+
+  <!--content sction-->
+  <main>
+    <section class="immigration-section common-padd-two">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="immigration-content-image">
+              <!-- <img src="<?php echo get_template_directory_uri(); ?>/images/Mask Group 75.jpg" alt="">  -->
+              <?php
+            if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
+             the_post_thumbnail( 'full' );
+            }
+           ?>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="immigration-content">
+              <h1><?php the_title(); ?></h1>
+               <?php the_content(); ?>
+              <div class="btn"><a href="<?php echo get_field('assessment_button_link'); ?>"><?php echo get_field('assessment_button_text'); ?></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="service-accordion common-padd-two">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-1 side-wrap">
+            <div class="accordion-container">
+              <img src="<?php echo get_field('accordion_side_image'); ?>" alt="">
+            </div>
+          </div>
+          <div class="col-lg-11">
+            <div class="row service-inner-box">
+                <div class="accordion" id="accordionExample">
+                <?php 
+                  $j=0;
+                  if( have_rows('accordion_details') ){ while (have_rows('accordion_details')) { the_row(); 
+                  $j++;
+                  ?>
+                  <div class="col-lg-1 col-md-1">
+                    <div class="service-number"> 
+                      <?php if($j<10) {?>
+                      <p>0<?php echo $j; ?></p>
+                      <?php } else {?> 
+                        <p><?php echo $j; ?></p> 
+                        <?php }?>
+                    </div>
+                  </div>
+                  <?php } } ?>  
+                  <?php 
+                    $i=0;
+                    if( have_rows('accordion_details') ){ while (have_rows('accordion_details')) { the_row(); 
+                        $heading = get_sub_field('heading');
+                        $description = get_sub_field('description');
+                        $i++;
+                        if($i == 1){
+                          $show = 'show';
+                          $collapsed = '';
+                        }else{
+                          $show = '';
+                          $collapsed = 'collapsed';
+                        }
+                    ?> 
+                    <div class="col-lg-11 col-md-11"> 
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading<?php echo $i; ?>">
+                          <button class="accordion-button <?php echo $collapsed; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $i; ?>" aria-expanded="true" aria-controls="collapse<?php echo $i; ?>">
+                            <?php echo $heading; ?>
+                          </button>
+                        </h2>
+                        <div id="collapse<?php echo $i; ?>" class="accordion-collapse collapse <?php echo $show; ?>" aria-labelledby="heading<?php echo $i; ?>" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            <?php echo $description; ?>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
+                  <?php } } ?>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+ <?php endwhile; endif; ?>
+<?php get_footer(); ?>
+*******************************End********************************  
+
+
+
+last accordion code ******start******
+<div class="row service-inner-box">
+              <!-- Testing -->
+              <?php 
+                  $j=0;
+                  if( have_rows('accordion_details') ){ while (have_rows('accordion_details')) { the_row(); 
+                    $heading = get_sub_field('heading');
+                    $description = get_sub_field('description');
+                  $j++;
+                  ?>
+              <!-- Testing --> 
+              <!-- <?php if()?> -->
+              <div class="col-lg-1 col-md-1">
+                <div class="service-number">
+                  <p>0<?php echo $j;?></p>
+                </div>
+              </div>
+              <div class="col-lg-11 col-md-11">
+                <div class="service-box">
+                  <button class="accordion" id="first_accor"><?php echo $heading; ?></button>
+                  <div class="accordion-content">
+                    <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                      the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
+                      type and scrambled it to make a type specimen book.</p>
+                    <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                      passages, and more recently with desktop publishing software like Aldus PageMaker including
+                      versions of Lorem Ipsum.</p>
+                      <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                        passages, and more recently with desktop publishing software like Aldus PageMaker including
+                        versions of Lorem Ipsum.</p>
+                    <ul>
+                      <li>Skilled workers</li>
+                      <li>Semi-skilled workers</li>
+                      <li>Business/investors</li>
+                      <li>International student graduates</li>
+                      <li>Family/community connections.</li>
+                    </ul> --> 
+                    <?php echo $description; ?>
+                  </div>
+                </div>
+              </div>
+              <?php } } ?> 
+last accordian end ******************
+Project Name: Vancouver Welding
+PHP Version (available versions are 7.3, 7.4, 8.0): 7.4
+Project Type (Web App / Mobile App Backend): Web App
+Project Framework (WordPress / Laravel / NodeJS / Magento): WordPress
+Site URL (Optional):
+Basecamp URL: https://3.basecamp.com/3468572/projects/26377334
+Project Manager: Shanu Dey  
+unzip.php file 
+Start
+<?php
+ini_set('max_execution_time', 300); //300 seconds = 5 minutes
+if(system("unzip wordpress-5.3.2.zip") !== false){
+	echo '<h2 style="color:#0C3;">Unzip Successful!</h2>';
+	}else{
+	echo '<h2 style="color:#F00;">Error Try Agian!</h2>';
+	}
+?> 
+
+End 
+
+
+
+new version v2:vancuver Welding version 2 
+
+Database Name: db_db_vancouver2
+UserName: usr_usr_vancouver2
+Password: l>ts5oZVSm!Plb=0NN 
+
+site_url-https://vancouver.weavers-web.com/V2/ 
+dashboard_url-https://vancouver.weavers-web.com/V2/wp-admin/
+ Backend access:
+ Title:Vancouver Welding
+ username:VW@project@1
+ password:i5ag4Oxclj20^#^Vqg  
+ 
+ ftp : 
+ 
+SSH | SFTP:-
+Host: ip-128-199-28-33.server.weavers-web.com
+User: vancouver
+Pass: z2N+(0/l6NC,hR^QJu
+Port: 2021
+Path: /home/vancouver/public_html/V2  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hello
+New database has been created, Details are below.
+
+Database Name: db_db_vancouver2
+UserName: usr_usr_vancouver2
+Password: l>ts5oZVSm!Plb=0NN 
+
+ Backend access:
+ Title:Vancouver Welding
+ username:VW@project@1
+ password:i5ag4Oxclj20^#^Vqg  
+ 
+ 
+ 
+ functions.php actual file structure 
+ 
+ **************start*********
+<?php
+/*****************************************
+* Weaver's Web Functions & Definitions *
+*****************************************/
+$functions_path = get_template_directory().'/functions/';
+$post_type_path = get_template_directory().'/inc/post-types/';
+$post_meta_path = get_template_directory().'/inc/post-metabox/';
+$theme_function_path = get_template_directory().'/inc/theme-functions/';
+/*--------------------------------------*/
+/* Multipost Thumbnail Functions
+/*--------------------------------------*/
+require_once($functions_path.'multipost-thumbnail/multi-post-thumbnails.php');
+if(class_exists('MultiPostThumbnails')){
+	$types = array('page');
+	foreach($types as $type){
+		new MultiPostThumbnails(array(
+			'label' => 'Top Banner Image',
+			'id' => 'top-banner-image',
+			'post_type' => $type
+			));
+		}		
+	}
+add_image_size('top-banner-size-image', 1920, 700,true);
+/*--------------------------------------*/
+/* Optional Panel Helper Functions
+/*--------------------------------------*/
+require_once($functions_path.'admin-functions.php');
+require_once($functions_path.'admin-interface.php');
+require_once($functions_path.'theme-options.php');
+function weaversweb_ftn_wp_enqueue_scripts(){
+    if(!is_admin()){
+        wp_enqueue_script('jquery');
+        if(is_singular()and get_site_option('thread_comments')){
+            wp_print_scripts('comment-reply');
+			}
+		}
+	}
+add_action('wp_enqueue_scripts','weaversweb_ftn_wp_enqueue_scripts');
+function weaversweb_ftn_get_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    if(isset($options[$name]))
+        return $options[$name];
+	}
+function weaversweb_ftn_update_option($name, $value){
+    $options = get_option('weaversweb_ftn_options');
+    $options[$name] = $value;
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function weaversweb_ftn_delete_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    unset($options[$name]);
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function get_theme_value($field){
+	$field1 = weaversweb_ftn_get_option($field);
+	if(!empty($field1)){
+		$field_val = $field1;
+		}
+	return	$field_val;
+	}
+/*--------------------------------------*/
+/* Post Type Helper Functions
+/*--------------------------------------*/
+require_once($post_type_path.'clients.php');
+require_once($post_type_path.'jobs.php');
+require_once($post_type_path.'services.php');
+require_once($post_type_path.'team_member.php');
+require_once($post_type_path.'testimonials.php');
+/*--------------------------------------*/
+/* Post Meta Helper Functions
+/*--------------------------------------*/
+require_once($post_meta_path.'casestudy-metabox.php');
+/*--------------------------------------*/
+/* Theme Functions
+/*--------------------------------------*/
+require_once($theme_function_path.'extra-functions.php');
+/*--------------------------------------*/
+/* Theme Helper Functions
+/*--------------------------------------*/
+if(!function_exists('weaversweb_theme_setup')):
+	function weaversweb_theme_setup(){
+		add_theme_support('title-tag');
+		add_theme_support('post-thumbnails');
+		register_nav_menus(array(
+			'primary' => __('Primary Menu','weaversweb'),
+			'secondary'  => __('Secondary Menu','weaversweb'),
+			));
+		add_theme_support('html5',array('search-form','comment-form','comment-list','gallery','caption'));
+		}
+	endif;
+add_action('after_setup_theme','weaversweb_theme_setup');
+function weaversweb_widgets_init(){
+	register_sidebar(array(
+		'name'          => __('Widget Area','weaversweb'),
+		'id'            => 'sidebar-1',
+		'description'   => __('Add widgets here to appear in your sidebar.','weaversweb'),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+		));
+	}
+add_action('widgets_init','weaversweb_widgets_init');
+function weaversweb_scripts(){
+
+	wp_enqueue_style('vw-main-bootstrap',get_template_directory_uri().'/css/bootstrap.min.css',array());
+	wp_enqueue_style('vw-main-font-awesome',get_template_directory_uri().'/css/font-awesome-all.min.css',array());
+	wp_enqueue_style('vw-main-owl-carousel',get_template_directory_uri().'/css/owl.carousel.min.css',array());
+	wp_enqueue_style('vw-main-owl-theme',get_template_directory_uri().'/css/owl.theme.default.min.css',array());
+	wp_enqueue_style('vw-main-slick',get_template_directory_uri().'/css/slick.css',array());
+	wp_enqueue_style('vw-main-slick-theme',get_template_directory_uri().'/css/slick-theme.css',array());
+	wp_enqueue_style('vw-main-animate',get_template_directory_uri().'/css/animate.min.css',array());
+	wp_enqueue_style('vw-main-custom',get_template_directory_uri().'/css/custom.css',array());
+	
+	
+	wp_enqueue_script('vc-script-popper',get_template_directory_uri().'/js/popper.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-bootstrap',get_template_directory_uri().'/js/bootstrap.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-bootstrap-bundle',get_template_directory_uri().'/js/bootstrap.bundle.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-font-awesome',get_template_directory_uri().'/js/font-awesome-all.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-owl-carousel',get_template_directory_uri().'/js/owl.carousel.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-slick',get_template_directory_uri().'/js/slick.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-wow',get_template_directory_uri().'/js/wow.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-custom',get_template_directory_uri().'/js/custom.js',array('jquery'),'',true);
+	}
+add_action('wp_enqueue_scripts','weaversweb_scripts');
+add_filter('comments_template','legacy_comments');
+function legacy_comments($file){
+	if(!function_exists('wp_list_comments'))	$file = TEMPLATEPATH .'/legacy.comments.php';
+	return $file;
+} 
+ *******************end****** 
+ 
+ 
+ 
+ ****************start header******** 
+ <!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+<meta charset="<?php bloginfo('charset'); ?>" >
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="profile" href="http://gmpg.org/xfn/11" /> 
+<?php wp_head(); ?>
+</head>
+<!--/head-->
+<?php if(is_front_page()){
+    $class='home';
+}else{
+    $class='';
+}?>
+<body <?php body_class( $class ); ?>> 
+<header class="main-header">
+    <div class="container-fluid header-row">
+      <div class="logo">
+        <a href=""><img src="<?php echo get_template_directory_uri(); ?>/images/logo.png" alt=""></a>
+      </div>
+      <div class="hdr-rt">
+        <div class="main-menu">
+         <div class="nav_close" onclick="menu_close()">
+            <i class="far fa-times-circle"></i>
+         </div>
+          <ul>
+            <li><a class="current-menu-item" href="index.html">Home</a></li>
+            <li><a href="about-us.html">About us</a></li>
+            <li><a href="our-service.html">Our Service</a></li>
+            <li><a href="why-hire-us.html">Why Hire Us</a></li>
+            <li><a href="contact-us.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="hdr-rt-log-reg desktop">
+          <ul>
+            <li><a href="#"><div class="menu-contct-icon"><i class="fas fa-phone-alt"></i></div>(604) 999-0125</a>
+          </li>
+          </ul>
+        </div>
+        <div onclick="menu_open()" class="nav_btn">
+            <i class="fas fa-bars"></i>
+        </div>
+      </div>
+    </div>
+</header>
+ *****************End ***************  
+ 
+Button text link 
+ <a href="<?php echo get_field('assessment_button_link'); ?>"><?php echo get_field('assessment_button_text'); ?></a> 
+ https://vancouverwelding.ca/ 
+ Vancouver Welding refference site 
+ 
+ 
+ vancouver server credentials
+ Site URL: https://caliberlaw.weavers-web.com
+
+Backend Access:-
+URL: https://caliberlaw.weavers-web.com/wp-login.php
+User: CaliberLaw@developer@280222
+Pass: |EO!?&Wct?F0~GL[
+
+!!! Set up Wordfence security plugin to secure the site !!!
+
+SSH | SFTP:-
+Host: ip-128-199-28-33.server.weavers-web.com
+User: CaliberLaw
+Pass: Ljg{i1r+v%xhT4^FBl
+Port: 2021
+Path: /home/CaliberLaw/public_html
+
+Database:-
+URL: https://ip-128-199-28-33.server.weavers-web.com/dbadminforweaversweb
+Host: localhost
+Name: db_CaliberLaw
+User: usr_CaliberLaw
+Pass: .2b}G4L5F^D9Heesbk
+
+!!! If any credentials did not work then contact your system administrator !!! 
+End  
+
+
+
+
+Vancouver Final credentatials 
+
+Site URL: https://vancouver.weavers-web.com/V2/ 
+
+Backend Access:-
+URL:  https://vancouver.weavers-web.com/V2/wp-admin/
+User: VW@project@1
+Pass: i5ag4Oxclj20^#^Vqg
+
+!!! Set up Wordfence security plugin to secure the site !!!
+
+SSH | SFTP:-
+Host: ip-128-199-28-33.server.weavers-web.com
+User: vancouver
+Pass: z2N+(0/l6NC,hR^QJu
+Port: 2021
+Path: /home/vancouver/public_html/V2
+
+Database:-
+URL: 
+Host: localhost
+Database Name: db_db_vancouver2
+UserName: usr_usr_vancouver2
+Password: l>ts5oZVSm!Plb=0NN 
+
+!!! If any credentials did not work then contact your system administrator !!! 
+
+End 
+
+Real Estate Intake Form  
+
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd0FgBUuZ-GWlLW31TXuqA8_6yFpx308eL0HVqz_DOdmMqCKw/viewform?embedded=true" width="640" height="3980" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe> 
+
+new page open
+https://caliberlaw.weavers-web.com/iframe-form/ 
+
+Caliber law 
+Backend Access:-
+URL: https://caliberlaw.weavers-web.com/wp-login.php
+User: CaliberLaw@developer@280222
+Pass: |EO!?&Wct?F0~GL[ 
+
+SSH | SFTP:-
+Host: ip-128-199-28-33.server.weavers-web.com
+User: CaliberLaw
+Pass: Ljg{i1r+v%xhT4^FBl
+Port: 2021
+Path: /home/CaliberLaw/public_html 
+
+Caliber Law End
+ 
+Yeatching dreams
+Backend Access:-
+URL: https://yachting-dreams.weavers-web.com/wp-login.php
+User: yachting@Developer@24322
+Pass: MMPl[e:KJl^.wlO.
+  
+ 
+ "[your-subject]"  
+ 
+ Previous map iframe in caliber law 
+ 
+ <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3285.6272700855775!2d-58.45805813519666!3d-34.562991512850495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5d3ea07df93%3A0x947b5150d5a5bda4!2sBarrio%20Chino%2C%20Buenos%20Aires%2C%20Argentina!5e0!3m2!1sen!2sin!4v1646027119887!5m2!1sen!2sin" width="100%" height="558" allowfullscreen="" loading="lazy"></iframe> 
+ <?php echo get_theme_value('contact_number_one'); ?>/<?php echo get_theme_value('contact_number_two'); ?> 
+ yachtingdreams  
+ excerpt code for short description for blog 
+ <?php   $in=get_the_excerpt($service->ID);   
+     $out = strlen($in) > 10 ? substr($in, 0, 230) . "..." : $in;
+ ?> 
+ not tested end*********
+ section code 
+ <section class="client-carousel-section" style="background: url(<?php echo get_template_directory_uri(); ?>/images/Rectangle\ 10.jpg);"> 
+yacthing-dreams dynamic pages 
+ 
+https://yachting-dreams.weavers-web.com/ (partially done)
+https://yachting-dreams.weavers-web.com/packages/  
+https://yachting-dreams.weavers-web.com/catering/ 
+https://yachting-dreams.weavers-web.com/add-ons/ 
+https://yachting-dreams.weavers-web.com/contact-us/   
+
+
+
+<?php  for($j=1 ; $j<=5 ; $j++) { if($j<=$rating) 
+                      {?>
+                       <li><i class="fas fa-star"></i></li> 
+                    <?php } else {?> 
+                             <!-- <li><i class="fas fa-star"></i></li>    -->
+                      <?php }?>
+                    <!-- <li><i class="fas fa-star"></i></li>
+                    <li><i class="fas fa-star"></i></li>
+                    <li><i class="fas fa-star"></i></li>
+                    <li><i class="fas fa-star"></i></li> --> 
+                    <?php } ?> 
+					
+	
+
+<?php
+                          $select = get_field('reviews_rating', $testimonial->ID);
+                          $a = 5 - $select;
+                          $j = 1;
+
+                          for ($i = 1; $i <= $select; $i++) {
+                            echo "★";
+                            if ($i == $select) {
+                              for ($j = 1; $j <= $a; $j++) {
+                                echo "☆";
+                              }
+                            }
+                          }
+                          ?>	 
+		
+https://codecanyon.net/tags/whatsapp?term=booking%20system plug in for whatsapp booking. 
+
+https://wordpress.org/plugins/bukza/ booking functionality plug in
+
+kaya qr code generator plugin   
+
+
+form <wordpress@yachting-dreams.weavers-web.com> 
+booking plugin
+https://codecanyon.net/item/booknetic-wordpress-appointment-booking-and-schduling-system/24753467 
+https://wordpress.org/plugins/qr-code-composer/  
+https://elfsight.com/qr-code-widget/wordpress/ plugin new  
+
+
+
+New project Merina perrin 
+dev credentials ********* 
+marinaperrin 
+
+Marina Perrin 
+Backend Access:-
+URL: https://marina-perrin.weavers-web.com/wp-login.php
+User: marinaperrin@Dev@4422
+Pass: 1^X4f}%SCg2h6d)%
+
+!!! Set up Wordfence security plugin to secure the site !!!
+
+Hope live site:https://ojjehk.wixsite.com/hopendure
+
+Hope:
+Backend Access:-
+URL: https://hope.weavers-web.com/wp-login.php
+User: developer@070422
+Pass: u0I^+Gz&r]H|j9>O   
+
+
+Wp-personal Backend Access 
+Backend Access:-
+URL: https://personal.weavers-web.com/wp-login.php
+User: personal@Developer@8422
+Pass: f|c^YkU~LVkl09Oi 
+Wp-personal reference site-https://www.christophermiller.net/  
+[mailpoet_form id="1"]  
+timeformat complexy hr code<?php the_time( 'F j, Y' );?> 
+
+ single-candidates.php
+ https://consultationgrsw.com/candidates/candidate1/
+ single-positions.php
+ https://consultationgrsw.com/positions/position1/
+ 
+special user 
+user:jerome
+password:bu0gSTScclG#yYm1Xy0R3QK)
+
+
+Complexy hr backend access:
+complexy_hr basecamp link:
+https://3.basecamp.com/3468572/projects/24713885
+WORDPRESS:
+https://consultationgrsw.com/wp-admin/
+http://consultationgrsw.com/206%209ieme%20Avenue/wp-admin/
+ 
+user :                    TaktikDev
+pwd :                    GcpHIm&sdgas5%O9pNkR&NC
+
+Trees Project:
+Backend Access:-
+URL: https://trees.weavers-web.com/wp-login.php
+User: trees@Developer@16522
+Pass: up~^g1nNcQlcEqJe 
+
+project:Think Big
+Backend Access:-
+URL: https://think-big-technology.weavers-web.com/wp-login.php
+User: thinkbigt@Developer@25522
+Pass: XgQG{1tx21pb61]: 
+https://3.basecamp.com/3468572/buckets/27411126/documents/4893504189
+****old phone number=(908)-202-7098  ***** 
+
+
+*******
+current project:Squrda veloce
+Site URL: https://squadra-veloce.weavers-web.com
+
+Backend Access:-
+URL: https://squadra-veloce.weavers-web.com/wp-login.php
+User: squadrav@developer@21622
+Pass: ]^o|x{Sx4m~~Go=>
+
+!!! Set up the Wordfence security plugin to secure the site !!!
+
+SSH | SFTP:-
+Host: ip-128-199-28-33.server.weavers-web.com
+User: squadrav
+Pass: =M)7(?d&d!UbepYMy(
+Port: 2021
+Path: /home/squadrav/public_html
+
+Database:-
+URL: https://ip-128-199-28-33.server.weavers-web.com/dbadminforweaversweb
+Host: localhost
+Name: db_squadrav
+User: usr_squadrav
+Pass: yc3?=Km.:14Ar6ZZO(
+
+!!! If any credentials did not work then contact your system administrator !!! 
+
+
+
+current project end
+************start**********
+current project yeatch
+Backend Access:-
+URL: https://yacht.weavers-web.com/wp-login.php
+User: yacht@Developer@22722
+Pass: 6vJe+>k}4t/)XN>i
+
+!!! Set up the Wordfence security plugin to secure the site !!!
+
+SSH | SFTP:-
+Host: ip-128-199-28-33.server.weavers-web.com
+User: yacht
+Pass: L(ygNwwS0c8aSL+Uz.
+Port: 2021
+Path: /home/yacht/public_html
+
+******note ****
+feed back it is deleted
+raw html of tesitimonial section 
+*******
+<div class="container">
+    <h2 class="section-title">Testimonials</h2>
+    <div class="section-content">[sp_testimonial id="2054"]</div>			
+</div>
+********
+Home Page:
+old home phone number:+7 (212) 674-25-10
+About Page change
+About page Heading:About Arch
+Remove Team section:
+<div class="container">
+    <h2 class="section-title">Meet  <span class="text-primary">our Team:</span></h2>
+    <div class="section-content">[tmm name="member1"]<div>		
+</div>
+
+
+
+
+current project end
+*********************
+current project automate depot start 
+Site URL: https://automatedcb.weavers-web.com
+basecamp link-https://3.basecamp.com/3468572/projects/28641815
+Backend Access:-
+URL: https://automatedcb.weavers-web.com/wp-login.php
+User: developer@280722
+Pass: byKla5=@s||nwF]a
+
+current project automate depot end 
+**********************************************
+project now shaped
+*************start*****
+Site URL: https://shapedom.weavers-web.com
+basecamp link-https://3.basecamp.com/3468572/projects/28614479
+Backend Access:-
+URL: https://shapedom.weavers-web.com/wp-login.php
+User: developer@030822
+Pass: ,FBNO*zT<?LL@vwp 
+
+
+bottom nw right side e hobe
+undefined
+term exsists:https://developer.wordpress.org/reference/functions/term_exists/
+**********end**********
+***everly*******************
+************start**********
+Site URL: https://everly.weavers-web.com
+
+
+google maps api key- "AIzaSyARoykLSnLO_ywf-AolXcB-192FTGhEFJM"
+Backend Access:-
+URL: https://everly.weavers-web.com/wp-login.php
+User: everly@developer@16822
+Pass: e50elbtwn]b&bN/m
+
+******************end*********
+*************hobiroyal start*********
+basecamp url - https://3.basecamp.com/3468572/projects/29050488
+Site URL: https://hobiroyal.weavers-web.com
+Backend Access:-
+URL: https://hobiroyal.weavers-web.com/wp-login.php
+User: hobiroyal@Developer@2922
+Pass: |ww=JqtW+Ic@vp|- 
+****************************
+Boofaas information
+%2$s © %1$s 
+
+https://www.google.com/maps/place/410+SE+Sunnydale+Ln,+Port+St+Lucie,+FL+34983,+USA/@27.3172524,-80.3352549,17z/data=!4m8!1m2!2m1!1s410+Sunny+St,+Florida,+FL+46225,+USA!3m4!1s0x88deeed1d71a3463:0x4668108e87d0aa3!8m2!3d27.3172477!4d-80.3330662?hl=en 
+
+410 Sunny St, Florida, FL
+
+**************************************
+lion logistics email
+info@lionlogisticsolutions.com
+
+info@allaboutpainting.org
+************hobiroyal end**************
+
+caliber_law  new backend access start*****
+
+Backend Acess Caliber Law
+
+basecamp url caliber law:https://3.basecamp.com/3468572/buckets/26265915/messages/5249014569
+https://caliberlaw.weavers-web.com/wp-admin/
+U - CL_ProjectM@0
+P - |EO!?&Wct?F0~GL[
+**************************end 
+
+
+https://stackoverflow.com/questions/2381572/how-can-i-trigger-a-javascript-event-click
+google map lat lng
+vaugvhan
+43.793221058038164, -79.53197104489826 
+https://caliberlaw.weavers-web.com/wp-content/uploads/2022/09/vaughan.png
+northwork
+43.72905833603504, -79.32912169886868
+https://caliberlaw.weavers-web.com/wp-content/uploads/2022/09/Northwork.png
+richmond hill
+43.84151500409364, -79.39890447188044 
+https://caliberlaw.weavers-web.com/wp-content/uploads/2022/09/Ricmond.png
+okaville
+43.47277626985129, -79.66445355840237 
+https://caliberlaw.weavers-web.com/wp-content/uploads/2022/09/ocav.png
+missi
+43.62467460507376, -79.67105184490461
+https://caliberlaw.weavers-web.com/wp-content/uploads/2022/09/missi.png
+
+wpcf7-form-control wpcf7-file wpcf7-validates-as-required
+
+abcought site login 
+*********************
+https://abcourt.ca/wp-login.php
+TaktikDev
+P7^2D^^w!PG!mddYZuSh3D^! 
+
+yatch project
+Project description<br> is here #1
+
+***********end*******
+
+img.thumb-image {
+    width: 100%;
+}
+
+.gm-style-iw.gm-style-iw-c {
+    max-width: 150px !important;
+    max-height: 160px !important;
+}
+ 
+ 
+class for open cross button 
+ gm-ui-hover-effect
+  
+class for red button click  
+ gm-style-iw gm-style-iw-c
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/js/swiper.min.js'></script>
+
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/css/swiper.min.css'>
+
+WPFront Scroll Top //Plugin scrolling 
+Ajax Load More	//plugin
+**************************
+Flight map google Keyword:
+*****************************************************************
+codepen javascript flight map from a fixed point to other areas 
+*****************************************************************
+map library:1.https://leafletjs.com/reference.html,
+2.https://www.amcharts.com/demos/#misc
+3.https://www.amcharts.com/demos/animations-along-lines/ 
+https://developers.google.com/chart/interactive/docs/gallery/geochart#:~:text=A%20geochart%20is%20a%20map,a%20value%20that%20you%20specify. 
+
+Think big note points According to video:
+1.Pricing page will not be there.
+2.Three should be Calender Booking Functionality.(That is not in The Design).
+3.Home Page There would be scroll Animation Effects. 
+
+gallery
+mailchimp news letter form****
+<input type="email" name="EMAIL" placeholder="Enter your mail id"
+    required="">
+<input type="submit" class="btn" value="Subscribe">
+mailchimp newsletter form end***
+youtube emberd video iframe in hope 
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-PB8HfKC8JQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+****************hope home page home banner custom video 
+
+*************start******
+<?php get_header(); ?>
+
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+        <div class="banner-section">
+            <div class="banner-bottom">
+                <!-- <img src="<?php echo get_template_directory_uri(); ?>/images/vbbc-01.png" alt="">  -->
+                <img src="<?php echo get_field('banner_bottom_image'); ?>" alt="">
+            </div>
+            <div class="banner-video">
+                <video id="video1" loop class="play-pause-btn1"  poster="<?php echo get_field('banner_back_ground_image'); ?>" controls preload="none">
+                        <source src="<?php echo get_field('back_ground_video'); ?>" type="video/mp4">
+                        <source src="<?php echo get_field('back_ground_video_ogg_type'); ?>" type="video/ogg"> 
+                        <source src="<?php echo get_field('back_ground_video_webm'); ?>" type="video/webm">
+                    </video>
+                
+            </div>
+            <div class="container video-content">
+                <div class="banner-heading text-center">
+                    <!-- <h1>Helping Our People Endure</h1>  -->
+                    <h1><?php echo get_field('banner_heading'); ?></h1>
+                    <div class="play">
+                        <!-- <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/play.png" alt=""></a> -->
+                        <!-- <a href="<?php echo get_field('play_vedio_link'); ?>" ><img src="<?php echo get_field('play_vedio_image'); ?>" alt="">
+                        </a> -->
+                        <a href="javascript:void(0)" class="play-pause-btn1 pause"  data-click="0"><img class="img1" id="playpause_img" src="<?php echo get_field('play_vedio_image'); ?>" alt=""><img class="img2" id="playpause_img" src="<?php echo get_template_directory_uri(); ?>/images/14-1.jpg" alt=""></a>
+                    </div>
+                    <p><?php echo get_field('banner_short_description'); ?></p>
+                    <div class="Donate-btn text-center"><a href="<?php echo get_field('donate_button_link'); ?>"><b><?php echo get_field('donate_button_text'); ?></b></a></div>
+                </div>
+            </div>
+
+        </div>
+        <!-- impact section -->
+        <div class="impact-section">
+            <div class="bottom-img">
+                <img src="<?php echo get_field('impact_section_bottom_image'); ?>" alt="">
+            </div>
+            <div class="container-fluid">
+                <div class="row justify-content-end align-items-center">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="box-top">
+                            <div class="impact-header">
+                                <h2><?php echo get_field('impact_heading'); ?></h2> 
+                                <?php 
+                                    $impact_image=get_field('impact_image');
+                                 if($impact_image != '') {?>
+                                <img src="<?php echo get_field('impact_image'); ?>" alt=""> 
+                                <?php } ?>
+                            </div>
+                            <div class="hope-box">
+                                <?php
+                                if (have_rows('impact_infomations')) {
+                                    while (have_rows('impact_infomations')) {
+                                        the_row();
+                                        $image_icon = get_sub_field('image_icon');
+                                        $number = get_sub_field('number');
+                                        $heading = get_sub_field('heading');
+
+                                ?>
+                                        <div class="box mb-3">
+                                            <div class="images-icon"><img src="<?php echo $image_icon; ?>" alt=""></div>
+                                            <div class="number"><?php echo $number; ?></div>
+                                            <div class="impact-text"><?php echo $heading; ?></div>
+                                        </div>
+                                <?php }
+                                } ?>
+
+                                <!-- <div class="box mb-3">
+                                <div class="images-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/help-svgrepo-com.png" alt=""></div>
+                                <div class="number">1467</div>
+                                <div class="impact-text">Syrian Children <br>Helped</div>
+                            </div> -->
+
+
+                                <!-- <div class="box mb-3">
+                                <div class="images-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/home-svgrepo-com.png" alt=""></div>
+                                <div class="number">464</div>
+                                <div class="impact-text">Mentored <br>Families</div>
+                            </div> -->
+
+
+                                <!-- <div class="box mb-3">
+                                <div class="images-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/Group-1.png" alt=""></div>
+                                <div class="number">28</div>
+                                <div class="impact-text">Pre-proffesional <br>Development</div>
+                            </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="imapact-image"> 
+                            <?php 
+                               $impact_big_image=get_field('impact_big_image');
+                             if($impact_big_image != '') {?>
+                            <img src="<?php echo get_field('impact_big_image'); ?>" alt=""> 
+                            <?php } ?> 
+                            <?php 
+                               $impact_front_image=get_field('impact_front_image');
+                             if($impact_front_image != '') {?>
+                            <div class="small-images">
+                                <img src="<?php echo get_field('impact_front_image'); ?>" alt="">
+                            </div> 
+                            <?php } ?>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- <div class="bottom-img">
+            <img src="images/vbbc-02.png" alt="">
+        </div> -->
+        </div>
+
+        <!-- about-us -->
+        <section class="about-us">
+            <?php 
+              $back_house_image=get_field('back_house_image');
+            if($back_house_image != '') {?>
+            <div class="house">
+                <img src="<?php echo get_field('back_house_image'); ?>" alt="">
+            </div> 
+            <?php } ?>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="images-box2"> 
+                            <?php 
+                               $home_about_feature_image_one=get_field('home_about_feature_image_one');
+                             if($home_about_feature_image_one != '') { ?>
+                            <img src="<?php echo get_field('home_about_feature_image_one'); ?>" alt=""> 
+                            <?php } ?> 
+                            <?php  
+                               $home_about_feature_image_two=get_field('home_about_feature_image_two');
+                            if($home_about_feature_image_two != '') {?>
+                            <div class="images-small2">
+                                <img src="<?php echo get_field('home_about_feature_image_two'); ?>" alt="">
+                            </div> 
+                            <?php } ?>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="about-us-right gapping">
+
+                            <?php echo get_field('about_section_short_description'); ?>
+
+                            <div class="read-more">
+                                <!-- <a href="#">Learn More</a>  -->
+                                <a href="<?php echo get_field('learn_more_button_link'); ?>"><?php echo get_field('learn_more_button_text'); ?></a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section class="donate home-donate"> 
+            <?php 
+               $crisis_back_ground_image=get_field('crisis_back_ground_image');
+             if($crisis_back_ground_image != '') {?>
+            <div class="donate-bg-img">
+                <img src="<?php echo get_field('crisis_back_ground_image'); ?>" alt="">
+            </div> 
+            <?php } ?>
+            <div class="container">
+                <div class="row align-items-center">
+
+                    <div class="col-md-6 col-lg-6">
+                        <div class="about-us-right">
+                            <!-- <h5>Donate</h5>
+                        <h3>The Crisis</h3>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.</p> -->
+                            <?php echo get_field('crisis_section_short_text'); ?>
+
+                            <div class="read-more">
+                                <a href="<?php echo get_field('crisis_learn_more_button_link'); ?>"><?php echo get_field('crisis_learn_more_button_text'); ?></a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="images-box3"> 
+                            <?php 
+                              $crisis_home_image_one=get_field('crisis_home_image_one');
+                             if($crisis_home_image_one != '') {?>
+                            <img class="box3" src="<?php echo get_field('crisis_home_image_one'); ?>" alt=""> 
+                            <?php } ?> 
+                            <?php 
+                                $crisis_home_image_two=get_field('crisis_home_image_two');
+                             if($crisis_home_image_two != '') {?>
+                            <div class="images-small3">
+                                <img src="<?php echo get_field('crisis_home_image_two'); ?>" alt="">
+                            </div> 
+                            <?php } ?>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="approach" style=" background-image: url('<?php echo get_field('approach_back_ground_image'); ?>');">
+            <div class="container">
+                <div class="text-center app">
+                    <!-- <h2>Help the People</h2>
+                <h3>Our Approach</h3>
+                <p>Our approach is entrepreneurial and business-like. For each of our projects, we develop goals and strategies before allocating resources and distributing funds. We continually collect and share data on our progress, reflect on lessons
+                    learned,and make course corrections as needed.</p> -->
+                    <?php the_content(); ?>
+                    <!-- <?php echo get_field('approach_section_short_text'); ?> -->
+                </div>
+            </div>
+
+        </section>
+        <section class="gallery">
+            <div class="gallery-content text-center">
+                <!-- <h3>Images Gallery</h3>
+            <h4>Project We Have Done</h4> -->
+                <?php echo get_field('gallery_heading'); ?>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <?php
+                    $args = array(
+                        'post_type' => 'gallery',
+                        'posts_per_page' => -1,
+                        'order' => 'ASC',
+                        'meta_query' => array(
+                            array(
+                                'key'     => 'show_on_home_page',
+                                'value'   => true,
+                                'compare' => '=',
+                            ),
+                        ),
+                    );
+                    $gallery = new WP_Query($args);
+                    // $gallery = get_posts($args); 
+                    if ($gallery->have_posts()) {
+                        while ($gallery->have_posts()) {
+                            $gallery->the_post();
+                            $gallery_image = wp_get_attachment_image_src(get_post_thumbnail_id($gallery->ID), 'full')[0];
+                    ?>
+
+                            <div class="col-lg-4 col-md-6 mb-3">
+                                <div class="gallery-img">
+
+                                    <a class="group" href="<?php echo  $gallery_image; ?>" data-fancybox="gallaery"><img src="<?php echo $gallery_image; ?>" alt=""></a>
+                                </div>
+                            </div>
+                    <?php }
+                    } ?>
+                    <!-- <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="gallery-img">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/3.png" alt="">
+                    </div>
+                </div> -->
+                    <!-- <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="gallery-img">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/4.png" alt="">
+                    </div>
+                </div> -->
+                    <!-- <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="gallery-img">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/5.png" alt="">
+                    </div>
+                </div> -->
+                    <!-- <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="gallery-img">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/6.png" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="gallery-img">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/7.png" alt="">
+                    </div>
+                </div> -->
+
+                </div>
+
+            </div>
+
+        </section>
+
+<?php endwhile;
+endif; ?>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+
+        jQuery('.play-pause-btn1').on('click', function() {
+
+            if (jQuery(this).attr('data-click') == 1) {
+                jQuery(this).attr('data-click', 0)
+                // jQuery(this).text('Play')
+                // jQuery('.img1').show(); 
+                //  jQuery(this).hide(); 
+                jQuery(this).addClass('pause');
+                jQuery(this).removeClass('play');
+
+                jQuery('#video1')[0].pause();
+            } else {
+                jQuery(this).attr('data-click', 1)
+                // jQuery(this).text('Pause') 
+                // jQuery(this).css('opacity', '0');
+                jQuery(this).addClass('play');
+                jQuery(this).removeClass('pause');
+                jQuery('#video1')[0].play();
+            }
+
+        });
+
+    });
+</script>
+
+<?php get_footer(); ?>
+**********End*********** 
+Yup, we've added you to our email list. You'll hear from us shortly. 
+
+Oui, nous vous avons ajouté à notre liste de diffusion. Vous aurez de nos nouvelles sous peu.
+
+<div class="candidats-info">
+                            <h3><?php the_content();?></h3>
+ </div>
+
+<iframe id="video1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="video1 lazyloaded" src="https://www.youtube.com/embed/-PB8HfKC8JQ"></iframe>
+
+
+
+
+complexe_hr access
+FTP:
+ftp.TaktikCommunication.com
+user :                    grsw9
+uspwd :                               s8909@(sduA%a9d8seO*Sd8
+ 
+ 
+WORDPRESS:
+https://consultationgrsw.com/wp-admin/
+http://consultationgrsw.com/206%209ieme%20Avenue/wp-admin/
+ 
+user :                    TaktikDev
+pwd :                    GcpHIm&sdgas5%O9pNkR&NC 
+[hidden candidate-information class:page-value]
+English
+Consultation GRSW © 2022. Designed and realized by Taktik Communication, strategic advisors <br><a href=
+french
+Consultation GRSW © 2022. Conçu et réalisé par Taktik Communication, conseillers stratégiques <br><a href=
+complexe_hr feedback update
+feedback point not done
+And I also see in footer than you don't place the credit for Taktik in the 15 arpents and this one.
+Can you ad them in both please? 
+
+feedback points done
+1.image water mark remove.
+2.Total section clickable in listing page.
+3.Footer Menu Addition.
+4.Newsletter Text Remove
+5.Hover email field Show in newsletter 
+ 
+first laravel app:
+laravel path structure:C:\Users\Arnab\Documents\larvel\Myfirst_app>
+
+tiktak footer Text:
+Consultation GRSW © 2022. Designed and realized by Taktik Communication, strategic advisors <br><a href=""></a> 
+
+Consultation GRSW © 2022. Designed and realized by Taktik Communication, strategic advisors <br><a href= 
+
+
+
+class name=bluebghdr 
+portfolioes 
+
+
+
+
+Complexe hr feedback points done 
+1.Contact Form option Change.
+2.Position Detail Page Popup Contact from addition. 
+3.Candiate Detail Page Popup Contact form addition. 
+4.Position Detail Page Back To List Button Add.
+5.Candidate Detail Page Back To List Button Add.
+This 5 Points Done. 
+
+owl caroucel thumbnail slider link
+https://codepen.io/aykutkapisiz/pen/POGJxg 
+
+
+Complexe_hr Feedback Points not clear.
+1.We also have to get some categories to sort the POSITIONS and CANDIDATES. 
+2.On this button can you wrote VOIR LES POSTES (SEE POSITIONS AVAILABEL)  and add another similar button on the right side with VOIR LES CANDIDATS (SEE THE CANDIDATES).
+3.When we click on the one related to CANDIDATES on the INGENEERING image we are redirected to all candidates who get the tag INGENNERING etc…  . 
+
+Complexe_hr front page code with color blocks**********start
+<?php get_header(); ?>
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+    <section class="home-slider-wrap">
+      <div id="sync1" class="owl-carousel owl-theme">
+        <?php
+        if (have_rows('banner_details')) {
+          while (have_rows('banner_details')) {
+            the_row();
+            $banner_inner_image = get_sub_field('banner_inner_image');
+            $banner_sub_title = get_sub_field('banner_sub_title');
+            $banner_short_text = get_sub_field('banner_short_text');
+            $banner_button_text = get_sub_field('banner_button_text');
+            $banner_button_link = get_sub_field('banner_button_link');
+        ?>
+            <div class="item">
+              <div class="imgbox">
+                <img src="<?php echo $banner_inner_image; ?>" alt="" />
+                <div class="container banner-cont">
+                  <div class="row">
+                    <div class="col-lg-8">
+                      <div class="line-sub-title"><?php echo $banner_sub_title; ?></div>
+                      <h1><?php echo $banner_short_text; ?></h1>
+                      <a href="<?php echo $banner_button_link; ?>" class="btn"><?php echo $banner_button_text; ?></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <?php }
+        } ?>
+
+      </div>
+
+      <div class="container banner-thumbs">
+        <div id="sync2" class="owl-carousel owl-theme">
+          <?php
+          if (have_rows('banner_details')) {
+            while (have_rows('banner_details')) {
+              the_row();
+              $banner_inner_image = get_sub_field('banner_inner_image');
+
+          ?>
+              <div class="item">
+                <img src="<?php echo $banner_inner_image; ?>" alt="" />
+              </div>
+
+          <?php }
+          } ?>
+        </div>
+      </div>
+
+      <div class="step-to-btm">
+        <a id="submit" href="#footersection"><img src="<?php echo get_field('banner_bottom_mouse_arrow'); ?>" alt="" /></a>
+      </div>
+
+    </section>
+<?php endwhile;
+endif; ?>
+<section class="colorblog">
+    <div class="container">
+        <div class="row">
+        <?php
+        if (have_rows('color_button_content')) {
+          while (have_rows('color_button_content')) {
+            the_row();
+            $color_button_text = get_sub_field('color_button_text');
+            $color_button_link = get_sub_field('color_button_link');
+            
+        ?>
+            <div class="col-lg-3 p-0">
+                <div class="colorblogbx"><h5><a href="<?php echo $color_button_link; ?>"><?php echo $color_button_text; ?></a></h5></div>
+            </div> 
+        <?php } }?>
+            <!-- <div class="col-lg-3 p-0">
+                <div class="colorblogbx"><h5><a href="#">Ingénérie</a></h5></div>
+            </div>
+            <div class="col-lg-3 p-0">
+                <div class="colorblogbx"><h5><a href="#">Support <br>administratif</a></h5></div>
+            </div>
+            <div class="col-lg-3 p-0">
+                <div class="colorblogbx"><h5><a href="#">Conciliation travail<br>famille & plus</a></h5></div>
+            </div> -->
+        </div>
+    </div>
+</section>
+<script>
+  jQuery(document).ready(function() {
+    jQuery('#submit').click(function(e) {
+      // var href = jQuery(this).prop('href');
+      //  alert(href); 
+      e.preventDefault();
+      var href = jQuery(this).attr('href');
+      jQuery('html, body').animate({
+        scrollTop: jQuery(href).offset().top
+      }, 200);
+    })
+  });
+</script>
+<?php get_footer(); ?>  
+
+
+Complexy_hr click show slider code home page **********start
+<?php get_header(); ?>
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+    <section class="home-slider-wrap">
+      <div id="sync1" class="owl-carousel owl-theme">
+        <?php
+        if (have_rows('banner_details')) {
+          while (have_rows('banner_details')) {
+            the_row();
+            $banner_inner_image = get_sub_field('banner_inner_image');
+            $banner_sub_title = get_sub_field('banner_sub_title');
+            $banner_short_text = get_sub_field('banner_short_text');
+            $banner_button_text = get_sub_field('banner_button_text');
+            $banner_button_link = get_sub_field('banner_button_link');
+            $banner_color_button_text = get_sub_field('banner_color_button_text');
+        ?>
+            <div class="item">
+              <div class="imgbox">
+                <img src="<?php echo $banner_inner_image; ?>" alt="" />
+                <div class="container banner-cont">
+                  <div class="row">
+                    <div class="col-lg-8">
+                      <div class="line-sub-title"><?php echo $banner_sub_title; ?></div>
+                      <h1><?php echo $banner_short_text; ?></h1>
+                      <a href="<?php echo $banner_button_link; ?>" class="btn"><?php echo $banner_button_text; ?></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <?php }
+        } ?>
+
+      </div>
+
+      <!-- <div class="container banner-thumbs">
+        <div id="sync2" class="owl-carousel owl-theme">
+          <?php /*
+          if (have_rows('banner_details')) {
+            while (have_rows('banner_details')) {
+              the_row();
+              $banner_inner_image = get_sub_field('banner_inner_image');
+
+          */?>
+              <div class="item">
+                <img src="<?php /*echo $banner_inner_image; */?>" alt="" />
+              </div>
+
+          <?php /*}
+          } */?>
+        </div>
+      </div> -->
+
+      <div class="step-to-btm">
+        <a id="submit" href="#footersection"><img src="<?php echo get_field('banner_bottom_mouse_arrow'); ?>" alt="" /></a>
+      </div>
+
+    </section>
+<?php endwhile;
+endif; ?>
+<section class="colorblog">
+    <div id="sync2" class="container owl-carousel owl-theme">
+        
+        <?php
+        if (have_rows('banner_details')) {
+          while (have_rows('banner_details')) {
+            the_row();
+            $banner_color_button_text = get_sub_field('banner_color_button_text');
+            ?>
+           <div class="item">
+                <div class="colorblogbx"><h5><?php echo $banner_color_button_text; ?></h5></div>
+            </div>
+        <?php } }?>
+            
+        </div>
+    
+</section>
+<script>
+  jQuery(document).ready(function() {
+    jQuery('#submit').click(function(e) {
+      // var href = jQuery(this).prop('href');
+      //  alert(href); 
+      e.preventDefault();
+      var href = jQuery(this).attr('href');
+      jQuery('html, body').animate({
+        scrollTop: jQuery(href).offset().top
+      }, 200);
+    })
+  });
+</script>
+<?php get_footer(); ?>
+home page Code end********* 
+
+English:
+Consultation GRSW © 2022. Designed and realized by Taktik Communication, strategic advisors <br><a href=""></a> 
+French:
+Consultation GRSW © 2022. Conçu et réalisé par Taktik Communication, conseillers stratégiques <br><a href=""></a>
+ 
+mailchimp default form  
+<p>
+	<label>Email address: 
+		<input type="email" name="EMAIL" placeholder="Your email address" required />
+</label>
+</p>
+
+<p>
+	<input type="submit" value="Sign up" />
+</p> 
+ajax repeater templates:
+
+<li class="alm-item<?php if (!has_post_thumbnail()) { ?> no-img<?php } ?>">
+   <?php if ( has_post_thumbnail() ) { the_post_thumbnail('alm-thumbnail'); }?>
+   <h3><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3>
+   <p class="entry-meta"><?php the_time("F d, Y"); ?></p>
+   <?php the_excerpt(); ?>
+</li> 
+************************************** 
+ThinkBig Design fixing Points:
+Home page:
+1.home banner social media icon ,phone number, email_id color change,gap between email and phone number.
+2.Header Menu design fixing.
+3.Footer connect us section phone number,email color change.
+4.After Submiting news letter form responce text design fixing.
+Web Development Page:
+post  date capital letter korte hobe.
+404 page:
+1.Header menu color fixing. 
+
+tpl-pricing.php
+tpl-careears.php
+single-portfolioes.php
+my work title of post change with excerpt,
+slider single page ,
+link of every post,
+<?php echo get_field('image_icon', $service->ID); ?> 
+<h5><?php echo get_the_excerpt($portfolioes->ID); ?></h5>
+  
+https://think-big-technology.weavers-web.com/contact-us/
+*****************************************
+
+<?php
+                          $select = get_field('testimonial_star_rating', $testimonial->ID);
+                          $a = 5 - $select;
+                          $j = 1;
+
+                          for ($i = 1; $i <= $select; $i++) {
+                            echo '<i class="fas fa-star"></i>';
+                            if ($i == $select) {
+                              for ($j = 1; $j <= $a; $j++) {
+                                echo '<i class="fas fa-star-half-alt"></i>';
+                              }
+                            }
+                          }
+                          ?> 
+						  
+C->users->Public->phpbasics->htdocs 
+
+http://localhost/phpmyadmin/ 
+http://localhost/dashboard/ 
+
+DBNAME:iengco 
+
+Admin username:iengco@123
+Admin password:Ca%evQ7PeGEXgoO!7p 
+Ca%evQ7PeGEXgoO!7p 
+
+Admin url:http://localhost/iengco/wp-admin/ 
+
+Acf 6.0.1 Working Fine with repeater   
+
+Meeting ID: 823 3293 7353
+Passcode: 5ph1i2  
+
+hosting password
+Name-Arnab 
+Password-arnab12345  
+
+Live Dbname=u677547110_iengco
+username=u677547110_iengco_123
+password=Iengco@123456 
+
+
+Backend Access:
+Admin Access:https://bluedotdigitalservices.com/wp-admin/ 
+UserName=iengco@123 
+Password=Ca%evQ7PeGEXgoO!7p 
+https://kaizenimmigrationservices.ca
+newsletter@localhost
+
+Email Hosting:
+Hostinger Email:
+email:bluedotdigitalservices.com@bluedotdigitalservices.com
+password:Bluedot@12345 
+
+Live Site Details:
+
+Admin Details:
+https://i-engco.com/wp-admin/  
+UserName=iengco@123 
+Password=Ca%evQ7PeGEXgoO!7p 
+****************************************
+Database Details: 
+Dbname=iengco_db
+username=iengco_123
+password=Iengco@123456  
+*****************************
+Sever Details: 
+Ftp Host-68.178.148.151 
+Ftp User-Iengco123@i-engco.com 
+Ftp Password-Iengco12jbkmdmm 
+Ftp Port-21
+***********************************
+
+info@i-engco.com 
+
+kaizen project 
+Db-kaizen  
+
+http://localhost/kaizen/wp-admin/
+user=kaizen@123
+pass=vQuQSnPw)gkL%09#D&
+
+ 
+
+social share 
+**********************
+ <ul>
+                            <li><a href="https://www.facebook.com/sharer?u=<?php the_permalink(); ?>&amp;t=<?php the_title(); ?>" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            <li><a href="http://twitter.com/intent/tweet?text=<?php the_title(); ?>&amp;url=<?php the_permalink(); ?>" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitter"></i></a></li>
+                            <!-- <li><a href="#"><i class="fa-brands fa-tumblr"></i></a></li>  -->
+                            <li><a href="https://www.tumblr.com/share/link?url=<?php the_permalink(); ?>&name=<?php the_title(); ?>
+"target="_blank"><i class="fa-brands fa-tumblr"></i></a></li>
+                            <li><a href="#"><i class="fa-solid fa-heart"></i></a></li>
+                        </ul>
+**********************
+
+
+
+
+Db Name=u677547110_kaizen
+user=u677547110_Kaizen123
+password=Kaizen12345 
+
+http://localhost/kaizen 
+https://bluedotdigitalservices.com 
+
+Kaizen site Link: 
+https://bluedotdigitalservices.com/ 
+Admin Access:  
+
+https://bluedotdigitalservices.com/wp-admin/
+User=kaizen@123 
+password=vQuQSnPw)gkL%09#D& 
+
+
+
+Folder structure of scaler By Anirban
+https://www.aiplex.lol/  
+
+https://www.aiplex.lol/0:/Scaler/Academy%20Sep21%20Intermediate%20Tuesday/
+
+
+
+<form method="post" action="https://i-engco.com/?na=s">
+            <div class="form-group tnp-field tnp-field-email">
+            <input type="hidden" name="nlang" value="">
+              <input type="email" class="form-control tnp-email" name="ne" id="tnp-1" value="" required aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="tnp-field tnp-field-button">
+            <button type="submit" class="btn tnp-submit"></button>
+            </div>
+            <!-- <input class="tnp-submit btn" type="submit" value="Subscribe"> -->
+          </form> 
+		  
+		  
+		  <div class="tnp tnp-subscription">
+<form method="post" action="https://bluedotdigitalservices.com/?na=s">
+
+<input type="hidden" name="nlang" value=""><div class="tnp-field tnp-field-email"><label for="tnp-1">Email</label>
+<input class="tnp-email" type="email" name="ne" id="tnp-1" value="" required></div>
+<div class="tnp-field tnp-field-button"><input class="tnp-submit" type="submit" value="Subscribe" >
+</div>
+</form>
+</div>  
+
+Databasename=kaizen_db
+user=kaizen123 
+password=kaizen12345 
+
+
+Kaizen Live Site Access:
+https://kaizenimmigrationservices.ca/
+Backend Access:
+https://kaizenimmigrationservices.ca/wp-admin/ 
+User=kaizen@123 
+password=vQuQSnPw)gkL%09#D&  
+
+Db Access: 
+Databasename=kaizen_db
+user=kaizen123 
+password=kaizen12345 
+
+
+Email Setup
+Email-priyanka@kaizenimmigrationservices.ca
+password-kaizen3581 
+kaizenimmigrationservices.ca 
+ 
+Recovery Email:
+kaizen3581@gmail.com 
+kaizen3581@gmail.com 
+
+
+Please add the below cpanle email records to receive the emails. Add MX TXT and SRV records in the Domain DNS.
+https://in.godaddy.com/help/configuring-dns-for-your-cpanel-domain-8852
+
+
+
+Customer number
+568497573 
+
+Current PIN
+8314 
+
+************************************
+Project Kaizen Feedbacks accoding to the call: 
+1.Remove index and add img box.
+2.Remove by admin from blogs of home page.
+3.Contact page texture add in background as home page.(Sudipto da) 
+************************************************************
+  
+ftp details:
+68.178.159.92 
+user-developer1@kaizenimmigrationservices.ca 
+Password-kaizen3581 
+port-21 
+
+
+info@kaizenimmigration.ca 
+
+info@kaizenimmigrationservices.ca 
+
+email-info@kaizenimmigrationservices.ca 
+password-kaizen3581
+*********************************
+Date-06-08-2023
+New project:
+labourcontractors 
+local Url:
+http://localhost/labourcontractors/wp-admin/ 
+username=labourcontractors@123 
+password=Xt#KbVk&vUBrPBRZxL
+
+
+username=labourcontractors@123 
+password=Xt#KbVk&vUBrPBRZxL  
+https://labourcontractors.ca/
+
+Sevice ar Benefit ar acf banate hobe.
+baki post type diea manage hoea jabe.
+
+*************contact from submit and file download at one button click*********
+<script> 
+ var testpath = document.getElementById("demo").href;
+  console.log(testpath);
+//   var downloadfilepath='https://spearbio.weavers-web.com' + test.pathname;
+
+ document.addEventListener('wpcf7mailsent', function (event) {
+       if(637 == event.detail.contactFormId)
+     {
+         
+         window.open(testpath,'_blank');
+     }
+   
+   
+ }, false );
+</script>
+*************end***************************************************************
+
+[contact-form-7 id="11cc44c" title="Contact form 1"] 
+
+
+
+ <?php
+            $args = array(
+              'post_type' => 'post',
+              'posts_per_page' => -1,
+              'post_status' => 'publish',
+              'order' => 'ASC',
+            );
+            $postdata = new WP_Query($args);
+            if ($postdata->have_posts()) {
+              while ($postdata->have_posts()) {
+                $postdata->the_post();
+                $postdata_image = wp_get_attachment_image_src(get_post_thumbnail_id($postdata->ID), 'full');
+            ?>
+        <div class="col-lg-4">
+          <div class="sngl-blog">
+            <div class="imge-box">
+              <img src="<?php echo $postdata_image[0];?>" alt="">
+              <div class="date"><?php the_time( 'j' ) ?> <span><?php the_time( 'M' )?></span></div>
+            </div>
+            <div class="content-box">
+              <ul>
+                <li><i class="fas fa-user-circle"></i> <?php echo get_field('author_name',$postdata->ID);?></li>
+              </ul>
+              <?php echo get_the_excerpt($postdata->ID); ?>
+              <a class="read-more" href="<?php echo get_the_permalink($postdata->ID); ?>">Read More <i class="fa fa-long-arrow-alt-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <?php }
+            }
+
+            wp_reset_postdata(); ?>
+	
+	
+kaizen project 
+Db-kaizen  
+
+http://localhost/kaizen/wp-admin/
+user=kaizen@123
+pass=vQuQSnPw)gkL%09#D& 
+
+
+Guidehost project(localhost access):
+http://localhost/guidehost/wp-admin/
+Database name:guidehost 
+
+username:guidehost@123 
+password:clN1Tj28(SAnP1CNdA 
+
+
+key points from home page:
+1.Home page blog section missing.
+2.Header phone number missing. 
+
+******************* 
+Live Db Name=guidehost 
+username=guidehost
+pass=guide@2023**mm
+
+Backend Access:
+https://guidebyhost.com/wp-admin/ 
+username:guidehost@123 
+password:clN1Tj28(SAnP1CNdA
+
+live ftp credentials:
+host:preconguy.ca
+username=guidehost2023 
+password=guide@2023**mm 
+port-21
+
+
+
+
+guidebyhost
+jQuery(".target").click(function(){
+  jQuery(".test").show();
+});
+			
+
+https://stackoverflow.com/questions/37042936/display-wordpress-posts-by-sub-category
+4
+           
+85,113 
+
+
+Site URL: https://spearbio.weavers-web.com
+
+Backend Access:-
+URL: https://spearbio.weavers-web.com/wp-login.php
+User: HaT2F5GY4YpZy13Ohf
+Pass: 0xW:Z?Bkd8~Y-<AC
+
+
+
+SSH | SFTP:-
+Host: ip-128-199-28-33.server.weavers-web.com
+User: HaT2F5GY4YpZy13Ohf
+Pass: {p:3>z(OH+WCdHM6Ij
+Port: 2021
+Path: /home/HaT2F5GY4YpZy13Ohf/public_html/web
+
+ 
+
+<script> 
+ document.addEventListener('wpcf7mailsent', function (event) {
+   if('' == event.detail.contactfromId) {
+     window.open('','_blank');
+   }
+ }, false );
+</script>
+
+new site link:
+https://www.luxurymatchmakingservices.com/
+
+
+Username - info@gdsupplies.ca
+Password - Dhillon2024 
+https://labourcontractors.ca/
+
+labourcontractors
+Database:
+username:labourcontractors1234555
+password:labour112345
+
+
+https://labourcontractors.ca/services/warehouse-labour-in-abbotsford-bc/
+https://labourcontractors.ca/blog/
+
+http://localhost/labourcontractors/services/warehouse-labour-in-abbotsford-bc/
+http://localhost/labourcontractors/blog/
+
+
+Backend Acess:
+https://labourcontractors.ca/wp-admin/
+username=labourcontractors@123 
+password=Xt#KbVk&vUBrPBRZxL
+
+
+site-links
+https://kaizenimmigrationservices.ca/
+https://labourcontractors.ca/
+https://guidebyhost.com/
+
+
+
+local machine
+Dbname=photoportfolio 
+
+site 
+username:ron@123
+password:ROPXjuBHhON^qgFsM#
+
+****************shortcode**********
+function wpb_reviews_shortcode() { 
+      ob_start();
+    $i=0;
+    $args = array(
+        'post_type' => 'mphb_room_type',
+        'number'    => '12',
+        'order' => 'DESC',
+    );
+    $review = new WP_Query($args);
+    $html="";
+    ?> 
+    <div class="guest-review-slider">
+    <?php 
+        $i++; 
+        $postid =get_the_ID();
+        $comments = get_comments( $args );
+        foreach ( $comments as $comment ) {
+    ?>
+      <div class="review-box">
+            <div class="inner-wrap">
+                <div class="star-holder">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+            <div class="desc-block"><p><?php echo $comment->comment_content ?></p></div>
+            <div class="bottom-block">
+                <div class="inner-row">
+                    <div class="image-holder">
+                        <div class="image-thumb" style="background: url(<?php echo get_stylesheet_directory_uri().'/images/avatar.jpeg'; ?>)">             
+                                 
+                        </div>
+                    </div>
+                    <div class="info-holder">
+                        <h5><?php echo $comment->comment_author; ?></h5>
+                        <h6>Business man</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php  }  ?>     
+    </div>
+    <?php
+    $output = ob_get_contents();
+    ob_end_clean();
+    return $output;
+}
+ add_shortcode('reviews', 'wpb_reviews_shortcode');
+**************shortcode*******************
+
+Current site
+gouldgood 
+Databasename=gouldgood
+Dbpassword= 
+
+Admin Login 
+user:gould@123
+password:8q5lMV1tylnE^O4hR5 
+
+Design problems
+Home page:
+Banner letters are not moving.
+service cards are not matching.
+Blog page recent post section missing.
+1.first service page is different from others.
+
+
+<?php echo do_shortcode( '[contact-form-7 id="181" title="Contact form 1"]' );?>
+https://www.gouldgoodwin.com/ 
+
+
+Reply-To: [your-email] 
+
+***************************************
+Hoistinger details:
+email:arnabd195@gmail.com
+hoistinger password:host@arnab@123 
+**************************************
+Hoistiger gouldgood site 
+Db Access:
+Dbname:u677547110_gouldgood
+user:u677547110_gouldgood123
+password:*2rS8B$0 
+**********************************************
+Backend 
+https://bluedotdigitalservices.com/wp-admin/
+Admin Login 
+user:gould@123
+password:8q5lMV1tylnE^O4hR5
+****************************************************
+
+ftp ip:ftp://89.117.27.140
+ftp host:ftp://bluedotdigitalservices.com
+ftp port:21
+ftp User:u677547110
+ftp pass:*2rS8B$0 
+******************************************* 
+
+
+***************start****************
+Working template page
+<div class="contact-form-page common-padd">
+  <div class="container">
+    <div class="common-header-center">
+      <h2><?php echo get_field('contact_from_heading');?></h2>
+    </div>
+    <div class="form-box">
+      <!-- <form>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="">Name</label>
+              <input type="text" class="form-control" id="" aria-describedby="" placeholder="Name">
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="">Email</label>
+              <input type="emial" class="form-control" id="" aria-describedby="" placeholder="Email">
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="">Subject</label>
+              <input type="text" class="form-control" id="" aria-describedby="" placeholder="Subject">
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label for="">Message</label>
+              <textarea class="form-control" id="" rows="3" placeholder="Message"></textarea>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="submit-btn">
+              <input type="submit" value="submit" class="btn">
+            </div>
+          </div>
+        </div>
+      </form> -->
+      <?php echo do_shortcode( '[contact-form-7 id="ffb5c4a" title="Contact form 1"]' );?>
+    </div>
+  </div>
+</div>
+***********************************
+javascript interview questions
+*****************************************
+
+1. Program to find longest word in a given sentence ?
+2. How to check whether a string is palindrome or not ?
+3. Write a program to remove duplicates from an array ?
+4. Program to find Reverse of a string without using built-in method ?
+5. Find the max count of consecutive 1’s in an array ?
+6. Find the factorial of given number ?
+7. Given 2 arrays that are sorted [0,3,4,31] and [4,6,30]. Merge them and sort [0,3,4,4,6,30,31] ?
+8. Create a function which will accepts two arrays arr1 and arr2. The function should return true if every value in arr1 has its corresponding value squared in array2. The frequency of values must be same.
+9. Given two strings. Find if one string can be formed by rearranging the letters of other string.
+10. Write logic to get unique objects from below array ?
+I/P: [{name: "sai"},{name:"Nang"},{name: "sai"},{name:"Nang"},{name: "111111"}];
+O/P: [{name: "sai"},{name:"Nang"}{name: "111111"}
+11. Write a JavaScript program to find the maximum number in an array.
+12. Write a JavaScript function that takes an array of numbers and returns a new array with only the even numbers.
+13. Write a JavaScript function to check if a given number is prime.
+14. Write a JavaScript program to find the largest element in a nested array.
+[[3, 4, 58], [709, 8, 9, [10, 11]], [111, 2]]
+15. Write a JavaScript function that returns the Fibonacci sequence up to a given number of terms.
+16. Given a string, write a javascript function to count the occurrences of each character in the string.
+17. Write a javascript function that sorts an array of numbers in ascending order.
+18. Write a javascript function that sorts an array of numbers in descending order.
+19. Write a javascript function that reverses the order of words in a sentence without using the built-in reverse() method.
+20. Implement a javascript function that flattens a nested array into a single-dimensional array.
+21. Write a function which converts string input into an object
+("a.b.c", "someValue");
+{a: {b: {c: "someValue"}}} 
+
+**************************************************javascript interview qoestions********
+username - dgoodwin@gouldgoodwin.com
+Password - Barrister70 
+
+https://gouldgoodwin.ca/
+https://gouldgoodwin.ca
+gouldgoodwin.ca 
+
+live dbname:gouldgood 
+username:gouldgood123445
+live pass:]&${=3?1STNE
+***********************************************
+Client live site Details(gouldgoodwin): 
+live link:https://gouldgoodwin.ca/
+Backend Access:
+https://gouldgoodwin.ca/wp-admin/
+username:gould@123
+password:8q5lMV1tylnE^O4hR5  
+
+**********************
+Database access:
+live dbname:gouldgood 
+Live DB username:gouldgood123445
+live DB password:]&${=3?1STNE 
+
+************************************************
+
+username:exempt@123 
+password:qmx8H^ag(wnC4JhSj*
+
+
+

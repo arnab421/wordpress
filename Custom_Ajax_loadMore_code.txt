@@ -1,0 +1,578 @@
+https://sharewebdesign.com/blog/wordpress-ajax-call/
+
+Functions.php code
+*******************
+<?php
+/*****************************************
+* Weaver's Web Functions & Definitions *
+*****************************************/
+$functions_path = get_template_directory().'/functions/';
+$post_type_path = get_template_directory().'/inc/post-types/';
+$post_meta_path = get_template_directory().'/inc/post-metabox/';
+$theme_function_path = get_template_directory().'/inc/theme-functions/';
+/*--------------------------------------*/
+/* Multipost Thumbnail Functions
+/*--------------------------------------*/
+require_once($functions_path.'multipost-thumbnail/multi-post-thumbnails.php');
+if(class_exists('MultiPostThumbnails')){
+	$types = array('page');
+	foreach($types as $type){
+		new MultiPostThumbnails(array(
+			'label' => 'Top Banner Image',
+			'id' => 'top-banner-image',
+			'post_type' => $type
+			));
+		}		
+	}
+add_image_size('top-banner-size-image', 1920, 700,true);
+/*--------------------------------------*/
+/* Optional Panel Helper Functions
+/*--------------------------------------*/
+require_once($functions_path.'admin-functions.php');
+require_once($functions_path.'admin-interface.php');
+require_once($functions_path.'theme-options.php');
+function weaversweb_ftn_wp_enqueue_scripts(){
+    if(!is_admin()){
+        wp_enqueue_script('jquery');
+        if(is_singular()and get_site_option('thread_comments')){
+            wp_print_scripts('comment-reply');
+			}
+		}
+	}
+add_action('wp_enqueue_scripts','weaversweb_ftn_wp_enqueue_scripts');
+function weaversweb_ftn_get_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    if(isset($options[$name]))
+        return $options[$name];
+	}
+function weaversweb_ftn_update_option($name, $value){
+    $options = get_option('weaversweb_ftn_options');
+    $options[$name] = $value;
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function weaversweb_ftn_delete_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    unset($options[$name]);
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function get_theme_value($field){
+	$field1 = weaversweb_ftn_get_option($field);
+	if(!empty($field1)){
+		$field_val = $field1;
+		}
+	return	$field_val;
+	}
+/*--------------------------------------*/
+/* Post Type Helper Functions
+/*--------------------------------------*/
+require_once($post_type_path.'clients.php');
+// require_once($post_type_path.'jobs.php');
+// require_once($post_type_path.'services.php');
+// require_once($post_type_path.'team_member.php');
+ require_once($post_type_path.'testimonials.php'); 
+ require_once($post_type_path.'portfolioes.php');
+/*--------------------------------------*/
+/* Post Meta Helper Functions
+/*--------------------------------------*/
+require_once($post_meta_path.'casestudy-metabox.php');
+/*--------------------------------------*/
+/* Theme Functions
+/*--------------------------------------*/
+require_once($theme_function_path.'extra-functions.php');
+/*--------------------------------------*/
+/* Theme Helper Functions
+/*--------------------------------------*/
+if(!function_exists('weaversweb_theme_setup')):
+	function weaversweb_theme_setup(){
+		add_theme_support('title-tag');
+		add_theme_support('post-thumbnails');
+		register_nav_menus(array(
+			'primary' => __('Primary Menu','weaversweb'),
+			'secondary'  => __('Secondary Menu','weaversweb'),
+			));
+		add_theme_support('html5',array('search-form','comment-form','comment-list','gallery','caption'));
+		}
+	endif;
+add_action('after_setup_theme','weaversweb_theme_setup');
+function weaversweb_widgets_init(){
+  register_sidebar(array(
+    'name'          => __('Footer1 Area','weaversweb'),
+    'id'            => 'footer-1',
+    'description'   => __('Add widgets here','weaversweb'),
+    'before_widget' => '<ul>',
+    'after_widget'  => '</ul>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>',
+    ));
+    register_sidebar(array(
+    'name'          => __('Footer2 Area','weaversweb'),
+    'id'            => 'footer-2',
+    'description'   => __('Add widgets here','weaversweb'),
+    'before_widget' => '<ul>',
+    'after_widget'  => '</ul>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>',
+    ));
+  }
+add_action('widgets_init','weaversweb_widgets_init');
+function weaversweb_scripts(){
+
+	wp_enqueue_style('bootstrap-min-css',get_template_directory_uri().'/css/bootstrap.min.css',array());
+	wp_enqueue_style('font-awesome-all-min-css',get_template_directory_uri().'/css/font-awesome-all.min.css',array());
+	wp_enqueue_style('owl-carousel-min-css',get_template_directory_uri().'/css/owl.carousel.min.css',array());
+	wp_enqueue_style('owl-theme-default-min-css',get_template_directory_uri().'/css/owl.theme.default.min.css',array());
+	wp_enqueue_style('animate-min-css',get_template_directory_uri().'/css/animate.min.css',array());
+	wp_enqueue_style('slick-theme-css',get_template_directory_uri().'/css/slick-theme.css',array());
+	wp_enqueue_style('slick-css',get_template_directory_uri().'/css/slick.css',array());
+	wp_enqueue_style('custom-css',get_template_directory_uri().'/css/custom.css',array());
+	wp_enqueue_style('weaversweb-style',get_stylesheet_uri());
+	
+	// Load the Internet Explorer specific script.
+	global $wp_scripts;
+  wp_enqueue_script('bootstrap-bundle-min-js',get_template_directory_uri().'/js/bootstrap.bundle.min.js',array('jquery'), '0.0.1', true);
+  wp_enqueue_script('font-awesome-all-min-js',get_template_directory_uri().'/js/font-awesome-all.min.js',array('jquery'), '0.0.1', true);
+  wp_enqueue_script('owl-carousel-min-js',get_template_directory_uri().'/js/owl.carousel.min.js',array('jquery'), '0.0.1', true);
+    wp_enqueue_script('wow-min-js',get_template_directory_uri().'/js/wow.min.js',array('jquery'), '0.0.1', true);    
+  wp_enqueue_script('slick-js-js',get_template_directory_uri().'/js/slick.js',array('jquery'), '0.0.1', true);
+  wp_enqueue_script('waypoints-min-js',get_template_directory_uri().'/js/waypoints.min.js',array('jquery'), '0.0.1', true);
+  wp_enqueue_script('jquery-counterup.min-js',get_template_directory_uri().'/js/jquery.counterup.min.js',array('jquery'),array('jquery'), '0.0.1', true);
+    wp_enqueue_script('custom-js',get_template_directory_uri().'/js/custom.js',array('jquery'), '0.0.1',true);
+
+	// wp_localize_script( 'custom-js', 'think_technology',
+	// array( 
+	// 	'ajaxurl' => admin_url( 'admin-ajax.php' ),
+		
+	//   )
+    // );
+	}
+add_action('wp_enqueue_scripts','weaversweb_scripts');
+// external code add load more
+function misha_my_load_more_scripts() {
+ 
+	global $wp_query; 
+ 
+	// In most cases it is already included on the page and this line can be removed
+	wp_enqueue_script('jquery');
+ 
+	// register our main script but do not enqueue it yet
+	wp_register_script( 'my_loadmore', get_stylesheet_directory_uri() . '/js/myloadmore.js', array('jquery') );
+ 
+	// now the most interesting part
+	// we have to pass parameters to myloadmore.js script but we can get the parameters values only in PHP
+	// you can define variables directly in your HTML but I decided that the most proper way is wp_localize_script()
+	wp_localize_script( 'my_loadmore', 'misha_loadmore_params', array(
+		'ajaxurl' => admin_url( 'admin-ajax.php' ), // WordPress AJAX
+		//'posts' => json_encode( $wp_query->query_vars ), // everything about your loop is here
+		//'current_page' => get_query_var( 'paged' ) ? get_query_var('paged') : 1,
+		//'max_page' => $wp_query->max_num_pages
+	) );
+ 
+ 	wp_enqueue_script( 'my_loadmore' );
+}
+ 
+add_action( 'wp_enqueue_scripts', 'misha_my_load_more_scripts' );
+
+
+function misha_loadmore_ajax_handler(){ 
+	$currentPage=$_REQUEST['currentPage']+1; // we need next page to be loaded
+	$args = array(
+		'post_type' => 'portfolioes',
+		'posts_per_page' => 3,
+		'paged' => $currentPage,
+		'post_status' => 'publish',
+		'order' => 'DESC',
+	);
+	         $portfolioes = new WP_Query($args);
+			 $post=[];
+				if ($portfolioes->have_posts()) {
+					while ($portfolioes->have_posts()) {
+						$portfolioes->the_post();
+						$portfolio_image = wp_get_attachment_image_src(get_post_thumbnail_id($portfolioes->ID), 'full'); 
+						 $post[]=[
+							 "postdate"=>get_the_date('j S F'),
+							 "excerpt"=>get_the_excerpt($portfolioes->ID),
+							 "categories"=>get_the_terms($portfolioes->ID, 'portfolio_type'),
+							 "image"=>$portfolio_image[0]
+						 ];
+					  }
+					} 
+					//wp_reset_postdata(); 
+					if($post){
+						$return = array(
+							'message'  => 'posts',
+							'status'       => 1,
+							'result'=>$post,
+							'maxPost'=>$portfolioes->max_num_pages,
+							'currentPage'=>$currentPage,
+							'req'=>$_REQUEST['currentPage']
+						);
+						 
+						wp_send_json($return);
+					}else{
+						$return = array(
+							'message'  => 'No Post Found',
+							'status'       => 0
+						);
+						 
+						wp_send_json($return);
+					}
+					
+			
+}
+ 
+ 
+ 
+add_action('wp_ajax_loadmore', 'misha_loadmore_ajax_handler'); // wp_ajax_{action}
+add_action('wp_ajax_nopriv_loadmore', 'misha_loadmore_ajax_handler'); // wp_ajax_nopriv_{action}
+// external code add load more
+
+add_filter('comments_template','legacy_comments');
+function legacy_comments($file){
+	if(!function_exists('wp_list_comments'))	$file = TEMPLATEPATH .'/legacy.comments.php';
+	return $file;
+	} 
+***************end functions.php file.********
+
+myloadmore.js file 
+********************start******
+jQuery(function($){ // use jQuery code inside this to avoid "$ is not defined" error
+	$('body').on('click','.misha_loadmore',function(){
+        let currentPage=jQuery(this).attr('data-currentpage');
+		var button = $(this),
+		    data = {
+			'action': 'loadmore',
+			'currentPage':currentPage
+		};
+ 
+		$.ajax({ // you can also use $.post here
+			url : misha_loadmore_params.ajaxurl, // AJAX handler
+			data : data,
+			type : 'POST',
+			beforeSend : function ( xhr ) {
+				button.text('Loading...'); // change the button text, you can also add a preloader image
+			},
+            // afterSend: function( xhr ){
+            //     button.text('More Posts');
+            // },
+			success : function( data ){
+				if( data ) { 
+					 console.log(data.currentPage);
+                     jQuery('.misha_loadmore').attr('data-currentpage',data.currentPage);
+                     jQuery('.misha_loadmore').html("More Posts"); 
+
+                     $.each(data.result, function (key, val) {
+                         let cathtml='';
+                        $.each(val.categories, function (keycat, cat) {
+                             cathtml+=`<a href="#">${cat.name}</a>`;
+                        });
+                        console.log(val.excerpt) 
+                        jQuery('.ajaxLoadMoreData').append(`
+                        <div class="col-lg-4 col-md-6">
+							<div class="profile-card text-center">
+								<div class="content-wrap">
+									<span class="date">${val.postdate}</span>
+									<div class="heading">
+										<h5>${val.excerpt}</h5>
+									</div>
+									 
+									<div class="tags"> 
+											${cathtml}
+									</div>
+								</div>
+								<div class="img-content">
+									<img src="${val.image}" alt="">
+								</div>
+							</div>
+						</div>
+                        
+                        
+                        `)
+                    });
+                     if(data.currentPage == data.maxPost){
+                         jQuery('.misha_loadmore').hide();
+                     }
+				} else {
+					button.remove(); // if no data, remove the button as well
+				}
+			}
+		});
+	});
+}); 
+*************End***********
+About Page *********
+***************start*************
+<?php /*Template Name: Layout: About Us*/ ?>
+<?php get_header(); ?>
+<!--banner sction-->
+<section class="inner-banner" style="background-image: url(<?php echo get_field('about_page_banner_image'); ?>);">
+	<div class="container">
+
+		<div class="row justify-content-center">
+			<div class="col-lg-12 text-center common-heading">
+				<h1><?php echo get_field('about_page_banner_heading'); ?></h1>
+				<p><?php echo get_field('about_page_banner_short_description'); ?></p>
+				<a class="btn" href="<?php echo get_field('about_page_banner_button_link'); ?>"><?php echo get_field('about_page_banner_button_text'); ?></a>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+	<section class="perks perks2 common-padd">
+		<div class="random-img2">
+			<?php
+			$what_we_bring_section_back_image_one = get_field('what_we_bring_section_back_image_one');
+			if ($what_we_bring_section_back_image_one != '') { ?>
+				<img src="<?php echo get_field('what_we_bring_section_back_image_one'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="random-img1">
+			<?php
+			$what_we_bring_section_back_image_two = get_field('what_we_bring_section_back_image_two');
+			if ($what_we_bring_section_back_image_two != '') { ?>
+				<img src="<?php echo get_field('what_we_bring_section_back_image_two'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="container">
+			<div class="common-heading text-center">
+				<h2><?php echo get_field('what_we_bring_section_heading'); ?></h2>
+				<p><?php echo get_field('what_we_bring_section_short_text'); ?></p>
+			</div>
+			<div class="row justify-content-center">
+				<?php
+				if (have_rows('what_we_bring_section_card_content')) {
+					while (have_rows('what_we_bring_section_card_content')) {
+						the_row();
+						$card_inside_icon = get_sub_field('card_inside_icon');
+						$card_inside_heading = get_sub_field('card_inside_heading');
+						$card_inside_short_text = get_sub_field('card_inside_short_text');
+
+				?>
+						<div class="col-lg-4 col-md-6">
+							<div class="custom-card  text-center">
+								<div class="img-content">
+									<div class="img-inner-content">
+										<?php
+										if ($card_inside_icon != '') { ?>
+											<img src="<?php echo $card_inside_icon; ?>" alt="">
+										<?php } ?>
+									</div>
+								</div>
+								<div class="content-wrap">
+									<div class="heading">
+										<h5><?php echo $card_inside_heading; ?></h5>
+									</div>
+									<p><?php echo $card_inside_short_text; ?></p>
+								</div>
+							</div>
+						</div>
+				<?php }
+				} ?>
+				<!-- <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */ ?>/images/i2.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>We are <span>Scalable.</span></h5>
+                  </div>
+                  <p>Our quick turnaround time will help your business to scale faster.</p> 
+                </div>
+              </div>
+            </div> -->
+				<!-- <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */ ?>/images/i3.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Quality <span>Services.</span></h5>
+                  </div>
+                  <p>We help you stay on top of the current trends in a rapidly changing business world.</p> 
+                </div>
+              </div>
+            </div> -->
+
+				<div class="random-img3">
+					<?php
+					$what_we_bring_back_image_three = get_field('what_we_bring_back_image_three');
+					if ($what_we_bring_back_image_three != '') { ?>
+						<img src="<?php echo get_field('what_we_bring_back_image_three'); ?>" alt="">
+					<?php } ?>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="about-section2 common-padd">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="common-heading">
+						<h2><span><?php echo get_field('makes_digitial_work_bold_heading'); ?></span> <?php echo get_field('makes_digitial_work_normal_heading'); ?></h2>
+
+						<?php echo get_field('makes_digitial_work_section_short_description'); ?>
+
+						<a href="<?php echo get_field('section_bottom_button_link'); ?>" class="btn"><?php echo get_field('section_bottom_button_text'); ?></a>
+					</div>
+				</div>
+				<div class="col-md-6 helf-image">
+					<?php
+					$makes_digitial_work_section_image = get_field('makes_digitial_work_section_image');
+					if ($makes_digitial_work_section_image != '') { ?>
+						<img src="<?php echo get_field('makes_digitial_work_section_image'); ?>" alt="">
+					<?php } ?>
+				</div>
+
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section class="profile common-padd">
+		<div class="container">
+			<div class="common-heading text-center">
+				<h2><span><?php echo get_field('about_page_portfolio_section_bold_heading'); ?></span> <?php echo get_field('about_page_portfolio_section_normal_heading'); ?></h2>
+				<p><?php echo get_field('about_page_portfolio_section_short_text'); ?></p>
+			</div>
+
+			<div class="row ajaxLoadMoreData">
+				<?php
+                $paged = '1';
+				$args = array(
+					'post_type' => 'portfolioes',
+					'posts_per_page' => 3,
+					'paged' => 1,
+					'post_status' => 'publish',
+					'order' => 'DESC',
+				);
+
+				$portfolioes = new WP_Query($args);
+				if ($portfolioes->have_posts()) {
+					while ($portfolioes->have_posts()) {
+						$portfolioes->the_post();
+						$portfolio_image = wp_get_attachment_image_src(get_post_thumbnail_id($portfolioes->ID), 'full');
+				?>
+						<div class="col-lg-4 col-md-6">
+							<div class="profile-card text-center">
+								<div class="content-wrap">
+									<span class="date"><?php echo get_the_date('j S F'); ?></span>
+									<div class="heading">
+										<h5><?php echo get_the_excerpt($portfolioes->ID); ?></h5>
+									</div>
+									<?php
+									$term_obj_list = get_the_terms($portfolioes->ID, 'portfolio_tag');
+									$terms_string = join(', ', wp_list_pluck($term_obj_list, 'name'));
+									$counter = count($term_obj_list);
+									$categories = get_the_terms($portfolioes->ID, 'portfolio_type');
+									?>
+									<div class="tags">
+										<?php
+										foreach ($categories as $value) { ?>
+
+											<a href="#"><?php echo $value->name; ?></a>
+										<?php } ?>
+									</div>
+								</div>
+								<div class="img-content">
+									<img src="<?php echo $portfolio_image[0]; ?>" alt="">
+								</div>
+							</div>
+						</div>
+
+
+
+				<?php }
+				}
+
+				wp_reset_postdata(); ?>
+
+
+			</div>
+			<?php
+
+
+			// don't display the button if there are not enough posts
+			 if ($portfolioes->max_num_pages > 1){?>
+				<!-- <div data-currentpage="1" class="misha_loadmore btn"><a href="javascript:void(0)" class=" justify-content-center">More posts</a></div>   -->
+				<a href="javascript:void(0)" data-currentpage="1" class="misha_loadmore btn justify-content-center">More posts</a>
+				<?php } ?>
+			 
+			<!-- <div class="misha_loadmore btn">More posts</div> -->
+
+		</div>
+	</section>
+
+	<section class="about-contact common-padd-small">
+		<div class="random-img2">
+			<?php
+			$contact_back_image_one = get_field('contact_back_image_one');
+			if ($contact_back_image_one != '') { ?>
+				<img src="<?php echo get_field('contact_back_image_one'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="random-img1">
+			<?php
+			$contact_back_image_two = get_field('contact_back_image_two');
+			if ($contact_back_image_two != '') { ?>
+				<img src="<?php echo get_field('contact_back_image_two'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="container">
+			<div class="common-heading text-center">
+				<h2><?php echo get_field('contact_form_heading'); ?></h2>
+			</div>
+
+			<!-- <form> -->
+			<div class="row">
+				<!-- <div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your First name">
+					</div>
+					<div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your Last name">
+					</div>
+					<div class="col-md-6">
+						<input type="email" class="form-control" placeholder="Your Email address">
+					</div>
+					<div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your Subject">
+					</div>
+					<div class="col-md-12">
+						<textarea class="form-control" placeholder="Enter your message"></textarea>
+					</div>
+					<div class="col-md-12 text-center">
+						<button type="submit" class="btn">Submit Message</button>
+					</div> -->
+				<?php echo do_shortcode('[contact-form-7 id="5" title="Contact form"]'); ?>
+
+
+				<div class="random-img3">
+					<?php
+					$contact_back_image_three = get_field('contact_back_image_three');
+					if ($contact_back_image_three != '') { ?>
+						<img src="<?php echo get_field('contact_back_image_three'); ?>" alt="">
+					<?php } ?>
+				</div>
+			</div>
+			<!-- </form> -->
+
+
+		</div>
+	</section>
+
+</main>
+<!--content sction-->
+<?php get_footer(); ?> 
+
+
+****************************End***********
+

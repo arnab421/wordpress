@@ -1,0 +1,715 @@
+Functions.php file *****start*****######  
+ // autoplay: false,
+<?php
+/*****************************************
+* Weaver's Web Functions & Definitions *
+*****************************************/
+$functions_path = get_template_directory().'/functions/';
+$post_type_path = get_template_directory().'/inc/post-types/';
+$post_meta_path = get_template_directory().'/inc/post-metabox/';
+$theme_function_path = get_template_directory().'/inc/theme-functions/';
+/*--------------------------------------*/
+/* Multipost Thumbnail Functions
+/*--------------------------------------*/
+require_once($functions_path.'multipost-thumbnail/multi-post-thumbnails.php');
+if(class_exists('MultiPostThumbnails')){
+	$types = array('page');
+	foreach($types as $type){
+		new MultiPostThumbnails(array(
+			'label' => 'Top Banner Image',
+			'id' => 'top-banner-image',
+			'post_type' => $type
+			));
+		}		
+	}
+add_image_size('top-banner-size-image', 1920, 700,true);
+/*--------------------------------------*/
+/* Optional Panel Helper Functions
+/*--------------------------------------*/
+require_once($functions_path.'admin-functions.php');
+require_once($functions_path.'admin-interface.php');
+require_once($functions_path.'theme-options.php');
+function weaversweb_ftn_wp_enqueue_scripts(){
+    if(!is_admin()){
+        wp_enqueue_script('jquery');
+        if(is_singular()and get_site_option('thread_comments')){
+            wp_print_scripts('comment-reply');
+			}
+		}
+	}
+add_action('wp_enqueue_scripts','weaversweb_ftn_wp_enqueue_scripts');
+function weaversweb_ftn_get_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    if(isset($options[$name]))
+        return $options[$name];
+	}
+function weaversweb_ftn_update_option($name, $value){
+    $options = get_option('weaversweb_ftn_options');
+    $options[$name] = $value;
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function weaversweb_ftn_delete_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    unset($options[$name]);
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function get_theme_value($field){
+	$field1 = weaversweb_ftn_get_option($field);
+	if(!empty($field1)){
+		$field_val = $field1;
+		}
+	return	$field_val;
+	} 
+
+	
+/*--------------------------------------*/
+/* Post Type Helper Functions
+/*--------------------------------------*/
+// require_once($post_type_path.'clients.php');
+// require_once($post_type_path.'jobs.php');
+require_once($post_type_path.'services.php');
+// require_once($post_type_path.'team_member.php');
+// require_once($post_type_path.'testimonials.php'); 
+require_once($post_type_path.'projects.php');
+/*--------------------------------------*/
+/* Post Meta Helper Functions
+/*--------------------------------------*/
+//require_once($post_meta_path.'casestudy-metabox.php');
+/*--------------------------------------*/
+/* Theme Functions
+/*--------------------------------------*/
+require_once($theme_function_path.'extra-functions.php');
+/*--------------------------------------*/
+/* Theme Helper Functions
+/*--------------------------------------*/
+if(!function_exists('weaversweb_theme_setup')):
+	function weaversweb_theme_setup(){
+		add_theme_support('title-tag');
+		add_theme_support('post-thumbnails');
+		register_nav_menus(array(
+			'primary' => __('Primary Menu','weaversweb'),
+			'secondary'  => __('Secondary Menu','weaversweb'),
+			));
+		add_theme_support('html5',array('search-form','comment-form','comment-list','gallery','caption'));
+		}
+	endif;
+add_action('after_setup_theme','weaversweb_theme_setup');
+function weaversweb_widgets_init(){
+	register_sidebar(array(
+		'name'          => __('Widget Area','weaversweb'),
+		'id'            => 'sidebar-1',
+		'description'   => __('Add widgets here to appear in your sidebar.','weaversweb'),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+		));
+	}
+add_action('widgets_init','weaversweb_widgets_init');
+function weaversweb_scripts(){
+
+	wp_enqueue_style('vw-main-bootstrap',get_template_directory_uri().'/css/bootstrap.min.css',array());
+	wp_enqueue_style('vw-main-font-awesome',get_template_directory_uri().'/css/font-awesome-all.min.css',array());
+	wp_enqueue_style('vw-main-owl-carousel',get_template_directory_uri().'/css/owl.carousel.min.css',array());
+	wp_enqueue_style('vw-main-owl-theme',get_template_directory_uri().'/css/owl.theme.default.min.css',array());
+	wp_enqueue_style('vw-main-slick',get_template_directory_uri().'/css/slick.css',array());
+	wp_enqueue_style('vw-main-slick-theme',get_template_directory_uri().'/css/slick-theme.css',array());
+	wp_enqueue_style('vw-main-animate',get_template_directory_uri().'/css/animate.min.css',array());
+	wp_enqueue_style('vw-main-custom',get_template_directory_uri().'/css/custom.css',array()); 
+	wp_enqueue_style('vw-fancybox',get_template_directory_uri().'/css/jquery.fancybox.min.css',array());
+	
+	
+	wp_enqueue_script('vc-script-popper',get_template_directory_uri().'/js/popper.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-bootstrap',get_template_directory_uri().'/js/bootstrap.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-bootstrap-bundle',get_template_directory_uri().'/js/bootstrap.bundle.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-font-awesome',get_template_directory_uri().'/js/font-awesome-all.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-owl-carousel',get_template_directory_uri().'/js/owl.carousel.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-slick',get_template_directory_uri().'/js/slick.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-wow',get_template_directory_uri().'/js/wow.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-fancybox',get_template_directory_uri().'/js/jquery.fancybox.min.js',array('jquery'),'',true);
+	wp_enqueue_script('vc-script-custom',get_template_directory_uri().'/js/custom.js',array('jquery'),'',true);
+	}
+add_action('wp_enqueue_scripts','weaversweb_scripts');
+add_filter('comments_template','legacy_comments');
+function legacy_comments($file){
+	if(!function_exists('wp_list_comments'))	$file = TEMPLATEPATH .'/legacy.comments.php';
+	return $file;
+} 
+
+Functions.php file actual structure #### end#####******
+
+Front page ********Start************* 
+<?php get_header(); ?>
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+    <!--banner sction-->
+    <!-- <section class="slider-wrapper">
+  <div class="banner-slider owl-carousel owl-theme">
+    <div class="item">
+      <div class="banner-image">
+        <img src="<?php echo get_template_directory_uri(); ?>/images/Mask Group 77.jpg" alt="banner">
+      </div>
+      <div class="container">
+        <div class="inner-content-wrapper text-center text-white">
+          <div class="d-block">
+            <h1>What Can Our Professional <br> Welders Help You With?</h1>
+            <p>Pressure Vessel Weldi |</p>
+            <div class="banner-btn">
+              <a href="#" class="btn">SCHEDULE PROJECT</a>
+              <a href="#" class="btn btn-contact">CONTACT US</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="banner-image">
+        <img src="<?php echo get_template_directory_uri(); ?>/images/Mask Group 77.jpg" alt="banner">
+      </div>
+      <div class="container">
+        <div class="inner-content-wrapper text-center text-white">
+          <div class="d-block">
+            <h1>What Can Our Professional <br> Welders Help You With?</h1>
+            <p>Pressure Vessel Weldi |</p>
+            <div class="banner-btn">
+              <div class="btn">SCHEDULE PROJECT</div>
+              <div class="btn btn-contact">CONTACT US</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="banner-image">
+        <img src="<?php echo get_template_directory_uri(); ?>/images/Mask Group 77.jpg" alt="banner">
+      </div>
+      <div class="container">
+        <div class="inner-content-wrapper text-center text-white">
+          <div class="d-block">
+            <h1>What Can Our Professional <br> Welders Help You With?</h1>
+            <p>Pressure Vessel Weldi |</p>
+            <div class="banner-btn">
+              <div class="btn">SCHEDULE PROJECT</div>
+              <div class="btn btn-contact">CONTACT US</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+    <?php get_sidebar('banner'); ?>
+    <!--banner sction-->
+
+    <!--content sction-->
+    <main>
+      <section class="main-section-inner-class common-padd-two">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="pressure-vessels-image-container">
+                <!-- <img src="<?php echo get_template_directory_uri(); ?>/images/experienced.png" alt=""> -->
+                <?php
+                if (has_post_thumbnail()) { // check if the post has a Post Thumbnail assigned to it.
+                  the_post_thumbnail('full');
+                }
+                ?>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="experienced-container">
+                <!-- <h1>Experienced</h1>
+                      <p>ach of our highly trained and equipped welders has years of commercial and industrial on-site experience working on multi-million dollar projects with at least 5 years of experience. Whether it be a multi-million dollar aluminum yacht, large facility welding jobs, penstock welding, or pipeline welding & repairs. Vancouver Welding INC. is experienced & equipped to be there on-site to get the job done right every time.</p> -->
+                <?php the_content(); ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="trustworthy-section">
+        <img src="<?php echo get_field('trustworthy_image'); ?>" alt="trustworthy">
+        <div class="container">
+          <div class="trustworthy-box text-center text-white">
+            <div class="trustworthy-content">
+              <h2><?php echo get_field('trustworthy_heading'); ?></h2>
+              <p><?php echo get_field('trustworthy_short_description'); ?></p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="guaranteed-section common-padd-two">
+        <div class="container">
+          <div class="row flex-row-reverse">
+            <div class="col-lg-6">
+              <div class="piping-facility-welding-image-container">
+                <img src="<?php echo get_field('guaranteed_image'); ?>" alt="">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="guaranteed-container">
+                <h1><?php echo get_field('guaranteed_heading'); ?></h1>
+                <p><?php echo get_field('guaranteed_short_text'); ?></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="featured-service-section common-padd-two">
+        <div class="container">
+          <div class="featured-service-content text-center">
+            <h1><?php echo get_field('featured_services_heading'); ?></h1>
+            <p><?php echo get_field('featured_services_short_text'); ?></p>
+          </div>
+          <div class="row">
+            <?php
+            // $args = array(
+            //   'post_type' => 'services',
+            //   'posts_per_page' => 3,
+            //   'order' => 'ASC',
+            // );  
+            // Dynamic code category
+            $services = get_posts(
+              array(
+                'showposts' => 3,
+                'post_type' => 'services',
+                'tax_query' => array(
+                  array(
+                    'taxonomy' => 'service_type',
+                    'field' => 'slug',
+                    'terms' => 'featured'
+                  )
+                ),
+                
+                'order' => 'ASC'
+              )
+            );
+            //Dynamic code end
+
+            // $services = get_posts($args);
+            if (!empty($services)) {
+              foreach ($services as $service) {
+                // $service_image = wp_get_attachment_image_src(get_post_thumbnail_id($service->ID), 'full');
+
+            ?>
+                <div class="col-lg-4">
+                  <div class="card-blocks-two text-center d-flex justify-content-center align-items-center">
+                    <div class="block-icon">
+                      <img src="<?php echo get_field('image_icon', $service->ID); ?>" alt="">
+                    </div>
+                    <div class="block-content">
+                      <h3><?php echo $service->post_title; ?></h3>
+                      <p><?php echo get_the_excerpt($service->ID); ?> <a href="<?php echo get_the_permalink($service->ID); ?>">Read More</a></p>
+                    </div>
+                  </div>
+                </div>
+
+            <?php }
+            } ?>
+            <!-- <div class="col-lg-4">
+            <div class="card-blocks-two text-center d-flex justify-content-center align-items-center">
+              <div class="block-icon">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/gkjvkj.svg" alt="">
+              </div>
+              <div class="block-content">
+                <h3>Piping Systems & Facility Welding</h3>
+              <p>Piping systems are used to transport petroleum products, chemicals, utilities, process gases, fuel gases, food, and dairy ... <a href="#">Read More</a></p>
+              </div>
+            </div>
+            </div> -->
+            <!-- <div class="col-lg-4">
+            <div class="card-blocks-two text-center d-flex justify-content-center align-items-center">
+              <div class="block-icon">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/ghcxgf.svg" alt="">
+              </div>
+              <div class="block-content">
+                <h3>Penstocks</h3>
+              <p>The penstock is an intake structure that is used in hydro-electrical power plants to control the water flow through the turbines ... <a href="#">Read More</a></p>
+              </div>
+            </div>
+           </div> -->
+          </div>
+          <div class="d-flex justify-content-center align-items-center featured-button">
+            <a href="<?php echo get_field('view_all_services_button_link'); ?>" class="btn featured-btn"><?php echo get_field('view_all_services_button_text'); ?></a>
+          </div>
+        </div>
+      </section>
+      <section class="why-hire-us-section">
+        <div class="why-hire-us-content common-padd">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="why-hire-us-image">
+                  <img src="<?php echo get_field('why_hire_us_image'); ?>" alt="">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="why-hire-us-box-content">
+                  <h1><?php echo get_field('why_hire_us_heading'); ?></h1>
+                  <?php echo get_field('why_hire_us_description'); ?>
+                  <a href="<?php echo get_field('view_details_button_link'); ?>" class="btn why-hire-btn"><?php echo get_field('why_hire_us_view_details_button_text'); ?></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="recently-completed-welding-projects-section common-padd-two">
+        <div class="container">
+          <div class="recently-completed-welding-projects-content text-center">
+            <h1><?php echo get_field('recently_completed_project_heading'); ?></h1>
+            <p><?php echo get_field('recently_completed_project_short_text'); ?></p>
+          </div>
+          <div class="projects-slider owl-carousel owl-theme">
+            <?php
+            $args = array(
+              'post_type' => 'projects',
+              'posts_per_page' => -1,
+              'order' => 'ASC',
+            );
+
+            $projects = get_posts($args);
+            // print_r($projects);
+            if (!empty($projects)) {
+              foreach ($projects as $key => $project) {
+                // print_r($project);
+                // die();
+                $project_image = wp_get_attachment_image_src(get_post_thumbnail_id($project->ID), 'full');
+
+            ?>
+                <div class="slide">
+                  <div class="card">
+                    <img class="card-img" src="<?php echo $project_image[0]; ?>" alt="">
+                    <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                      <div class="link d-flex justify-content-between">
+                        <div class="mt-auto card-txt"><?php echo get_the_excerpt($project->ID); ?></div>
+                        <div class="project-icon-btn">
+                          <ul class="p-0 mb-0">
+                            <li><a href="<?php echo $project_image[0]; ?>" data-fancybox class="card-link" ><i class="fas fa-search"></i></a></li>
+                            <li><a href="<?php echo get_the_permalink($project->ID); ?>" class="card-link"><i class="fas fa-link"></i></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <?php }
+            } ?>
+            <!-- <div class="slide">
+              <div class="card">
+                <img class="card-img" src="<?php echo get_template_directory_uri(); ?>/images/Mask Group 85-1.jpg" alt="">
+                <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                  <div class="link d-flex justify-content-between">
+                    <div class="mt-auto card-txt">Clean Energy</div>
+                    <div class="project-icon-btn">
+                      <ul class="p-0 mb-0">
+                        <li><a href="#" class="card-link"><i class="fas fa-search"></i></a></li>
+                        <li><a href="#" class="card-link"><i class="fas fa-link"></i></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="slide">
+              <div class="card">
+                <img class="card-img" src="<?php echo get_template_directory_uri(); ?>/images/Mask Group 87.jpg" alt="">
+                <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                  <div class="link d-flex justify-content-between">
+                    <div class="mt-auto card-txt">Clean Energy</div>
+                    <div class="project-icon-btn">
+                      <ul class="p-0 mb-0">
+                        <li><a href="#" class="card-link"><i class="fas fa-search"></i></a></li>
+                        <li><a href="#" class="card-link"><i class="fas fa-link"></i></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="slide">
+              <div class="card">
+                <img class="card-img" src="<?php echo get_template_directory_uri(); ?>/images/Mask Group 86.jpg" alt="">
+                <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                  <div class="link d-flex justify-content-between">
+                    <div class="mt-auto card-txt">Clean Energy</div>
+                    <div class="project-icon-btn">
+                      <ul class="p-0 mb-0">
+                        <li><a href="#" class="card-link"><i class="fas fa-search"></i></a></li>
+                        <li><a href="#" class="card-link"><i class="fas fa-link"></i></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="slide">
+              <div class="card">
+                <img class="card-img" src="<?php echo get_template_directory_uri(); ?>/images/Mask Group 85-1.jpg" alt="">
+                <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                  <div class="link d-flex justify-content-between">
+                    <div class="mt-auto card-txt">Clean Energy</div>
+                    <div class="project-icon-btn">
+                      <ul class="p-0 mb-0">
+                        <li><a href="#" class="card-link"><i class="fas fa-search"></i></a></li>
+                        <li><a href="#" class="card-link"><i class="fas fa-link"></i></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="slide">
+              <div class="card">
+                <img class="card-img" src="<?php echo get_template_directory_uri(); ?>/images/Mask Group 87.jpg" alt="">
+                <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                  <div class="link d-flex justify-content-between">
+                    <div class="mt-auto card-txt">Clean Energy</div>
+                    <div class="project-icon-btn">
+                      <ul class="p-0 mb-0">
+                        <li><a href="#" class="card-link"><i class="fas fa-search"></i></a></li>
+                        <li><a href="#" class="card-link"><i class="fas fa-link"></i></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="slide">
+              <div class="card">
+                <img class="card-img" src="<?php echo get_template_directory_uri(); ?>/images/Mask Group 86.jpg" alt="">
+                <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                  <div class="link d-flex justify-content-between">
+                    <div class="mt-auto card-txt">Clean Energy</div>
+                    <div class="project-icon-btn">
+                      <ul class="p-0 mb-0">
+                        <li><a href="#" class="card-link"><i class="fas fa-search"></i></a></li>
+                        <li><a href="#" class="card-link"><i class="fas fa-link"></i></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="slide">
+              <div class="card">
+                <img class="card-img" src="<?php echo get_template_directory_uri(); ?>/images/Mask Group 85-1.jpg" alt="">
+                <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                  <div class="link d-flex justify-content-between">
+                    <div class="mt-auto card-txt">Clean Energy</div>
+                    <div class="project-icon-btn">
+                      <ul class="p-0 mb-0">
+                        <li><a href="#" class="card-link"><i class="fas fa-search"></i></a></li>
+                        <li><a href="#" class="card-link"><i class="fas fa-link"></i></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="slide">
+              <div class="card">
+                <img class="card-img" src="<?php echo get_template_directory_uri(); ?>/images/Mask Group 87.jpg" alt="">
+                <div class="card-img-overlay text-white d-flex flex-column justify-content-end">
+                  <div class="link d-flex justify-content-between">
+                    <div class="mt-auto card-txt">Clean Energy</div>
+                    <div class="project-icon-btn">
+                      <ul class="p-0 mb-0">
+                        <li><a href="#" class="card-link"><i class="fas fa-search"></i></a></li>
+                        <li><a href="#" class="card-link"><i class="fas fa-link"></i></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </section>
+  <?php endwhile;
+endif; ?>
+  <?php get_footer(); ?>
+******#####Frontpage****End**********  
+
+*******Header****Start**##### 
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+<meta charset="<?php bloginfo('charset'); ?>" >
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="profile" href="http://gmpg.org/xfn/11" /> 
+<?php wp_head(); ?>
+</head>
+<!--/head-->
+<?php if(is_front_page()){
+    $class='home';
+}else{
+    $class='';
+}?>
+<body <?php body_class( $class ); ?>> 
+<header class="main-header">
+    <div class="container-fluid header-row">
+      <div class="logo">
+        <a href="<?php echo home_url(); ?>"><img src="<?php echo get_theme_value('vancouver_header_logo');?>" alt=""></a>
+      </div>
+      <div class="hdr-rt">
+        <div class="main-menu">
+         <div class="nav_close" onclick="menu_close()">
+            <i class="far fa-times-circle"></i>
+         </div>
+          <!-- <ul>
+            <li><a class="current-menu-item" href="index.html">Home</a></li>
+            <li><a href="about-us.html">About us</a></li>
+            <li><a href="our-service.html">Our Service</a></li>
+            <li><a href="why-hire-us.html">Why Hire Us</a></li>
+            <li><a href="contact-us.html">Contact Us</a></li>
+          </ul> --> 
+          <?php wp_nav_menu(array(
+                                  'theme_location' => 'primary',
+                                  'container' => '',
+                                  'items_wrap' => '<ul>%3$s</ul>',
+                                        )); ?>
+        </div>
+        <div class="hdr-rt-log-reg desktop">
+          <ul>
+            <!-- <li><a href="#"><div class="menu-contct-icon"><i class="fas fa-phone-alt"></i></div>(604) 999-0125</a>
+          </li> --> 
+          <li><?php echo get_theme_value('vancouver_header_contact');?>
+          </li>
+          </ul>
+        </div>
+        <div onclick="menu_open()" class="nav_btn">
+            <i class="fas fa-bars"></i>
+        </div>
+      </div>
+    </div>
+</header>
+********Header***End######### 
+Footer******start************  
+<footer>
+  <section class="ftr-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-4">
+          <div class="ftr-logo">
+            <a href="<?php echo home_url(); ?>"><img src="<?php echo get_theme_value('vancouver_footer_logo');?>" alt=""></a>
+          </div>
+          <div class="ftr-col">
+            <ul class="ftr-social p-0">
+
+              <?php 
+                            $facebook_link = get_theme_value('footer_facebook_link');
+                            $twitter_link = get_theme_value('footer_twitter_link');
+                            $linkedin_link = get_theme_value('footer_linkedin_link');
+                            $instragram_link = get_theme_value('footer_instragram_link');
+                            
+                            
+                                if($facebook_link !=''){ ?>
+               
+                               <li><a href="<?php echo $facebook_link; ?> "target="_blank"><i class="fab fa-facebook-f"></i></a></li> 
+                             <?php } ?>
+                            <?php if( $twitter_link!=''){ ?>
+                                <li><a href="<?php echo $twitter_link; ?> "target="_blank"><i class="fab fa-twitter"></i></a></li> 
+                            <?php } ?>
+                            <?php if( $linkedin_link!=''){ ?>
+                                <li><a href="<?php echo $linkedin_link; ?>" target="_blank"><i class="fab fa-linkedin-in"></i></a></li> 
+                            <?php } ?>
+                            <?php if( $instragram_link!=''){ ?>
+                                <li><a href="<?php echo $instragram_link; ?> "target="_blank"><i class="fab fa-instagram"></i></a></li> 
+                            <?php } ?>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-4">
+          <div class="ftr-menu text-white">
+            <h4><?php echo get_theme_value('vancouver_quicklink_text');?></h4>
+            
+             <?php wp_nav_menu(array(
+                        'theme_location' => 'secondary',
+                        'container' => '',
+                        'items_wrap' => '<ul class="p-0">%3$s</ul>',
+                    )); ?>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-4">
+          <div class="ftr-col">
+            <h4><?php echo get_theme_value('footer_contact_info_text');?></h4>
+            <ul class="adrs p-0">
+               
+              <li><?php echo get_theme_value('footer_contact_address');?></li> 
+              <li><?php echo get_theme_value('footer_contact_number');?></li> 
+              <li><?php echo get_theme_value('footer_contact_email');?></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="ftr-btm">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 ">
+           
+          <?php
+                        wp_nav_menu(array(
+                        'menu'=>'footer_bottom_menu',
+                        'container'=>'',
+                         menu_class=>'copyrht-menu p-0 m-0',
+                        ))
+                    ?>
+        </div>
+        <div class="col-lg-6 ">
+          <div class="copyrht-menu right-copyright">
+            <p><?php echo get_theme_value('vancouver_footer_copyright');?></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</footer>
+<?php wp_footer(); ?>
+</body>
+</html> 
+Footer******End************** 
+
+vancouverweldinginc@gmail.com 
+arnab.das@weavers-web.com 
+<wordpress@yachting-dreams.weavers-web.com>
+[your-message] 
+yachtingdreams  
+
+Caliber law Total credentials Today
+
+Site URL: https://caliberlaw.weavers-web.com
+
+Backend Access:-
+URL: https://caliberlaw.weavers-web.com/wp-login.php
+User: CaliberLaw@developer@280222
+Pass: |EO!?&Wct?F0~GL[
+
+!!! Set up Wordfence security plugin to secure the site !!!
+
+SSH | SFTP:-
+Host: ip-128-199-28-33.server.weavers-web.com
+User: CaliberLaw
+Pass: Ljg{i1r+v%xhT4^FBl
+Port: 2021
+Path: /home/CaliberLaw/public_html
+
+Database:-
+URL: https://ip-128-199-28-33.server.weavers-web.com/dbadminforweaversweb
+Host: localhost
+Name: db_CaliberLaw
+User: usr_CaliberLaw
+Pass: .2b}G4L5F^D9Heesbk
+
+!!! If any credentials did not work then contact your system administrator !!! 
+
+Wp personal Dynamic Page links
+https://personal.weavers-web.com/ 
+https://personal.weavers-web.com/about-us/ 
+https://personal.weavers-web.com/articles/  
+https://personal.weavers-web.com/contact-us/
+
+
+
+ 

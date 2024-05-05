@@ -1,0 +1,34 @@
+***************frontpage*************
+<section class="counter cmnPddng">
+                <div class="container">
+                    <div class="counterBg" style="background: url(<?php echo get_field('counter_section_background_image'); ?>)">
+                        <div class="row">
+                        <?php
+                            if (have_rows('home_page_counter_section_content')) {
+                                while (have_rows('home_page_counter_section_content')) {
+                                    the_row();
+                                    $counter_content_image = get_sub_field('counter_content_image');
+                                    $counter_number = get_sub_field('counter_number');
+                                    $counter_unit = get_sub_field('counter_unit');
+                                    $counter_content_heading = get_sub_field('counter_content_heading');
+                            ?>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="counterInnr">
+                                    <div class="counterIcon"><img src="<?php echo $counter_content_image;?>"></div>
+                                    <div class="counterTxt wht">
+                                        <div class="counterDv">
+                                            <h3 id="number1" class="number"><?php echo $counter_number;?></h3>
+                                            <h3><?php echo $counter_unit;?></h3>
+                                        </div>
+
+                                        <p><?php echo $counter_content_heading;?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <?php } } ?>
+                        </dv>
+                    </div>
+                </div>
+            </section>
+*****************end*****************

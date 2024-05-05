@@ -1,0 +1,1841 @@
+My header Start
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+
+<head>
+  <meta charset="<?php bloginfo('charset'); ?>">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <?php wp_head(); ?>
+</head>
+<!--/head-->
+<?php if (is_front_page()) {
+  $class = 'home';
+} else {
+  $class = '';
+} ?>
+
+<body <?php body_class($class); ?>>
+  <header class="main-header">
+
+
+    <section class="hdr-btm">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 header-row">
+
+            <div class="logo">
+              <a href="<?php echo home_url(); ?>"><img src="<?php echo get_theme_value('thinkbig_header_logo');?>" alt=""></a>
+            </div>
+
+            <div class="hdr-rt">
+              <div class="main-menu">
+                <div class="nav_close" onclick="menu_close()">
+                  <i class="far fa-times-circle"></i>
+                </div>
+                <!-- <ul>
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Services</a></li>
+                  <li><a href="#">Pricing</a></li>
+                  <li><a href="#">Portfolio</a></li>
+                  <li><a href="#">Careers</a></li>
+                  <li><a href="#">Contact Us</a></li>
+                </ul> -->
+                <?php wp_nav_menu(array(
+                  'theme_location' => 'primary',
+                  'container' => '',
+                  'items_wrap' => '<ul>%3$s</ul>',
+                )); ?>
+              </div>
+              <div onclick="menu_open()" class="nav_btn">
+                <i class="fas fa-bars"></i>
+              </div>
+            </div>
+            <div class="hdr-btn-holder">
+              <a href="<?php echo get_theme_value('thinkbig_support_site_link');?>" class="btn"><?php echo get_theme_value('thinkbig_support_site_text');?></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </header> 
+  
+  Footer start 
+  
+  <!--footer section-->
+  <footer>
+    <div class="ftr-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="common-heading">
+              <h2><span><?php echo get_theme_value('thinkbig_footer_letsstrat_text');?></span><br>
+              <?php echo get_theme_value('thinkbig_footer_somethingreat_text');?>!</h2>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="social">
+              <ul>
+              <?php 
+                            $thinkbig_footer_facebook_link = get_theme_value('thinkbig_footer_facebook_link');
+                            $thinkbig_footer_twitter_link = get_theme_value('thinkbig_footer_twitter_link');
+                            $thinkbig_footer_linkedin_link = get_theme_value('thinkbig_footer_linkedin_link');
+                            $thinkbig_footer_youtube_link = get_theme_value('thinkbig_footer_youtube_link');
+                            
+                            
+                if($thinkbig_footer_facebook_link !=''){ ?>
+                <li><a href="<?php echo $thinkbig_footer_facebook_link; ?> "target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                <?php } ?>
+                <?php if($thinkbig_footer_twitter_link !=''){ ?>
+                <li><a href="<?php echo $thinkbig_footer_twitter_link; ?> "target="_blank"><i class="fab fa-twitter"></i></a></li>
+                <?php } ?>
+                <?php if($thinkbig_footer_linkedin_link !=''){ ?>
+                <li><a href="<?php echo $thinkbig_footer_linkedin_link; ?> "target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                <?php } ?>
+                <?php if($thinkbig_footer_youtube_link !=''){ ?>
+                <li><a href="<?php echo $thinkbig_footer_youtube_link; ?> "target="_blank"><i class="fab fa-youtube"></i></a></li>
+                <?php } ?>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ftr-btm">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="ftr-logo">
+            <a href="<?php echo home_url(); ?>"><img src="<?php echo get_theme_value('thinkbig_footer_logo');?>" alt=""></a>
+            </div>
+            <div class="heading-ftr">
+              <h3><?php echo get_theme_value('thinkbig_footer_connectus_text');?></h3>
+            </div>
+            <div class="phone icon-wrap d-flex">
+              <div class="icon"><i class="fas fa-phone-alt"></i></div>
+              <a href="tel:<?php echo get_theme_value('thinkbig_footer_phone_number');?>" class="text"><span><?php echo get_theme_value('thinkbig_footer_phone_number');?></span></a>
+            </div>
+            <div class="mail icon-wrap d-flex">
+              <div class="icon"><i class="fas fa-envelope"></i></div>
+              <a href="mailto:<?php echo get_theme_value('thinkbig_footer_email');?>" class="text"><span><?php echo get_theme_value('thinkbig_footer_email');?></span></a>
+            </div>
+          </div>
+          <div class="col-md-4 links">
+            <h3><?php echo get_theme_value('thinkbig_footer_our_service_text');?></h3>
+            <!-- <ul>
+                <li><a href="#">Web Development
+                </a></li>
+                <li><a href="#">App Development</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Social Media Management
+                </a></li>
+                <li><a href="#">Web Hosting</a></li>
+            </ul> -->
+            <?php wp_nav_menu(array(
+              'theme_location' => 'secondary',
+              'container' => '',
+              'items_wrap' => '<ul>%3$s</ul>',
+            )); ?>
+          </div>
+          <div class="col-md-4 links">
+            <h3><?php echo get_theme_value('thinkbig_footer_navigation_text');?></h3>
+            <!-- <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Portfolio</a></li>
+              <li><a href="#">Contact Us</a></li>
+            </ul> -->
+            <?php
+                        wp_nav_menu(array(
+                        'menu'=>'footer_bottom_menu',
+                        'container'=>'',
+                        'menu_class'=>'',
+                        ))
+                    ?>
+          </div>
+        </div>
+      </div>
+      <div class="ftr-copyright text-center">
+        <p><?php echo get_theme_value('thinkbig_footer_copyright_text');?></p>
+      </div>
+    </div>
+  </footer>
+  <!--footer section-->
+  <?php wp_footer(); ?>
+  </body>
+
+  </html> 
+  
+Home Page start**********
+<?php get_header(); ?>
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+<!--banner sction-->
+<section class="slider-wrap">
+    <div class="slider-wrap-inner">
+    <?php
+							 	if( have_rows('banner_videos') ){ while (have_rows('banner_videos')) { the_row(); 
+                  $video_in_banner = get_sub_field('video_in_banner');
+										
+								?> 
+      <div class="slider-wrap-item">
+        <div class="video-wrap">
+          <video width="320" height="240" autoplay="true" muted autostart loop playsinline>
+            <source src="<?php echo $video_in_banner;?>" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <?php } } ?>
+      
+    </div>
+    <div class="video-wrap-content text-center">
+      <h1><?php echo get_field('home_banner_ideas_text'); ?> <span><?php echo get_field('home_banner_making_sense_text'); ?></span></h1>
+    </div>
+    <div class="video-wrap-info">
+      <div class="d-flex info-wrap">
+        <div class="social">
+          <div class="d-flex">
+            <div class="icon"><a href="<?php echo get_field('home_banner_facebook_link'); ?> "target="_blank"><i class="fab fa-facebook-f"></i></a></div>
+            <div class="icon"><a href="<?php echo get_field('home_banner_twitter_link'); ?>"target="_blank"><i class="fab fa-twitter"></i></a></div>
+            <div class="icon"><a href="<?php echo get_field('home_banner_instragram_link'); ?>"target="_blank"><i class="fab fa-instagram"></i></a></div>
+            <div class="icon"><a href="<?php echo get_field('home_banner_piterest_link'); ?>"target="_blank"><i class="fab fa-pinterest"></i></a></div>
+          </div>
+        </div>
+        <a href="tel:<?php echo get_field('banner_phone_number'); ?>" class="phone"><span><?php echo get_field('banner_phone_number'); ?></span></a>
+        <a href="mailto:<?php echo get_field('banner_email_id'); ?>" class="email"><span><?php echo get_field('banner_email_id'); ?></span></a>
+      </div>
+    </div>
+  </section>
+  <!--banner sction-->
+
+  <!--content sction-->
+  <main>
+    <section class="why-choose-us">
+      <div class="row">
+      <?php
+							 	if( have_rows('why_choose_us_content') ){ while (have_rows('why_choose_us_content')) { the_row(); 
+                  $heading = get_sub_field('heading');
+                  $heading_normal_text = get_sub_field('heading_normal_text');
+                  $section_short_text = get_sub_field('section_short_text');
+                  $learn_more_button_text = get_sub_field('learn_more_button_text');
+                  $learn_more_button_link = get_sub_field('learn_more_button_link');
+                  $section_image = get_sub_field('section_image');
+										
+				?>
+        <div class="col-md-4">
+          <div class="whole-content">
+            <div class="content">
+              <div class="heading">
+                <h2><?php echo $heading;?><br><span><?php echo $heading_normal_text;?></span></h2>
+              </div>
+              <div class="text-wrap">
+                <p><?php echo $section_short_text;?>
+                </p>
+              </div>
+              <a href="<?php echo $learn_more_button_link;?>" class="btn"><?php echo $learn_more_button_text;?></a>
+            </div>
+            <div class="img-content">
+              <img src="<?php echo $section_image;?>" alt="">
+            </div>
+          </div>
+        </div>
+        <?php } } ?>
+        
+      </div>
+    </section>
+    <section class="counter-sec common-padd">
+      <div class="container">
+        <div class="circle-img">
+          <img src="<?php echo get_field('counter_section_circle_image'); ?>" alt="">
+        </div>
+        <div class="section-heading text-center common-heading">
+          <!-- <h2>Turning Creative<br>
+            <span>Ideas</span> Into Innovative Products.</h2> -->
+            <?php echo get_field('counter_section_short_description'); ?>
+          <div class="desc">
+            <!-- <p>We proactively consult, design, develop & scale robust web, mobile, web hosting & social media
+              solutions, that fuel innovation & deliver digital success.</p> -->
+              <?php the_content();?>
+          </div>
+        </div>
+        <div class="row"> 
+        <?php
+							 	if( have_rows('counter_inner_content') ){ while (have_rows('counter_inner_content')) { the_row(); 
+                  $counter_icon = get_sub_field('counter_icon');
+                  $counter_value = get_sub_field('counter_value');
+                  $counter_name = get_sub_field('counter_name');
+                  $number_in_counter = get_sub_field('number_in_counter');
+                  if($counter_value == 'plus'){
+                         $counter_html="<sup>+</sup>";
+                  } else if($counter_value == 'persentage') {
+                         $counter_html='<span class="percent">%</span>';
+                  } else {
+                         $counter_html="";
+                  }
+										
+				?>
+          <div class="col-md-4">
+            <div class="counter-wrap d-flex">
+              <div class="counter-icon">
+                <img src="<?php echo $counter_icon;?>" alt="">
+              </div>
+              <div class="counter-text">
+                <span class="counter"><?php echo $number_in_counter;?></span> <?php echo $counter_html;?>
+                  <div class="counter-name">
+                  <?php echo $counter_name;?>
+                </div>
+              </div>
+            </div>
+          </div>
+        <?php } } ?>
+        </div>
+        <div class="counter-btn text-center">
+          <a href="<?php echo get_field('explore_product_button_link'); ?>" class="btn"><?php echo get_field('explore_products_button_text'); ?></a>
+        </div>
+      </div>
+    </section>
+    <section class="challenges common-padd">
+      <div class="container">
+        <div class="common-heading text-center">
+          <h2>Simple Solutions<br>
+            <span>For</span> Complex Challenges
+          </h2>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="content-wrap d-flex">
+              <div class="img-wrap">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/mobile-application.png" alt="">
+              </div>
+              <div class="challenge-text-content">
+                <div class="text-wrap">
+                  <div class="heading">
+                    <h3>Mobile<br>
+                      <span>Application</span></h3>
+                  </div>
+                </div>
+                <div class="desc">
+                  <p>We leverage the mobile device capabilities to create a memorable end-user experience to spur your
+                    brand’s growth.</p>
+                </div>
+                <div class="challenge-btn">
+                  <a href="#" class="btn-2 btn ">Learn More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="content-wrap d-flex">
+              <div class="img-wrap">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/web-hosting.png" alt="">
+              </div>
+              <div class="challenge-text-content">
+                <div class="text-wrap">
+                  <div class="heading">
+                    <h3>Web
+                      <br>
+                      <span>Hosting</span></h3>
+                  </div>
+                </div>
+                <div class="desc">
+                  <p>You need powerful web hosting. A variety of premium features optimized for the best performance
+                    will make your websites really fast.</p>
+                </div>
+                <div class="challenge-btn">
+                  <a href="#" class="btn-2 btn ">Learn More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="content-wrap d-flex">
+              <div class="img-wrap">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/social-media.png" alt="">
+              </div>
+              <div class="challenge-text-content">
+                <div class="text-wrap">
+                  <div class="heading">
+                    <h3>Social Media
+                      <br>
+                      <span>Management</span></h3>
+                  </div>
+                </div>
+                <div class="desc">
+                  <p>Our social media management services is a part of the overall strategy and hands-on methodologies
+                    that we offer our clients to expose their services and products.</p>
+                </div>
+                <div class="challenge-btn">
+                  <a href="#" class="btn-2 btn ">Learn More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="content-wrap d-flex">
+              <div class="img-wrap">
+                <img src="<?php echo get_template_directory_uri(); ?>/images/web-dev.png" alt="">
+              </div>
+              <div class="challenge-text-content">
+                <div class="text-wrap">
+                  <div class="heading">
+                    <h3>Web<br>
+                      <span>Development</span></h3>
+                  </div>
+                </div>
+                <div class="desc">
+                  <p>At Think Big Technology, we provide a diverse range of highly optimized web development services
+                    that help start-ups and brands turn their dreams or website ideas into reality.</p>
+                </div>
+                <div class="challenge-btn">
+                  <a href="#" class="btn-2 btn ">Learn More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-sec text-center">
+          <a href="#" class="btn">View Our Pricing</a>
+          <a href="#" class="btn-2 btn">View Our Jobs</a>
+        </div>
+      </div>
+    </section>
+    <section class="clients common-padd">
+      <div class="container">
+        <div class="common-heading text-center">
+          <h2>Our Clients<br>
+            <span>Love</span> Us.</h2>
+            <div class="desc">
+              <p>We leave no stone unturned while working so that we can deliver our clients the best. It makes us feel
+                highly proud and encouraged when our clients appreciate our work.
+                </p>
+            </div>
+        </div>
+        <div class="testimonial-sec">
+          <div class="testimonial-item">
+            <div class="quote-image">
+              <img src="<?php echo get_template_directory_uri(); ?>/images/quote-icon.png" alt="">
+            </div>
+            <div class="text-content">
+              <div class="text-heading">
+                <span>Gotta love Think Big Technology!</span>
+              </div>
+              <p>Competently parallel task fully researched data and enterprise process improvements.</p>
+            </div>
+            <div class="rating">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+            <div class="rater">
+              <span>Underdog Fire & Security</span>
+            </div>
+          </div>
+          <div class="testimonial-item">
+            <div class="quote-image">
+              <img src="<?php echo get_template_directory_uri(); ?>/images/quote-icon.png" alt="">
+            </div>
+            <div class="text-content">
+              <div class="text-heading">
+                <span>Impressed by the Service Quality!</span>
+              </div>
+              <p>Fantastic work! I am just impressed by their service quality. I hired them for the website development of my online store and they have satisfied me fully by delivering the exceptional solution.</p>
+            </div>
+            <div class="rating">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+            <div class="rater">
+              <span>Body The Label</span>
+            </div>
+          </div>
+          <div class="testimonial-item">
+            <div class="quote-image">
+              <img src="<?php echo get_template_directory_uri(); ?>/images/quote-icon.png" alt="">
+            </div>
+            <div class="text-content">
+              <div class="text-heading">
+                <span>Gotta love Think Big Technology!</span>
+              </div>
+              <p>Competently parallel task fully researched data and enterprise process improvements.</p>
+            </div>
+            <div class="rating">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+            <div class="rater">
+              <span>Underdog Fire & Security</span>
+            </div>
+          </div>
+          <div class="testimonial-item">
+            <div class="quote-image">
+              <img src="<?php echo get_template_directory_uri(); ?>/images/quote-icon.png" alt="">
+            </div>
+            <div class="text-content">
+              <div class="text-heading">
+                <span>Gotta love Think Big Technology!</span>
+              </div>
+              <p>Competently parallel task fully researched data and enterprise process improvements.</p>
+            </div>
+            <div class="rating">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+            <div class="rater">
+              <span>Underdog Fire & Security</span>
+            </div>
+          </div>
+          <div class="testimonial-item">
+            <div class="quote-image">
+              <img src="<?php echo get_template_directory_uri(); ?>/images/quote-icon.png" alt="">
+            </div>
+            <div class="text-content">
+              <div class="text-heading">
+                <span>Gotta love Think Big Technology!</span>
+              </div>
+              <p>Competently parallel task fully researched data and enterprise process improvements.</p>
+            </div>
+            <div class="rating">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+            <div class="rater">
+              <span>Underdog Fire & Security</span>
+            </div>
+          </div>
+          <div class="testimonial-item">
+            <div class="quote-image">
+              <img src="<?php echo get_template_directory_uri(); ?>/images/quote-icon.png" alt="">
+            </div>
+            <div class="text-content">
+              <div class="text-heading">
+                <span>Gotta love Think Big Technology!</span>
+              </div>
+              <p>Competently parallel task fully researched data and enterprise process improvements.</p>
+            </div>
+            <div class="rating">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+            <div class="rater">
+              <span>Underdog Fire & Security</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      </div>
+    </section>
+    <section class="perks common-padd">
+      <div class="random-img2">
+        <img src="<?php echo get_template_directory_uri(); ?>/images/Ellipse 4.png" alt="">
+      </div>
+      <div class="random-img1">
+        <img src="<?php echo get_template_directory_uri(); ?>/images/Ellipse 22.png" alt="">
+      </div>
+        <div class="container">
+          <div class="common-heading text-center">
+            <h2>Would You Like to Join The
+              <span>Think Big</span>Technology Team?</h2>
+              <div class="desc">
+                <p>We are looking for young and motivated app developers! If you would like to
+                  join the team and grow with us, reach out to find out more.                  
+                  </p>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/Awesome Achievements-02.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Challenging<span>Projects</span></h5>
+                  </div>
+                  <p>Proactively envisioned multimedia expertise.</p>
+                  <a href="#" class="btn-2 btn">Learn More</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/Awesome Achievements-06.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Custom Working <span>Time</span></h5>
+                  </div>
+                  <p>Utilizing enterprise via 24/7 markets.</p>
+                  <a href="#" class="btn-2 btn">Learn More</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/Awesome Achievements-03.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Pixel Perfect <span>Apps</span></h5>
+                  </div>
+                  <p>Open-source via inexpensive materials.</p>
+                  <a href="#" class="btn-2 btn">Learn More</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/Awesome Achievements-05.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Award Winning <span>Team</span></h5>
+                  </div>
+                  <p>Delivering performance based method.</p>
+                  <a href="#" class="btn-2 btn">Learn More</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/Awesome Achievements-04.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Creative <span>Environment</span></h5>
+                  </div>
+                  <p>Global sources through interoperable services.</p>
+                  <a href="#" class="btn-2 btn">Learn More</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/Awesome Achievements-01.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Awesome <span>Achievements</span></h5>
+                  </div>
+                  <p>Dramatically engage top-line web services.</p>
+                  <a href="#" class="btn-2 btn">Learn More</a>
+                </div>
+              </div>
+            </div>
+            <div class="random-img3">
+              <img src="<?php echo get_template_directory_uri(); ?>/images/Ellipse 21.png" alt="">
+            </div>
+          </div>
+        </div>
+    </section>
+    <section class="brands common-padd">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="common-heading">
+              <h2>We Have Worked
+                With the
+                <span>Biggest<br>
+                  Brands</span></h2>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="img-holder">
+                  <img src="<?php echo get_template_directory_uri(); ?>/images/5.png" alt="">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="img-holder">
+                  <img src="<?php echo get_template_directory_uri(); ?>/images/4.png" alt="">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="img-holder">
+                  <img src="<?php echo get_template_directory_uri(); ?>/images/9.png" alt="">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="img-holder">
+                  <img src="<?php echo get_template_directory_uri(); ?>/images/2.png" alt="">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="img-holder">
+                  <img src="<?php echo get_template_directory_uri(); ?>/images/1.png" alt="">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="img-holder">
+                  <img src="<?php echo get_template_directory_uri(); ?>/images/8.png" alt="">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="img-holder">
+                  <img src="<?php echo get_template_directory_uri(); ?>/images/3.png" alt="">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="img-holder">
+                  <img src="<?php echo get_template_directory_uri(); ?>/images/6.png" alt="">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="img-holder">
+                  <img src="<?php echo get_template_directory_uri(); ?>/images/7.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="map common-padd">
+      <div class="container">
+        <div class="common-heading text-center">
+          <h2>Partnerships from
+            <span> All Over 
+              The World</span></h2>
+        </div>
+        <div class="img-holder">
+          <img src="<?php echo get_template_directory_uri(); ?>/images/map.png" alt="">
+        </div>
+      </div>
+    </section>
+    <section class="updated common-padd">
+      <div class="updated-bg-img">
+        <img src="<?php echo get_template_directory_uri(); ?>/images/Mask Group 21.png" alt="">
+      </div>
+      <div class="container">
+        <div class="common-heading ">
+          <h2>Stay
+            <span>Updated</span></h2>
+            <div class="desc">
+              <p>Keep up with Think Big Technology and get instant news once in a while. We promise,
+                no spam or similar emails, just pure goodiness.                  
+                </p>
+            </div>
+        </div>
+        <div class="form-field">
+          <form>
+            <div class="row">
+              <div class="col-md-10">
+                <input type="email" class="form-control" id="inputPassword2" placeholder="Enter your email address">
+              </div>
+              <div class="col-md-2">
+                <input type="submit" class="btn  mb-3" value="Subscribe">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+<?php endwhile;
+endif; ?>
+<?php get_footer(); ?> 
+Home page End*************
+Contact Page template *********
+<?php /*Template Name: Layout: Contact*/ ?>
+<?php get_header(); ?>
+<!--banner sction-->
+<section class="inner-banner" style="background-image: url(<?php echo get_field('banner_inner_image'); ?>);">  
+  <div class="container">
+   
+		<div class="row justify-content-center">
+			<div class="col-lg-12 text-center common-heading">  
+				<h1><?php echo get_field('banner_inner_heading'); ?></h1>
+				<p><?php echo get_field('banner_inner_short_description'); ?></p> 
+			</div> 			 
+		</div>
+		 
+  </div>  
+  </section>
+   
+  <!--banner sction-->
+
+  <!--content sction-->
+  <main> 
+    <section class="perks perks2 contect-1 common-padd">
+      <div class="random-img2">
+        <img src="<?php echo get_field('contact_page_background_image_one'); ?>" alt="">
+      </div>
+      <div class="random-img1">
+        <img src="<?php echo get_field('contact_page_background_image_two'); ?>" alt="">
+      </div>
+        <div class="container">
+          <div class="common-heading text-center">
+            <h2><?php echo get_field('contact_page_heading'); ?></h2> 
+          </div>
+          <div class="row">
+          <?php
+          $i=0;
+          if (have_rows('contact_information_content')) {
+            while (have_rows('contact_information_content')) {
+              the_row();
+              $i++;
+              $contact_information_section_image = get_sub_field('contact_information_section_image');
+              $contact_information_section_short_heading = get_sub_field('contact_information_section_short_heading');
+              $contact_information_section_short_text = get_sub_field('contact_information_section_short_text');
+              
+          ?>
+            <div class="col-md-4">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo $contact_information_section_image;?>" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5><?php echo $contact_information_section_short_heading;?></h5>
+                  </div>
+                  <?php 
+                  if($i==1){?>
+
+                  <p><?php echo $contact_information_section_short_text;?></p>
+                  <?php }
+                  else if($i==2) {?>
+                         <a href="mailto:<?php echo $contact_information_section_short_text;?>"><?php echo $contact_information_section_short_text;?></a>  
+                   <?php } else if($i==3) {?>
+                         <a href="tel:<?php echo $contact_information_section_short_text;?>"><?php echo $contact_information_section_short_text;?></a> 
+                    <?php } else {?>
+                      <?php } ?>
+                </div>
+              </div>
+            </div>
+            <?php } }?>
+            <!-- <div class="col-md-4">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/c2.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Email <span>Us</span></h5>
+                  </div>
+                  <a href="mailto:info@thinkbigtechnologycom">info@thinkbigtechnologycom</a> 
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="col-md-4">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/c3.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Call <span>Us</span></h5>
+                  </div>
+                  <a href="tel:(908)-202-7098">(908)-202-7098</a> 
+                </div>
+              </div>
+            </div> -->
+             
+            <div class="random-img3">
+              <img src="<?php echo get_field('contact_page_background_image_three'); ?>" alt="">
+            </div>
+          </div>
+        </div>
+    </section>
+	
+    <section class="perks contect-2 common-padd"> 
+        <div class="container">
+          <div class="common-heading text-center">
+            <h2><span>Would you like to join</span><br>Think Big Technology Team?</h2> 
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-3">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/i4.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Challenging <span>Projects</span></h5>
+                  </div>
+                  <p>Proactively envisioned multimedia expertise.</p> 
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/i5.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Custom <span>Working Time</span></h5>
+                  </div>
+                  <p>Utilizing enterprise via 24/7 markets.</p> 
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/i6.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Pixel <span>Perfect Apps</span></h5>
+                  </div>
+                  <p>Open-source via inexpensive materials.</p> 
+                </div>
+              </div>
+            </div>
+			
+			      <div class="col-md-3">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/i7.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Achieving <span>Goals</span></h5>
+                  </div>
+                  <p>Making our clients proud by achieving big milestones</p> 
+                </div>
+              </div>
+            </div>
+			
+			     <div class="col-md-3">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/i8.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Performance <span>Oriented</span></h5>
+                  </div>
+                  <p>Delivering performance based method.</p> 
+                </div>
+              </div>
+            </div>
+			
+			     <div class="col-md-3">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/i9.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Creative <span>Environment</span></h5>
+                  </div>
+                  <p>Welcoming creative minds in our team</p> 
+                </div>
+              </div>
+            </div>
+			
+			     <div class="col-md-3">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/i10.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Awesome <span>Achievements</span></h5>
+                  </div>
+                  <p>Dramatically engage top- line web services.</p> 
+                </div>
+              </div>
+            </div>
+			 
+              
+          </div>
+        </div>
+    </section>
+	
+  </main>
+<?php get_footer(); ?> 
+*****************************End*********
+
+Think Big Technology Design Fixing:
+Home Page:
+1.Bannner Video Section Social Media Icon,phonenumber,Email color Change,gaping .
+2.NewsLetter Form after  email is submited,at the time of reply from is breaking.
+3.In Footer Connect us Section Phone No and email color needs to change.
+About Page:
+1.Post publish Date need to be all capital letter.
+2. 
+*******************************
+think-big-technology page 
+about template with load more plugin:
+start**********
+<?php /*Template Name: Layout: About Us*/ ?>
+<?php get_header(); ?>
+<!--banner sction-->
+<section class="inner-banner" style="background-image: url(<?php echo get_field('about_page_banner_image'); ?>);">
+	<div class="container">
+
+		<div class="row justify-content-center">
+			<div class="col-lg-12 text-center common-heading">
+				<h1><?php echo get_field('about_page_banner_heading'); ?></h1>
+				<p><?php echo get_field('about_page_banner_short_description'); ?></p>
+				<a class="btn" href="<?php echo get_field('about_page_banner_button_link'); ?>"><?php echo get_field('about_page_banner_button_text'); ?></a>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+	<section class="perks perks2 common-padd">
+		<div class="random-img2">
+			<?php 
+			   $what_we_bring_section_back_image_one = get_field('what_we_bring_section_back_image_one');
+			   if($what_we_bring_section_back_image_one != '')
+			{?>
+			<img src="<?php echo get_field('what_we_bring_section_back_image_one'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="random-img1">
+			<?php 
+			 $what_we_bring_section_back_image_two = get_field('what_we_bring_section_back_image_two');
+			 if($what_we_bring_section_back_image_two != '')
+			{?>
+			<img src="<?php echo get_field('what_we_bring_section_back_image_two'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="container">
+			<div class="common-heading text-center">
+				<h2><?php echo get_field('what_we_bring_section_heading'); ?></h2>
+				<p><?php echo get_field('what_we_bring_section_short_text'); ?></p>
+			</div>
+			<div class="row justify-content-center">
+				<?php
+				if (have_rows('what_we_bring_section_card_content')) {
+					while (have_rows('what_we_bring_section_card_content')) {
+						the_row();
+						$card_inside_icon = get_sub_field('card_inside_icon');
+						$card_inside_heading = get_sub_field('card_inside_heading');
+						$card_inside_short_text = get_sub_field('card_inside_short_text');
+
+				?>
+						<div class="col-lg-4 col-md-6">
+							<div class="custom-card  text-center">
+								<div class="img-content">
+									<div class="img-inner-content">
+										<?php 
+										if($card_inside_icon != '')
+										{?>
+										<img src="<?php echo $card_inside_icon; ?>" alt="">
+										<?php } ?>
+									</div>
+								</div>
+								<div class="content-wrap">
+									<div class="heading">
+										<h5><?php echo $card_inside_heading; ?></h5>
+									</div>
+									<p><?php echo $card_inside_short_text; ?></p>
+								</div>
+							</div>
+						</div>
+				<?php }
+				} ?>
+				<!-- <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */ ?>/images/i2.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>We are <span>Scalable.</span></h5>
+                  </div>
+                  <p>Our quick turnaround time will help your business to scale faster.</p> 
+                </div>
+              </div>
+            </div> -->
+				<!-- <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */ ?>/images/i3.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Quality <span>Services.</span></h5>
+                  </div>
+                  <p>We help you stay on top of the current trends in a rapidly changing business world.</p> 
+                </div>
+              </div>
+            </div> -->
+
+				<div class="random-img3">
+					<?php 
+					 $what_we_bring_back_image_three = get_field('what_we_bring_back_image_three');
+					if($what_we_bring_back_image_three != '') {?>
+					<img src="<?php echo get_field('what_we_bring_back_image_three'); ?>" alt="">
+					<?php } ?>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="about-section2 common-padd">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="common-heading">
+						<h2><span><?php echo get_field('makes_digitial_work_bold_heading'); ?></span> <?php echo get_field('makes_digitial_work_normal_heading'); ?></h2>
+						
+						<?php echo get_field('makes_digitial_work_section_short_description'); ?>
+
+						<a href="<?php echo get_field('section_bottom_button_link'); ?>" class="btn"><?php echo get_field('section_bottom_button_text'); ?></a>
+					</div>
+				</div>
+				<div class="col-md-6 helf-image">
+					<?php
+					  $makes_digitial_work_section_image = get_field('makes_digitial_work_section_image'); 
+					if($makes_digitial_work_section_image != '') {?>
+					<img src="<?php echo get_field('makes_digitial_work_section_image'); ?>" alt="">
+					<?php } ?>
+				</div>
+
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section class="profile common-padd">
+		<div class="container">
+			<div class="common-heading text-center">
+				<h2><span><?php echo get_field('about_page_portfolio_section_bold_heading'); ?></span> <?php echo get_field('about_page_portfolio_section_normal_heading'); ?></h2>
+				<p><?php echo get_field('about_page_portfolio_section_short_text'); ?></p>
+			</div>
+
+			<div class="row">
+				<?php echo do_shortcode('[ajax_load_more container_type="div" post_type="portfolioes" posts_per_page="3"]');?>
+				
+			</div>
+
+		</div>
+	</section>
+
+	<section class="about-contact common-padd-small">
+		<div class="random-img2">
+			<?php 
+			  $contact_back_image_one = get_field('contact_back_image_one');
+			  if($contact_back_image_one != '')
+			 {?>
+			<img src="<?php echo get_field('contact_back_image_one'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="random-img1">
+			<?php 
+			 $contact_back_image_two = get_field('contact_back_image_two');
+			 if($contact_back_image_two != '')
+			{?>
+			<img src="<?php echo get_field('contact_back_image_two'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="container">
+			<div class="common-heading text-center">
+				<h2><?php echo get_field('contact_form_heading'); ?></h2>
+			</div>
+
+			<!-- <form> -->
+				<div class="row">
+					<!-- <div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your First name">
+					</div>
+					<div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your Last name">
+					</div>
+					<div class="col-md-6">
+						<input type="email" class="form-control" placeholder="Your Email address">
+					</div>
+					<div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your Subject">
+					</div>
+					<div class="col-md-12">
+						<textarea class="form-control" placeholder="Enter your message"></textarea>
+					</div>
+					<div class="col-md-12 text-center">
+						<button type="submit" class="btn">Submit Message</button>
+					</div> -->
+					<?php echo do_shortcode( '[contact-form-7 id="5" title="Contact form"]' );?>
+			   
+			    
+					<div class="random-img3">
+						<?php 
+						  $contact_back_image_three = get_field('contact_back_image_three');
+						if($contact_back_image_three != ''){?>
+						<img src="<?php echo get_field('contact_back_image_three'); ?>" alt="">
+						<?php }?>
+					</div>
+				</div>
+			<!-- </form> -->
+			
+
+		</div>
+	</section>
+
+</main>
+<!--content sction-->
+<?php get_footer(); ?> 
+End*********************
+https://rudrastyh.com/wordpress/load-more-posts-ajax.html 
+date-10-06-2022
+about page code with pagination start:
+<?php /*Template Name: Layout: About Us*/ ?>
+<?php get_header(); ?>
+<!--banner sction-->
+<section class="inner-banner" style="background-image: url(<?php echo get_field('about_page_banner_image'); ?>);">
+	<div class="container">
+
+		<div class="row justify-content-center">
+			<div class="col-lg-12 text-center common-heading">
+				<h1><?php echo get_field('about_page_banner_heading'); ?></h1>
+				<p><?php echo get_field('about_page_banner_short_description'); ?></p>
+				<a class="btn" href="<?php echo get_field('about_page_banner_button_link'); ?>"><?php echo get_field('about_page_banner_button_text'); ?></a>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+	<section class="perks perks2 common-padd">
+		<div class="random-img2">
+			<?php 
+			   $what_we_bring_section_back_image_one = get_field('what_we_bring_section_back_image_one');
+			   if($what_we_bring_section_back_image_one != '')
+			{?>
+			<img src="<?php echo get_field('what_we_bring_section_back_image_one'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="random-img1">
+			<?php 
+			 $what_we_bring_section_back_image_two = get_field('what_we_bring_section_back_image_two');
+			 if($what_we_bring_section_back_image_two != '')
+			{?>
+			<img src="<?php echo get_field('what_we_bring_section_back_image_two'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="container">
+			<div class="common-heading text-center">
+				<h2><?php echo get_field('what_we_bring_section_heading'); ?></h2>
+				<p><?php echo get_field('what_we_bring_section_short_text'); ?></p>
+			</div>
+			<div class="row justify-content-center">
+				<?php
+				if (have_rows('what_we_bring_section_card_content')) {
+					while (have_rows('what_we_bring_section_card_content')) {
+						the_row();
+						$card_inside_icon = get_sub_field('card_inside_icon');
+						$card_inside_heading = get_sub_field('card_inside_heading');
+						$card_inside_short_text = get_sub_field('card_inside_short_text');
+
+				?>
+						<div class="col-lg-4 col-md-6">
+							<div class="custom-card  text-center">
+								<div class="img-content">
+									<div class="img-inner-content">
+										<?php 
+										if($card_inside_icon != '')
+										{?>
+										<img src="<?php echo $card_inside_icon; ?>" alt="">
+										<?php } ?>
+									</div>
+								</div>
+								<div class="content-wrap">
+									<div class="heading">
+										<h5><?php echo $card_inside_heading; ?></h5>
+									</div>
+									<p><?php echo $card_inside_short_text; ?></p>
+								</div>
+							</div>
+						</div>
+				<?php }
+				} ?>
+				<!-- <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */ ?>/images/i2.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>We are <span>Scalable.</span></h5>
+                  </div>
+                  <p>Our quick turnaround time will help your business to scale faster.</p> 
+                </div>
+              </div>
+            </div> -->
+				<!-- <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */ ?>/images/i3.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Quality <span>Services.</span></h5>
+                  </div>
+                  <p>We help you stay on top of the current trends in a rapidly changing business world.</p> 
+                </div>
+              </div>
+            </div> -->
+
+				<div class="random-img3">
+					<?php 
+					 $what_we_bring_back_image_three = get_field('what_we_bring_back_image_three');
+					if($what_we_bring_back_image_three != '') {?>
+					<img src="<?php echo get_field('what_we_bring_back_image_three'); ?>" alt="">
+					<?php } ?>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="about-section2 common-padd">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="common-heading">
+						<h2><span><?php echo get_field('makes_digitial_work_bold_heading'); ?></span> <?php echo get_field('makes_digitial_work_normal_heading'); ?></h2>
+						
+						<?php echo get_field('makes_digitial_work_section_short_description'); ?>
+
+						<a href="<?php echo get_field('section_bottom_button_link'); ?>" class="btn"><?php echo get_field('section_bottom_button_text'); ?></a>
+					</div>
+				</div>
+				<div class="col-md-6 helf-image">
+					<?php
+					  $makes_digitial_work_section_image = get_field('makes_digitial_work_section_image'); 
+					if($makes_digitial_work_section_image != '') {?>
+					<img src="<?php echo get_field('makes_digitial_work_section_image'); ?>" alt="">
+					<?php } ?>
+				</div>
+
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section class="profile common-padd">
+		<div class="container">
+			<div class="common-heading text-center">
+				<h2><span><?php echo get_field('about_page_portfolio_section_bold_heading'); ?></span> <?php echo get_field('about_page_portfolio_section_normal_heading'); ?></h2>
+				<p><?php echo get_field('about_page_portfolio_section_short_text'); ?></p>
+			</div>
+
+			<div class="row">
+				<?php
+				$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+				$args = array(
+					'post_type' => 'portfolioes',
+					'paged' => $paged,
+					'posts_per_page' => 3,
+					'post_status' => 'publish',
+					'order' => 'DESC',
+				);
+
+				$portfolioes = new WP_Query($args);
+				if ($portfolioes->have_posts()) {
+					while ($portfolioes->have_posts()) {
+						$portfolioes->the_post();
+						$portfolio_image = wp_get_attachment_image_src(get_post_thumbnail_id($portfolioes->ID), 'full');
+				?>
+						<div class="col-lg-4 col-md-6">
+							<div class="profile-card text-center">
+								<div class="content-wrap">
+									<span class="date"><?php echo get_the_date('j S F'); ?></span>
+									<div class="heading">
+										<h5><?php echo get_the_excerpt($portfolioes->ID); ?></h5>
+									</div>
+									<?php
+									$term_obj_list = get_the_terms($portfolioes->ID, 'portfolio_tag');
+									$terms_string = join(', ', wp_list_pluck($term_obj_list, 'name'));
+									$counter = count($term_obj_list);
+                                    $categories = get_the_terms($portfolioes->ID, 'portfolio_type');
+									?>
+									<div class="tags">
+										<?php
+										foreach ($categories as $value) { ?>
+                                            
+											<a href="#"><?php echo $value->name; ?></a>
+										<?php } ?>
+									</div>
+								</div>
+								<div class="img-content">
+									<img src="<?php echo $portfolio_image[0]; ?>" alt="">
+								</div>
+							</div>
+						</div>
+
+				<?php }
+				}
+
+				wp_reset_postdata(); ?>
+				<!-- Pagination code added -->
+
+				<div class="blog-pagination">
+                        <nav aria-label="Page navigation example">
+
+                            <?php
+                            if (!function_exists('post_pagination')) :
+                                function post_pagination()
+                                {
+                                    // global $wp_query;
+                                    global $portfolioes;
+                                    $pager = 999999999;
+
+                                    echo paginate_links(array(
+                                        'base' => str_replace($pager, '%#%', esc_url(get_pagenum_link($pager))),
+                                        'format' => '?paged=%#%',
+                                        'current' => max(1, get_query_var('paged')),
+                                        'total' => $portfolioes->max_num_pages
+                                    ));
+                                }
+                            endif;
+                            ?>
+
+                            <ul class="pagination">
+                                <?php post_pagination(); ?>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- Pagination code added -->
+
+			</div>
+
+		</div>
+	</section>
+
+	<section class="about-contact common-padd-small">
+		<div class="random-img2">
+			<?php 
+			  $contact_back_image_one = get_field('contact_back_image_one');
+			  if($contact_back_image_one != '')
+			 {?>
+			<img src="<?php echo get_field('contact_back_image_one'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="random-img1">
+			<?php 
+			 $contact_back_image_two = get_field('contact_back_image_two');
+			 if($contact_back_image_two != '')
+			{?>
+			<img src="<?php echo get_field('contact_back_image_two'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="container">
+			<div class="common-heading text-center">
+				<h2><?php echo get_field('contact_form_heading'); ?></h2>
+			</div>
+
+			<!-- <form> -->
+				<div class="row">
+					<!-- <div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your First name">
+					</div>
+					<div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your Last name">
+					</div>
+					<div class="col-md-6">
+						<input type="email" class="form-control" placeholder="Your Email address">
+					</div>
+					<div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your Subject">
+					</div>
+					<div class="col-md-12">
+						<textarea class="form-control" placeholder="Enter your message"></textarea>
+					</div>
+					<div class="col-md-12 text-center">
+						<button type="submit" class="btn">Submit Message</button>
+					</div> -->
+					<?php echo do_shortcode( '[contact-form-7 id="5" title="Contact form"]' );?>
+			   
+			    
+					<div class="random-img3">
+						<?php 
+						  $contact_back_image_three = get_field('contact_back_image_three');
+						if($contact_back_image_three != ''){?>
+						<img src="<?php echo get_field('contact_back_image_three'); ?>" alt="">
+						<?php }?>
+					</div>
+				</div>
+			<!-- </form> -->
+			
+
+		</div>
+	</section>
+
+</main>
+<!--content sction-->
+<?php get_footer(); ?> 
+End*********************************************** 
+
+Actual code for about page with Load More by Debasis da
+***************************start**********
+<?php /*Template Name: Layout: About Us*/ ?>
+<?php get_header(); ?>
+<!--banner sction-->
+<section class="inner-banner" style="background-image: url(<?php echo get_field('about_page_banner_image'); ?>);">
+	<div class="container">
+
+		<div class="row justify-content-center">
+			<div class="col-lg-12 text-center common-heading">
+				<h1><?php echo get_field('about_page_banner_heading'); ?></h1>
+				<p><?php echo get_field('about_page_banner_short_description'); ?></p>
+				<a class="btn" href="<?php echo get_field('about_page_banner_button_link'); ?>"><?php echo get_field('about_page_banner_button_text'); ?></a>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+	<section class="perks perks2 common-padd">
+		<div class="random-img2">
+			<?php
+			$what_we_bring_section_back_image_one = get_field('what_we_bring_section_back_image_one');
+			if ($what_we_bring_section_back_image_one != '') { ?>
+				<img src="<?php echo get_field('what_we_bring_section_back_image_one'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="random-img1">
+			<?php
+			$what_we_bring_section_back_image_two = get_field('what_we_bring_section_back_image_two');
+			if ($what_we_bring_section_back_image_two != '') { ?>
+				<img src="<?php echo get_field('what_we_bring_section_back_image_two'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="container">
+			<div class="common-heading text-center">
+				<h2><?php echo get_field('what_we_bring_section_heading'); ?></h2>
+				<p><?php echo get_field('what_we_bring_section_short_text'); ?></p>
+			</div>
+			<div class="row justify-content-center">
+				<?php
+				if (have_rows('what_we_bring_section_card_content')) {
+					while (have_rows('what_we_bring_section_card_content')) {
+						the_row();
+						$card_inside_icon = get_sub_field('card_inside_icon');
+						$card_inside_heading = get_sub_field('card_inside_heading');
+						$card_inside_short_text = get_sub_field('card_inside_short_text');
+
+				?>
+						<div class="col-lg-4 col-md-6">
+							<div class="custom-card  text-center">
+								<div class="img-content">
+									<div class="img-inner-content">
+										<?php
+										if ($card_inside_icon != '') { ?>
+											<img src="<?php echo $card_inside_icon; ?>" alt="">
+										<?php } ?>
+									</div>
+								</div>
+								<div class="content-wrap">
+									<div class="heading">
+										<h5><?php echo $card_inside_heading; ?></h5>
+									</div>
+									<p><?php echo $card_inside_short_text; ?></p>
+								</div>
+							</div>
+						</div>
+				<?php }
+				} ?>
+				<!-- <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */ ?>/images/i2.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>We are <span>Scalable.</span></h5>
+                  </div>
+                  <p>Our quick turnaround time will help your business to scale faster.</p> 
+                </div>
+              </div>
+            </div> -->
+				<!-- <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */ ?>/images/i3.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Quality <span>Services.</span></h5>
+                  </div>
+                  <p>We help you stay on top of the current trends in a rapidly changing business world.</p> 
+                </div>
+              </div>
+            </div> -->
+
+				<div class="random-img3">
+					<?php
+					$what_we_bring_back_image_three = get_field('what_we_bring_back_image_three');
+					if ($what_we_bring_back_image_three != '') { ?>
+						<img src="<?php echo get_field('what_we_bring_back_image_three'); ?>" alt="">
+					<?php } ?>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="about-section2 common-padd">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="common-heading">
+						<h2><span><?php echo get_field('makes_digitial_work_bold_heading'); ?></span> <?php echo get_field('makes_digitial_work_normal_heading'); ?></h2>
+
+						<?php echo get_field('makes_digitial_work_section_short_description'); ?>
+
+						<a href="<?php echo get_field('section_bottom_button_link'); ?>" class="btn"><?php echo get_field('section_bottom_button_text'); ?></a>
+					</div>
+				</div>
+				<div class="col-md-6 helf-image">
+					<?php
+					$makes_digitial_work_section_image = get_field('makes_digitial_work_section_image');
+					if ($makes_digitial_work_section_image != '') { ?>
+						<img src="<?php echo get_field('makes_digitial_work_section_image'); ?>" alt="">
+					<?php } ?>
+				</div>
+
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section class="profile common-padd">
+		<div class="container">
+			<div class="common-heading text-center">
+				<h2><span><?php echo get_field('about_page_portfolio_section_bold_heading'); ?></span> <?php echo get_field('about_page_portfolio_section_normal_heading'); ?></h2>
+				<p><?php echo get_field('about_page_portfolio_section_short_text'); ?></p>
+			</div>
+
+			<div class="row ajaxLoadMoreData">
+				<?php
+                $paged = '1';
+				$args = array(
+					'post_type' => 'portfolioes',
+					'posts_per_page' => 3,
+					'paged' => 1,
+					'post_status' => 'publish',
+					'order' => 'DESC',
+				);
+
+				$portfolioes = new WP_Query($args);
+				if ($portfolioes->have_posts()) {
+					while ($portfolioes->have_posts()) {
+						$portfolioes->the_post();
+						$portfolio_image = wp_get_attachment_image_src(get_post_thumbnail_id($portfolioes->ID), 'full');
+				?>
+						<div class="col-lg-4 col-md-6">
+							<div class="profile-card text-center">
+								<div class="content-wrap">
+									<span class="date"><?php echo get_the_date('j S F'); ?></span>
+									<div class="heading">
+										<h5><?php echo get_the_excerpt($portfolioes->ID); ?></h5>
+									</div>
+									<?php
+									$term_obj_list = get_the_terms($portfolioes->ID, 'portfolio_tag');
+									$terms_string = join(', ', wp_list_pluck($term_obj_list, 'name'));
+									$counter = count($term_obj_list);
+									$categories = get_the_terms($portfolioes->ID, 'portfolio_type');
+									?>
+									<div class="tags">
+										<?php
+										foreach ($categories as $value) { ?>
+
+											<a href="#"><?php echo $value->name; ?></a>
+										<?php } ?>
+									</div>
+								</div>
+								<div class="img-content">
+									<img src="<?php echo $portfolio_image[0]; ?>" alt="">
+								</div>
+							</div>
+						</div>
+
+
+
+				<?php }
+				}
+
+				wp_reset_postdata(); ?>
+
+
+			</div>
+			<?php
+
+
+			// don't display the button if there are not enough posts
+			 if ($portfolioes->max_num_pages > 1){?>
+				<div data-currentpage="1" class="misha_loadmore btn">More posts</div>  
+				<?php } ?>
+			 
+			<!-- <div class="misha_loadmore btn">More posts</div> -->
+
+		</div>
+	</section>
+
+	<section class="about-contact common-padd-small">
+		<div class="random-img2">
+			<?php
+			$contact_back_image_one = get_field('contact_back_image_one');
+			if ($contact_back_image_one != '') { ?>
+				<img src="<?php echo get_field('contact_back_image_one'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="random-img1">
+			<?php
+			$contact_back_image_two = get_field('contact_back_image_two');
+			if ($contact_back_image_two != '') { ?>
+				<img src="<?php echo get_field('contact_back_image_two'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="container">
+			<div class="common-heading text-center">
+				<h2><?php echo get_field('contact_form_heading'); ?></h2>
+			</div>
+
+			<!-- <form> -->
+			<div class="row">
+				<!-- <div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your First name">
+					</div>
+					<div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your Last name">
+					</div>
+					<div class="col-md-6">
+						<input type="email" class="form-control" placeholder="Your Email address">
+					</div>
+					<div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your Subject">
+					</div>
+					<div class="col-md-12">
+						<textarea class="form-control" placeholder="Enter your message"></textarea>
+					</div>
+					<div class="col-md-12 text-center">
+						<button type="submit" class="btn">Submit Message</button>
+					</div> -->
+				<?php echo do_shortcode('[contact-form-7 id="5" title="Contact form"]'); ?>
+
+
+				<div class="random-img3">
+					<?php
+					$contact_back_image_three = get_field('contact_back_image_three');
+					if ($contact_back_image_three != '') { ?>
+						<img src="<?php echo get_field('contact_back_image_three'); ?>" alt="">
+					<?php } ?>
+				</div>
+			</div>
+			<!-- </form> -->
+
+
+		</div>
+	</section>
+
+</main>
+<!--content sction-->
+<?php get_footer(); ?> 
+************************end*************
+
+how to create star rating system with half-star,full star,empty star in system
+<?php
+                    $select = get_field('testimonial_star_rating', $testimonial->ID);
+                    $b = 10 - ($select * 2);
+                    if ($b % 2 == 0) {
+                      $a = 5 - $select;
+                      for ($i = 1; $i <= $select; $i++) {
+                        echo '<i class="fas fa-star"></i>';
+                        if ($i == $select) {
+                          for ($j = 1; $j <= $a; $j++) {
+                            //echo '<i class="fas fa-star-half-alt"></i>';
+                            echo '<i class="far fa-star"></i>';
+                          }
+                        }
+                      }
+                    } else {
+                      $d = $b - 1;
+                      if ($d == 0) {
+                        $t = 4;
+                        for ($x = 1; $x <= $t; $x++) {
+                          echo '<i class="fas fa-star"></i>';
+                        }
+                        echo '<i class="fas fa-star-half-alt"></i>';
+                      }
+                      if ($d == 8) {
+                        $q = 4;
+                        echo '<i class="fas fa-star-half-alt"></i>';
+                        for ($x = 1; $x <= $q; $x++) {
+                          echo '<i class="far fa-star"></i>';
+                        }
+                      }
+                      if ($d > 0 && $d != 8) {
+                        $e = $d / 2; // empty srar number
+                        $f = 1; // half star
+                        $g = 5 - ($e + $f); // full star 
+                        for ($x = 1; $x <= $g; $x++) {
+                          echo '<i class="fas fa-star"></i>';
+                          if ($x == $g) {
+                            echo '<i class="fas fa-star-half-alt"></i>';
+                            for ($y = 1; $y <= $e; $y++) {
+                              echo '<i class="far fa-star"></i>';
+                            }
+                          }
+                        }
+                      }
+                    }
+                    ?> 
+******end*******************************************************************				
+  
+  
+ 

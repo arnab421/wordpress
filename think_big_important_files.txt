@@ -1,0 +1,2986 @@
+frontpage
+******start***** 
+<?php get_header(); ?>
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+    <!--banner sction-->
+    <section class="slider-wrap">
+      <div class="slider-wrap-inner">
+        <?php
+        if (have_rows('banner_videos')) {
+          while (have_rows('banner_videos')) {
+            the_row();
+            $video_in_banner = get_sub_field('video_in_banner');
+
+        ?>
+            <div class="slider-wrap-item">
+              <div class="video-wrap">
+                <?php 
+                   if($video_in_banner != '')
+                 {?>
+                <video width="320" height="240" autoplay="true" muted autostart loop playsinline>
+                  <source src="<?php echo $video_in_banner; ?>" type="video/mp4">
+                </video>
+                <?php } ?>
+              </div>
+            </div>
+        <?php }
+        } ?>
+
+      </div>
+      <div class="video-wrap-content text-center" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000">
+        <h1><?php echo get_field('home_banner_ideas_text'); ?> <span><?php echo get_field('home_banner_making_sense_text'); ?></span></h1>
+      </div>
+      <div class="video-wrap-info" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="200" data-aos-offset="0">
+        <div class="d-flex info-wrap">
+          <div class="social">
+            <div class="d-flex">
+              <div class="icon"><a href="<?php echo get_field('home_banner_facebook_link'); ?> " target="_blank"><i class="fab fa-facebook-f"></i></a></div>
+              <div class="icon"><a href="<?php echo get_field('home_banner_twitter_link'); ?>" target="_blank"><i class="fab fa-twitter"></i></a></div>
+              <div class="icon"><a href="<?php echo get_field('home_banner_instragram_link'); ?>" target="_blank"><i class="fab fa-instagram"></i></a></div>
+              <div class="icon"><a href="<?php echo get_field('home_banner_piterest_link'); ?>" target="_blank"><i class="fab fa-pinterest"></i></a></div>
+            </div>
+          </div>
+          <a href="tel:<?php echo get_field('banner_phone_number'); ?>" class="phone"><span><?php echo get_field('banner_phone_number'); ?></span></a>
+          <a href="mailto:<?php echo get_field('banner_email_id'); ?>" class="email"><span><?php echo get_field('banner_email_id'); ?></span></a>
+        </div>
+      </div>
+    </section>
+    <!--banner sction-->
+
+    <!--content sction-->
+    <main>
+      <section class="why-choose-us">
+        <div class="row">
+          <?php
+          if (have_rows('why_choose_us_content')) {
+            while (have_rows('why_choose_us_content')) {
+              the_row();
+              $heading = get_sub_field('heading');
+              $heading_normal_text = get_sub_field('heading_normal_text');
+              $section_short_text = get_sub_field('section_short_text');
+              $learn_more_button_text = get_sub_field('learn_more_button_text');
+              $learn_more_button_link = get_sub_field('learn_more_button_link');
+              $section_image = get_sub_field('section_image');
+
+          ?>
+              <div class="col-md-4">
+                <div class="whole-content">
+                  <div class="content">
+                    <div class="heading">
+                      <h2><?php echo $heading; ?><br><span><?php echo $heading_normal_text; ?></span></h2>
+                    </div>
+                    <div class="text-wrap">
+                      <p><?php echo $section_short_text; ?>
+                      </p>
+                    </div>
+                    <a href="<?php echo $learn_more_button_link; ?>" class="btn"><?php echo $learn_more_button_text; ?></a>
+                  </div>
+                  <div class="img-content">
+                    <?php 
+                       if($section_image != '')
+                    {?>
+                    <img src="<?php echo $section_image; ?>" alt="">
+                    <?php } ?>
+                  </div>
+                </div>
+              </div>
+          <?php }
+          } ?>
+
+        </div>
+      </section>
+      <section class="counter-sec common-padd">
+        <div class="container">
+          <div class="circle-img rellax" data-rellax-speed="3">
+             <?php 
+                $counter_section_circle_image = get_field('counter_section_circle_image');
+                if($counter_section_circle_image != '')
+             {?>
+            <img src="<?php echo get_field('counter_section_circle_image'); ?>" alt="">
+             <?php } ?>
+          </div>
+          <div class="section-heading text-center common-heading">
+            <!-- <h2>Turning Creative<br>
+            <span>Ideas</span> Into Innovative Products.</h2> -->
+            <?php echo get_field('counter_section_short_description'); ?>
+            <div class="desc">
+              <!-- <p>We proactively consult, design, develop & scale robust web, mobile, web hosting & social media
+              solutions, that fuel innovation & deliver digital success.</p> -->
+              <?php the_content(); ?>
+            </div>
+          </div>
+          <div class="row">
+            <?php
+            if (have_rows('counter_inner_content')) {
+              while (have_rows('counter_inner_content')) {
+                the_row();
+                $counter_icon = get_sub_field('counter_icon');
+                $counter_value = get_sub_field('counter_value');
+                $counter_name = get_sub_field('counter_name');
+                $number_in_counter = get_sub_field('number_in_counter');
+                if ($counter_value == 'plus') {
+                  $counter_html = "<sup>+</sup>";
+                } else if ($counter_value == 'persentage') {
+                  $counter_html = '<span class="percent">%</span>';
+                } else {
+                  $counter_html = "";
+                }
+
+            ?>
+                <div class="col-md-4">
+                  <div class="counter-wrap d-flex">
+                    <div class="counter-icon">
+                      <?php 
+                       if($counter_icon != '')
+                      {?>
+                      <img src="<?php echo $counter_icon; ?>" alt="">
+                      <?php } ?>
+                    </div>
+                    <div class="counter-text">
+                      <span class="counter"><?php echo $number_in_counter; ?></span> <?php echo $counter_html; ?>
+                      <div class="counter-name">
+                        <?php echo $counter_name; ?>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <?php }
+            } ?>
+          </div>
+          <div class="counter-btn text-center">
+            <a href="<?php echo get_field('explore_product_button_link'); ?>" class="btn"><?php echo get_field('explore_products_button_text'); ?></a>
+          </div>
+        </div>
+      </section>
+      <section class="challenges common-padd">
+        <div class="container">
+          <div class="common-heading text-center" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-duration="500">
+            <!-- <h2>Simple Solutions<br>
+            <span>For</span> Complex Challenges
+          </h2> -->
+            <?php echo get_field('simple_solution_section_heading'); ?>
+          </div>
+          <div class="row">
+          <?php
+          if (have_rows('simple_solutions_card_content')) {
+            while (have_rows('simple_solutions_card_content')) {
+              the_row();
+              $simple_solution_card_image = get_sub_field('simple_solution_card_image');
+              $heading_bold_text = get_sub_field('heading_bold_text');
+              $heading_normal_text = get_sub_field('heading_normal_text');
+              $simple_solution_card_short_description = get_sub_field('simple_solution_card_short_description');
+              $simple_solutions_card_button_link = get_sub_field('simple_solutions_card_button_link');
+              
+
+          ?>
+            <div class="col-md-6">
+              <div class="content-wrap d-flex">
+                <div class="img-wrap" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="500">
+                  <?php 
+                     if($simple_solution_card_image != '')
+                   {?>
+                  <img src="<?php echo $simple_solution_card_image;?>" alt="">
+                  <?php } ?>
+                </div>
+                <div class="challenge-text-content">
+                  <div class="text-wrap">
+                    <div class="heading">
+                      <h3><?php echo $heading_bold_text;?><br>
+                        <span><?php echo $heading_normal_text;?></span>
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="desc">
+                    <p><?php echo $simple_solution_card_short_description;?></p>
+                  </div>
+                  <div class="challenge-btn">
+                    <a href="<?php echo $simple_solutions_card_button_link;?>" class="btn-2 btn ">Learn More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <?php } } ?>
+            <!-- <div class="col-md-6">
+              <div class="content-wrap d-flex">
+                <div class="img-wrap">
+                  <img src="<?php /*echo get_template_directory_uri(); */?>/images/web-hosting.png" alt="">
+                </div>
+                <div class="challenge-text-content">
+                  <div class="text-wrap">
+                    <div class="heading">
+                      <h3>Web
+                        <br>
+                        <span>Hosting</span>
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="desc">
+                    <p>You need powerful web hosting. A variety of premium features optimized for the best performance
+                      will make your websites really fast.</p>
+                  </div>
+                  <div class="challenge-btn">
+                    <a href="#" class="btn-2 btn ">Learn More</a>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="col-md-6">
+              <div class="content-wrap d-flex">
+                <div class="img-wrap">
+                  <img src="<?php /*echo get_template_directory_uri(); */?>/images/social-media.png" alt="">
+                </div>
+                <div class="challenge-text-content">
+                  <div class="text-wrap">
+                    <div class="heading">
+                      <h3>Social Media
+                        <br>
+                        <span>Management</span>
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="desc">
+                    <p>Our social media management services is a part of the overall strategy and hands-on methodologies
+                      that we offer our clients to expose their services and products.</p>
+                  </div>
+                  <div class="challenge-btn">
+                    <a href="#" class="btn-2 btn ">Learn More</a>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="col-md-6">
+              <div class="content-wrap d-flex">
+                <div class="img-wrap">
+                  <img src="<?php /*echo get_template_directory_uri(); */?>/images/web-dev.png" alt="">
+                </div>
+                <div class="challenge-text-content">
+                  <div class="text-wrap">
+                    <div class="heading">
+                      <h3>Web<br>
+                        <span>Development</span>
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="desc">
+                    <p>At Think Big Technology, we provide a diverse range of highly optimized web development services
+                      that help start-ups and brands turn their dreams or website ideas into reality.</p>
+                  </div>
+                  <div class="challenge-btn">
+                    <a href="#" class="btn-2 btn ">Learn More</a>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+          <div class="btn-sec text-center">
+            <a href="<?php echo get_field('view_our_pricing_button_link'); ?>" class="btn"><?php echo get_field('view_our_pricing_button_text'); ?></a>
+            <a href="<?php echo get_field('view_our_jobs_button_link'); ?>" class="btn-2 btn"><?php echo get_field('view_our_jobs_button_text'); ?></a>
+          </div>
+        </div>
+      </section>
+      <section class="clients common-padd">
+        <div class="container">
+          <div class="common-heading text-center">
+            <!-- <h2>Our Clients<br>
+            <span>Love</span> Us.</h2> -->
+            <div data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500"><?php echo get_field('our_clients_heading'); ?></div>
+            <div class="desc">
+              <p><?php echo get_field('our_clients_short_description'); ?></p>
+
+            </div>
+          </div>
+          <div class="testimonial-sec">
+            <?php
+            $args = array(
+              'post_type' => 'testimonials',
+              'posts_per_page' => -1,
+              'post_status' => 'publish',
+              'order' => 'DESC',
+            );
+
+            $testimonials = new WP_Query($args);
+            if ($testimonials->have_posts()) {
+              while ($testimonials->have_posts()) {
+                $testimonials->the_post();
+                $testimonial_image = wp_get_attachment_image_src(get_post_thumbnail_id($testimonials->ID), 'full');
+            ?>
+                <div class="testimonial-item">
+                  <div class="quote-image">
+                    <img src="<?php echo $testimonial_image[0]; ?>" alt="">
+                  </div>
+                  <div class="text-content">
+                    <div class="text-heading">
+                      <span><?php echo get_the_title(); ?></span>
+                    </div>
+                    <!-- <p>Competently parallel task fully researched data and enterprise process improvements.</p> -->
+                    <?php echo get_the_content(); ?>
+                  </div>
+                  <div class="rating">
+                    <!-- <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> -->
+                    <?php
+                          $select = get_field('testimonial_star_rating', $testimonial->ID);
+                          $b = 10 - ($select * 2);
+                          // $c = $b / 2;
+                          // echo $c;
+                          // $a = 5 - $select;
+                          // $j = 1;
+                          if($b % 2 == 0)
+                          { 
+                            $a = 5 - $select;
+                          for ($i = 1; $i <= $select; $i++) {
+                            echo '<i class="fas fa-star"></i>';
+                            if ($i == $select) {
+                              for ($j = 1; $j <= $a; $j++) {
+                                 //echo '<i class="fas fa-star-half-alt"></i>';
+                                 echo '<i class="far fa-star"></i>';
+                              }
+                            }
+                          }
+                        }
+                        else {
+                            $d = $b - 1; //4,2.5 star
+                            if($d == 0)
+                            {
+                               $t = 4;
+                               for($x = 1;$x <= $t; $x++)
+                               {
+                                 echo '<i class="fas fa-star"></i>';
+                               }
+                               echo '<i class="fas fa-star-half-alt"></i>';
+
+                            }
+                            if($d == 8)
+                            {
+                               $q = 4;
+                               echo '<i class="fas fa-star-half-alt"></i>';
+                               for( $x = 1;$x <= $q; $x++)
+                               {
+                                  echo '<i class="far fa-star"></i>';
+                               }
+                            }
+                            if($d > 0 && $d != 8)
+                            {
+                            $e = $d / 2; // empty srar number
+                            $f = 1; // half star
+                            $g = 5 - ($e + $f); // full star 
+                            for($x = 1; $x <= $g ; $x++)
+                            {
+                               echo '<i class="fas fa-star"></i>';
+                               if($x == $g){
+                                  echo '<i class="fas fa-star-half-alt"></i>';
+                                  for($y = 1; $y <= $e; $y++)
+                                  {
+                                    echo '<i class="far fa-star"></i>';
+                                  }
+                               }
+                            }
+                          }
+                        }
+                          ?>
+                  </div>
+                  <div class="rater">
+                    <span><?php echo get_the_excerpt($testimonials->ID); ?></span>
+                  </div>
+                </div>
+            <?php }
+            }
+
+            wp_reset_postdata(); ?>
+            
+          </div>
+
+        </div>
+        </div>
+      </section>
+      <section class="perks common-padd">
+        <div class="random-img2 rellax" data-rellax-speed="-2">
+          <?php  
+              $section_background_image_one = get_field('section_background_image_one');
+              if($section_background_image_one != '')
+          {?>
+          <img src="<?php echo get_field('section_background_image_one'); ?>" alt="">
+          <?php } ?>
+        </div>
+        <div class="random-img1 rellax" data-rellax-speed="1">
+          <?php 
+             $section_background_image_two = get_field('section_background_image_two');
+          if($section_background_image_two != '') {?>
+          <img src="<?php echo get_field('section_background_image_two'); ?>" alt="">
+          <?php } ?>
+        </div>
+        <div class="container">
+          <div class="common-heading text-center">
+            <div data-aos="fade-up" data-aos-easing="linear" data-aos-duration="500"><h2><?php echo get_field('would_you_like_to_join_heading'); ?></h2></div>
+            
+            <div class="desc">
+              <p><?php echo get_field('would_you_like_to_join_short_description'); ?></p>
+              
+            </div>
+          </div>
+          <div class="row">
+          <?php
+          if (have_rows('would_you_like_section_content')) {
+            while (have_rows('would_you_like_section_content')) {
+              the_row();
+              $content_inner_image = get_sub_field('content_inner_image');
+              $content_inner_heading = get_sub_field('content_inner_heading');
+              $content_inner_short_text = get_sub_field('content_inner_short_text');
+              $content_learn_more_button_text = get_sub_field('content_learn_more_button_text');
+              $content_inner_learn_more_button_link = get_sub_field('content_inner_learn_more_button_link');
+              
+
+          ?>
+            <div class="col-md-4">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php echo $content_inner_image; ?>" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5><?php echo $content_inner_heading; ?></h5>
+                  </div>
+                  <p><?php echo $content_inner_short_text; ?></p>
+                  <a href="<?php echo $content_inner_learn_more_button_link; ?>" class="btn-2 btn"><?php echo $content_learn_more_button_text; ?></a>
+                </div>
+              </div>
+            </div>
+            <?php } } ?>
+            
+            <div class="random-img3 rellax" data-rellax-speed="-1">
+              <?php 
+                 $section_bottom_image = get_field('section_bottom_image');
+                 if($section_bottom_image != '') 
+              {?>
+              <img src="<?php echo get_field('section_bottom_image'); ?>" alt="">
+              <?php } ?>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="brands common-padd">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="common-heading" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="500">
+                <h2><?php echo get_field('biggest_brand_section_heading'); ?></h2>
+                
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+              <?php
+          if (have_rows('brand_images')) {
+            while (have_rows('brand_images')) {
+              the_row();
+              $inner_brand_image = get_sub_field('inner_brand_image');
+              
+              
+
+          ?>
+                <div class="col-md-4 col-6">
+                  <div class="img-holder">
+                    <?php 
+                       if($inner_brand_image != '') {
+                    ?>
+                    <img src="<?php echo $inner_brand_image; ?>" alt="">
+                    <?php } ?>
+                  </div>
+                </div>
+                <?php } } ?>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="map common-padd">
+        <div class="container-fluid">
+          <div class="common-heading text-center" data-aos="fade-zoom-in" data-aos-easing="linear" data-aos-duration="500">
+            <h2><?php echo get_field('map_section_heading'); ?></h2>
+            
+          </div>
+          <div class="img-holder">
+            <!-- <?php/* echo get_field('map'); */?> -->
+            <?php echo do_shortcode("[display-map id='872']");?>
+        </div>
+        <!-- <div id="chartdiv"></div>        -->
+      </section>
+      <section class="updated common-padd">
+        <div class="updated-bg-img">
+          <?php 
+             $stay_updated_section_image = get_field('stay_updated_section_image');
+             if($stay_updated_section_image != '')
+          {?>
+          <img src="<?php echo get_field('stay_updated_section_image'); ?>" alt="">
+          <?php } ?>
+        </div>
+        <div class="container">
+          <div class="common-heading ">
+            <div data-aos="fade-left" data-aos-easing="linear" data-aos-duration="500"><h2><?php echo get_field('stay_updted_heading'); ?></h2></div>
+            
+            <div class="desc">
+              <p><?php echo get_field('stay_updated_description'); ?></P>
+              
+            </div>
+          </div>
+          <div class="form-field">
+            <!-- <form>
+              <div class="row">
+                <div class="col-md-10">
+                  <input type="email" class="form-control" id="inputPassword2" placeholder="Enter your email address">
+                </div>
+                <div class="col-md-2">
+                  <input type="submit" class="btn  mb-3" value="Subscribe">
+                </div>
+              </div>
+            </form> -->
+            <?php echo do_shortcode('[mc4wp_form id="622"]');
+            ?>
+          </div>
+        </div>
+      </section>
+    </main>
+<?php endwhile;
+endif; ?>
+<?php
+$city_name1 = (get_field('city_name1'))?get_field('city_name1'):'Dublin';
+$city_name2 = (get_field('city_name2'))?get_field('city_name2'):'Oslo';
+$city_name3 = (get_field('city_name3'))?get_field('city_name3'):'Lisbon';
+$city_name4 = (get_field('city_name4'))?get_field('city_name4'):'Moscow';
+$city_name5 = (get_field('city_name5'))?get_field('city_name5'):' ';
+?> 
+<script type="text/javascript">
+  // svg path for target icon
+var targetSVG = "M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z";
+// svg path for plane icon
+var planeSVG = "M19.671,8.11l-2.777,2.777l-3.837-0.861c0.362-0.505,0.916-1.683,0.464-2.135c-0.518-0.517-1.979,0.278-2.305,0.604l-0.913,0.913L7.614,8.804l-2.021,2.021l2.232,1.061l-0.082,0.082l1.701,1.701l0.688-0.687l3.164,1.504L9.571,18.21H6.413l-1.137,1.138l3.6,0.948l1.83,1.83l0.947,3.598l1.137-1.137V21.43l3.725-3.725l1.504,3.164l-0.687,0.687l1.702,1.701l0.081-0.081l1.062,2.231l2.02-2.02l-0.604-2.689l0.912-0.912c0.326-0.326,1.121-1.789,0.604-2.306c-0.452-0.452-1.63,0.101-2.135,0.464l-0.861-3.838l2.777-2.777c0.947-0.947,3.599-4.862,2.62-5.839C24.533,4.512,20.618,7.163,19.671,8.11z";
+
+var map = AmCharts.makeChart("chartdiv", {
+  type: "map",
+    "theme": "chalk",
+    pathToImages: "https://www.amcharts.com/lib/3/images/",
+
+  dataProvider: {
+    map: "worldLow",
+    linkToObject: "wrocław",
+    images: [{
+        id: "wrocław",
+        color: "#FFF",
+        svgPath: targetSVG,
+        title: "New Work",
+        latitude: 51.5002,
+        longitude: -0.1262,
+        scale: 1.5,
+        zoomLevel: 2.74,
+        zoomLongitude: -20.1341,
+        zoomLatitude: 49.1712,
+
+        lines: [{
+          latitudes: [51.5002, 50.4422],
+          longitudes: [-0.1262, 30.5367]
+        }, {
+          latitudes: [51.5002, 46.9480],
+          longitudes: [-0.1262, 7.4481]
+        }, {
+          latitudes: [51.5002, 59.3328],
+          longitudes: [-0.1262, 18.0645]
+        }, {
+          latitudes: [51.5002, 40.4167],
+          longitudes: [-0.1262, -3.7033]
+        }, {
+          latitudes: [51.5002, 46.0514],
+          longitudes: [-0.1262, 14.5060]
+        }, {
+          latitudes: [51.5002, 48.2116],
+          longitudes: [-0.1262, 17.1547]
+        }, {
+          latitudes: [51.5002, 44.8048],
+          longitudes: [-0.1262, 20.4781]
+        }, {
+          latitudes: [51.5002, 55.7558],
+          longitudes: [-0.1262, 37.6176]
+        }, {
+          latitudes: [51.5002, 38.7072],
+          longitudes: [-0.1262, -9.1355]
+        }, {
+          latitudes: [51.5002, 54.6896],
+          longitudes: [-0.1262, 25.2799]
+        }, {
+          latitudes: [51.5002, 40.4300],
+          longitudes: [-0.1262, -74.0000]
+        }],
+
+        images: [{
+          label: "Flights from New Work",
+          svgPath: planeSVG,
+          left: 100,
+          top: 45,
+          labelShiftY: 5,
+          color: "#FFF",
+          labelColor: "#FFF",
+          labelRollOverColor: "#FFF",
+          labelFontSize: 20
+        }]
+      },
+ {
+        svgPath: targetSVG,
+        title: "Brussels<br>Time->2H",
+        latitude: 50.8371,
+        longitude: 4.3676,
+      }, {
+        svgPath: targetSVG,
+        title: "Prague<br>Time->5H",
+        latitude: 50.0878,
+        longitude: 14.4205
+      }, 
+      {
+        svgPath: targetSVG,
+        title: "Athens<br>Time->2H",
+        latitude: 37.9792,
+        longitude: 23.7166
+      },
+      {
+        svgPath: targetSVG,
+        title: "Dublin<br>Time->6.5H",
+        latitude: 53.3441,
+        longitude: -6.2675
+      }, {
+        svgPath: targetSVG,
+        title: "Oslo<br>Time->5H",
+        latitude: 59.9138,
+        longitude: 10.7387
+      }, {
+        svgPath: targetSVG,
+        title: "Lisbon<br>Time->2H",
+        latitude: 38.7072,
+        longitude: -9.1355
+      }, {
+        svgPath: targetSVG,
+        title: "Moscow<br>Time->5H",
+        latitude: 55.7558,
+        longitude: 37.6176
+      }, {
+        svgPath: targetSVG,
+        title: "Belgrade<br>Time->4H",
+        latitude: 44.8048,
+        longitude: 20.4781
+      }, {
+        svgPath: targetSVG,
+        title: "Bratislava<br>Time->5H",
+        latitude: 48.2116,
+        longitude: 17.1547
+      }, {
+        svgPath: targetSVG,
+        title: "Ljubljana<br>Time->6H",
+        latitude: 46.0514,
+        longitude: 14.5060
+      }, {
+        svgPath: targetSVG,
+        title: "Madrid<br>Time->7H",
+        latitude: 40.4167,
+        longitude: -3.7033
+      }, {
+        svgPath: targetSVG,
+        title: "Stockholm<br>Time->4H",
+        latitude: 59.3328,
+        longitude: 18.0645
+      }, {
+        svgPath: targetSVG,
+        title: "Bern<br>Time->5H",
+        latitude: 46.9480,
+        longitude: 7.4481
+      }, {
+        svgPath: targetSVG,
+        title: "Kiev<br>Time->6H",
+        latitude: 50.4422,
+        longitude: 30.5367
+      }, {
+        svgPath: targetSVG,
+        title: "Paris<br>Time->7H",
+        latitude: 48.8567,
+        longitude: 2.3510
+      }, 
+      {
+        svgPath: targetSVG,
+        title: "Wrocław<br>Time->12H",
+        latitude: 40.43,
+        longitude: -74
+      }
+    ]
+  },
+
+  areasSettings: {
+    unlistedAreasColor: "#FFF"
+  },
+
+  imagesSettings: {
+    color: "#FFF",
+    rollOverColor: "#FFF",
+    selectedColor: "#FFF"
+  },
+
+  linesSettings: {
+    color: "#FFF",
+    alpha: 0.4
+  },
+
+
+  backgroundZoomsToTop: true,
+  linesAboveImages: true
+});
+</script>
+
+<?php get_footer(); ?> 
+***********************end********
+Single portfolioes page
+start*******
+<?php get_header(); ?>
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+        <section class="inner-banner" style="background-image: url(<?php echo get_field('portfolio_detail_banner_image'); ?>);">
+            <div class="container">
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-12 text-center common-heading">
+                        <h1><span><?php echo get_field('portfolio_detail_banner_bold_heading'); ?></span> <?php echo get_field('portfolio_detail_banner_normal_heading'); ?></h1>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!--banner sction-->
+
+        <!--content sction-->
+        <main>
+
+            <section class="profile-details-sec common-padd">
+                <div class="container">
+                    <?php 
+                        $categories = get_the_terms($portfolioes->ID, 'portfolio_type');
+                    ?>
+                    <?php
+										foreach ($categories as $value) { ?>
+                                            <span class="pro-tags"><i class="fas fa-tag"></i> <?php echo $value->name;?></span>
+											
+										<?php } ?>
+                    
+                    <div class="profile-details-heading">
+                        <div class="common-heading">
+                            <h2><span><?php echo get_field('portfolio_detail_bold_heading'); ?></span> <?php echo get_field('portfolio_detail_normal_heading'); ?></h2>
+                        </div>
+
+                        <div class="social-links">
+                            <ul>
+                                <li><a href="https://www.facebook.com/sharer?u=<?php the_permalink(); ?>&amp;t=<?php the_title(); ?>" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="http://twitter.com/intent/tweet?text=<?php the_title(); ?>&amp;url=<?php the_permalink(); ?>" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php the_permalink() ?>&amp;title=<?php the_title(); ?>&amp;summary=&amp;source=<?php bloginfo('name'); ?>" target="_new" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="pro-paragraph">
+                        <img src="<?php echo get_field('portfolio_detail_page_top_image'); ?>" alt="">
+
+                        <div class="heading">
+                            <h3><?php echo get_field('portfolio_detail_pro_heading_bold_text'); ?> <span><?php echo get_field('portfolio_detail_pro_heading_normal_text'); ?></span></h3>
+                            <p><?php echo get_field('portfolio_detail_pro_para1_text'); ?> <a href="<?php echo get_field('pro_section_site_link'); ?>"><?php echo get_field('pro_section_site_link'); ?></a>. <?php echo get_field('portfolio_detail_pro_para2_text');?></p>
+
+                            <!-- <h3>Project <span>Highlights</span></h3>
+                            <p>It is a website development project of making a full-stack e-commerce platform that focuses on mainly targeting female customers by providing them the ease of ordering clothing through a website.</p>
+
+                            <h5><span>Web development</span></h5>
+
+                            <p>Website Development needs proper planning in order to run the project smoothly and efficiently. The <b>project manager</b> is the person who leads the team through a project, using a project management process. The project manager carries out the project through phases:</p>
+
+                            <ul>
+                                <li>Making strategy and deciding target market according to the products on the website </li>
+                                <li>Planning after discussion with the client </li>
+                                <li>Designing the project while staying within the budget </li>
+                                <li>Planning with the project Team </li>
+                                <li>Building website project which includes the creation of websites layout, functionalities, and design. </li>
+                                <li>Optimizing the cross-browser performance </li>
+                                <li>Finalization includes:
+                                    <ul>
+                                        <li>Testing Phase</li>
+                                        <li>Going Live</li>
+                                        <li>Client Training</li>
+                                        <li>Foundation SEO Marketing</li>
+                                    </ul>
+                                </li>
+                                <li>Launching the Website</li>
+
+                            </ul> -->
+                            <?php echo get_field('portfolio_detail_pro_description');?>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="counter-section counter-section2 common-padd" style="background-image: url(<?php echo get_field('protfolio_detail_leave_a_reply_section_image');?>);">
+                <div class="container">
+
+                    <div class="common-heading text-center">
+                        <h2><span><?php echo get_field('protfolio_detail_leave_a_reply_bold_heading');?></span> <?php echo get_field('protfolio_detail_leave_a_reply_normal_heading');?></h2>
+                        <p><?php echo get_field('protfolio_detail_leave_a_reply_short_text');?></p>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="career-form-sec p-0 common-padd">
+                <div class="container">
+
+                    <div class="career-form">
+                        <!-- <form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Your Email</label>
+                                    <textarea class="form-control" placeholder=""></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Name*</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Email*</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Website</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                                <div class="col-md-12">
+                                    <label><input type="radio" class="" placeholder=""> Save my name, email, and website in this browser for the next time I comment.</label>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn">Website</button>
+                                </div>
+                            </div>
+                        </form> -->
+                        <?php echo do_shortcode('[contact-form-7 id="826" title="Detail Page Form"]'); ?>
+                    </div>
+
+                </div>
+            </section>
+
+
+            <section class="profile profile-slider-bottom pt-0 common-padd">
+                <div class="container">
+
+                    <div class="heading mar-bottom-fix">
+                        <h3><?php echo get_field('portfolio_detail_page_post_bold_heading');?> <span><?php echo get_field('portfolio_detail_page_post_normal_heading');?></span></h3>
+                    </div>
+                    
+                    <div class="profile-service-slider">
+                    <?php 
+                       $terms = get_the_terms(  $portfolioes->ID, 'portfolio_type', 'string');
+                       //Pluck out the IDs to get an array of IDS
+                       $term_ids = wp_list_pluck($terms,'term_id');
+                    ?>
+                    <?php
+				
+				$args = array(
+                    
+				    'post_type' => 'portfolioes',
+                    'tax_query' => array(
+                        array(
+                            'taxonomy' => 'portfolio_type',
+                            'field' => 'id',
+                            'terms' => $term_ids,
+                            'operator'=> 'IN' //Or 'AND' or 'NOT IN'
+                         )),
+					'posts_per_page' => -1,
+                    'post_status' => 'publish',
+					'order' => 'DESC',
+                    'post__not_in'=>array($post->ID)
+				);
+
+				$portfolioes = new WP_Query($args);
+				if ($portfolioes->have_posts()) {
+					while ($portfolioes->have_posts()) {
+						$portfolioes->the_post();
+						$portfolio_image = wp_get_attachment_image_src(get_post_thumbnail_id($portfolioes->ID), 'full');
+				?>
+                        <div class="col-lg-12">
+                            <div class="profile-card text-center">
+                                <div class="content-wrap">
+                                    <span class="date"><?php echo get_the_date('j S F'); ?></span>
+                                    <div class="heading">
+                                        <!-- <h5><?php echo get_the_excerpt($portfolioes->ID); ?></h5> -->
+                                        <h5><b><?php echo get_field('portfolio_post_bold_subtitle', $portfolioes->ID); ?> </b><span><?php echo get_field('portfolio_post_normal_title', $portfolioes->ID); ?></span></h5>
+                                    </div>
+                                    <?php
+									$term_obj_list = get_the_terms($portfolioes->ID, 'portfolio_tag');
+									$terms_string = join(', ', wp_list_pluck($term_obj_list, 'name'));
+									$counter = count($term_obj_list);
+                                    $categories = get_the_terms($portfolioes->ID, 'portfolio_type');
+									?>
+                                    <div class="tags">
+                                    <?php
+                                        
+										foreach ($categories as $value) { ?>
+                                            <?php 
+                                               $link = get_field('external_link','portfolio_type_'.$value->term_id);
+
+                                            ?>
+											<a href="<?php echo $link;?>"><?php echo $value->name; ?></a>
+										<?php } ?>
+                                    </div>
+                                </div>
+                                <div class="img-content">
+                                    <a href="<?php echo get_the_permalink($portfolioes->ID); ?>"><img src="<?php echo $portfolio_image[0]; ?>" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                        <?php }
+				 }
+
+				wp_reset_postdata(); ?>
+
+                        
+
+                    </div>
+
+                </div>
+            </section>
+        </main>
+<?php endwhile;
+endif; ?>
+<?php get_footer(); ?> 
+*******End**************
+About page 
+*************start******************
+<?php /*Template Name: Layout: About Us*/ ?>
+<?php get_header(); ?>
+<!--banner sction-->
+<section class="inner-banner" style="background-image: url(<?php echo get_field('about_page_banner_image'); ?>);">
+	<div class="container">
+
+		<div class="row justify-content-center">
+			<div class="col-lg-12 text-center common-heading" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="500">
+				<h1><?php echo get_field('about_page_banner_heading'); ?></h1>
+				<p><?php echo get_field('about_page_banner_short_description'); ?></p>
+				<a class="btn" href="<?php echo get_field('about_page_banner_button_link'); ?>"><?php echo get_field('about_page_banner_button_text'); ?></a>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+	<section class="perks perks2 common-padd">
+		<div class="random-img2 rellax" data-rellax-speed="-2">
+			<?php 
+			   $what_we_bring_section_back_image_one = get_field('what_we_bring_section_back_image_one');
+			   if($what_we_bring_section_back_image_one != '')
+			{?>
+			<img src="<?php echo get_field('what_we_bring_section_back_image_one'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="random-img1 rellax" data-rellax-speed="-4">
+			<?php 
+			 $what_we_bring_section_back_image_two = get_field('what_we_bring_section_back_image_two');
+			 if($what_we_bring_section_back_image_two != '')
+			{?>
+			<img src="<?php echo get_field('what_we_bring_section_back_image_two'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="container">
+			<div class="common-heading text-center" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">
+				<h2><?php echo get_field('what_we_bring_section_heading'); ?></h2>
+				<p><?php echo get_field('what_we_bring_section_short_text'); ?></p>
+			</div>
+			<div class="row justify-content-center">
+				<?php
+				if (have_rows('what_we_bring_section_card_content')) {
+					while (have_rows('what_we_bring_section_card_content')) {
+						the_row();
+						$card_inside_icon = get_sub_field('card_inside_icon');
+						$card_inside_heading = get_sub_field('card_inside_heading');
+						$card_inside_short_text = get_sub_field('card_inside_short_text');
+
+				?>
+						<div class="col-lg-4 col-md-6">
+							<div class="custom-card  text-center">
+								<div class="img-content">
+									<div class="img-inner-content">
+										<?php 
+										if($card_inside_icon != '')
+										{?>
+										<img src="<?php echo $card_inside_icon; ?>" alt="">
+										<?php } ?>
+									</div>
+								</div>
+								<div class="content-wrap">
+									<div class="heading">
+										<h5><?php echo $card_inside_heading; ?></h5>
+									</div>
+									<p><?php echo $card_inside_short_text; ?></p>
+								</div>
+							</div>
+						</div>
+				<?php }
+				} ?>
+				<!-- <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */ ?>/images/i2.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>We are <span>Scalable.</span></h5>
+                  </div>
+                  <p>Our quick turnaround time will help your business to scale faster.</p> 
+                </div>
+              </div>
+            </div> -->
+				<!-- <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */ ?>/images/i3.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Quality <span>Services.</span></h5>
+                  </div>
+                  <p>We help you stay on top of the current trends in a rapidly changing business world.</p> 
+                </div>
+              </div>
+            </div> -->
+
+				<div class="random-img3 rellax" data-rellax-speed="2">
+					<?php 
+					 $what_we_bring_back_image_three = get_field('what_we_bring_back_image_three');
+					if($what_we_bring_back_image_three != '') {?>
+					<img src="<?php echo get_field('what_we_bring_back_image_three'); ?>" alt="">
+					<?php } ?>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="about-section2 common-padd">
+		<div class="container" data-aos="fade-zoom-in" data-aos-easing="linear" data-aos-duration="1500">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="common-heading">
+						<h2><span><?php echo get_field('makes_digitial_work_bold_heading'); ?></span> <?php echo get_field('makes_digitial_work_normal_heading'); ?></h2>
+						
+						<?php echo get_field('makes_digitial_work_section_short_description'); ?>
+
+						<a href="<?php echo get_field('section_bottom_button_link'); ?>" class="btn"><?php echo get_field('section_bottom_button_text'); ?></a>
+					</div>
+				</div>
+				<div class="col-md-6 helf-image">
+					<?php
+					  $makes_digitial_work_section_image = get_field('makes_digitial_work_section_image'); 
+					if($makes_digitial_work_section_image != '') {?>
+					<img src="<?php echo get_field('makes_digitial_work_section_image'); ?>" alt="">
+					<?php } ?>
+				</div>
+
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section class="profile common-padd">
+		<div class="container">
+			<div class="common-heading text-center" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">
+				<h2><span><?php echo get_field('about_page_portfolio_section_bold_heading'); ?></span> <?php echo get_field('about_page_portfolio_section_normal_heading'); ?></h2>
+				<p><?php echo get_field('about_page_portfolio_section_short_text'); ?></p>
+			</div>
+
+			<div class="row">
+				<?php echo do_shortcode('[ajax_load_more transition_container_classes="row" container_type="div" post_type="portfolioes" posts_per_page="3"]');?>
+				
+			</div>
+
+		</div>
+	</section>
+
+	<section class="about-contact common-padd-small">
+		<div class="random-img2 rellax" data-rellax-speed="-1">
+			<?php 
+			  $contact_back_image_one = get_field('contact_back_image_one');
+			  if($contact_back_image_one != '')
+			 {?>
+			<img src="<?php echo get_field('contact_back_image_one'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="random-img1 rellax" data-rellax-speed="-2">
+			<?php 
+			 $contact_back_image_two = get_field('contact_back_image_two');
+			 if($contact_back_image_two != '')
+			{?>
+			<img src="<?php echo get_field('contact_back_image_two'); ?>" alt="">
+			<?php } ?>
+		</div>
+		<div class="container">
+			<div class="common-heading text-center">
+				<h2><?php echo get_field('contact_form_heading'); ?></h2>
+			</div>
+
+			<!-- <form> -->
+				<div class="row">
+					<!-- <div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your First name">
+					</div>
+					<div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your Last name">
+					</div>
+					<div class="col-md-6">
+						<input type="email" class="form-control" placeholder="Your Email address">
+					</div>
+					<div class="col-md-6">
+						<input type="text" class="form-control" placeholder="Your Subject">
+					</div>
+					<div class="col-md-12">
+						<textarea class="form-control" placeholder="Enter your message"></textarea>
+					</div>
+					<div class="col-md-12 text-center">
+						<button type="submit" class="btn">Submit Message</button>
+					</div> -->
+					<?php echo do_shortcode( '[contact-form-7 id="5" title="Contact form"]' );?>
+			   
+			    
+					<div class="random-img3 rellax" data-rellax-speed="1">
+						<?php 
+						  $contact_back_image_three = get_field('contact_back_image_three');
+						if($contact_back_image_three != ''){?>
+						<img src="<?php echo get_field('contact_back_image_three'); ?>" alt="">
+						<?php }?>
+					</div>
+				</div>
+			<!-- </form> -->
+			
+
+		</div>
+	</section>
+
+</main>
+<!--content sction-->
+<?php get_footer(); ?> 
+*****************End*****************************
+<?php /*Template Name: Layout: App Development*/ ?>
+<?php get_header(); ?>
+<!--banner sction-->
+<section class="inner-banner fix-ban" style="background-image: url(<?php echo get_field('sevices_banner_image'); ?>);">
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-12 text-center common-heading" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="500">
+        <h1><span><?php echo get_field('sevices_banner_bold_heading'); ?></span> <?php echo get_field('sevices_banner_normal_heading'); ?></h1>
+        <p><?php echo get_field('sevices_banner_short_text'); ?></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+  <section class="perks service-slide-sec slide-small common-padd">
+    <div class="random-img2 rellax" data-rellax-speed="-2">
+      <?php 
+        $all_plans_back_image_one = get_field('all_plans_back_image_one');
+        if($$all_plans_back_image_one != ''){?>
+        <img src="<?php echo get_field('all_plans_back_image_one'); ?>" alt="">
+        <?php } else {
+        ?>
+        <img src="<?php echo get_template_directory_uri(); ?>/images/Ellipse 4.png" alt="">
+       <?php  } ?>
+    </div>
+    <div class="random-img1 rellax" data-rellax-speed="-4">
+      <?php 
+          $all_plans_back_image_two = get_field('all_plans_back_image_two');
+          if($all_plans_back_image_two != '')
+      {?>
+      <img src="<?php echo get_field('all_plans_back_image_two'); ?>" alt="">
+      <?php } ?>
+    </div>
+    <div class="container">
+      <div class="common-heading text-center head-fix" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">
+        <h2><span><?php echo get_field('all_plans_bold_heading'); ?></span><br> <?php echo get_field('all_plans_normal_heading'); ?></h2>
+      </div>
+      <div class="row">
+        <div class="service-slider">
+        <?php
+              if (have_rows('all_plans_slider_content')) {
+              while (have_rows('all_plans_slider_content')) {
+              the_row();
+                $all_plans_slider_image = get_sub_field('all_plans_slider_image');
+                $all_plans_slider_heading_bold_text = get_sub_field('all_plans_slider_heading_bold_text');
+                $all_plans_slider_heading_normal_text = get_sub_field('all_plans_slider_heading_normal_text');
+                $all_plans_slider_short_text = get_sub_field('all_plans_slider_short_text');
+                
+          ?>
+          <div class="col-md-12">
+            <div class="custom-card  text-center">
+              <div class="img-content">
+                <div class="img-inner-content">
+                  <?php 
+                    if($all_plans_slider_image != '')
+                  {?>
+                  <img src="<?php echo $all_plans_slider_image;?>" alt="">
+                  <?php } ?>
+                </div>
+              </div>
+              <div class="content-wrap">
+                <div class="heading">
+                  <h5><?php echo $all_plans_slider_heading_bold_text;?><span> <?php echo $all_plans_slider_heading_normal_text;?></span></h5>
+                </div>
+                <p><?php echo $all_plans_slider_short_text;?></p>
+              </div>
+            </div>
+          </div>
+          <?php } } ?>
+          
+
+        </div>
+
+        <div class="random-img3 rellax" data-rellax-speed="1">
+          <?php 
+             $all_plans_back_image_three = get_field('all_plans_back_image_three');
+             if($all_plans_back_image_three != '')
+          {?>
+          <img src="<?php echo get_field('all_plans_back_image_three'); ?>" alt="">
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-details2 common-padd">
+    <div class="random-img2 rellax" data-rellax-speed="2">
+      <img src="<?php echo get_field('building_application_section_image'); ?>" alt="">
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="common-heading" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="500">
+            <h2><span><?php echo get_field('building_application_bold_heading'); ?></span> <?php echo get_field('building_application_normal_heading'); ?></h2>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="service-right-para1">
+            <?php echo get_field('building_application_short_description'); ?>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <section class="service-details3 common-padd pt-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="common-heading details-ul">
+            <h2><span><?php echo get_field('we_offer_sectoin_bold_heading'); ?></span> <?php echo get_field('we_offer_section_normal_heding'); ?></h2>
+            <!-- <ul>
+              <li>Custom iOS and Android apps development</li>
+              <li>Native and cross-platform solutions</li>
+              <li>Second platform app development</li>
+              <li>UI/UX design</li>
+              <li>Consulting and prototyping</li>
+              <li>Automated QA and testing</li>
+              <li>Power management, notification and geofencing</li>
+              <li>Embedded Android & AOSP customizations</li>
+              <li>Maintenance and post-warranty support</li>
+            </ul> -->
+            <?php echo get_field('we_offer_section_list_content'); ?>
+            <p><?php echo get_field('we_offer_section_short_text'); ?></p>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="image-right-box">
+            <?php 
+               $we_offer_section_image = get_field('we_offer_section_image');
+               if($we_offer_section_image != '')
+            {?>
+            <img src="<?php echo get_field('we_offer_section_image'); ?>" alt="">
+            <?php } ?>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <section class="service-d-section common-padd">
+    <div class="random-img2 rellax" data-rellax-speed="-2">
+      <?php 
+        $form_your_problem_section_image = get_field('form_your_problem_section_image');
+        if($form_your_problem_section_image != '')
+      {?>
+      <img src="<?php echo get_field('form_your_problem_section_image'); ?>" alt="">
+      <?php } ?>
+    </div>
+    <div class="container">
+      <div class="common-heading text-center">
+        <h2><span><?php echo get_field('from_your_problem_bold_heding'); ?></span> <?php echo get_field('from_your_problem_normal_heading'); ?></h2>
+        <p><?php echo get_field('from_your_problem_short_text'); ?></p>
+      </div>
+
+      <div class="service-odd-even">
+      <?php
+              if (have_rows('great_sloution_content')) {
+              while (have_rows('great_sloution_content')) {
+              the_row();
+                $great_slotions_content_image = get_sub_field('great_slotions_content_image');
+                $great_solution_content_bold_heading = get_sub_field('great_solution_content_bold_heading');
+                $great_sloution_content_normal_heading = get_sub_field('great_sloution_content_normal_heading');
+                $great_solution_content_short_text = get_sub_field('great_solution_content_short_text');
+                
+        ?>
+        <div class="row align-items-center">
+          <div class="col-md-6" data-aos="fade-zoom-in" data-aos-easing="linear" data-aos-duration="500">
+            <?php 
+               if($great_slotions_content_image != '')
+            {?>
+            <img src="<?php echo $great_slotions_content_image;?>" alt="">
+            <?php } ?>
+          </div>
+          <div class="col-md-6">
+            <div class="common-heading">
+              <h3><span><?php echo $great_solution_content_bold_heading;?></span> <?php echo $great_sloution_content_normal_heading;?></h3>
+              <p><?php echo $great_solution_content_short_text;?></p>
+            </div>
+          </div>
+        </div>
+        <?php } } ?>
+        
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="perks perks2 contect-1 common-padd bg-white">
+    <div class="random-img2 rellax" data-rellax-speed="-1">
+      <?php 
+         $app_page_get_in_touch_back_image_one = get_field('app_page_get_in_touch_back_image_one');
+         if($app_page_get_in_touch_back_image_one != '')
+      {?>
+      <img src="<?php echo get_field('app_page_get_in_touch_back_image_one'); ?>" alt="">
+      <?php } ?>
+    </div>
+    <div class="random-img1 rellax" data-rellax-speed="-2">
+      <?php 
+        $get_in_touch_section_back_image_two = get_field('get_in_touch_section_back_image_two'); 
+        if($get_in_touch_section_back_image_two != '')
+       {?>
+        <img src="<?php echo get_field('get_in_touch_section_back_image_two'); ?>" alt="">
+      <?php } ?>
+    </div>
+    <div class="container">
+      <div class="common-heading text-center">
+        <h2><span><?php echo get_field('app_page_get_touch_bold_heading'); ?> </span><?php echo get_field('app_page_get_touch_normal_heading'); ?></h2>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6">
+          <div class="custom-card  text-center">
+            <div class="img-content">
+              <div class="img-inner-content">
+                <?php 
+                   $app_page_office_icon = get_field('app_page_office_icon');
+                   if($app_page_office_icon != '')
+                {?>
+                <img src="<?php echo get_field('app_page_office_icon'); ?>" alt="">
+                <?php } ?>
+              </div>
+            </div>
+            <div class="content-wrap">
+              <div class="heading">
+                <h5><?php echo get_field('app_page_office_heading_bold_text'); ?> <span><?php echo get_field('app_page_office_icon_normal_heading'); ?></span></h5>
+              </div>
+              <p><?php echo get_field('app_page_office_address'); ?></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="custom-card  text-center">
+            <div class="img-content">
+              <div class="img-inner-content">
+                <?php 
+                 $app_page_email_icon = get_field('app_page_email_icon');
+                 if($app_page_email_icon != '')
+                {?>
+                <img src="<?php echo get_field('app_page_email_icon'); ?>" alt="">
+                <?php } ?>
+              </div>
+            </div>
+            <div class="content-wrap">
+              <div class="heading">
+                <h5><?php echo get_field('app_page_email_bold_heading'); ?> <span><?php echo get_field('app_page_normal_heading'); ?></span></h5>
+              </div>
+              <a href="mailto:<?php echo get_field('app_page_email_id'); ?>"><?php echo get_field('app_page_email_id'); ?></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="custom-card  text-center">
+            <div class="img-content">
+              <div class="img-inner-content">
+                <?php
+                    $app_page_phone_icon = get_field('app_page_phone_icon');
+                    if($app_page_phone_icon != '') 
+                {?>
+                <img src="<?php echo get_field('app_page_phone_icon'); ?>" alt="">
+                <?php } ?>
+              </div>
+            </div>
+            <div class="content-wrap">
+              <div class="heading">
+                <h5><?php echo get_field('app_page_phone_bold_heading'); ?> <span><?php echo get_field('app_page_normal_heading'); ?></span></h5>
+              </div>
+              <a href="tel:<?php echo get_field('app_page_phone_number'); ?>"><?php echo get_field('app_page_phone_number'); ?></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="random-img3 rellax" data-rellax-speed="1">
+           <?php 
+             $app_page_get_in_touch_back_image_three = get_field('app_page_get_in_touch_back_image_three');
+             if($app_page_get_in_touch_back_image_three != '') 
+           {?>
+          <img src="<?php echo get_field('app_page_get_in_touch_back_image_three'); ?>" alt="">
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<?php get_footer(); ?> 
+***************End******************************** 
+careears page 
+*****************start*******
+<?php /*Template Name: Layout: Careears*/ ?>
+<?php get_header(); ?>
+<section class="inner-banner btn-gap p-large" style="background-image: url(<?php echo get_field('careears_banner_image'); ?>);">
+	<div class="container">
+
+		<div class="row justify-content-center">
+			<div class="col-lg-12 text-center common-heading">
+				<h1><span><?php echo get_field('careears_banner_heading_bold_text'); ?></span> <?php echo get_field('careears_banner_heading_normal_text'); ?></h1>
+				<p><?php echo get_field('careears_banner_short_text'); ?></p>
+				<a class="btn" href="<?php echo get_field('careears_banner_button1_link'); ?>"><?php echo get_field('careears_banner_button1_text'); ?></a>
+				<a class="btn" href="<?php echo get_field('careears_banner_button2_link'); ?>"><?php echo get_field('careears_banner_button2_text'); ?></a>
+			</div>
+		</div>
+
+	</div>
+</section>
+
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+	<section class="career-sec1 common-padd">
+		<div class="container">
+			<div class="common-heading">
+				<h2><span><?php echo get_field('careears_content_section_1_bold_heading'); ?></span> <?php echo get_field('careears_content_section_1_normal_heading'); ?></h2>
+
+				<?php echo get_field('careears_content_section_1_description'); ?>
+			</div>
+
+		</div>
+	</section>
+
+	<section class="career-sec2 common-padd pt-0">
+		<div class="container">
+			<div class="row">
+
+				<div class="progress-box">
+
+					<label><?php echo get_field('teamwork_heading'); ?></label>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" style="width: <?php echo get_field('teamwork_percentage_value'); ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+
+					<label><?php echo get_field('dedication_heading'); ?></label>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" style="width: <?php echo get_field('dedication_percentage_value'); ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+
+					<label><?php echo get_field('personal_growth_heading'); ?></label>
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" style="width: <?php echo get_field('personal_growth_percentage_value'); ?>%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+				</div>
+
+				<div class="career-gallery">
+					<?php
+
+					$args = array(
+						'post_type' => 'gallery',
+						'posts_per_page' => -1,
+						'post_status' => 'publish',
+						'order' => 'DESC',
+					);
+
+					$gallery = new WP_Query($args);
+					if ($gallery->have_posts()) {
+						while ($gallery->have_posts()) {
+							$gallery->the_post();
+							// $portfolio_image = wp_get_attachment_image_src(get_post_thumbnail_id($portfolioes->ID), 'full');
+					?>
+
+							<div class="gallery-grid mb-0">
+								<?php
+								$i = 0;
+								if (have_rows('careear_image_gallery')) {
+									while (have_rows('careear_image_gallery')) {
+										$i++;
+										the_row();
+										$particular_image_in_gallery = get_sub_field('particular_image_in_gallery');
+
+								?>
+								    <?php if($particular_image_in_gallery != '') 
+									{?>
+										<div class="item<?php echo $i; ?>">
+											<div class="img">
+												<img src="<?php echo $particular_image_in_gallery; ?>" alt="">
+											</div>
+										</div>
+									  <?php } ?>
+								<?php }
+								} ?>
+
+							</div>
+					<?php }
+					}
+
+					wp_reset_postdata(); ?>
+
+
+
+				</div>
+
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section class="counter-section common-padd" style="background-image: url(<?php echo get_field('new_colleagues_section_image'); ?>);">
+		<div class="container">
+
+			<div class="common-heading text-center">
+				<h2><span><?php echo get_field('new_colleagues_bold_heading'); ?></span> <?php echo get_field('new_colleagues_normal_heading'); ?></h2>
+				<p><?php echo get_field('new_colleagues_section_short_text'); ?></p>
+			</div>
+
+			<div class="row">
+
+				<div class="col-lg-3 col-md-6">
+					<div class="counter-box">
+						<h2><span class="counter" ended="true"><?php echo get_field('new_colleagues_no_of_experience'); ?></span>+</h2>
+						<div class="heading">
+							<h5><span><?php echo get_field('new_colleagues_no_of_experience_bold_heading'); ?></span> <?php echo get_field('new_colleagues_no_of_experience_normal_heading'); ?></h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="counter-box">
+						<h2><span class="counter" ended="true"><?php echo get_field('new_colleagues_no_of_clients'); ?></span>+</h2>
+						<div class="heading">
+							<h5><span><?php echo get_field('new_colleagues_clients_bold_heading'); ?></span> <?php echo get_field('new_colleagues_clients_normal_heading'); ?></h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="counter-box">
+						<h2><span class="counter" ended="true"><?php echo get_field('new_colleagues_yearly_turnover_value'); ?></span>%</h2>
+						<div class="heading">
+							<h5><span><?php echo get_field('new_colleagues_yearly_turnover_bold_heading'); ?></span> <?php echo get_field('new_colleagues_yearly_turnover_normal_heading'); ?></h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="counter-box">
+						<h2><span class="counter" ended="true"><?php echo get_field('new_colleagues_number_of_employees'); ?></span></h2>
+						<div class="heading">
+							<h5><span><?php echo get_field('new_colleagues_employees_bold_heading'); ?></span> <?php echo get_field('new_colleagues_employees_normal_heading'); ?></h5>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+
+	<section class="career-form-sec pt-0 common-padd">
+		<div class="container">
+
+			<div class="career-form">
+				<!-- <form>
+			  <div class="row"> 
+					  <div class="col-md-6"> 
+					    <label>Your Name*</label>
+						<input type="text" class="form-control" placeholder=""> 
+					  </div>
+					  <div class="col-md-6"> 
+						<label>Your Address*</label>
+						<input type="text" class="form-control" placeholder="">
+					  </div>
+					  <div class="col-md-6"> 
+						<label>City*</label>
+						<input type="email" class="form-control" placeholder="">
+					  </div>
+					  <div class="col-md-6"> 
+						<label>Postcode*</label>
+						<input type="text" class="form-control" placeholder="">
+					  </div>
+					  <div class="col-md-6"> 
+						<label>Phone Number*</label>
+						<input type="email" class="form-control" placeholder="">
+					  </div>
+					  <div class="col-md-6"> 
+						<label>Your Email*</label>
+						<input type="text" class="form-control" placeholder="">
+					  </div>
+					  <div class="col-md-12"> 
+						<label>Your Resume*</label> 
+						<input class="form-control" type="file" id="formFile">
+					  </div> 
+					  <div class="col-md-12"> 
+						<label>Your Email</label>
+						<textarea class="form-control" placeholder=""></textarea>
+					  </div> 
+					  <div class="col-md-12">  
+						<button type="submit" class="btn">Submit Your CV</button>
+					  </div> 
+			  </div>
+		  </form>  -->
+				<?php echo do_shortcode('[contact-form-7 id="777" title="Employee From"]'); ?>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="img-form">
+						<img src="<?php echo get_field('careears_page_visit_us_section_image'); ?>" alt="">
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="common-heading text-end">
+						<h2><?php echo get_field('careears_page_visit_us_bold_heading'); ?> <span><?php echo get_field('careears_page_visit_us_normal_heading'); ?></span></h2>
+						<p><?php echo get_field('careears_page_visit_us_short_text'); ?></p>
+					</div>
+
+					<!-- <form>
+				    <div class="row image-contact"> 
+					  <div class="col-md-12">  
+						<input type="text" class="form-control" placeholder="Your Name*"> 
+					  </div>
+					  <div class="col-md-12">  
+						<input type="text" class="form-control" placeholder="Your Email Address*"> 
+					  </div>
+					  <div class="col-md-12">  
+						<input type="text" class="form-control" placeholder="Your Subject"> 
+					  </div>
+					  <div class="col-md-12">  
+						<input type="text" class="form-control" placeholder="Enter Your Message *"> 
+					  </div>
+					  <div class="col-md-12">  
+						<button type="submit" class="btn">Submit Your CV</button>
+					  </div> 
+					  
+					  
+				   </div>
+			     </form>  -->
+					<?php echo do_shortcode('[contact-form-7 id="787" title="Visit Us From"]'); ?>
+
+
+				</div>
+			</div>
+
+			<div class="updated-bg-img">
+				<img src="<?php echo get_field('careears_page_visit_us_section_bottom_image'); ?>" alt="">
+			</div>
+
+		</div>
+	</section>
+
+</main>
+<!--content sction-->
+<?php get_footer(); ?> 
+************************End*****************************
+contact page 
+*******************start******************
+<?php /*Template Name: Layout: Contact*/ ?>
+<?php get_header(); ?>
+<!--banner sction-->
+<section class="inner-banner" style="background-image: url(<?php echo get_field('banner_inner_image'); ?>);">  
+  <div class="container">
+   
+		<div class="row justify-content-center">
+			<div class="col-lg-12 text-center common-heading">  
+				<h1><?php echo get_field('banner_inner_heading'); ?></h1>
+				<p><?php echo get_field('banner_inner_short_description'); ?></p> 
+			</div> 			 
+		</div>
+		 
+  </div>  
+  </section>
+   
+  <!--banner sction-->
+
+  <!--content sction-->
+  <main> 
+    <section class="perks perks2 contect-1 common-padd">
+      <div class="random-img2">
+        <?php 
+         $contact_page_background_image_one = get_field('contact_page_background_image_one');
+         if($contact_page_background_image_one != '')
+        {?>
+        <img src="<?php echo get_field('contact_page_background_image_one'); ?>" alt="">
+        <?php } ?>
+      </div>
+      <div class="random-img1">
+        <?php 
+           $contact_page_background_image_two = get_field('contact_page_background_image_two');
+        if($contact_page_background_image_two != '') {?>
+        <img src="<?php echo get_field('contact_page_background_image_two'); ?>" alt="">
+        <?php } ?>
+      </div>
+        <div class="container">
+          <div class="common-heading text-center">
+            <h2><?php echo get_field('contact_page_heading'); ?></h2> 
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <?php 
+                      $contact_address_icon = get_field('contact_address_icon');
+                    if($contact_address_icon != '') {?>
+                    <img src="<?php echo get_field('contact_address_icon'); ?>" alt="">
+                    <?php } ?>
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5><?php echo get_field('contact_address_heading'); ?></h5>
+                  </div>
+                  <p><?php echo get_field('contact_address_text'); ?></p> 
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <?php 
+                      $contact_email_icon = get_field('contact_email_icon');
+                      if($contact_email_icon != '')
+                    {?>
+                    <img src="<?php echo get_field('contact_email_icon'); ?>" alt="">
+                    <?php } ?>
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5><?php echo get_field('contact_email_heading'); ?></h5>
+                  </div>
+                  <a href="mailto:<?php echo get_field('contact_email_address'); ?>"><?php echo get_field('contact_email_address'); ?></a> 
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <?php 
+                    $cotact_phone_number_icon = get_field('cotact_phone_number_icon'); 
+                    if($cotact_phone_number_icon != '')
+                    {?>
+                    <img src="<?php echo get_field('cotact_phone_number_icon'); ?>" alt="">
+                    <?php } ?>
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5><?php echo get_field('contact_phone_number_heading'); ?></h5>
+                  </div>
+                  <a href="tel:<?php echo get_field('contact_phone_number'); ?>"><?php echo get_field('contact_phone_number'); ?></a> 
+                </div>
+              </div>
+            </div>
+             
+            <div class="random-img3">
+              <?php
+                $contact_page_background_image_three = get_field('contact_page_background_image_three'); 
+              if($contact_page_background_image_three != '') 
+              {?>
+              <img src="<?php echo get_field('contact_page_background_image_three'); ?>" alt="">
+              <?php } ?>
+            </div>
+          </div>
+        </div>
+    </section>
+	
+    <section class="perks contect-2 common-padd"> 
+        <div class="container">
+          <div class="common-heading text-center">
+            <h2><span><?php echo get_field('section_common_heading_bold_text'); ?></span><br><?php echo get_field('section_common_heading_normal_text'); ?></h2> 
+          </div>
+          <div class="row justify-content-center">
+          <?php
+          if (have_rows('section_card_content')) {
+            while (have_rows('section_card_content')) {
+              the_row();
+              $inner_card_image = get_sub_field('inner_card_image');
+              $inner_card_heading = get_sub_field('inner_card_heading');
+              $inner_card_short_text = get_sub_field('inner_card_short_text');
+              
+          ?>
+            <div class="col-xl-3 col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <?php 
+                    if($inner_card_image != '')
+                    {?>
+                    <img src="<?php echo $inner_card_image;?>" alt="">
+                    <?php } ?>
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5><?php echo $inner_card_heading;?></h5>
+                  </div>
+                  <p><?php echo $inner_card_short_text;?></p> 
+                </div>
+              </div>
+            </div>
+            <?php } } ?>
+            <!-- <div class="col-xl-3 col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */?>/images/i5.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Custom <span>Working Time</span></h5>
+                  </div>
+                  <p>Utilizing enterprise via 24/7 markets.</p> 
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="col-xl-3 col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */?>/images/i6.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Pixel <span>Perfect Apps</span></h5>
+                  </div>
+                  <p>Open-source via inexpensive materials.</p> 
+                </div>
+              </div>
+            </div> -->
+			
+			      <!-- <div class="col-xl-3 col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */?>/images/i7.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Achieving <span>Goals</span></h5>
+                  </div>
+                  <p>Making our clients proud by achieving big milestones</p> 
+                </div>
+              </div>
+            </div> -->
+			
+			      <!-- <div class="col-xl-3 col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */?>/images/i8.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Performance <span>Oriented</span></h5>
+                  </div>
+                  <p>Delivering performance based method.</p> 
+                </div>
+              </div>
+            </div> -->
+			
+			      <!-- <div class="col-xl-3 col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */?>/images/i9.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Creative <span>Environment</span></h5>
+                  </div>
+                  <p>Welcoming creative minds in our team</p> 
+                </div>
+              </div>
+            </div> -->
+			
+			      <!-- <div class="col-xl-3 col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <img src="<?php /*echo get_template_directory_uri(); */?>/images/i10.svg" alt="">
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5>Awesome <span>Achievements</span></h5>
+                  </div>
+                  <p>Dramatically engage top- line web services.</p> 
+                </div>
+              </div>
+            </div> -->
+			 
+              
+          </div>
+        </div>
+    </section>
+	
+  </main>
+<?php get_footer(); ?> 
+**********************End*****************************
+////media management page 
+**************************start******************
+<?php /*Template Name: Layout: Media Management*/ ?>
+<?php get_header(); ?> 
+<!--banner sction-->
+<section class="inner-banner fix-ban" style="background-image: url(<?php echo get_field('sevices_banner_image'); ?>);">  
+  <div class="container">
+   
+		<div class="row justify-content-center">
+			<div class="col-lg-12 text-center common-heading" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="500">  
+				<h1><span><?php echo get_field('sevices_banner_bold_heading'); ?></span> <?php echo get_field('sevices_banner_normal_heading'); ?></h1>
+				<p><?php echo get_field('sevices_banner_short_text'); ?></p> 
+			</div> 			 
+		</div>
+		 
+  </div>  
+  </section>
+   
+  <!--banner sction-->
+
+  <!--content sction-->
+  <main> 
+    <section class="perks service-slide-sec common-padd">
+      <div class="random-img2 rellax"  data-rellax-speed="-2">
+        <?php 
+          $benefits_section_back_image_one = get_field('benefits_section_back_image_one');
+        if($benefits_section_back_image_one != '')
+        {?>
+        <img src="<?php echo get_field('benefits_section_back_image_one'); ?>" alt="">
+        <?php } ?>
+      </div>
+      <div class="random-img1 rellax" data-rellax-speed="-4">
+        <?php 
+           $benefits_section_back_image_two = get_field('benefits_section_back_image_two');
+           if($benefits_section_back_image_two != '')
+           {
+        ?>
+        <img src="<?php echo get_field('benefits_section_back_image_two'); ?>" alt="">
+        <?php } ?>
+      </div>
+        <div class="container">
+          <div class="common-heading text-center" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">
+            <h2><span><?php echo get_field('benefits_section_bold_heading'); ?></span> <?php echo get_field('benefits_section_normal_heading'); ?></h2> 
+          </div>
+          <div class="row">
+			<div class="service-slider"> 
+        <?php
+				if (have_rows('benefit_section_card_content')) {
+					while (have_rows('benefit_section_card_content')) {
+						the_row();
+						$benefit_section_card_inner_image = get_sub_field('benefit_section_card_inner_image');
+						$benefit_section_card_heading = get_sub_field('benefit_section_card_heading');
+						$benefit_section_card_short_description = get_sub_field('benefit_section_card_short_description');
+
+				?>
+				<div class="col-md-12">
+				  <div class="custom-card  text-center">
+					<div class="img-content">
+					  <div class="img-inner-content">
+              <?php
+               if($benefit_section_card_inner_image != '') 
+              {?>
+						<img src="<?php echo $benefit_section_card_inner_image;?>" alt="">
+             <?php } ?>
+					  </div>
+					</div>
+					<div class="content-wrap">
+					  <div class="heading">
+						<h5><?php echo $benefit_section_card_heading;?></h5>
+					  </div>
+					  <p><?php echo $benefit_section_card_short_description;?></p> 
+					</div>
+				  </div>
+				</div>
+         <?php } } ?>
+				
+			 </div>
+		  
+            <div class="random-img3 rellax" data-rellax-speed="1">
+              <?php 
+                 $benefit_section_card_image_three = get_field('benefit_section_card_image_three');
+              if($benefit_section_card_image_three != '') {?>
+              <img src="<?php echo get_field('benefit_section_card_image_three'); ?>" alt="">
+              <?php } ?>
+            </div>
+          </div>
+        </div>
+    </section>
+	
+    <section class="service-details common-padd">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-lg-6">
+            <div class="common-heading">
+              <h2><span><?php echo get_field('promote_company_bold_heading'); ?> </span><?php echo get_field('promote_company_normal_heading'); ?></h2>
+			  
+              <?php echo get_field('promote_company_short_description'); ?>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-6 helf-image"> 
+            <?php 
+                $promote_company_section_image = get_field('promote_company_section_image');
+                if($promote_company_section_image != '')
+              {?>
+              <img src="<?php echo get_field('promote_company_section_image'); ?>" alt=""> 
+              <?php } ?>
+          </div>
+		    
+          </div>
+        </div>
+      
+    </section>
+	
+	<section class="perks perks2 contect-1 common-padd">
+      <div class="random-img2 rellax" data-rellax-speed="-1">
+        <?php 
+        $get_in_touch_back_image_one = get_field('get_in_touch_back_image_one');
+        if($get_in_touch_back_image_one != '')
+        {?>
+        <img src="<?php echo get_field('get_in_touch_back_image_one'); ?>" alt="">
+        <?php } ?>
+      </div>
+      <div class="random-img1 rellax" data-rellax-speed="-1">
+        <?php 
+          $get_in_touch_back_image_two = get_field('get_in_touch_back_image_two');
+          if($get_in_touch_back_image_two != '') 
+        {?>
+        <img src="<?php echo get_field('get_in_touch_back_image_two'); ?>" alt="">
+        <?php } ?>
+      </div>
+        <div class="container">
+          <div class="common-heading text-center">
+            <h2><?php echo get_field('get_in_touch_section_heading'); ?></h2> 
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <?php 
+                    $card_adddress_icon = get_field('card_adddress_icon');
+                    if($card_adddress_icon != '')
+                    {?>
+                    <img src="<?php echo get_field('card_adddress_icon'); ?>" alt="">
+                    <?php } ?>
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5><?php echo get_field('card_address_short_heading'); ?></h5>
+                  </div>
+                  <p><?php echo get_field('card_address'); ?></p> 
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <?php 
+                        $card_email_icon = get_field('card_email_icon');
+                        if($card_email_icon != '')
+                    {?>
+                    <img src="<?php echo get_field('card_email_icon'); ?>" alt="">
+                    <?php } ?>
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5><?php echo get_field('card_email_heading'); ?></h5>
+                  </div>
+                  <a href="mailto:<?php echo get_field('card_email_address'); ?>"><?php echo get_field('card_email_address'); ?></a> 
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="custom-card  text-center">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <?php 
+                    $card_phone_icon = get_field('card_phone_icon'); 
+                    if($card_phone_icon != '')
+                    {?>
+                    <img src="<?php echo get_field('card_phone_icon'); ?>" alt="">
+                    <?php } ?>
+                  </div>
+                </div>
+                <div class="content-wrap">
+                  <div class="heading">
+                    <h5><?php echo get_field('card_phone_number_heading'); ?></h5>
+                  </div>
+                  <a href="tel:<?php echo get_field('card_phone_number'); ?>"><?php echo get_field('card_phone_number'); ?></a> 
+                </div>
+              </div>
+            </div>
+             
+            <div class="random-img3 rellax" data-rellax-speed="1">
+              <?php 
+                 $get_in_touch_back_image_three = get_field('get_in_touch_back_image_three');
+                 if($get_in_touch_back_image_three != '')
+              {?>
+              <img src="<?php echo get_field('get_in_touch_back_image_three'); ?>" alt="">
+              <?php } ?>
+            </div>
+          </div>
+        </div>
+    </section>
+  </main>
+<?php get_footer(); ?>
+****************************End**********************************
+portfolio page 
+*****************start*********************
+<?php /*Template Name: Layout: Portfolio*/ ?>
+<?php get_header(); ?>
+<!--banner sction-->
+<section class="inner-banner" style="background-image: url(<?php echo get_field('portfolio_banner_image'); ?>);">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center common-heading">
+                <h1><?php echo get_field('portfolio_banner_short_heading'); ?></h1>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+    <section class="profile common-padd">
+        <div class="container">
+            <div class="common-heading text-center">
+                <h2><?php echo get_field('portfilo_page_tab_heading'); ?></h2>
+            </div>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <?php 
+                  $first_tab_title = get_field('first_tab_title');
+                  if($first_tab_title != '')
+                {?>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><?php echo get_field('first_tab_title'); ?></button>
+                </li>
+                <?php } ?>
+                <?php 
+                    $second_tab_title = get_field('second_tab_title');
+                    if($second_tab_title != '')
+                    {
+                ?>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="home-tab1" data-bs-toggle="tab" data-bs-target="#home1" type="button" role="tab" aria-controls="home1" aria-selected="true"><?php echo get_field('second_tab_title'); ?></button>
+                </li>
+                <?php } ?>
+                <?php 
+                  $third_tab_title = get_field('third_tab_title');
+                  if($third_tab_title != '')
+                {?>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false"><?php echo get_field('third_tab_title'); ?></button>
+                </li>
+                <?php }?>
+                <?php 
+                   $forth_tab_title = get_field('forth_tab_title');
+                   if($forth_tab_title != '')
+                {?>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false"><?php echo get_field('forth_tab_title'); ?></button>
+                </li>
+                <?php } ?>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                    <?php echo do_shortcode('[ajax_load_more transition_container_classes="row" container_type="div" post_type="portfolioes" posts_per_page="3"]');?>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="row">
+                        <?php echo do_shortcode('[ajax_load_more transition_container_classes="row" container_type="div" post_type="portfolioes" posts_per_page="3" taxonomy="portfolio_type" taxonomy_terms="web-development" taxonomy_operator="IN"]');?>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="row">
+                        <?php echo do_shortcode('[ajax_load_more transition_container_classes="row" container_type="div" post_type="portfolioes" posts_per_page="3" taxonomy="portfolio_type" taxonomy_terms="web-hosting" taxonomy_operator="IN"]');?>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="home1" role="tabpanel" aria-labelledby="home-tab1">
+                      
+                <div class="row">
+                        <?php echo do_shortcode('[ajax_load_more transition_container_classes="row" container_type="div" post_type="portfolioes" posts_per_page="3" taxonomy="portfolio_type" taxonomy_terms="mobile-application" taxonomy_operator="IN"]');?>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
+<?php get_footer(); ?> 
+***********************End********************** 
+Pricing page 
+****************start*********************
+<?php /*Template Name: Layout: Pricing*/ ?>
+<?php get_header(); ?>
+<!--banner sction-->
+<section class="inner-banner p-large" style="background-image: url(<?php echo get_field('pricing_page_banner_image'); ?>);">  
+  <div class="container">
+   
+		<div class="row justify-content-center">
+			<div class="col-lg-12 text-center common-heading">  
+				<h1><span><?php echo get_field('pricing_page_banner_bold_heading'); ?></span> <?php echo get_field('pricing_page_banner_normal_heading'); ?></h1>
+				<p><?php echo get_field('pricing_page_banner_short_heading'); ?></p> 
+			</div> 			 
+		</div>
+		 
+  </div>  
+  </section>
+   
+  <!--banner sction-->
+
+  <!--content sction-->
+  <main> 
+    <section class="pricing-section common-padd"> 
+      <div class="random-img1">
+        <img src="<?php echo get_field('mobile_application_package_back_image'); ?>" alt="">
+      </div>
+        <div class="container big-cuctom-container">
+          <div class="common-heading text-center">
+            <h2><span><?php echo get_field('mobile_application_package_bold_heading'); ?></span> <?php echo get_field('mobile_application_package_normal_heading'); ?></h2> 
+          </div>
+          <div class="row justify-content-center">
+          <?php
+          if (have_rows('mobile_package_content')) {
+            while (have_rows('mobile_package_content')) {
+              the_row();
+              $mobile_package_content_image = get_sub_field('mobile_package_content_image');
+              $mobile_package_content_heading_normal = get_sub_field('mobile_package_content_heading_normal');
+              $mobile_package_content_heading_bold = get_sub_field('mobile_package_content_heading_bold');
+              $mobile_package_content_short_text = get_sub_field('mobile_package_content_short_text');
+              $mobile_package_content_description = get_sub_field('mobile_package_content_description');
+              $mobile_package_content_button_text = get_sub_field('mobile_package_content_button_text');
+              $mobile_package_content_button_link = get_sub_field('mobile_package_content_button_link');
+              
+          ?>
+			<div class="col-lg-4 col-md-6"> 
+			  <div class="pricing-card">
+                
+				<div class="pricing-content text-center">
+                  <div class="pricing-inner-content">
+                    <img src="<?php echo $mobile_package_content_image;?>" alt="">
+                  </div> 
+				  
+                  <div class="heading">
+                    <h5><span><?php echo $mobile_package_content_heading_normal;?> </span> <?php echo $mobile_package_content_heading_bold;?></h5>
+                  </div>
+				  
+                  <p><?php $mobile_package_content_short_text;?></p> 
+                </div>
+				
+				<div class="pricing-content2 text-center">
+				    <?php echo $mobile_package_content_description;?>
+				  
+				  <a href="<?php echo $mobile_package_content_button_link;?>" class="btn"><?php echo $mobile_package_content_button_text;?></a>
+				  
+				</div>
+				
+              </div> 
+            </div>
+            <?php } } ?>
+             
+          </div>
+        </div>
+    </section>
+	
+    <section class="pricing-section bg-theam common-padd">  
+        <div class="container big-cuctom-container">
+          <div class="common-heading text-center">
+            <h2><span><?php echo get_field('social_media_package_bold_heading'); ?></span> <?php echo get_field('social_media_package_normal_heading'); ?></h2> 
+          </div>
+          <div class="row justify-content-center">
+          <?php
+          if (have_rows('social_media_package_content')) {
+            while (have_rows('social_media_package_content')) {
+              the_row();
+              $social_media_package_content_image = get_sub_field('social_media_package_content_image');
+              $social_media_package_content_normal_heading = get_sub_field('social_media_package_content_normal_heading');
+              $social_media_package_content_bold_heading = get_sub_field('social_media_package_content_bold_heading');
+              $social_media_package_content_short_text = get_sub_field('social_media_package_content_short_text');
+              $social_media_package_content_description = get_sub_field('social_media_package_content_description');
+              $social_media_package_content_button_text = get_sub_field('social_media_package_content_button_text');
+              $social_media_package_content_button_link = get_sub_field('social_media_package_content_button_link');
+              
+          ?>
+			<div class="col-lg-4 col-md-6"> 
+			  <div class="pricing-card">
+                
+				<div class="pricing-content text-center">
+                  <div class="pricing-inner-content">
+                    <img src="<?php echo $social_media_package_content_image;?>" alt="">
+                  </div> 
+				  
+                  <div class="heading">
+                    <h5><span><?php echo $social_media_package_content_normal_heading;?></span> <?php echo $social_media_package_content_bold_heading;?></h5>
+                  </div>
+				  
+                  <p><?php echo $social_media_package_content_short_text;?></p> 
+                </div>
+				
+				<div class="pricing-content2 text-center">
+				  <!-- <ul>
+					<li>Post questionnaires to gather feedback</li>
+					<li>Respond and answer questions publicly </li>
+					<li>Collect feedback from followers</li>
+					<li>Identify trends and create engaged content </li>
+					<li>Post atleast 3 tiimes a week</li> 
+				  </ul> -->
+				  <?php echo $social_media_package_content_description;?>
+				  <a href="<?php echo $social_media_package_content_button_link;?>" class="btn"><?php echo $social_media_package_content_button_text;?></a>
+				  
+				</div>
+				
+              </div> 
+            </div>
+             <?php } } ?>
+            
+			
+          </div>
+        </div>
+    </section>
+	
+	<section class="pricing-section common-padd">  
+        <div class="container big-cuctom-container">
+          <div class="common-heading text-center">
+            <h2><span><?php echo get_field('web_development_package_section_bold_heading'); ?></span> <?php echo get_field('web_development_package_section_normal_heading'); ?></h2> 
+          </div>
+          <div class="row justify-content-center">
+          <?php
+          if (have_rows('web_development_package_content')) {
+            while (have_rows('web_development_package_content')) {
+              the_row();
+              $web_development_package_content_image = get_sub_field('web_development_package_content_image');
+              $web_development_package_content_normal_heading = get_sub_field('web_development_package_content_normal_heading');
+              $web_development_package_content__bold_heading = get_sub_field('web_development_package_content__bold_heading');
+              $web_development_package_content_short_text = get_sub_field('web_development_package_content_short_text');
+              $web_development_package_content_description = get_sub_field('web_development_package_content_description');
+              $web_development_package_content_button_text = get_sub_field('web_development_package_content_button_text');
+              $web_development_package_content_button_link = get_sub_field('web_development_package_content_button_link');
+              
+          ?>
+			<div class="col-lg-4 col-md-6"> 
+			  <div class="pricing-card">
+                
+				<div class="pricing-content text-center">
+                  <div class="pricing-inner-content">
+                    <img src="<?php echo $web_development_package_content_image;?>" alt="">
+                  </div> 
+				  
+                  <div class="heading">
+                    <h5><span><?php echo $web_development_package_content_normal_heading;?></span> <?php echo $web_development_package_content__bold_heading;?></h5>
+                  </div>
+				  
+                  <p><?php echo $web_development_package_content_short_text;?></p> 
+                </div>
+				
+				<div class="pricing-content2 text-center">
+				  <!-- <ul>
+					<li>Complete UI design</li>
+					<li>Blog</li>
+					<li>Full SEO</li> 
+				  </ul> -->
+                  <?php echo $web_development_package_content_description;?>
+				  
+				  <a href="<?php echo $web_development_package_content_button_link;?>" class="btn"><?php echo $web_development_package_content_button_text;?></a>
+				  
+				</div>
+				
+              </div> 
+            </div> 
+            <?php } } ?>
+             
+            
+			
+          </div>
+        </div>
+    </section>
+	
+	<section class="pricing-section bg-theam common-padd">  
+        <div class="container big-cuctom-container">
+          <div class="common-heading text-center">
+            <h2><span><?php echo get_field('web_hosting_package_bold_heading'); ?></span> <?php echo get_field('web_hosting_package_normal_heading'); ?></h2> 
+          </div>
+          <div class="row justify-content-center">
+          <?php
+          if (have_rows('web_hosting_package_content')) {
+            while (have_rows('web_hosting_package_content')) {
+              the_row();
+              $web_hosting_package_content_image = get_sub_field('web_hosting_package_content_image');
+              $web_hosting_package_content_normal_heading = get_sub_field('web_hosting_package_content_normal_heading');
+              $web_hosting_package_content_bold_heading = get_sub_field('web_hosting_package_content_bold_heading');
+              $web_hosting_package_content_short_text = get_sub_field('web_hosting_package_content_short_text');
+              $web_hosting_package_content_description = get_sub_field('web_hosting_package_content_description');
+              $web_hosting_package_content_button_text = get_sub_field('web_hosting_package_content_button_text');
+              $web_hosting_package_content_button_link = get_sub_field('web_hosting_package_content_button_link');
+              
+          ?>
+            
+			<div class="col-lg-4 col-md-6"> 
+			  <div class="pricing-card">
+                
+				<div class="pricing-content text-center">
+                  <div class="pricing-inner-content">
+                    <img src="<?php echo $web_hosting_package_content_image;?>" alt="">
+                  </div> 
+				  
+                  <div class="heading">
+                    <h5><span><?php echo $web_hosting_package_content_normal_heading;?> </span> <?php echo $web_hosting_package_content_bold_heading;?></h5>
+                  </div>
+				  
+                  <p><?php echo $web_hosting_package_content_short_text;?></p> 
+                </div>
+				
+				<div class="pricing-content2 text-center">
+				  <!-- <ul>
+					<li>Hosting and managing your single Application</li>
+					<li>single Application</li>  
+					<li>Basic analytics </li> 
+					<li>Constant updates</li> 
+				  </ul> --> 
+                  <?php echo $web_hosting_package_content_description;?>
+				  
+				  <a href="<?php echo $web_hosting_package_content_button_link;?>" class="btn"><?php echo $web_hosting_package_content_button_text;?></a>
+				  
+				</div>
+				
+              </div> 
+            </div>
+            <?php } } ?>
+             
+            
+			
+          </div>
+        </div>
+    </section>
+	
+	
+	
+	<section class="service-bottom-sec bg-white common-padd"> 
+        <div class="container"> 
+          <div class="row align-items-center">
+            
+			<div class="col-md-6">
+               <img src="<?php echo get_field('go_shopping_section_back_image'); ?>" alt=""> 
+            </div>
+            <div class="col-md-6 ">  
+				<div class="common-heading">  
+					<h2><span><?php echo get_field('pricing_page_go_shoping_bold_heading'); ?></span> <br><?php echo get_field('pricing_page_go_shoping_normal_heading');?></h2> 
+					<p><?php echo get_field('pricing_page_go_shoping_short_text');?></p>  
+				</div>
+            </div>
+             
+          </div>
+        </div>
+    </section>
+	
+  </main>
+  <!--content sction-->
+<?php get_footer(); ?> 
+************************End*****************************
+webdevelopment page 
+**********start******************
+<?php /*Template Name: Layout: Web Development*/ ?>
+<?php get_header(); ?> 
+<!--banner sction-->
+<section class="inner-banner fix-ban" style="background-image: url(<?php echo get_field('sevices_banner_image'); ?>);">  
+  <div class="container">
+   
+		<div class="row justify-content-center">
+			<div class="col-lg-12 text-center common-heading" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="500">  
+				<h1><span><?php echo get_field('sevices_banner_bold_heading'); ?> </span><?php echo get_field('sevices_banner_normal_heading'); ?></h1>
+				<p><?php echo get_field('sevices_banner_short_text'); ?></p> 
+			</div> 			 
+		</div>
+		 
+  </div>  
+  </section>
+   
+  <!--banner sction-->
+
+  <!--content sction-->
+  <main> 
+    <section class="perks service-slide-sec common-padd">
+      <div class="random-img2 rellax" data-rellax-speed="-2">
+		<?php 
+		   $our_stats_talk_back_image_one = get_field('our_stats_talk_back_image_one');
+		   if($our_stats_talk_back_image_one != '')
+		{?>
+        <img src="<?php echo get_field('our_stats_talk_back_image_one'); ?>" alt="">
+		<?php } ?>
+      </div>
+      <div class="random-img1 rellax" data-rellax-speed="-4">
+		<?php 
+		  $our_stats_talk_back_image_two = get_field('our_stats_talk_back_image_two'); 
+		  if($our_stats_talk_back_image_two != '')
+		{?>
+        <img src="<?php echo get_field('our_stats_talk_back_image_two'); ?>" alt="">
+		<?php } ?>
+      </div>
+        <div class="container">
+          <div class="common-heading text-center head-fix" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">
+            <h2><span><?php echo get_field('our_stats_talk_bold_heading'); ?></span> <?php echo get_field('our_stats_talk_normal_heading'); ?></h2> 
+			<p><?php echo get_field('our_stats_talk_section_short_text'); ?></p>
+          </div>
+          <div class="row">
+			<div class="service-slider"> 
+			 <?php
+              if (have_rows('our_stats_talk_card_content')) {
+              while (have_rows('our_stats_talk_card_content')) {
+              the_row();
+                $our_stats_talk_card_image = get_sub_field('our_stats_talk_card_image');
+                $our_stats_talk_card_bold_heading = get_sub_field('our_stats_talk_card_bold_heading');
+                $our_stats_talk_normal_heading = get_sub_field('our_stats_talk_normal_heading');
+                $our_stats_talk_card_short_text = get_sub_field('our_stats_talk_card_short_text');
+                
+              ?>
+				<div class="col-md-12">
+				  <div class="custom-card  text-center">
+					<div class="img-content">
+					  <div class="img-inner-content">
+						<?php 
+						  if($our_stats_talk_card_image != '')
+						{?>
+						<img src="<?php echo $our_stats_talk_card_image;?>" alt="">
+						<?php } ?>
+					  </div>
+					</div>
+					<div class="content-wrap">
+					  <div class="heading">
+						<h5><?php echo $our_stats_talk_card_bold_heading;?><span> <?php echo $our_stats_talk_normal_heading;?></span></h5>
+					  </div>
+					  <p><?php echo $our_stats_talk_card_short_text;?></p> 
+					</div>
+				  </div>
+				</div>
+				<?php } } ?>
+				<!-- <div class="col-md-12">
+				  <div class="custom-card  text-center">
+					<div class="img-content">
+					  <div class="img-inner-content">
+						<img src="<?php /*echo get_template_directory_uri(); */?>/images/ii5.svg" alt="">
+					  </div>
+					</div>
+					<div class="content-wrap">
+					  <div class="heading">
+						<h5>Progressive <br><span>Web Development</span></h5>
+					  </div>
+					  <p>We use progressive enhancement strategies to develop cross-platform web applications. Hire experienced web developers to build responsive Progressive Web Applications (PWAs)</p> 
+					</div>
+				  </div>
+				</div> -->
+				<!-- <div class="col-md-12">
+				  <div class="custom-card  text-center">
+					<div class="img-content">
+					  <div class="img-inner-content">
+						<img src="<?php /*echo get_template_directory_uri(); */?>/images/ii6.svg" alt="">
+					  </div>
+					</div>
+					<div class="content-wrap">
+					  <div class="heading">
+						<h5>Custom <br><span>Website Development</span></h5>
+					  </div>
+					  <p>We ideate and plan to design and develop custom web solutions to connect our clients with their customers efficiently. Let’s develop feature-rich, highly functional, robust, secure, and scalable custom web solutions</p> 
+					</div>
+				  </div>
+				</div> -->
+				<!-- <div class="col-md-12">
+				  <div class="custom-card  text-center">
+					<div class="img-content">
+					  <div class="img-inner-content">
+						<img src="<?php /*echo get_template_directory_uri(); */?>/images/ii5.svg" alt="">
+					  </div>
+					</div>
+					<div class="content-wrap">
+					  <div class="heading">
+						<h5>High Search <span>Rankings</span></h5>
+					  </div>
+					  <p>Search engines like Google and Bing now integrate updates, Tweets, profiles and comments into their results pages, recognizing the importance of social interaction. The more people share your content across social media channels, the more traffic they send to your website, and therefore, the better your search rankings.</p> 
+					</div>
+				  </div>
+				</div> -->
+			</div>
+		  
+            <div class="random-img3 rellax" data-rellax-speed="1">
+			  <?php 
+			      $our_stats_talk_back_image_three = get_field('our_stats_talk_back_image_three');
+				  if($our_stats_talk_back_image_three != '') 
+			  {?>
+              <img src="<?php echo get_field('our_stats_talk_back_image_three'); ?>" alt="">
+			  <?php } ?>
+            </div>
+          </div>
+        </div>
+    </section>
+	
+    <section class="service-details2 common-padd">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="common-heading" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="500">
+              <h2><span><?php echo get_field('development_partner_bold_heading'); ?> </span><?php echo get_field('development_partner_normal_heading'); ?></h2> 
+            </div>
+          </div>
+		  <div class="col-md-7"> 
+			  <div class="service-right-para"> 
+				  <?php echo get_field('development_partner_short_description'); ?>
+			  </div>
+          </div>
+          
+          </div>
+        </div> 
+    </section>
+	<section class="service-details3 fix-padd1 common-padd pt-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-lg-6">
+		  <?php
+              if (have_rows('sevice_details_card_icon_content')) {
+              while (have_rows('sevice_details_card_icon_content')) {
+              the_row();
+                $card_icon_image = get_sub_field('card_icon_image');
+                $card_icon_heading = get_sub_field('card_icon_heading');
+                $card_icon_related_short_text = get_sub_field('card_icon_related_short_text');
+               
+                
+              ?>
+            <div class="side-icon-list">
+				<div class="img-content">
+				  <div class="img-inner-content">
+					<?php 
+					if($card_icon_image != '')
+					{?>
+					<img src="<?php echo $card_icon_image;?>" alt="">
+					<?php } ?>
+				  </div>
+				</div>
+			    <div class="text-content">
+					<h5><span><?php echo $card_icon_heading;?></span></h5>
+					<p><?php echo $card_icon_related_short_text;?></p>
+				</div>
+            </div> 
+			<?php } } ?>
+			
+			
+			
+          </div>
+		   
+		  <div class="col-md-12 col-lg-6"> 
+			  <div class="image-right-box"> 
+				  <?php 
+				    $card_right_side_box_image = get_field('card_right_side_box_image');
+					if($card_right_side_box_image != '')
+				  {?>
+				  <img src="<?php echo get_field('card_right_side_box_image'); ?>" alt="">  
+				  <?php } ?>
+			  </div>
+          </div>
+		  
+        </div>
+      </div> 
+	  <div class="random-dtls">
+		  <?php 
+		   $card_bottom_ellipse_image = get_field('card_bottom_ellipse_image');
+		   if( $card_bottom_ellipse_image != '')
+		  {?>
+		<img src="<?php echo get_field('card_bottom_ellipse_image'); ?>" alt="">
+		  <?php } ?>
+      </div>
+    </section>
+	 
+	<section class="service-bottom-sec common-padd"> 
+        <div class="container"> 
+          <div class="row align-items-center">
+            
+			<div class="col-md-6" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="500">
+				<?php 
+				  $ready_to_build_section_image = get_field('ready_to_build_section_image');
+				  if($ready_to_build_section_image != '')
+				{?>
+               <img src="<?php echo get_field('ready_to_build_section_image'); ?>" alt=""> 
+			   <?php } ?>
+            </div>
+            <div class="col-md-6" data-aos="fade-left" data-aos-easing="linear" data-aos-duration="500">  
+				<div class="common-heading">  
+					<h2><span><?php echo get_field('ready_to_build_section_bold_heading'); ?></span> <?php echo get_field('ready_to_build_normal_heading'); ?></h2> 
+					<p><?php echo get_field('ready_to_build_short_description'); ?></p> 
+					<a href="<?php echo get_field('our_pricing_plan_button_link'); ?>" class="btn"><?php echo get_field('our_pricing_plan_button_text'); ?></a>  
+				</div>
+            </div>
+             
+          </div>
+        </div>
+    </section>
+	
+  </main>
+<?php get_footer(); ?>  
+***********************End*****************************
+web hosting page 
+**********************start*********************
+<?php /*Template Name: Layout: Web Hosting*/ ?>
+<?php get_header(); ?>
+<!--banner sction-->
+<section class="inner-banner fix-ban" style="background-image: url(<?php echo get_field('sevices_banner_image'); ?>);">
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-12 text-center common-heading" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="500">
+        <h1><span><?php echo get_field('sevices_banner_bold_heading'); ?> </span><?php echo get_field('sevices_banner_normal_heading'); ?></h1>
+        <p><?php echo get_field('sevices_banner_short_text'); ?></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+  <section class="perks service-slide-sec slide-small common-padd">
+    <div class="random-img2 rellax" data-rellax-speed="-2">
+      <?php
+      $all_plans_include_section_back_image_one = get_field('all_plans_include_section_back_image_one');
+      if ($all_plans_include_section_back_image_one != '') { ?>
+        <img src="<?php echo get_field('all_plans_include_section_back_image_one'); ?>" alt="">
+      <?php } ?>
+    </div>
+    <div class="random-img1 rellax" data-rellax-speed="-4">
+      <?php
+      $all_plans_include_section_back_image_two = get_field('all_plans_include_section_back_image_two');
+      if ($all_plans_include_section_back_image_two != '') { ?>
+        <img src="<?php echo get_field('all_plans_include_section_back_image_two'); ?>" alt="">
+      <?php } ?>
+    </div>
+    <div class="container">
+      <div class="common-heading text-center head-fix" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">
+        <h2><span><?php echo get_field('all_plans_include_bold_heading'); ?></span><br> <?php echo get_field('all_plans_include_normal_heading'); ?></h2>
+      </div>
+      <div class="row">
+        <div class="service-slider">
+          <?php
+          if (have_rows('all_plans_include_card_content')) {
+            while (have_rows('all_plans_include_card_content')) {
+              the_row();
+              $all_plans_include_card_inner_image = get_sub_field('all_plans_include_card_inner_image');
+              $all_plans_include_card_heading_bold_text = get_sub_field('all_plans_include_card_heading_bold_text');
+              $all_plans_include_card_heading_normal_text = get_sub_field('all_plans_include_card_heading_normal_text');
+              $all_plans_include_card_short_text = get_sub_field('all_plans_include_card_short_text');
+
+          ?>
+              <div class="col-md-12">
+                <div class="custom-card  text-center">
+                  <div class="img-content">
+                    <div class="img-inner-content">
+                      <?php
+                      if ($all_plans_include_card_inner_image != '') { ?>
+                        <img src="<?php echo $all_plans_include_card_inner_image; ?>" alt="">
+                      <?php } ?>
+                    </div>
+                  </div>
+                  <div class="content-wrap">
+                    <div class="heading">
+                      <h5><?php echo $all_plans_include_card_heading_bold_text; ?><span> <?php echo $all_plans_include_card_heading_normal_text; ?></span></h5>
+                    </div>
+                    <p><?php echo $all_plans_include_card_short_text; ?></p>
+                  </div>
+                </div>
+              </div>
+          <?php }
+          } ?>
+
+
+        </div>
+
+        <div class="random-img3 rellax" data-rellax-speed="1">
+          <?php
+          $all_plans_include_section_back_image_three = get_field('all_plans_include_section_back_image_three');
+          if ($all_plans_include_section_back_image_three != '') { ?>
+            <img src="<?php echo get_field('all_plans_include_section_back_image_three'); ?>" alt="">
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-details2 common-padd">
+    <div class="random-img2 rellax" data-rellax-speed="2">
+      <?php
+      $take_your_site_online_section_image = get_field('take_your_site_online_section_image');
+      if ($take_your_site_online_section_image != '') { ?>
+        <img src="<?php echo get_field('take_your_site_online_section_image'); ?>" alt="">
+      <?php } ?>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="common-heading" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="500">
+            <h2><span><?php echo get_field('take_your_site_online_bold_heading'); ?> </span><?php echo get_field('take_your_site_online_normal_heading'); ?></h2>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="service-right-para1">
+            <p><?php echo get_field('take_your_site_online_short_text'); ?></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <section class="service-details3 fix-padd common-padd pt-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-6">
+          <?php
+          if (have_rows('web_hosting_page_properties')) {
+            while (have_rows('web_hosting_page_properties')) {
+              the_row();
+              $properties_image_icon = get_sub_field('properties_image_icon');
+              $properties_content_inner_heading = get_sub_field('properties_content_inner_heading');
+              $properties_inner_content_short_text = get_sub_field('properties_inner_content_short_text');
+
+          ?>
+              <div class="side-icon-list">
+                <div class="img-content">
+                  <div class="img-inner-content">
+                    <?php
+                    if ($properties_image_icon != '') { ?>
+                      <img src="<?php echo $properties_image_icon; ?>" alt="">
+                    <?php } ?>
+                  </div>
+                </div>
+                <div class="text-content">
+                  <h5><span><?php echo $properties_content_inner_heading; ?></span></h5>
+                  <p><?php echo $properties_inner_content_short_text; ?></p>
+                </div>
+              </div>
+          <?php }
+          } ?>
+
+          <div class="mt-5 tc-m">
+            <a href="<?php echo get_field('check_our_pricing_plans_button_link'); ?>" class="btn"><?php echo get_field('check_our_pricing_plans_button_text'); ?></a>
+          </div>
+
+        </div>
+
+        <div class="col-md-12 col-lg-6">
+          <div class="image-right-box">
+            <?php
+            $web_hosting_properties_right_box_image = get_field('web_hosting_properties_right_box_image');
+            if ($web_hosting_properties_right_box_image != '') { ?>
+              <img src="<?php echo get_field('web_hosting_properties_right_box_image'); ?>" alt="">
+            <?php } ?>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="random-dtls">
+      <?php
+      $take_your_site_online_section_bottom_image = get_field('take_your_site_online_section_bottom_image');
+      if ($take_your_site_online_section_bottom_image != '') { ?>
+        <img src="<?php echo get_field('take_your_site_online_section_bottom_image'); ?>" alt="">
+      <?php } ?>
+    </div>
+  </section>
+
+  <section class="service-bottom-sec common-padd">
+    <div class="container">
+      <div class="row align-items-center">
+
+        <div class="col-md-6" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="500">
+          <?php
+          $stellar_website_section_image = get_field('stellar_website_section_image');
+          if ($stellar_website_section_image != '') { ?>
+            <img src="<?php echo get_field('stellar_website_section_image'); ?>" alt="">
+          <?php } ?>
+        </div>
+        <div class="col-md-6" data-aos="fade-left" data-aos-easing="linear" data-aos-duration="500">
+          <div class="common-heading">
+            <h2><span><?php echo get_field('stellar_website_section_bold_heading'); ?></span> <?php echo get_field('stellar_website_section_normal_heading'); ?></h2>
+            <p><?php echo get_field('stellar_website_section_short_text'); ?></p>
+            <a href="<?php echo get_field('stellar_website_section_button_link'); ?>" class="btn"><?php echo get_field('stellar_website_section_button_text'); ?></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+<?php get_footer(); ?> 
+***********************End***************** 
+ 
+

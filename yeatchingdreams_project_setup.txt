@@ -1,0 +1,73 @@
+yeatching_dreams header file for external class add in header 
+****************start********
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+<meta charset="<?php bloginfo('charset'); ?>" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<?php wp_head(); ?>
+</head>
+<?php if(is_front_page()){
+    $class='home';
+}else{
+    $class='';
+}
+if(is_404()){
+  $nobanner='no-banner';
+}else{
+  $nobanner='';
+}
+?>
+<body <?php body_class( $class ); ?>> 
+<header class="main-header <?php echo $nobanner; ?>">
+    <div class="container header-row">
+      <div class="logo">
+        <a href="<?php echo home_url(); ?>"><img src="<?php echo get_theme_value('yd_header_logo');?>" alt=""></a>
+      </div>
+      <div class="hdr-rt">
+        <div class="main-menu">
+          <div class="nav_close" onclick="menu_close()">
+            <i class="far fa-times-circle"></i>
+          </div>
+          <div class="hdr-rt-log-reg mobile">
+            <ul>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="register.html">Register</a></li>
+            </ul>
+          </div>
+          <!-- <ul>
+            <li><a class="current-menu-item" href="index.html">Yachts</a></li>
+            <li><a href="Packages.html">Packages</a></li>
+            <li><a href="Catering.html">Catering</a></li>
+            <li><a href="#">Add-ons</a></li>
+            <li><a href="Contact-us.html">Contact us</a></li>
+          </ul> --> 
+          <?php wp_nav_menu(array(
+                                  'theme_location' => 'primary',
+                                  'container' => '',
+                                  'items_wrap' => '<ul>%3$s</ul>',
+                                        )); ?>
+        </div>
+        <div class="hdr-rt-srch-cart">
+          <ul>
+            <li><a href="javascript:void(0);" class="srch-tgl"><img src="<?php echo get_template_directory_uri(); ?>/images/srch.png" alt=""></a></li>
+            <li><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/cart.png" alt=""></a></li>
+          </ul>
+        </div>
+        <div class="hdr-rt-log-reg desktop">
+          <ul>
+            <li><a href="#">Book Now <img src="<?php echo get_template_directory_uri(); ?>/images/whatsapp.svg" alt=""></a></li>
+          </ul>
+        </div>
+        <div onclick="menu_open()" class="nav_btn">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+    </div>
+
+
+  </header>
+<?php //bloginfo('template_directory'); ?>
+****************end************************

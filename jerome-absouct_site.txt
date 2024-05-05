@@ -1,0 +1,634 @@
+home page error 
+1.ppt url-
+english page old link set by client
+https://abcourt.ca/wp-content/uploads/2022/08/2022-08-Abcourt-Investor-Presentation.pptx  
+
+french banner working link 
+https://abcourt.ca/wp-content/uploads/2022/08/2022-08-Abcourt-Investor-Presentation.pptx 
+
+
+
+how to check qtrancelate language 
+**********************
+<?php 
+$language="English";
+if(qtranxf_getLanguage()=='en')
+  {
+     echo $language; 
+  }  
+?>
+**********************
+Home Page:
+By Arindam da
+****************************
+<?php
+
+/**
+
+ * Template Name: Home Page
+
+ */
+
+
+
+get_header();
+$id = get_queried_object();
+// echo $id;
+?>
+
+<section class="about">
+
+	<div class="container">
+
+            <div class="row">
+
+            <?php  if ( have_posts() ) {while ( have_posts() ) { the_post();?>
+
+                    
+
+                    <?php if(get_field('banner_bottom_section',$id)): while(the_repeater_field('banner_bottom_section', $id)):
+
+                                        
+
+                            $image = get_sub_field('section_image');
+
+                            $title = get_sub_field('section_title');
+
+                            $link = get_sub_field('section_url'); 
+                            // echo get_sub_field('section_url');
+
+                            // die();
+
+                            //extra code added date 02/08/2022
+                            //  if($link == "https://abcourt.ca/en/wp-content/uploads/2022/08/2022-08-Abcourt-Investor-Presentation.pptx"){
+                            //     $link = str_replace("/en/","/",$link);
+                            //  }
+                            if(strpos($link,'.pptx')) {
+                                $link = str_replace("/en/","/",$link);
+                            }
+                             //extra code added date 02/08/2022                                   
+
+                            if($image){
+
+                                $thumb = wp_get_attachment_image_src($image,'full');
+
+                            }  
+
+                            if(!empty($thumb)){?>                            
+
+                                <div class="col-sm-4">
+
+                                    <a href="<?=$link;?>">                                
+
+                                    <figure><img src="<?php echo $thumb[0];?>" alt="" /></figure>
+
+                                    <h3><?=$title?></h3>
+
+                                    </a>
+
+                                </div>
+
+                            <?php }?>
+
+                    <?php endwhile; endif; ?>
+
+             <?php } } ?>
+
+            
+
+        </div>
+
+       <a href="<?php echo get_permalink(22)?>"><?php the_field('what_we_do_text'); ?></a>
+<p>
+         <?php 
+
+		 $my_postid = 2;//This is page id or post id
+
+         $content_post = get_post($my_postid);
+
+         $content = $content_post->post_content;
+
+         $contentproj=strip_tags($content);
+
+         $contentproj=substr($contentproj,0,300);
+
+         echo $contentproj;?>
+</p>
+    </div>
+
+</section>
+
+<section class="project">
+
+	<div class="container">
+
+    	<h2><?php the_field('ltst_proj_text'); ?></h2>
+
+        <?php
+
+               $i=1; 
+
+                $projectqry_var=array(
+
+                'post_type' => 'project',
+
+                'post_status'=>'publish',
+
+                'orderby' => 'date',
+
+                'order' => 'ASC',
+
+                'posts_per_page' =>3
+
+                );
+
+                $project_query = new WP_Query($projectqry_var);
+
+                if ( $project_query->have_posts() ) {
+
+				 while ( $project_query->have_posts() ) { 
+
+				 $project_query->the_post();
+
+                        if(has_post_thumbnail() ){ 					 
+
+                            
+
+							$proj_thumb = wp_get_attachment_image_src(get_post_thumbnail_id(),'homeproj-thumb');
+
+							
+
+                        }else{
+
+                             $proj_thumb = wp_get_attachment_image_src(64,'homeproj-thumb');
+
+                        }
+
+						if($i%2==0)
+
+						{
+
+							$classvar="col-sm-6";
+
+							$classpull="col-sm-6";
+
+						}
+
+						else
+
+						{
+
+							$classvar="col-sm-push-6";
+
+							$classpull="col-sm-pull-6";
+
+						}
+
+						?>
+
+        <div class="row">
+
+        	<div class="col-sm-6 <?php echo $classvar; ?>"><figure><img src="<?php echo $proj_thumb[0]; ?>" alt="" class="img-responsive" /></figure></div>
+
+        	<div class="col-sm-6 <?php echo $classpull; ?>">
+
+            	<div class="text">
+
+                	<h3><?php the_title(); ?></h3>
+
+                    <?php $contentproj=get_the_content(); 
+
+					$contentproj=strip_tags($contentproj);
+
+					$contentproj=substr($contentproj,0,200);
+
+					?>
+
+                     <p><?php echo $contentproj;?>...</p>
+
+                    <a href="<?php the_permalink();?>" class="on_hover">
+
+                    <?php if(qtranxf_getLanguage()=='en'){echo "Read more";}else{ echo "En savoir plus <span>&rarr;</span>";}?></a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <?php 
+
+		$i++;
+
+		}
+
+            }wp_reset_query();?>
+
+        
+
+    </div>
+
+</section>
+
+<section class="news test">
+
+	<div class="container">
+		
+		<?php 
+		
+		if (qtranxf_getLanguage() == 'en') {
+		
+			echo '<h2>Latest News</h2>';
+			
+		}else{
+			
+			echo '<h2>Dernières nouvelles</h2>';
+			
+		}
+		
+		?>
+
+    	
+
+    	<div class="row">
+
+         <?php
+
+              
+
+                $newsqry_var=array(
+
+                'post_type' => 'news',
+
+                'post_status'=>'publish',
+
+                'orderby' => 'date',
+
+                'order' => 'DESC',
+
+                'posts_per_page' =>3
+
+                );
+
+                $news_query = new WP_Query($newsqry_var);
+
+                if ( $news_query->have_posts() ) {
+
+				 while ( $news_query->have_posts() ) { 
+
+				 $news_query->the_post();
+
+                        if(has_post_thumbnail() ){ 					 
+
+                            
+
+							$news_thumb = wp_get_attachment_image_src(get_post_thumbnail_id(),'news-thumb');
+
+							
+
+                        }else{
+
+                             $news_thumb = wp_get_attachment_image_src(154,'news-thumb');
+
+                        }?>
+
+        	<div class="col-sm-4">
+
+            	<figure>
+
+                	<p class="date"><strong><?php echo get_the_date('j'); ?></strong><?php echo get_the_date('F'); ?>, <span><?php echo get_the_date('Y'); ?></span></p>
+
+                	<span><img src="<?php echo $news_thumb[0]; ?>" alt="" class="img-responsive" /></span>
+
+                </figure>
+
+                <h3><?php the_title(); ?></h3>
+
+                <?php the_excerpt ()?>
+
+                <span></span>
+
+                <a href="<?php the_permalink();?>" class="on_hover"><?php if(qtranxf_getLanguage()=='en'){echo "Read more";}else{ echo "En savoir plus <span>&rarr;</span>";}?></a>
+
+            </div>
+
+             <?php 
+
+		}
+
+            }wp_reset_query();?>
+
+        	
+
+        </div>
+
+    </div>
+
+</section>
+
+<?php get_footer();?>
+
+****************************
+
+Before my work 
+Date - 02/08/2022 
+Home page code:
+*********************start***************
+<?php
+
+/**
+
+ * Template Name: Home Page
+
+ */
+
+
+
+get_header(); ?>
+
+<section class="about">
+
+	<div class="container">
+
+            <div class="row">
+
+            <?php  if ( have_posts() ) {while ( have_posts() ) { the_post();?>
+
+            
+
+                    <?php if(get_field('banner_bottom_section')): while(has_sub_field('banner_bottom_section')):
+
+                                                                
+
+                            $image = get_sub_field('section_image');
+
+                            $title = get_sub_field('section_title');
+
+                            $link = get_sub_field('section_url'); 
+
+                                                                
+
+                            if($image){
+
+                                $thumb = wp_get_attachment_image_src($image,'full');
+
+                            }  
+
+                            if(!empty($thumb)){?>                            
+
+                                <div class="col-sm-4">
+
+                                    <a href="<?=$link;?>">                                
+
+                                    <figure><img src="<?php echo $thumb[0];?>" alt="" /></figure>
+
+                                    <h3><?=$title?></h3>
+
+                                    </a>
+
+                                </div>
+
+                            <?php }?>
+
+                    <?php endwhile; endif; ?>
+
+             <?php } } ?>
+
+            
+
+        </div>
+
+       <a href="<?php echo get_permalink(22)?>"><?php the_field('what_we_do_text'); ?></a>
+<p>
+         <?php 
+
+		 $my_postid = 2;//This is page id or post id
+
+         $content_post = get_post($my_postid);
+
+         $content = $content_post->post_content;
+
+         $contentproj=strip_tags($content);
+
+         $contentproj=substr($contentproj,0,300);
+
+         echo $contentproj;?>
+</p>
+    </div>
+
+</section>
+
+<section class="project">
+
+	<div class="container">
+
+    	<h2><?php the_field('ltst_proj_text'); ?></h2>
+
+        <?php
+
+               $i=1; 
+
+                $projectqry_var=array(
+
+                'post_type' => 'project',
+
+                'post_status'=>'publish',
+
+                'orderby' => 'date',
+
+                'order' => 'ASC',
+
+                'posts_per_page' =>3
+
+                );
+
+                $project_query = new WP_Query($projectqry_var);
+
+                if ( $project_query->have_posts() ) {
+
+				 while ( $project_query->have_posts() ) { 
+
+				 $project_query->the_post();
+
+                        if(has_post_thumbnail() ){ 					 
+
+                            
+
+							$proj_thumb = wp_get_attachment_image_src(get_post_thumbnail_id(),'homeproj-thumb');
+
+							
+
+                        }else{
+
+                             $proj_thumb = wp_get_attachment_image_src(64,'homeproj-thumb');
+
+                        }
+
+						if($i%2==0)
+
+						{
+
+							$classvar="col-sm-6";
+
+							$classpull="col-sm-6";
+
+						}
+
+						else
+
+						{
+
+							$classvar="col-sm-push-6";
+
+							$classpull="col-sm-pull-6";
+
+						}
+
+						?>
+
+        <div class="row">
+
+        	<div class="col-sm-6 <?php echo $classvar; ?>"><figure><img src="<?php echo $proj_thumb[0]; ?>" alt="" class="img-responsive" /></figure></div>
+
+        	<div class="col-sm-6 <?php echo $classpull; ?>">
+
+            	<div class="text">
+
+                	<h3><?php the_title(); ?></h3>
+
+                    <?php $contentproj=get_the_content(); 
+
+					$contentproj=strip_tags($contentproj);
+
+					$contentproj=substr($contentproj,0,200);
+
+					?>
+
+                     <p><?php echo $contentproj;?>...</p>
+
+                    <a href="<?php the_permalink();?>" class="on_hover">
+
+                    <?php if(qtranxf_getLanguage()=='en'){echo "Read more";}else{ echo "En savoir plus <span>&rarr;</span>";}?></a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <?php 
+
+		$i++;
+
+		}
+
+            }wp_reset_query();?>
+
+        
+
+    </div>
+
+</section>
+
+<section class="news test">
+
+	<div class="container">
+		
+		<?php 
+		
+		if (qtranxf_getLanguage() == 'en') {
+		
+			echo '<h2>Latest News</h2>';
+			
+		}else{
+			
+			echo '<h2>Dernières nouvelles</h2>';
+			
+		}
+		
+		?>
+
+    	
+
+    	<div class="row">
+
+         <?php
+
+              
+
+                $newsqry_var=array(
+
+                'post_type' => 'news',
+
+                'post_status'=>'publish',
+
+                'orderby' => 'date',
+
+                'order' => 'DESC',
+
+                'posts_per_page' =>3
+
+                );
+
+                $news_query = new WP_Query($newsqry_var);
+
+                if ( $news_query->have_posts() ) {
+
+				 while ( $news_query->have_posts() ) { 
+
+				 $news_query->the_post();
+
+                        if(has_post_thumbnail() ){ 					 
+
+                            
+
+							$news_thumb = wp_get_attachment_image_src(get_post_thumbnail_id(),'news-thumb');
+
+							
+
+                        }else{
+
+                             $news_thumb = wp_get_attachment_image_src(154,'news-thumb');
+
+                        }?>
+
+        	<div class="col-sm-4">
+
+            	<figure>
+
+                	<p class="date"><strong><?php echo get_the_date('j'); ?></strong><?php echo get_the_date('F'); ?>, <span><?php echo get_the_date('Y'); ?></span></p>
+
+                	<span><img src="<?php echo $news_thumb[0]; ?>" alt="" class="img-responsive" /></span>
+
+                </figure>
+
+                <h3><?php the_title(); ?></h3>
+
+                <?php the_excerpt ()?>
+
+                <span></span>
+
+                <a href="<?php the_permalink();?>" class="on_hover"><?php if(qtranxf_getLanguage()=='en'){echo "Read more";}else{ echo "En savoir plus <span>&rarr;</span>";}?></a>
+
+            </div>
+
+             <?php 
+
+		}
+
+            }wp_reset_query();?>
+
+        	
+
+        </div>
+
+    </div>
+
+</section>
+
+<?php get_footer();?>
+
+********************end******************
+
+
+

@@ -1,0 +1,468 @@
+<!--banner sction-->
+local set up
+username-Firstsite@developer@180122
+password-TbKZEt%wL#bLR%CMwNvate
+logo dynamic section
+<a href="<?php echo get_option("siteurl"); ?>"><img src="<?php echo get_theme_value('elevate_header_logo'); ?>" alt=""></a>
+Logo dynamic end section.
+<?php get_header(); ?>
+<?php
+        $banner = get_field('banner_section');
+        if($banner){
+ ?>
+<section class="banner-wrap">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="banner-info">
+                    
+                    
+                    <div class="img"><img src="<?php echo $banner['banner_image']; ?>" alt=""></div>
+                        
+                    <div class="banner-cont">       
+                        <!-- <h1>Lazerpay Blog</h1> -->
+                        <h1><?php echo $banner['blog_header_text']; ?></h1>
+                        <h6><?php echo $banner['bolg_paragraph']; ?><br> <?php echo $banner['blog_paragraph_two']; ?></h6>
+                        <div class="subscribe-form">
+                            <!-- <form>
+                                <input type="text" name="signup" id="signuptop" class="form-control cst-ctrl" placeholder="Enter your email">
+                                <input type="submit" class="btn btn-info cst-btn" name="submit-btn" value="Subscribe"  id="sub1" onclick="checkmail();">
+                            </form> -->
+                            <?php echo do_shortcode('[contact-form-7 id="5" title="Contact form 1"]'); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php }?>
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+    <?php
+        $content_button = get_field('content_button');
+        if($content_button){
+    ?>
+    <section class="catnav-area common-padd">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="categories-menu">
+                        <ul>
+                            <!-- <li class="active"><a href="#popular">Popular</a></li> -->
+                            <li class="active"><a href="<?php echo $content_button['popular_link']; ?>"><?php echo $content_button['popular_text']; ?></a></li>
+                            <!-- <li><a href="#annoucements">Annoucements</a></li> -->
+                            <li><a href="<?php echo $content_button['annoucements_link']; ?>"><?php echo $content_button['annoucements_text']; ?></a></li>
+                            <!-- <li><a href="#crypto">Crypto</a></li> -->
+                            <li><a href="<?php echo $content_button['crypto_link']; ?>"><?php echo $content_button['crypto_text']; ?></a></li>
+                            <!-- <li><a href="#nft">NFT</a></li> -->
+                            <li><a href="<?php echo $content_button['nft_link']; ?>"><?php echo $content_button['nft_text']; ?></a></li>
+                            <!-- <li><a href="#">People</a></li> -->
+                            <li><a href="<?php echo $content_button['people_link']; ?>"><?php echo $content_button['people_text']; ?></a></li>
+                            <!-- <li><a href="#">Products</a></li> -->
+                            <li><a href="<?php echo $content_button['products_link']; ?>"><?php echo $content_button['products_text']; ?></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<?php } ?>
+    <section class="featured-area padd-btm" id="popular">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="featured-hdr">
+                        <h3>Featured</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row box-shadow">
+                <div class="col-lg-6 p-0">
+                    <div class="blog-cmn-img">
+                        <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 p-0">
+                    <div class="blog-cmn-bx lightgreen">
+                        <div class="post-date"><p><span>Product</span> <date>12 Jan, 2022</date></p>
+                        </div>
+                        <h2>How to create a payment link on LazerPay</h2>
+                        <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you in their local currency while you receive the equivalent value in your preferred cryptocurrency or stablecoins.</p>
+                        <div class="bloger-profile">
+                            <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-1.png"></div>
+                            <div class="profile-designation"><p><span>Jeremy Bello</span> Growth</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Announancement starts -->
+    <section class="annoucements-area padd-btm" id="annoucements">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hdr">
+                        <h2>Annoucements</h2>
+                        <h6>Here, we share what we’re up to, blah blah</h6>
+                    </div>
+                </div>
+            </div>
+            <?php
+                $annoucements = array(
+                  'post_type' => 'post',
+                  'posts_per_page' => 5
+                );
+                $annoucements_posts = new WP_Query($annoucements);
+                while($annoucements_posts->have_posts()){
+                      $annoucements_posts->the_post();
+
+            ?>  
+            <!-- start First post of annouancement section --> 
+            <div class="row">
+                <!-- php code for loop -->
+                <!-- <?php
+                $annoucements = array(
+                  'post_type' => 'post',
+                  'posts_per_page' => 5
+                );
+                $annoucements_posts = new WP_Query($annoucements);
+                while($annoucements_posts->have_posts()){
+                      $annoucements_posts->the_post();
+
+               ?>  -->
+                <!-- php code for loop -->
+                <div class="col-lg-4">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Company</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>Lazerpay partners with Payday to broaden Crypto payments</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-2.png"></div>
+                                <div class="profile-designation"><p><span>Jeremy Bello</span> Customer Success</p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+             <?php }?>
+                <!-- End First post of annouancement section --> 
+                <!-- <div class="col-lg-4">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Company</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>Lazerpay partners with Payday to broaden Crypto payments</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-4.png"></div>
+                                <div class="profile-designation"><p><span>Jeremy Bello</span> Customer Success</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="col-lg-4">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Company</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>Lazerpay partners with Payday to broaden Crypto payments</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-3.png"></div>
+                                <div class="profile-designation"><p><span>Jeremy Bello</span> Customer Success</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="col-lg-6">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Company</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>Lazerpay partners with Payday to broaden Crypto payments</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-5.png"></div>
+                                <div class="profile-designation"><p><span>Jeremy Bello</span> Customer Success</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="col-lg-6">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Company</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>Lazerpay partners with Payday to broaden Crypto payments</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-6.png"></div>
+                                <div class="profile-designation"><p><span>Jeremy Bello</span> Customer Success</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+    <!-- Announancement ends -->
+    <section class="crypto-area padd-btm" id="crypto">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hdr">
+                        <h2>Crypto</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Crypto</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>DeFi payments with Lazerpay: See how it works</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-7.png"></div>
+                                <div class="profile-designation"><p><span>Jeremy Bello</span> Growth</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Crypto</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>DeFi payments with Lazerpay: See how it works</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-8.png"></div>
+                                <div class="profile-designation"><p><span>Alma Asinobi</span> Growth</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Crypto</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>DeFi payments with Lazerpay: See how it works</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-9.png"></div>
+                                <div class="profile-designation"><p><span>Alma Asinobi</span> Growth</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Crypto</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>DeFi payments with Lazerpay: See how it works</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-10.png"></div>
+                                <div class="profile-designation"><p><span>Jeremy Bello</span> Customer Success</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Crypto</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>DeFi payments with Lazerpay: See how it works</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-11.png"></div>
+                                <div class="profile-designation"><p><span>Jeremy Bello</span> Customer Success</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Crypto</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>DeFi payments with Lazerpay: See how it works</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-12.png"></div>
+                                <div class="profile-designation"><p><span>Jeremy Bello</span> Customer SuccessCustomer Success</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="crypto-area padd-btm" id="nft">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hdr">
+                        <h2>NFTs</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Crypto</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>DeFi payments with Lazerpay: See how it works</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-13.png"></div>
+                                <div class="profile-designation"><p><span>Jeremy Bello</span> Customer Success</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Crypto</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>DeFi payments with Lazerpay: See how it works</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-14.png"></div>
+                                <div class="profile-designation"><p><span>Jeremy Bello</span> Customer Success</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog-post-box box-shadow">
+                        <div class="blog-cmn-img">
+                            <div class="img"><img src="<?php echo get_template_directory_uri(); ?>/images/banner.png" alt=""></div>
+                        </div>
+                        <div class="blog-cmn-bx">
+                            <div class="post-date"><p><span>Crypto</span> <date>12 Jan, 2022</date></p>
+                            </div>
+                            <h3>DeFi payments with Lazerpay: See how it works</h3>
+                            <p>Payment links on the Lazerpay platform are copyable URLs that you can send directly to your customers through which they can make payments to you </p>
+                            <div class="bloger-profile">
+                                <div class="profile-img"><img src="<?php echo get_template_directory_uri(); ?>/images/profile-15.png"></div>
+                                <div class="profile-designation"><p><span>Jeremy Bello</span> Customer Success</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Pagination Section -->
+    <section class="navigation-area padd-btm">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        <li class="page-item">
+                          <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">Prev</span>
+                          </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                          <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">Next</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Pagination section end -->
+    <!-- Ready to get started section -->
+    <?php
+        $ready_section = get_field('ready_section');
+        if($ready_section){
+    ?>
+
+    <section class="getstarted-area padd-btm">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="lightgreen getstarted-desc text-center">
+                        <!-- <h2>Ready to get started?</h2> -->
+                        <h2><?php echo $ready_section['ready_text']; ?></h2>
+                        <!-- <p>Take your business global with our crypto payment and business<br> growth infrastructure.</p> -->
+                        <p><?php echo $ready_section['ready_paragraph']; ?><br> <?php echo $ready_section['ready_paragraph_two']; ?></p>
+                        <!-- <a href="#" class="btn">Create an account <i class="fas fa-chevron-right"></i></a> -->
+                        <a href="<?php echo $ready_section['create_an_account_link']; ?>" class="btn"><?php echo $ready_section['create_an_account_text']; ?> <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<?php }?>
+    <!-- Ready to get started section -->
+    
+    
+
+</main>
+<?php get_footer(); ?>
+<!--content sction-->
+
+
+

@@ -1,0 +1,171 @@
+<?php get_header(); ?>
+
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+        <?php get_sidebar('banner'); ?>
+        <!-- inner page hero section -->
+
+        <main>
+            <section class="inner-mid-section events-details-section">
+                <div class="container">
+                    <?php $mailpoet_page = $_GET['mailpoet_page'];
+                    if ($mailpoet_page != '') {
+                    ?>
+                    <?php } else { ?>
+                        <div class="time-block">
+                            <ul>
+                                <li class="date"><?php echo get_the_date(); ?></li>
+                                <li class="clock"><?php echo the_time('g.i a'); ?></li>
+                            </ul>
+                        </div>
+                    <?php } ?>
+                    <div class="heading-block">
+                        <!-- <h2>How Putin's previous military successes set the stage for Russia's invasion of Ukraine</h2> -->
+                        <h2><?php echo get_the_title(); ?></h2>
+                    </div>
+                    <div class="image-block">
+                        <div class="inner-container">
+                            <!-- <img src="<?php echo get_template_directory_uri(); ?>/images/Media-Appearance-Thumb.jpg" alt=""> -->
+                            <?php
+                            if (has_post_thumbnail()) { // check if the post has a Post Thumbnail assigned to it.
+                                the_post_thumbnail('full');
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="description-block">
+                        <!-- <p>Chris Miller, an assistant professor of international history at the Fletcher School of Law and Diplomacy at Tufts University, joined CBS News' Catherine Herridge to discuss how Russian President Vladimir Putin's previous military successes portended the 2022 invasion -- also the subject of a recent article he wrote for "The New York Times." Miller also discussed the U.S.' role in the conflict and how the state of Russian economy, and his 2018 book "Putinomics," could potentially affect the war.</p> -->
+                        <?php the_content(); ?>
+                    </div>
+                    <!-- <div class="share-block">
+                    <ul>
+                        <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-tumblr"></i></a></li>
+                        <li><a href="#"><i class="fa-solid fa-heart"></i></a></li>
+                    </ul>
+                  </div> -->
+                   
+                    <?php
+                    $next_post = get_next_post();
+                    if ($next_post) { ?>
+                        <div class="button-container"><a class="custom-button orange-solid-button" href="<?php echo get_the_permalink($next_post->ID) ?>">Next Article</a></div>
+                    <?php } ?>
+                </div>
+            </section>
+
+
+            <?php get_sidebar('connectsection'); ?>
+        </main>
+
+<?php endwhile;
+endif; ?>
+<?php get_footer(); ?>  
+
+Date-15/07/2022
+Design Fixing issues inventory site 
+Fab icon Needed
+Header Menu:
+1.Inventory Submenu
+2.Contact Us menu boder
+Footer section 
+1.News Letter Form Design Fixing.
+Home Page:
+1.Follow us instragram image design 
+Blog Detail Page
+1.Related Blogs Section
+  slider arrow color,blog design fixing.
+Contact page: 
+1.contact form input field red boder,blank submit.
+Inventory page: 
+1.After Blog post loader image design fixing
+Inventory Avaliable page
+1.After Blog post loader image design fixing
+Inventory Sold page  
+1.After Blog post loader image design fixing  
+
+
+
+
+
+Site URL: https://squadra-veloce.weavers-web.com
+
+Backend Access:-
+URL: https://squadra-veloce.weavers-web.com/wp-login.php
+User: squadrav@developer@21622
+Pass: ]^o|x{Sx4m~~Go=>
+
+!!! Set up the Wordfence security plugin to secure the site !!!
+
+SSH | SFTP:-
+Host: ip-128-199-28-33.server.weavers-web.com
+User: squadrav
+Pass: =M)7(?d&d!UbepYMy(
+Port: 2021
+Path: /home/squadrav/public_html
+
+Database:-
+URL: https://ip-128-199-28-33.server.weavers-web.com/dbadminforweaversweb
+Host: localhost
+Name: db_squadrav
+User: usr_squadrav
+Pass: yc3?=Km.:14Ar6ZZO(
+
+!!! If any credentials did not work then contact your system administrator !!!
+
+
+
+Date:15-07-2022
+Sqarada site update
+Dynamic page links 
+https://squadra-veloce.weavers-web.com/ 
+https://squadra-veloce.weavers-web.com/about-us/ 
+https://squadra-veloce.weavers-web.com/inventory/
+https://squadra-veloce.weavers-web.com/avaliable/  
+https://squadra-veloce.weavers-web.com/sold/ 
+https://squadra-veloce.weavers-web.com/blog/ 
+https://squadra-veloce.weavers-web.com/legendary-countach-periscopio1/
+https://squadra-veloce.weavers-web.com/contact-us/  
+https://squadra-veloce.weavers-web.com/legendary-countach-periscopio16/ 
+
+.svg-inline--fa fa-clone fa-w-16 sbi_lightbox_carousel_icon{
+    display: none !important;
+}
+
+icon image
+sbi_lightbox_carousel_icon  
+
+old address: 
+Unit 9, Manor Industrial Estate,
+                                        Lower Wash Lane, Warrington, Wa4 
+										
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3579.090300532362!2d-80.12986828570217!3d26.226255295618106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d902f6cbb196ed%3A0x6b91673a6c83255e!2s304%20S%20Dixie%20Hwy%20E%2C%20Pompano%20Beach%2C%20FL%2033060%2C%20USA!5e0!3m2!1sen!2sin!4v1658243025259!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>	 								
+
+
+old map address 
+
+https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2379.811751981346!2d-2.569905334641557!3d53.38241762998657!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487b01f4fdaaa529%3A0x2c0cd324bb49cf3b!2sManor%20Industrial%20Estate!5e0!3m2!1sen!2sin!4v1657103464993!5m2!1sen!2sin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

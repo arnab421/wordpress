@@ -1,0 +1,61 @@
+Date:28-06-2022
+site name:nycteachers
+url:https://nycteachers.com/breaking-news/
+news letter form is not showing
+
+
+Date-01/07/2022 
+https://harrisburgbuzz.com/ 
+
+date-04/07/2022 
+site-eastnewyork.com 
+https://eastnewyork.com/event-directory/
+page not found,showing error page. 
+
+
+Date-  19/07/2022
+site-eastnewyork.com 
+page-https://eastnewyork.com/event-directory/ 
+page not found,showing this page does not exsist.
+
+site-toodyshiphop
+page-https://todayshiphop.com/official-todayshiphop-playlist-on-spotify/ 
+page not found,showing error page. 
+
+
+
+Date-21/07/2022 
+site - nyforseniors 
+link:https://nyforseniors.com 
+showing 403 forbidden error. 
+
+************************************
+Date-25/07/2022
+site - brooklynbuzz.com
+page - https://brooklynbuzz.com/category/bk-news/arts-and-culture/
+Error Message:Hosting Server Read Timeout 
+
+****************************
+Date-26/07/2022
+site - brooklynbuzz.com 
+Error- Site is not opening. 
+
+
+********************************
+
+*****
+Date-02/08/2022
+site - todayshiphop.com 
+page - https://todayshiphop.com/official-todayshiphop-playlist-on-spotify/ 
+Error - Page not found 
+
+site - eastnewyork 
+Issue - A black border is showing up the header.
+
+
+
+
+
+
+ 
+

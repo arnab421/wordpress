@@ -1,0 +1,214 @@
+****************Front page start
+<?php get_header(); ?>
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+
+        <main>
+            <section class="home-hero-section">
+                <div class="hero-product-showcase" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-6 image-col">
+                                <div class="inner-wrapper parallax-container">
+                                    <div class="parallax"><img src="<?php echo get_field('banner_background_image'); ?>" alt=""></div>
+                                    <?php
+                                    $product_image_in_banner = get_field('product_image_in_banner');
+                                    if ($product_image_in_banner != '') { ?>
+                                        <div class="image-holder"><img src="<?php echo get_field('product_image_in_banner'); ?>"></div>
+                                    <?php } else { ?>
+                                        <div class="image-holder"><img src="<?php echo get_template_directory_uri(); ?>/images/Banner-Product-Lime.png"></div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 info-col">
+                                <div class="inner-wrapper">
+                                    <div class="info-holder">
+                                        <?php echo get_field('banner_short_description'); ?>
+                                        <a class="simple-button" id="button-scroll" href="#product-gallery"><?php echo get_field('explore_flavors_button_text'); ?></a>
+                                    </div>
+                                    <div class="green-flying-box"><?php echo get_field('banner_green_box_text'); ?></div>
+                                    <div class="pink-flying-box"><?php echo get_field('banner_pink_box_text'); ?></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="welcome-section">
+                <div class="container">
+                    <div class="info-block" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="100" data-aos-offset="0">
+                        <div class="inner-wrapper">
+
+                            <?php the_content(); ?>
+                        </div>
+                    </div>
+                    <div class="featured-listing-block">
+                        <ul>
+                            <?php
+                            if (have_rows('listing_details')) {
+                                $i = -1;
+                                while (have_rows('listing_details')) {
+                                    the_row();
+                                    $i++;
+                                    $duration = 1000;
+                                    $feature_text = get_sub_field('feature_text');
+                                    if ($i == 0) { ?>
+                                        <li data-aos="fade-up" data-aos-duration="<?php echo $duration;?>">
+                                            <div class="inner-wrapper"><?php echo $feature_text; ?></div>
+                                        </li> <?php } else {
+                                                $duration=$duration+$i*450; ?>
+                                        <li data-aos="fade-up" data-aos-duration="<?php echo $duration;?>">
+                                            <div class="inner-wrapper"><?php echo $feature_text; ?></div>
+                                        </li>
+                                    <?php } ?>
+                            <?php }
+                            } ?>
+
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="product-gallery-section" id="product-gallery">
+                <div class="container">
+                    <div class="products-carousel">
+                        <?php
+                        if (have_rows('product_carousel_images')) {
+                            while (have_rows('product_carousel_images')) {
+                                the_row();
+                                $image_in_carousel = get_sub_field('image_in_carousel');
+
+                        ?>
+                                <div class="item">
+                                    <div class="image-holder"><img src="<?php echo $image_in_carousel; ?>" alt=""></div>
+                                </div>
+                        <?php }
+                        } ?>
+
+                    </div>
+
+                    <!--<div id="flat">
+                        <ul>
+                            <?php
+                            //if (have_rows('product_carousel_images')) {
+                                //while (have_rows('product_carousel_images')) {
+                                    //the_row();
+                                    //$image_in_carousel = get_sub_field('image_in_carousel');
+
+                            ?>
+                            <li data-flip-title="Red">
+                                <img src="<?php //echo $image_in_carousel; ?>">
+                            </li>
+                            <?php //}
+                            //} ?>                            
+                            
+                        </ul>
+                    </div>-->
+                </div>
+            </section>
+            <section class="home-faq-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 image-col" data-aos="fade-right" data-aos-offset="150" data-aos-easing="ease-in-sine">
+                            <div class="inner-wrapper">
+                                <div class="inner-block">
+                                    <div class="image-holder"><img src="<?php echo get_field('faq_section_image'); ?>" alt=""></div>
+                                    <span class="green-note"><?php echo get_field('green_note_text'); ?></span>
+                                    <span class="orange-note"><?php echo get_field('orange_note_text'); ?></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 info-col" data-aos="fade-left" data-aos-offset="150" data-aos-easing="ease-in-sine">
+                            <div class="inner-wrapper">
+                                <div class="info-holder">
+
+                                    <?php echo get_field('faq_section_short_text'); ?>
+                                    <a class="white-button" href="<?php echo get_field('faq_button_link'); ?>"><?php echo get_field('faq_button_text'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="text-scroll-section">
+                <div class="text-carousel">
+                    <div class="item">Live Free, Drink Trees</div>
+                    <div class="item">Good Times Only</div>
+                    <div class="item">Live Free, Drink Trees</div>
+                    <div class="item">Good Times Only</div>
+                    <div class="item">Live Free, Drink Trees</div>
+                    <div class="item">Good Times Only</div>
+                    <div class="item">Live Free, Drink Trees</div>
+                    <div class="item">Good Times Only</div>
+                    <div class="item">Live Free, Drink Trees</div>
+                    <div class="item">Good Times Only</div>
+                </div>
+            </section>
+            <section class="testimonial-section">
+                <div class="container">
+                    <div class="heading-block" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">
+                        <h2><?php echo get_field('high_praises_text'); ?></h2>
+                    </div>
+                    <div class="testimonial-carousel" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000">
+                        <?php
+                        $args = array(
+                            'post_type' => 'testimonials',
+                            'posts_per_page' => -1,
+                            'post_status' => 'publish',
+                            'order' => 'DESC',
+                        );
+
+                        $testimonial = new WP_Query($args);
+                        if ($testimonial->have_posts()) {
+                            while ($testimonial->have_posts()) {
+                                $testimonial->the_post();
+                        ?>
+                                <div class="item">
+                                    <div class="inner-wrapper">
+                                        <div class="quote-block"><?php echo get_the_content(); ?></div>
+                                        <div class="author-block">
+                                            <h3><?php echo get_field('testimonial_author', $testimonial->ID); ?></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                        <?php }
+                        }
+
+                        wp_reset_postdata(); ?>
+
+                    </div>
+                </div>
+            </section>
+            <section class="time-block-section">
+                <div class="heading-block" data-aos="zoom-out">
+                    <div class="container-fluid">
+
+                        <?php echo get_field('good_times_section_short_text'); ?>
+                    </div>
+                </div>
+                <?php
+                $section_bottom_image = get_field('section_bottom_image');
+                if ($section_bottom_image != '') { ?>
+                    <div class="instragram-feeds"><img src="<?php echo get_field('section_bottom_image'); ?>" alt=""></div>
+                <?php } else { ?>
+                    <div class="instragram-feeds"><img src="<?php echo get_template_directory_uri(); ?>/images/Instagram.png" alt=""></div>
+                <?php } ?>
+            </section>
+        </main>
+<?php endwhile;
+endif; ?> 
+<script>
+  jQuery(document).ready(function() {
+    
+    jQuery('#button-scroll').click(function(e) {
+    
+      e.preventDefault();  
+      var href = jQuery(this).attr('href');
+      jQuery('html, body').animate({
+        scrollTop: jQuery(href).offset().top-50
+      }, 200);
+    })
+  });
+</script>
+<?php get_footer(); ?> 
+**************************End***************************
+

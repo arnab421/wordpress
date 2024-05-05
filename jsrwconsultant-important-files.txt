@@ -1,0 +1,271 @@
+In Regards page
+<?php /*Template Name: Layout: In Regards*/ ?>
+<?php get_header(); ?>
+
+<?php get_sidebar('banner'); ?>
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+
+
+<section class="feature-area lightgray common-padd">
+    <div class="container">
+        <div class="row">
+            <?php $content_image=get_field('content_image'); 
+            if($content_image != '') {?>
+            <div class="col-lg-5">
+                <div class="img"><img src="<?php echo get_field('content_image'); ?>" alt="Car-Image"></div>
+            </div>
+            <?php } ?>
+            <div class="col-lg-7">
+                <div class="feature-info">
+                    <!-- <h2>Notre étoile</h2>
+                    <p>Fondée en 2011, Consultation GRSW est une firme d’acquisition de talent et de services conseils 
+                    pour les entreprises manufacturières spécialisés en développement de produits.</p>
+                    <h4>Notre Vision et mission</h4>
+                    <p>La vision de Consultation GRSW est de devenir un leader dans l’acquisition de talents et de services 
+                    conseil spécialisés en développement de produits pour les industries manufacturières. Pour atteindre 
+                    cet objectif, nous nous efforçons de trouver la relation optimale entre les talents disponible et nos 
+                    clients.</p> -->
+                    <?php echo get_field('content_short_description'); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<?php get_footer(); ?> 
+
+
+Old Candidates Page
+<?php /*Template Name: Layout: Candidats*/ ?>
+<?php get_header(); ?> 
+<!--banner sction-->
+<?php get_sidebar('banner'); ?>
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+
+
+<section class="candidats-area lightgray common-padd">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="candidats-info">
+                    <!-- <h2>Vous ne trouvez pas le talent tant recherché, <br>contactez-nous</h2>
+                    <h3>Ingenieur mecanique, developpment de produits</h3> -->
+                    <?php echo get_field('canditates_short_text'); ?>
+                    <div class="compare-now">
+                    <?php
+							 	if( have_rows('content_details') ){ while (have_rows('content_details')) { the_row(); 
+                                        $image_icon_left = get_sub_field('image_icon_left');
+										$left_image_short_text = get_sub_field('left_image_short_text');
+										$image_icon_right = get_sub_field('image_icon_right');
+										$right_image_text = get_sub_field('right_image_text'); 
+                                        
+								?>
+                        <div class="item">
+                            <div class="item-left"><img src="<?php echo $image_icon_left; ?>"> <?php echo  $left_image_short_text; ?></div>
+                            <div class="item-right"><img src="<?php echo $image_icon_right; ?>"> <?php echo  $right_image_text; ?></div>
+                        </div>
+                        <?php } } ?>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<?php get_footer(); ?> 
+
+Contact page****start*****
+<?php /*Template Name: Layout: Contact*/ ?>
+<?php get_header(); ?>
+<!--banner sction-->
+<?php get_sidebar('banner'); ?>
+<!--banner sction-->
+<!--content sction-->
+<main>
+
+
+<section class="contactus-area lightgray common-padd">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="contactus-info">
+                    <h2><?php echo get_field('contact_from_heading'); ?></h2>
+                    <h5><i class="fas fa-map-marker-alt"></i> <?php echo get_field('contact_address'); ?></h5>
+                    <!-- <form>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Prénom" class="form-control">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Nom de famille" class="form-control">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="email" placeholder="E-mail" class="form-control">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="tel" placeholder="Téléphoner" class="form-control">
+                            </div>
+                            <div class="col-lg-12">
+                                <textarea class="form-control" placeholder="Entrez votre message..."></textarea>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="cwrap">
+                                <h4>Vous recherchez un?</h4>
+                                    <label><input type="radio" name="1"> Talent</label>
+                                    <label><input type="radio" name="1"> Service</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn">Déposez votre candidature</button>
+                            </div>
+                        </div>
+                    </form> --> 
+                    <?php
+                        $my_current_lang = apply_filters('wpml_current_language', NULL);
+                        if ($my_current_lang == 'en') {
+                           echo do_shortcode('[contact-form-7 id="195" title="Contact Form"]');
+                        }  
+                        else if($my_current_lang == 'fr') {
+                            echo do_shortcode('[contact-form-7 id="201" title="Contact Form"]');
+                        }
+                        else {
+
+                        }
+                        ?>
+                     
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</main>
+<?php get_footer(); ?> 
+
+End********
+positions page start ******
+<?php /*Template Name: Layout: Positions*/ ?>
+<?php get_header(); ?> 
+
+<?php get_sidebar('banner'); ?>
+<!--banner sction-->
+
+<!--content sction-->
+<main>
+
+
+<section class="candidats-area lightgray common-padd">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="candidats-info">
+                    <!-- <h2>Votre défi auquel vous rêvez n’y apparait pas, <br>contactez-nous</h2>
+                    <h3>Ingenieur mecanique, developpment de produits</h3> -->
+                    <?php echo get_field('positions_short_heading'); ?>
+                    <div class="compare-now">
+                    <?php
+							 	if( have_rows('positions_content_details') ){ while (have_rows('positions_content_details')) { the_row(); 
+                                        $positions_left_image_icon = get_sub_field('positions_left_image_icon');
+										$left_icon_short_text = get_sub_field('left_icon_short_text');
+										$positions_right_image_icon = get_sub_field('positions_right_image_icon');
+										$positions_right_image_short_text = get_sub_field('positions_right_image_short_text'); 
+                                        
+								?>
+                        <div class="item">
+                            <div class="item-left"><img src="<?php echo $positions_left_image_icon; ?>"> <?php echo $left_icon_short_text; ?></div>
+                            <div class="item-right"><img src="<?php echo $positions_right_image_icon; ?>"> <?php echo $positions_right_image_short_text; ?></div>
+                        </div>
+                        <?php } } ?>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+<?php get_footer(); ?> 
+
+*****End*******************
+
+front-page 
+******start*********
+<?php get_header(); ?>
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+    <section class="home-slider-wrap">
+      <div id="sync1" class="owl-carousel owl-theme">
+        <?php
+        if (have_rows('banner_details')) {
+          while (have_rows('banner_details')) {
+            the_row();
+            $banner_inner_image = get_sub_field('banner_inner_image');
+            $banner_sub_title = get_sub_field('banner_sub_title');
+            $banner_short_text = get_sub_field('banner_short_text');
+            $banner_button_text = get_sub_field('banner_button_text');
+            $banner_button_link = get_sub_field('banner_button_link');
+        ?>
+            <div class="item">
+              <div class="imgbox">
+                <img src="<?php echo $banner_inner_image; ?>" alt="" />
+                <div class="container banner-cont">
+                  <div class="row">
+                    <div class="col-lg-8">
+                      <div class="line-sub-title"><?php echo $banner_sub_title; ?></div>
+                      <h1><?php echo $banner_short_text; ?></h1>
+                      <a href="<?php echo $banner_button_link; ?>" class="btn"><?php echo $banner_button_text; ?></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <?php }
+        } ?>
+
+      </div>
+
+      <div class="container banner-thumbs">
+        <div id="sync2" class="owl-carousel owl-theme">
+          <?php
+          if (have_rows('banner_details')) {
+            while (have_rows('banner_details')) {
+              the_row();
+              $banner_inner_image = get_sub_field('banner_inner_image');
+
+          ?>
+              <div class="item">
+                <img src="<?php echo $banner_inner_image; ?>" alt="" />
+              </div>
+
+          <?php }
+          } ?>
+        </div>
+      </div>
+
+      <div class="step-to-btm">
+        <a id="submit" href="#footersection"><img src="<?php echo get_field('banner_bottom_mouse_arrow'); ?>" alt="" /></a>
+      </div>
+
+    </section>
+<?php endwhile;
+endif; ?>
+<script>
+  jQuery(document).ready(function() {
+    jQuery('#submit').click(function(e) {
+      // var href = jQuery(this).prop('href');
+      //  alert(href); 
+      e.preventDefault();
+      var href = jQuery(this).attr('href');
+      jQuery('html, body').animate({
+        scrollTop: jQuery(href).offset().top
+      }, 200);
+    })
+  });
+</script>
+<?php get_footer(); ?>

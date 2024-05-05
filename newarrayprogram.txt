@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+int main()
+{
+    //printf("Hello World");
+    int t,p,i,j;
+    int c=0;
+    //int a[100];
+    scanf("%d",&t);
+    int a[t];
+    for(p=1;p<=t;p++)
+    {
+        scanf("%d",&a[p]);
+    }
+    for(i=1;i<=t;i++)
+    {
+        for(j=i+1;j<=t;j++)
+        {
+            if(i<j && a[i]>a[j])
+            {
+                c++;
+            }
+        }
+    }
+ printf("%d",c);
+    
+}

@@ -1,0 +1,264 @@
+password-arnab12345
+username-Firstsite@developer@180122
+[email* your-email class:form-control cst-ctrl] [submit class:btn btn-info cst-btn "Subscribe"]
+Wordpress-documentation link- https://codex.wordpress.org/
+wordpress testing site in localhost
+Folder_name-htdocs/Wordpress_new.
+site_url-http://localhost/Wordpress_new/
+basecamp link-https://3.basecamp.com/5290879/reports/progress
+development sever-https://3.basecamp.com/3468572/buckets/25000916/documents/4387843039
+server link -https://3.basecamp.com/3468572/buckets/25000916/vaults/4357521950
+https://3.basecamp.com/3468572/projects/25000916
+https://3.basecamp.com/3468572
+https://project351.weavers-web.com/
+
+server-theme-name=WeaverWebTeam-OptionPanel(Default Theme for wordpress website)
+
+subject : Need to crearte a new wordpress project
+Project Name: Lazarpay
+PHP Version (available versions are 7.3, 7.4, 8.0): 7.4
+Project Type (Web App / Mobile App Backend): Web App
+Project Framework (WordPress / Laravel / NodeJS / Magento): WordPress
+Site URL (Optional):
+Basecamp URL: https://3.basecamp.com/3468572/projects/25987489
+Project Manager: Shanu Dey
+
+Lazarpay credentials:
+server details(Devlopment server):
+
+Site URL: https://lazarpay.weavers-web.com
+
+URL: https://lazarpay.weavers-web.com/wp-login.php
+User: lazarpay@developer@010222
+Pass: |V?N{}VfJ)YJT_0)
+
+!!! Set up Wordfence security plugin to secure the site !!!
+
+SSH | SFTP:-
+Host: ip-128-199-28-33.server.weavers-web.com
+User: lazarpay
+Pass: p&Sy1zxOT6kt%77ABk
+Port: 2021
+Path: /home/lazarpay/public_html
+
+Database:-
+URL: https://ip-128-199-28-33.server.weavers-web.com/dbadminforweaversweb
+Host: localhost
+Name: db_lazarpay
+User: usr_lazarpay
+Pass: 5NCScaB^a:V}FGQT^M
+
+***************************End
+
+
+
+
+
+
+site_url_new-http://localhost/Wordpress_new/wp-admin/index.php
+
+Wordpress Details for localhost********
+
+header.php file backup****
+<!DOCTYPE html>
+<html>
+<head>
+<title>Try Club-Home</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="<?php echo get_template_directory_uri(); ?>/assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo get_template_directory_uri(); ?>/assets/css/font-awesome-all.min.css" rel="stylesheet">
+<link href="<?php echo get_template_directory_uri(); ?>/assets/css/slick.css" rel="stylesheet" type="text/css">
+<link href="<?php echo get_template_directory_uri(); ?>/assets/css/slick-theme.css" rel="stylesheet" type="text/css"> 
+<link href="<?php echo get_template_directory_uri(); ?>/assets/css/animate.min.css" rel="stylesheet" type="text/css">
+<link href="<?php echo get_template_directory_uri(); ?>/assets/css/custom.css" rel="stylesheet" type="text/css">
+ <!-- <?php wp_head() ?>  -->
+<!--[if lt IE 9]>
+ <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/
+    html5shiv.js"></script>
+ <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/
+    respond.min.js"></script>
+<![endif]-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/bootstrap.min.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/bootstrap.bundle.min.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/font-awesome-all.min.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/slick.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/wow.min.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/custom.js"></script>
+<?php wp_head() ?>
+</head>
+
+<body class="home">
+
+<!--header sction-->
+<header class="main-header">
+    <section class="hdr-top">
+        <div class="container header-row">
+            <div class="logo">
+                <a href="#"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt=""></a>
+            </div>
+            <div class="main-menu">
+                <ul>
+                    <li><a href="#">For Venues</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Login</a></li>
+                    <li class="menu-btn"><a href="#"class="btn-round">Try Club</a></li>
+                    
+                </ul>        
+                <!-- Testing Dynamic menu -->
+                <!-- <div class="nav">
+                    <?php 
+                        wp_nav_menu( array(
+                           'theme-location' => 'primary'
+                        ));
+                    ?>
+                </div> -->
+                <!-- Testing Dynamic menu -->
+            </div>
+            <div class="language">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/EN.png" alt="">
+                <select>
+                    <option>EN</option>
+                    <option>FR</option>
+                    <option>GM</option>
+                </select>
+            </div>
+            <div class="nav_btn">
+                <i class="fas fa-bars"></i>
+            </div>  
+        </div>
+    </section>
+</header>
+*********** End header
+footer.php file
+***************
+<footer class="main-footer">
+   <div class="footer-top">
+       <div class="container">
+           <div class="row">
+               <div class="col-md-3">
+                   <div class="footer-wrap">
+                       <img src="<?php echo get_template_directory_uri(); ?>/assets/images/footer-logo.png" alt="">
+                       <p class="mt-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                   </div>
+               </div>
+               <div class="col-md-3">
+                   <div class="footer-wrap">
+                        <p><i class="fas fa-map-marker-alt"></i> 2901, One By Omniyat
+                            Dubai, UAE</p>
+                        <p><i class="fas fa-envelope"></i>  info@paybyclub.com</p>
+                        <p><i class="fas fa-phone-alt"></i>  +971-569170408</p>
+                   </div></div>
+               <div class="col-md-3">
+                   <div class="footer-wrap">
+                       <ul>
+                           <li><a href="*">How it works</a></li>
+                           <li><a href="*">How to start</a></li>
+                           <li><a href="*">Try Club</a></li>
+                       </ul>
+                   </div></div>
+               <div class="col-md-3 ">
+                   <div class="footer-wrap">
+                    <div class="language">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/EN.png" alt="">
+                        <select>
+                            <option>English</option>
+                            <option>FR</option>
+                            <option>GM</option>
+                        </select>
+                    </div>
+                    <ul class="social-section mt-2">
+                        <li><a href="#"><i class="fab fa-instagram"></i>  Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i>  Linkedin</a></li>
+                    </ul>
+                   </div>
+                </div>
+           </div>
+       </div>
+   </div>
+   <div class="footer-bottom">
+    <div class="container">
+        <div class="left-col">
+            <ul>
+                <li><a href="#">Terms & Conditions</a>  
+                </li>
+                <li class="ms-3">
+                    <a href="#">Cookies & Privacy Policy</a>
+                </li>
+            </ul>
+        </div>
+        <div class="right-col">
+         Copyright © 2021 Club_
+        </div>
+    </div>
+   </div>
+</footer>
+<!--footer section-->
+
+<?php wp_footer() ?>
+</body>
+</html>
+<script>
+ $('.slide-item').slick({
+    dots: false,
+    infinite: false,
+    speed: 300,
+    slidesToShow: 3,
+    centerMode: true,
+   arrows: false,
+   vertical: true,
+   verticalSwiping: true,
+	focusOnSelect: true,
+	autoplay:true,
+	asNavFor: '.slider-nav'
+ });
+ 
+ $('.slider-nav').slick({
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  asNavFor: '.slide-item',
+  dots: true, 
+  autoplay:false,
+  infinite: false
+});
+</script>
+End **************
+functions.php
+**************************
+<?php 
+
+
+// Testing new function for image size 
+
+// function html2wp_theme_setup(){
+//     add_theme_support('custom-logo');
+//     add_theme_support('title-tag');
+//     add_theme_support('post-thumbnails');
+//     add_image_size('home-featured', 680, 400, array('center','center'));
+//     add_image_size('single-img', 600, 550,array('center','center'));
+//     add_theme_support('automatic-feed-links');
+
+//     register_nav_menus( array(
+//        'primary' => __('primary Menu', 'html2wp')
+//     )
+//     );
+
+    
+// };
+// add_action('after_setup_theme','html2wp_theme_setup');
+
+// Testing for dynamic menu
+function html2wp_scripts(){
+wp_enqueue_style('custom',get_stylesheet_uri() );
+}
+add_action('wp_enqueue_scripts','html2wp_scripts')
+?>
+******************
+End
+
+
+
+

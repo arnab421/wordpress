@@ -1,0 +1,789 @@
+
+****************Another perfect example of load more******************** 
+*****ajax-load-more*****
+*******custom.js*********
+// for sticky header
+jQuery(window).scroll(function () {
+  if (jQuery(window).scrollTop() >= 150) {
+    jQuery("body").addClass("header-sticky");
+  } else {
+    jQuery("body").removeClass("header-sticky");
+  }
+});
+
+jQuery(document).ready(function () {
+  // for toggle menu
+  jQuery(".hamburger-nav").click(function () {
+    jQuery("body").toggleClass("menu-open");
+  });
+  jQuery(".hamburger-nav-close").click(function () {
+    jQuery(" body").removeClass("menu-open");
+  });
+
+  // nav arrow set in moblie view
+  jQuery(".mobile-menubar ul li.menu-item-has-children").each(function () {
+    jQuery(this)
+      .children("a")
+      .after("<span class='arrow'><i class='fas fa-chevron-down'></i></span>");
+  });
+  jQuery(".mobile-menubar ul li.menu-item-has-children .arrow").click(
+    function () {
+      if (jQuery(this).next().is(":visible")) {
+        jQuery(this).children(".fas").removeClass("fa-chevron-up");
+        jQuery(this).children(".fas").addClass("fa-chevron-down");
+        jQuery(this).next().slideUp();
+      } else {
+        jQuery(
+          ".mobile-menubar ul li.menu-item-has-children .arrow .fas"
+        ).removeClass("fa-chevron-up");
+        jQuery(
+          ".mobile-menubar ul li.menu-item-has-children .arrow .fas"
+        ).addClass("fa-chevron-down");
+        jQuery(".mobile-menubar ul li.menu-item-has-children .arrow")
+          .next()
+          .slideUp();
+        jQuery(this).children(".fas").removeClass("fa-chevron-down");
+        jQuery(this).children(".fas").addClass("fa-chevron-up");
+        jQuery(this).next().slideDown();
+      }
+    }
+  );
+});
+
+jQuery(document).ready(function () {
+  jQuery(".about-slider-for").slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    fade: true,
+    asNavFor: ".about-slider-nav",
+  });
+});
+
+jQuery(document).ready(function () {
+  jQuery(function ($)
+ {
+    // use jQuery code inside this to avoid "$ is not defined" error
+    $("body").on("click", ".misha_loadmore", function () {
+      let currentPage = jQuery(this).attr("data-currentpage");
+      var button = $(this),
+        data = {
+          action: "blogloadmore",
+          currentPage: currentPage,
+        };
+
+      $.ajax({
+        // you can also use $.post here
+        url: ajax.ajaxurl, // AJAX handler
+        data: data,
+        type: "POST",
+        beforeSend: function (xhr) {
+          button.text("Loading..."); // change the button text, you can also add a preloader image
+        },
+        // afterSend: function( xhr ){
+        //     button.text('More Posts');
+        // },
+        success: function (data) {
+          if (data) {
+            console.log(data.currentPage);
+            jQuery(".misha_loadmore").attr(
+              "data-currentpage",
+              data.currentPage
+            );
+            jQuery(".misha_loadmore").html("More Posts");
+
+            $.each(data.result, function (key, val) {
+              let cathtml = "";
+
+              jQuery(".ajaxLoadMoreData").append(`
+                        <div class="col-lg-4 col-md-6 item">
+                            <div class="card-box">
+                                <div class="card-image"><img src="${val.image}" alt=""></div>
+                                <div class="card-info">
+                                    <div class="date-wrap">
+                                        <span>${val.postdate}</span>
+                                    </div>
+                                   <h5>${val.title}</h5>
+                                   <div class="button-row">
+                                      <a href="${val.permalink}" class="btn">Learn more</a>
+                                    </div>
+                                </div>
+                             </div>
+                        </div>  
+                        `);
+            });
+            if (data.currentPage == data.maxPost) {
+              jQuery(".misha_loadmore").hide();
+            }
+          } else {
+            button.remove(); // if no data, remove the button as well
+          }
+        },
+      });
+    });
+  });
+
+  //   noterelease function
+  jQuery(function ($)
+ {
+    // use jQuery code inside this to avoid "$ is not defined" error
+    $("body").on("click", ".misha_loadmore_release", function () {
+      let currentPage = jQuery(this).attr("data-currentpage");
+      var button = $(this),
+        data = {
+          action: "releaseloadmore",
+          currentPage: currentPage,
+        };
+
+      $.ajax({
+        // you can also use $.post here
+        url: ajax.ajaxurl, // AJAX handler
+        data: data,
+        type: "POST",
+        beforeSend: function (xhr) {
+          button.text("Loading..."); // change the button text, you can also add a preloader image
+        },
+        // afterSend: function( xhr ){
+        //     button.text('More Posts');
+        // },
+        success: function (data) {
+          if (data) {
+            console.log(data.currentPage);
+            jQuery(".misha_loadmore_release").attr(
+              "data-currentpage",
+              data.currentPage
+            );
+            jQuery(".misha_loadmore_release").html("More Posts");
+
+            $.each(data.result, function (key, val) {
+              let cathtml = "";
+
+              jQuery(".ajaxLoadMoreDatarelease").append(`
+              <div class="col-lg-4 col-md-6 item">
+                <div class="card-box">
+                  <div class="card-info">
+                      <div class="date-wrap">
+                          <span>${val.postdate}</span>
+                      </div>
+                     <h4>${val.title}</h4>
+                     <p>${val.excerpt}</p>
+                     <div class="button-row">
+                        <a href="${val.permalink}" class="btn">Learn more</a>
+                     </div>
+                  </div>
+               </div>
+            </div>  
+                        `);
+            });
+            if (data.currentPage == data.maxPost) {
+              jQuery(".misha_loadmore_release").hide();
+            }
+          } else {
+            button.remove(); // if no data, remove the button as well
+          }
+        },
+      });
+    });
+  });
+  //   noterelease function
+  // jobs function
+  jQuery(function ($)
+ {
+    // use jQuery code inside this to avoid "$ is not defined" error
+    $("body").on("click", ".misha_loadmore_jobs", function () {
+      let currentPage = jQuery(this).attr("data-currentpage");
+      let pp = 2;
+      var button = $(this),
+        data = {
+          action: "jobloadmore",
+          currentPage: currentPage,
+          pp : pp
+        };
+
+      $.ajax({
+        // you can also use $.post here
+        url: ajax.ajaxurl, // AJAX handler
+        data: data,
+        type: "POST",
+        beforeSend: function (xhr) {
+          button.text("Loading..."); // change the button text, you can also add a preloader image
+        },
+        // afterSend: function( xhr ){
+        //     button.text('More Posts');
+        // },
+        success: function (data) {
+          if (data) {
+            console.log(data.currentPage);
+            jQuery(".misha_loadmore_jobs").attr(
+              "data-currentpage",
+              data.currentPage
+            );
+            jQuery(".misha_loadmore_jobs").html("More Posts");
+            // let count=((currentPage)+(1))*(pp);
+            let count=currentPage*pp+1;
+            $.each(data.result, function (key, val) {
+              let cathtml = "";
+               
+              jQuery(".ajaxLoadMoreDatajobs").append(`
+            <div class="tab-item">
+              <h2>${val.title}</h2>
+              <nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-Job-${count}-tab" data-bs-toggle="tab" data-bs-target="#nav-Job-${count}" type="button" role="tab" aria-controls="nav-Job-${count}" aria-selected="true">${val.desheading}</button>
+                    <button class="nav-link" id="nav-Requiremen-${count}-tab" data-bs-toggle="tab" data-bs-target="#nav-Requiremen-${count}" type="button" role="tab" aria-controls="nav-Requiremen-${count}" aria-selected="false">${val.reqheading}</button>
+                    <button class="nav-link" id="nav-Responsibilities-${count}-tab" data-bs-toggle="tab" data-bs-target="#nav-Responsibilities-${count}" type="button" role="tab" aria-controls="nav-Responsibilities-${count}" aria-selected="false">${val.resheading} </button>
+                  </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="nav-Job-${count}" role="tabpanel" aria-labelledby="nav-Job-${count}-tab">
+                      <div class="info-wrap">
+                          ${val.descontent}
+                          <a href="${val.joblink}" class="btn">Apply Here</a>
+                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="nav-Requiremen-${count}" role="tabpanel" aria-labelledby="nav-Requiremen-${count}-tab">
+                      <div class="info-wrap">
+                          ${val.reqcontent}
+                          <a href="${val.joblink}" class="btn">Apply Here</a>
+                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="nav-Responsibilities-${count}" role="tabpanel" aria-labelledby="nav-Responsibilities-${count}-tab">
+                      <div class="info-wrap">
+                          ${val.rescontent}
+                          <a href="${val.joblink}" class="btn">Apply Here</a>
+                      </div>
+                  </div>
+                </div>
+          </div> 
+                        `);
+                        count++;
+            });
+            if (data.currentPage == data.maxPost) {
+              jQuery(".misha_loadmore_jobs").hide();
+            }
+          } else {
+            button.remove(); // if no data, remove the button as well
+          }
+        },
+      });
+    });
+  });
+  // jobs function
+});
+*******custom.js*********
+********************functions.php**********
+<?php
+/*****************************************
+* Weaver's Web Functions & Definitions *
+*****************************************/
+$functions_path = get_template_directory().'/functions/';
+$post_type_path = get_template_directory().'/inc/post-types/';
+$post_meta_path = get_template_directory().'/inc/post-metabox/';
+$theme_function_path = get_template_directory().'/inc/theme-functions/';
+/*--------------------------------------*/
+/* Multipost Thumbnail Functions
+/*--------------------------------------*/
+require_once($functions_path.'multipost-thumbnail/multi-post-thumbnails.php');
+if(class_exists('MultiPostThumbnails')){
+	$types = array('page');
+	foreach($types as $type){
+		new MultiPostThumbnails(array(
+			'label' => 'Top Banner Image',
+			'id' => 'top-banner-image',
+			'post_type' => $type
+			));
+		}		
+	}
+add_image_size('top-banner-size-image', 1920, 700,true);
+/*--------------------------------------*/
+/* Optional Panel Helper Functions
+/*--------------------------------------*/
+require_once($functions_path.'admin-functions.php');
+require_once($functions_path.'admin-interface.php');
+require_once($functions_path.'theme-options.php');
+function weaversweb_ftn_wp_enqueue_scripts(){
+    if(!is_admin()){
+        wp_enqueue_script('jquery');
+        if(is_singular()and get_site_option('thread_comments')){
+            wp_print_scripts('comment-reply');
+			}
+		}
+	}
+add_action('wp_enqueue_scripts','weaversweb_ftn_wp_enqueue_scripts');
+function weaversweb_ftn_get_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    if(isset($options[$name]))
+        return $options[$name];
+	}
+function weaversweb_ftn_update_option($name, $value){
+    $options = get_option('weaversweb_ftn_options');
+    $options[$name] = $value;
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function weaversweb_ftn_delete_option($name){
+    $options = get_option('weaversweb_ftn_options');
+    unset($options[$name]);
+    return update_option('weaversweb_ftn_options', $options);
+	}
+function get_theme_value($field){
+	$field1 = weaversweb_ftn_get_option($field);
+	if(!empty($field1)){
+		$field_val = $field1;
+		}
+	return	$field_val;
+	}
+/*--------------------------------------*/
+/* Post Type Helper Functions
+/*--------------------------------------*/
+require_once($post_type_path.'clients.php');
+require_once($post_type_path.'jobs.php');
+require_once($post_type_path.'services.php');
+require_once($post_type_path.'team_member.php');
+require_once($post_type_path.'testimonials.php');
+require_once($post_type_path.'releases.php');
+ require_once($post_type_path.'notes.php');
+/*--------------------------------------*/
+/* Post Meta Helper Functions
+/*--------------------------------------*/
+require_once($post_meta_path.'casestudy-metabox.php');
+/*--------------------------------------*/
+/* Theme Functions
+/*--------------------------------------*/
+require_once($theme_function_path.'extra-functions.php');
+/*--------------------------------------*/
+/* Theme Helper Functions
+/*--------------------------------------*/
+if(!function_exists('weaversweb_theme_setup')):
+	function weaversweb_theme_setup(){
+		add_theme_support('title-tag');
+		add_theme_support('post-thumbnails');
+		register_nav_menus(array(
+			'primary' => __('Primary Menu','weaversweb'),
+			'secondary'  => __('Secondary Menu','weaversweb'),
+			));
+		add_theme_support('html5',array('search-form','comment-form','comment-list','gallery','caption'));
+		}
+	endif;
+add_action('after_setup_theme','weaversweb_theme_setup');
+function weaversweb_widgets_init(){
+	register_sidebar(array(
+		'name'          => __('Widget Area','weaversweb'),
+		'id'            => 'sidebar-1',
+		'description'   => __('Add widgets here to appear in your sidebar.','weaversweb'),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+		));
+	}
+add_action('widgets_init','weaversweb_widgets_init');
+function weaversweb_scripts(){
+
+	// wp_enqueue_style('weaversweb-main',get_template_directory_uri().'/css/theme.css',array());
+	
+	// wp_enqueue_style('weaversweb-style',get_stylesheet_uri());
+	wp_enqueue_style('sb-bootstrap-min-css',get_template_directory_uri().'/css/bootstrap.min.css',array());
+	wp_enqueue_style('sb-bootstrap-all-min-css',get_template_directory_uri().'/css/all.min.css',array());
+	wp_enqueue_style('sb-slick-css',get_template_directory_uri().'/css/slick.css',array());
+	wp_enqueue_style('sb-slick-theme-css',get_template_directory_uri().'/css/slick-theme.css',array());
+	wp_enqueue_style('sb-custom-css',get_template_directory_uri().'/css/custom.css',array());
+	wp_enqueue_style('sb-fancybox',get_template_directory_uri().'/css/jquery.fancybox.min.css',array());
+	// Load the Internet Explorer specific script.
+	global $wp_scripts;
+	wp_register_script('html5shiv-ie',get_template_directory_uri().'/js/html5shiv.js',array());
+	wp_register_script('respond-ie',get_template_directory_uri().'/js/respond.min.js',array());
+	$wp_scripts->add_data('html5shiv-ie','conditional','lt IE 9');
+	$wp_scripts->add_data('respond-ie','conditional','lt IE 9');
+
+	// wp_enqueue_script('weaversweb-script',get_template_directory_uri().'/js/functions.js',array('jquery'),'20170808',true); 
+	wp_enqueue_script('sb-bootstrap-bundle-min-js',get_template_directory_uri().'/js/bootstrap.bundle.min.js',array('jquery'),'20170808',true);
+	wp_enqueue_script('sb-slick-min-js',get_template_directory_uri().'/js/slick.min.js',array('jquery'),'20170808',true);
+	wp_enqueue_script('sb-carousel-min-js',get_template_directory_uri().'/js/owl.carousel.min.js',array('jquery'),'20170808',true);
+	wp_enqueue_script('sb-script-fancybox',get_template_directory_uri().'/js/jquery.fancybox.min.js',array('jquery'),'',true);
+	wp_enqueue_script('sb-custom-js',get_template_directory_uri().'/js/custom.js',array('jquery'),'20170808',true);
+	wp_localize_script( 'sb-custom-js', 'ajax', array(
+		'ajaxurl' => admin_url( 'admin-ajax.php' ), // WordPress AJAX
+		
+	) );
+	}
+add_action('wp_enqueue_scripts','weaversweb_scripts');
+
+// Contact from submit
+ 
+//Inventory Page Filter Function
+function blogloadmore(){
+	$currentPage=$_REQUEST['currentPage']+1; // we need next page to be loaded
+	$args = array(
+		'post_type' => 'post',
+		// 'paged' => $paged ,
+		'posts_per_page' => 3,
+		'paged' => $currentPage,
+		'post_status' => 'publish',
+		'order' => 'DESC',
+		
+	); 
+	$postdata = new WP_Query($args); 
+	$post=[]; 
+	if ($postdata->have_posts()) {
+		while ($postdata->have_posts()) {
+			$postdata->the_post();
+			$postdata_image = wp_get_attachment_image_src(get_post_thumbnail_id($postdata->ID), 'full'); 
+			 $post[]=[
+				 "postdate"=>get_the_date('F d,Y'),
+				 "title"=>get_the_title(),
+				 "permalink"=>get_permalink($postdata->ID),
+				 "image"=>$postdata_image[0]
+			 ];
+		  }
+		}
+				if($post){
+					$return = array(
+						'message'  => 'posts',
+						'status' => 1,
+						'result'=>$post,
+						'maxPost'=>$postdata->max_num_pages,
+						'currentPage'=>$currentPage,
+						'req'=>$_REQUEST['currentPage']
+					);
+					wp_send_json($return);
+				}
+				else{
+					$return = array(
+						'message'  => 'No Post Found',
+						'status'       => 0
+					);
+					 
+					wp_send_json($return);
+				}
+	// echo json_encode($age); 
+	die();
+} 
+
+
+
+add_action('wp_ajax_blogloadmore', 'blogloadmore'); // wp_ajax_{action}
+add_action('wp_ajax_nopriv_blogloadmore', 'blogloadmore'); // wp_ajax_nopriv_{action}
+
+// Relaase note Loadmore
+
+function releaseloadmore(){
+	$currentPage=$_REQUEST['currentPage']+1; // we need next page to be loaded
+	$args = array(
+		'post_type' => 'releases',
+		// 'paged' => $paged ,
+		'posts_per_page' => 3,
+		'paged' => $currentPage,
+		'post_status' => 'publish',
+		'order' => 'DESC',
+		
+	); 
+	$relasedata = new WP_Query($args); 
+	$post=[]; 
+	if ($relasedata->have_posts()) {
+		while ($relasedata->have_posts()) {
+			$relasedata->the_post();
+			// $relasedata_image = wp_get_attachment_image_src(get_post_thumbnail_id($relasedata->ID), 'full'); 
+			 $post[]=[
+				 "postdate"=>get_the_date('F d,Y'),
+				 "title"=>get_the_title(),
+				 "permalink"=>get_permalink($relasedata->ID),
+				 "excerpt"=>get_the_excerpt($relasedata->ID)
+			 ];
+		  }
+		}
+				if($post){
+					$return = array(
+						'message'  => 'posts',
+						'status' => 1,
+						'result'=>$post,
+						'maxPost'=>$relasedata->max_num_pages,
+						'currentPage'=>$currentPage,
+						'req'=>$_REQUEST['currentPage']
+					);
+					wp_send_json($return);
+				}
+				else{
+					$return = array(
+						'message'  => 'No Post Found',
+						'status'       => 0
+					);
+					 
+					wp_send_json($return);
+				}
+	// echo json_encode($age); 
+	die();
+} 
+
+
+
+add_action('wp_ajax_releaseloadmore', 'releaseloadmore'); // wp_ajax_{action}
+add_action('wp_ajax_nopriv_releaseloadmore', 'releaseloadmore'); // wp_ajax_nopriv_{action} 
+
+// jobs load more 
+function jobloadmore(){
+	$currentPage=$_REQUEST['currentPage']+1; 
+	// we need next page to be loaded
+	$pp=$_REQUEST['pp'];
+	$args = array(
+		'post_type' => 'jobs',
+		// 'paged' => $paged ,
+		'posts_per_page' => $pp,
+		'paged' => $currentPage,
+		'post_status' => 'publish',
+		'order' => 'DESC',
+		
+	); 
+	$jobdata = new WP_Query($args); 
+	$post=[]; 
+	$i=1;
+	if ($jobdata->have_posts()) {
+		while ($jobdata->have_posts()) {
+			$jobdata->the_post();
+			$i++;
+			// $relasedata_image = wp_get_attachment_image_src(get_post_thumbnail_id($relasedata->ID), 'full'); 
+			 $post[]=[
+				 "title"=>get_the_title(),
+				 "desheading"=>get_field('job_des_heading',$jobdata->ID),
+				 "reqheading"=>get_field('requirement_heading',$jobdata->ID),
+				 "resheading"=>get_field('responsibilities_heading',$jobdata->ID),
+				 "descontent"=>get_field('job_des_content_data',$jobdata->ID),
+				 "reqcontent"=>get_field('job_requirement_large_content',$jobdata->ID),
+				 "rescontent"=>get_field('responsibilities_large_content',$jobdata->ID),
+				 "joblink"=>get_field('apply_job_link',$jobdata->ID),
+				 "postnumber"=>$i
+			 ];
+		  }
+		}
+				if($post){
+					$return = array(
+						'message'  => 'posts',
+						'status' => 1,
+						'result'=>$post,
+						'maxPost'=>$jobdata->max_num_pages,
+						'currentPage'=>$currentPage,
+						'req'=>$_REQUEST['currentPage']
+					);
+					wp_send_json($return);
+				}
+				else{
+					$return = array(
+						'message'  => 'No Post Found',
+						'status'       => 0
+					);
+					 
+					wp_send_json($return);
+				}
+	// echo json_encode($age); 
+	die();
+} 
+
+
+
+add_action('wp_ajax_jobloadmore', 'jobloadmore'); // wp_ajax_{action}
+add_action('wp_ajax_nopriv_jobloadmore', 'jobloadmore'); // wp_ajax_nopriv_{action}
+// jobs load more
+
+// Testing phone number validation
+
+
+// Testing phone number validation
+add_filter('comments_template','legacy_comments');
+function legacy_comments($file){
+	if(!function_exists('wp_list_comments'))	$file = TEMPLATEPATH .'/legacy.comments.php';
+	return $file;
+	} 
+
+
+
+********************functions.php*********** 
+**************careear-page*******************
+<?php /*Template Name: Layout: Career*/?>
+<?php get_header(); ?> 
+<!-- body section start -->
+<main>
+         <section class="inner-banner-section">
+            <div class="container-holder">
+               <div class="container overley-content">
+                  <div class="banner-info">
+                     <h1><?php echo get_field('inner_banner_heading');?></h1>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section class="career-section common-padding">
+            <div class="container">
+               <div class="content-wraper">
+                  <!-- <p> At Spear Bio we are building out our commercial and technical teams to help bring our solutions to market. To that end, we are looking for top talent with research and clinical diagnostics industry experience and functional backgrounds including R&D, Product Development, Business Development, and Product Management.</p>
+                  <p>We offer competitive compensation, with meaningful stock ownership, strong benefits, and a great work environment. This is an opportunity to enter a high-growth startup company at an early stage. We are recruiting candidates who have demonstrated leadership and excellence throughout their careers and are excited by the prospect of - and the effort involved in - building an industry-leading company.</p>
+                  <p>Spear Bio Inc. provides equal opportunity in employment to everyone. No person shall be denied equal access because of race, creed, color, religion, national origin, sex, sexual orientation, gender identity, age, or disability.</p> -->
+                  <?php echo get_field('career_section_after_banner_content');?>
+               </div>
+                <!-- Tab Content start -->
+                <div class="section-title mb-50">
+                    <h2><?php echo get_field('available_positions_heading');?></h2>
+                </div>
+
+                <div class="tabholder ajaxLoadMoreDatajobs">
+                <?php
+                    // $paged = (get_query_var('paged')) ? get_query_var('paged') : 1; 
+                    $pp = 2;
+                    $args = array(
+                        'post_type' => 'jobs',
+                        // 'paged' => $paged ,
+                        'posts_per_page' => $pp,
+                        'paged' => 1 ,
+                        'post_status' => 'publish',
+                        'order' => 'DESC',
+                        
+                    );
+                    $i=0;
+                    $jobdata = new WP_Query($args);
+                    if ($jobdata->have_posts()) {
+                        while ($jobdata->have_posts()) {
+                            $jobdata->the_post();
+                            $i++;
+                            // $postdata_image = wp_get_attachment_image_src(get_post_thumbnail_id($postdata->ID), 'full');
+                    ?>
+              
+                <div class="tab-item">
+                    <h2><?php echo get_the_title();?></h2>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <button class="nav-link active" id="nav-Job-<?php echo $i;?>-tab" data-bs-toggle="tab" data-bs-target="#nav-Job-<?php echo $i;?>" type="button" role="tab" aria-controls="nav-Job-<?php echo $i;?>" aria-selected="true"><?php echo get_field('job_des_heading',$jobdata->ID);?></button>
+                          <button class="nav-link" id="nav-Requiremen-<?php echo $i;?>-tab" data-bs-toggle="tab" data-bs-target="#nav-Requiremen-<?php echo $i;?>" type="button" role="tab" aria-controls="nav-Requiremen-<?php echo $i;?>" aria-selected="false"><?php echo get_field('requirement_heading',$jobdata->ID);?></button>
+                          <button class="nav-link" id="nav-Responsibilities-<?php echo $i;?>-tab" data-bs-toggle="tab" data-bs-target="#nav-Responsibilities-<?php echo $i;?>" type="button" role="tab" aria-controls="nav-Responsibilities-<?php echo $i;?>" aria-selected="false"><?php echo get_field('responsibilities_heading',$jobdata->ID);?> </button>
+                        </div>
+                      </nav>
+                      <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-Job-<?php echo $i;?>" role="tabpanel" aria-labelledby="nav-Job-<?php echo $i;?>-tab">
+                            <div class="info-wrap">
+                                <?php echo get_field('job_des_content_data',$jobdata->ID);?>
+                                <a href="<?php echo get_field('apply_job_link',$jobdata->ID);?>" class="btn">Apply Here</a>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Requiremen-<?php echo $i;?>" role="tabpanel" aria-labelledby="nav-Requiremen-<?php echo $i;?>-tab">
+                            <div class="info-wrap">
+                                <?php echo get_field('job_requirement_large_content',$jobdata->ID);?>
+                                <a href="<?php echo get_field('apply_job_link',$jobdata->ID);?>" class="btn">Apply Here</a>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Responsibilities-<?php echo $i;?>" role="tabpanel" aria-labelledby="nav-Responsibilities-<?php echo $i;?>-tab">
+                            <div class="info-wrap">
+                                <?php echo get_field('responsibilities_large_content',$jobdata->ID);?>
+                                <a href="<?php echo get_field('apply_job_link',$jobdata->ID);?>" class="btn">Apply Here</a>
+                            </div>
+                        </div>
+                      </div>
+                </div>
+                <?php }
+                    }
+                    wp_reset_postdata();
+                    ?>
+             </div>
+                <!-- <div class="tab-item">
+                    <h2>Scientist/Sr. Scientist</h2>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <button class="nav-link active" id="nav-Job-2-tab" data-bs-toggle="tab" data-bs-target="#nav-Job-2" type="button" role="tab" aria-controls="nav-Job-2" aria-selected="true">Job Description2</button>
+                          <button class="nav-link" id="nav-Requiremen-2-tab" data-bs-toggle="tab" data-bs-target="#nav-Requiremen-2" type="button" role="tab" aria-controls="nav-Requiremen-2" aria-selected="false">Requirements2</button>
+                          <button class="nav-link" id="nav-Responsibilities-2-tab" data-bs-toggle="tab" data-bs-target="#nav-Responsibilities-2" type="button" role="tab" aria-controls="nav-Responsibilities-2" aria-selected="false">Responsibilities2 </button>
+                        </div>
+                      </nav>
+                      <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-Job-2" role="tabpanel" aria-labelledby="nav-Job-2-tab">
+                            <div class="info-wrap">
+                                <p>2jobdes We are seeking a Scientist/Senior Scientist-level candidate with a track record of research excellence and diagnostic product development experience to join our R&D team. Expertise and knowledge of recent scientific and technological advances in molecular diagnostics and immunodiagnostics are required. The ideal candidate will be a highly motivated individual who leads from the bench and enjoys having broad responsibilities and opportunities. Activities may be focused on individual projects or assignments as a senior technical member of a project team, which may include project leadership duties.</p>
+                                <a href="" class="btn">Apply Here</a>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Requiremen-2" role="tabpanel" aria-labelledby="nav-Requiremen-2-tab">
+                            <div class="info-wrap">
+                                <p>2require We are seeking a Scientist/Senior Scientist-level candidate with a track record of research excellence and diagnostic product development experience to join our R&D team. Expertise and knowledge of recent scientific and technological advances in molecular diagnostics and immunodiagnostics are required. The ideal candidate will be a highly motivated individual who leads from the bench and enjoys having broad responsibilities and opportunities. Activities may be focused on individual projects or assignments as a senior technical member of a project team, which may include project leadership duties.</p>
+                                <a href="" class="btn">Apply Here</a>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Responsibilities-2" role="tabpanel" aria-labelledby="nav-Responsibilities-2-tab">
+                            <div class="info-wrap">
+                                <p>2Respos We are seeking a Scientist/Senior Scientist-level candidate with a track record of research excellence and diagnostic product development experience to join our R&D team. Expertise and knowledge of recent scientific and technological advances in molecular diagnostics and immunodiagnostics are required. The ideal candidate will be a highly motivated individual who leads from the bench and enjoys having broad responsibilities and opportunities. Activities may be focused on individual projects or assignments as a senior technical member of a project team, which may include project leadership duties.</p>
+                                <a href="" class="btn">Apply Here</a>
+                            </div>
+                        </div>
+                      </div>
+                </div> -->
+                <!-- <div class="tab-item">
+                    <h2>Scientist/Sr. Scientist</h2>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <button class="nav-link active" id="nav-Job-3-tab" data-bs-toggle="tab" data-bs-target="#nav-Job-3" type="button" role="tab" aria-controls="nav-Job-3" aria-selected="true">Job Description3</button>
+                          <button class="nav-link" id="nav-Requiremen-3-tab" data-bs-toggle="tab" data-bs-target="#nav-Requiremen-3" type="button" role="tab" aria-controls="nav-Requiremen-3" aria-selected="false">Requirements3</button>
+                          <button class="nav-link" id="nav-Responsibilities-3-tab" data-bs-toggle="tab" data-bs-target="#nav-Responsibilities-3" type="button" role="tab" aria-controls="nav-Responsibilities-3" aria-selected="false">Responsibilities3 </button>
+                        </div>
+                      </nav>
+                      <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-Job-3" role="tabpanel" aria-labelledby="nav-Job-3-tab">
+                            <div class="info-wrap">
+                                <p>3We are seeking a Scientist/Senior Scientist-level candidate with a track record of research excellence and diagnostic product development experience to join our R&D team. Expertise and knowledge of recent scientific and technological advances in molecular diagnostics and immunodiagnostics are required. The ideal candidate will be a highly motivated individual who leads from the bench and enjoys having broad responsibilities and opportunities. Activities may be focused on individual projects or assignments as a senior technical member of a project team, which may include project leadership duties.</p>
+                                <a href="" class="btn">Apply Here</a>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Requiremen-3" role="tabpanel" aria-labelledby="nav-Requiremen-3-tab">
+                            <div class="info-wrap">
+                                <p>3We are seeking a Scientist/Senior Scientist-level candidate with a track record of research excellence and diagnostic product development experience to join our R&D team. Expertise and knowledge of recent scientific and technological advances in molecular diagnostics and immunodiagnostics are required. The ideal candidate will be a highly motivated individual who leads from the bench and enjoys having broad responsibilities and opportunities. Activities may be focused on individual projects or assignments as a senior technical member of a project team, which may include project leadership duties.</p>
+                                <a href="" class="btn">Apply Here</a>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Responsibilities-3" role="tabpanel" aria-labelledby="nav-Responsibilities-3-tab">
+                            <div class="info-wrap">
+                                <p>3We are seeking a Scientist/Senior Scientist-level candidate with a track record of research excellence and diagnostic product development experience to join our R&D team. Expertise and knowledge of recent scientific and technological advances in molecular diagnostics and immunodiagnostics are required. The ideal candidate will be a highly motivated individual who leads from the bench and enjoys having broad responsibilities and opportunities. Activities may be focused on individual projects or assignments as a senior technical member of a project team, which may include project leadership duties.</p>
+                                <a href="" class="btn">Apply Here</a>
+                            </div>
+                        </div>
+                      </div>
+                </div> -->
+                <!-- <div class="tab-item">
+                    <h2>Scientist/Sr. Scientist</h2>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <button class="nav-link active" id="nav-Job-4-tab" data-bs-toggle="tab" data-bs-target="#nav-Job-4" type="button" role="tab" aria-controls="nav-Job-4" aria-selected="true">Job Description4</button>
+                          <button class="nav-link" id="nav-Requiremen-4-tab" data-bs-toggle="tab" data-bs-target="#nav-Requiremen-4" type="button" role="tab" aria-controls="nav-Requiremen-4" aria-selected="false">Requirements4</button>
+                          <button class="nav-link" id="nav-Responsibilities-4-tab" data-bs-toggle="tab" data-bs-target="#nav-Responsibilities-4" type="button" role="tab" aria-controls="nav-Responsibilitie4" aria-selected="false">Responsibilities4 </button>
+                        </div>
+                      </nav>
+                      <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-Job-4" role="tabpanel" aria-labelledby="nav-Job-4-tab">
+                            <div class="info-wrap">
+                                <p>4We are seeking a Scientist/Senior Scientist-level candidate with a track record of research excellence and diagnostic product development experience to join our R&D team. Expertise and knowledge of recent scientific and technological advances in molecular diagnostics and immunodiagnostics are required. The ideal candidate will be a highly motivated individual who leads from the bench and enjoys having broad responsibilities and opportunities. Activities may be focused on individual projects or assignments as a senior technical member of a project team, which may include project leadership duties.</p>
+                                <a href="" class="btn">Apply Here</a>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Requiremen-4" role="tabpanel" aria-labelledby="nav-Requiremen-4-tab">
+                            <div class="info-wrap">
+                                <p>4We are seeking a Scientist/Senior Scientist-level candidate with a track record of research excellence and diagnostic product development experience to join our R&D team. Expertise and knowledge of recent scientific and technological advances in molecular diagnostics and immunodiagnostics are required. The ideal candidate will be a highly motivated individual who leads from the bench and enjoys having broad responsibilities and opportunities. Activities may be focused on individual projects or assignments as a senior technical member of a project team, which may include project leadership duties.</p>
+                                <a href="" class="btn">Apply Here</a>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Responsibilities-4" role="tabpanel" aria-labelledby="nav-Responsibilities-4-tab">
+                            <div class="info-wrap">
+                                <p>4We are seeking a Scientist/Senior Scientist-level candidate with a track record of research excellence and diagnostic product development experience to join our R&D team. Expertise and knowledge of recent scientific and technological advances in molecular diagnostics and immunodiagnostics are required. The ideal candidate will be a highly motivated individual who leads from the bench and enjoys having broad responsibilities and opportunities. Activities may be focused on individual projects or assignments as a senior technical member of a project team, which may include project leadership duties.</p>
+                                <a href="" class="btn">Apply Here</a>
+                            </div>
+                        </div>
+                      </div>
+                </div> -->
+                <!-- Tab Content end -->
+                <?php if ($jobdata->max_num_pages > 1){?>
+                <div class="button-wrap text-center mt-60">
+                    <a href="javascript:void(0)" data-currentpage="1" class="btn misha_loadmore_jobs">View More</a>
+                </div>
+                <?php } ?>
+               </div>
+            </div>
+         </section>
+        
+         <?php get_sidebar('commonsections'); ?>
+      </main>
+      <!-- body section end -->
+<?php get_footer(); ?>
+**************careear-page*******************
+*****ajax-load-more****
+****************Another perfect example of load more********************

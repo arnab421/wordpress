@@ -1,0 +1,271 @@
+Admin login url:http://localhost/wordpress/wp-admin/ 
+site_url:http://localhost/wordpress/
+username:Firstsite@developer@2022
+password:mT4#h)9uqutalON0w*  
+
+************************End**************************** 
+yacht project 
+******yacht******
+logo and all change options inside the appearence menu 
+*****yacht project end**********
+
+<?php 
+      if(is_tax( 'candidate_type' )){
+         echo "<h1>Test</h1>";
+      }
+?>
+<script>
+    jQuery( document ).ready(function() {
+        
+    });
+</script>
+active menu class
+menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-46 current_page_item menu-item-58
+
+menu-item menu-item-type-post_type menu-item-object-page menu-item-55 
+
+
+menu-item-55 
+
+current_candidate 
+
+<?php echo do_shortcode('[sp_testimonial				id="2054"]');?> 
+<?php echo do_shortcode('[sp_testimonial				id="2054"]');?>
+
+Sevice list  page  smilar as projects like as archieve page. 
+
+<h2 class="section-title">WE ARE <span class="text-primary">WORLDWIDE</span></h2> 
+
+blog section Html
+
+<article class="blog">
+<div class="row">
+<div class="blog-thumbnail col-md-8">
+<div class="blog-thumbnail-bg col-md-8 visible-md visible-lg" style="background-image: url(img/blog/1-760x514.jpg);"></div>
+<div class="blog-thumbnail-img visible-xs visible-sm"><img alt="" class="img-responsive" src="img/blog/1-760x514.jpg"></div>
+</div>
+<div class="blog-info col-md-4">
+<div class="blog-tags">
+<a href="">marketing</a>
+<a href="">technology</a>
+<a href="">design</a>
+<a href="">technology</a>
+<a href="">design</a>
+</div>
+<h3 class="blog-title">
+<a href="">Advice for stirring your online community and fostering engagement</a>
+</h3>
+<p>Sticky note agile personas engaging ship it ideate disrupt earned media.</p>
+<div class="blog-meta">
+<div class="author">
+by <a href="#">Craig David</a>
+</div>
+<div class="time">July, 26</div>
+</div>
+<div class="text-right"><a href="" class="read-more">Read more</a></div>
+</div>
+</div>
+</article> 
+
+old code 
+<li class="alm-item<?php if (!has_post_thumbnail()) { ?> no-img<?php } ?>">
+   <?php if ( has_post_thumbnail() ) { the_post_thumbnail('alm-thumbnail'); }?>
+   <h3><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3>
+   <p class="entry-meta"><?php the_time("F d, Y"); ?></p>
+   <?php the_excerpt(); ?>
+</li>
+old code end 
+
+<div class="page-lines">
+<div class="container">
+<div class="col-line col-xs-4">
+<div class="line"></div>
+</div>
+<div class="col-line col-xs-4">
+<div class="line"></div>
+</div>
+<div class="col-line col-xs-4">
+<div class="line"></div>
+<div class="line"></div>
+</div>
+</div>
+</div>  
+
+
+
+<article class="blog">
+<div class="row">
+<?php 
+$service_image = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
+?>
+<div class="blog-thumbnail col-md-8">
+<div class="blog-thumbnail-bg col-md-8 visible-md visible-lg" style="background-image: url(<?php echo $service_image[0]?>);"></div>
+<div class="blog-thumbnail-img visible-xs visible-sm"><img alt="" class="img-responsive" src="<?php echo $service_image[0];?>"></div>
+</div>
+<div class="blog-info col-md-4">
+
+<h3 class="blog-title">
+<a href="<?php echo get_the_permalink($services->ID); ?>"><?php echo get_the_title();?></a>
+</h3>
+<p><?php echo get_the_content()?></p>
+<div class="blog-meta">
+<div class="author">
+by <a href="<?php echo get_the_permalink($services->ID); ?>"><?php echo get_the_author();?></a>
+</div>
+<div class="time"><?php echo get_the_date();?></div>
+</div>
+<div class="text-right"><a href="<?php echo get_the_permalink($services->ID); ?>" class="read-more">Read more</a></div>
+</div>
+</div>
+</article> 
+
+service details page structure 
+
+***************
+<?php get_header(); ?>
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
+<main class="main main-inner main-blog bg-blog" data-stellar-background-ratio="0.6" style="background-position: 50% 0px;">
+    <div class="container">
+        <header class="main-header">
+            <h1>Services details</h1>
+        </header>
+    </div>
+
+    <div class="page-lines">
+        <div class="container">
+            <div class="col-line col-xs-4">
+                <div class="line"></div>
+            </div>
+            <div class="col-line col-xs-4">
+                <div class="line"></div>
+            </div>
+            <div class="col-line col-xs-4">
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="content">
+    <div class="blog-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-primary col-md-8">
+                    <article class="post">
+                        <header class="post-header">
+                            <h3>Advice for stirring your online community and fostering engagement</h3>
+                            <div class="blog-meta">
+                                <div class="author">by <a href="#">Craig David</a></div>
+                                <div class="time">July, 26</div>
+                            </div>
+                        </header>
+                        
+                        <div class="post-thumbnail">
+                            <img alt="" class="img-responsive" src="img/blog/1-760x514.jpg">
+                        </div>
+
+                        <p>When you enter into any new area of science, you almost always find yourself with a baffling new language of technical terms to learn before you can converse with the experts. This is certainly true in astronomy both in terms of terms that refer to the cosmos and terms that describe the tools of the trade, the most prevalent being the telescope. So to get us off of first base, let’s define some of the key terms that pertain to telescopes to help you be able to talk to them more intelligently.</p>
+                        <p>When you enter into any new area of science, you almost always find yourself with a baffling new language of technical terms to learn before you can converse with the experts. This is certainly true in astronomy both in terms of terms that refer to the cosmos and terms that describe the tools of the trade, the most prevalent being the telescope. So to get us off of first base, let’s define some of the key terms that pertain to telescopes to help you be able to talk to them more intelligently.</p>
+                        <p>When you enter into any new area of science, you almost always find yourself with a baffling new language of technical terms to learn before you can converse with the experts. This is certainly true in astronomy both in terms of terms that refer to the cosmos and terms that describe the tools of the trade, the most prevalent being the telescope. So to get us off of first base, let’s define some of the key terms that pertain to telescopes to help you be able to talk to them more intelligently.</p>
+                    </article>
+                </div>
+                <div class="col-primary col-md-4">
+                    <div class="widget widget_recent_post">
+                        <h3 class="widget-title">Recent Post</h3>
+                        <article class="recent-post">
+                            <div class="recent-post-thumbnail">
+                                <a href=""><img alt="" src="img/blog/1-149x108.jpg" class="wp-post-image"></a>
+                            </div>
+                            <div class="recent-post-body">
+                                <h4 class="recent-post-title">
+                                    <a href="">Creativity can provide all that which is required make your advertising an</a>
+                                </h4>
+                                <div class="recent-post-time">June, 16</div>
+                            </div>
+                        </article>
+                        <article class="recent-post">
+                            <div class="recent-post-thumbnail">
+                                <a href=""><img alt="" src="img/blog/1-149x108.jpg" class="wp-post-image"></a>
+                            </div>
+                            <div class="recent-post-body">
+                                <h4 class="recent-post-title">
+                                    <a href="">Creativity can provide all that which is required make your advertising an</a>
+                                </h4>
+                                <div class="recent-post-time">June, 16</div>
+                            </div>
+                        </article>
+                        <article class="recent-post">
+                            <div class="recent-post-thumbnail">
+                                <a href=""><img alt="" src="img/blog/1-149x108.jpg" class="wp-post-image"></a>
+                            </div>
+                            <div class="recent-post-body">
+                                <h4 class="recent-post-title">
+                                    <a href="">Creativity can provide all that which is required make your advertising an</a>
+                                </h4>
+                                <div class="recent-post-time">June, 16</div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php endwhile;
+endif; ?>
+<?php get_footer(); ?>
+
+***************
+service detail page structure  
+
+<div class="author">
+        by <a href="<?php echo get_the_permalink($services->ID); ?>"><?php echo get_the_author();?></a>
+</div> 
+
+custom post type code 
+***********************start********************
+/*Custom Post type start*/
+
+function res_post_type_services()
+{
+    $supports = array(
+        'title', // post title
+        'thumbnail', // featured images
+        'custom-fields', // custom fields
+        'revisions', // post revisions
+        'editor',
+        'author',
+        'excerpt'
+    );
+    $labels = array(
+        'name' => _x('Services', 'plural'),
+        'singular_name' => _x('Service', 'singular'),
+        'menu_name' => _x('Services', 'admin menu'),
+        'name_admin_bar' => _x('Services', 'admin bar'),
+        'add_new' => _x('Add New Service', 'add new'),
+        'add_new_item' => __('Add New Service'),
+        'new_item' => __('New Service'),
+        'edit_item' => __('Edit Service'),
+        'view_item' => __('View Service'),
+        'all_items' => __('All Services'),
+        'search_items' => __('Search Services'),
+        'not_found' => __('No Services found.'),
+    );
+    $args = array(
+        'supports' => $supports,
+        'labels' => $labels,
+        'public' => true,
+        'query_var' => true,
+        'has_archive' => true,
+        'hierarchical' => false,
+    );
+    register_post_type('yacht-services', $args);
+}
+add_action('init', 'res_post_type_services');
+
+/*Custom Post type End*/
+***********************end**********************
+

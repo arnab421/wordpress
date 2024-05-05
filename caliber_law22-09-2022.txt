@@ -1,0 +1,353 @@
+Location page old using iframe 22-09-2022:
+<?php /*Template Name: Layout: Location*/ ?>
+<?php get_header('');
+?>
+<section class="slider-wrapper">
+    <img src="<?php echo get_field('inner_banner_image'); ?>" alt="banner">
+    <div class="container">
+        <div class="inner-content-wrapper text-center text-white">
+            <h1><?php echo get_field('inner_banner_heading'); ?></h1>
+        </div>
+    </div>
+</section>
+<!--content sction-->
+<main>
+    <?php
+    $location_value = $_GET['location'];
+    ?>
+    <section class="contact-information common-padd-two">
+        <div class="container">
+
+            <div class="tab-sec locationDetails">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="locationHdr">
+                            <h2><?php echo get_field('location_section_heading'); ?></h2>
+                            <div class="tab-flx">
+                                <ul class="nav" id="myTab" role="tablist">
+                                    <?php
+                                    $i = 0;
+                                    $args = array(
+                                        'post_type' => 'locations',
+                                        'posts_per_page' => -1,
+                                        'post_status' => 'publish',
+                                        'order' => 'DESC',
+                                    );
+
+                                    $location = new WP_Query($args);
+                                    if ($location->have_posts()) {
+                                        while ($location->have_posts()) {
+                                            $location->the_post();
+                                            $location_image = wp_get_attachment_image_src(get_post_thumbnail_id($location->ID), 'full');
+                                            $i++;
+                                    ?>
+                                            <?php
+                                            if ($location_value == "") {
+                                                if ($i == 1) {
+                                                    $area = true;
+                                                    $activeclass = "active";
+                                                }
+                                                else if ($i == 2) {
+                                                    $area = false;
+                                                    $activeclass = "";
+                                                } else {
+                                                    $area = false;
+                                                    $activeclass = "";
+                                                }
+                                            } 
+                                            // Extra code added
+                                            if($location_value != ""){
+                                                if($location_value == 1){
+                                                    if($location_value == 1 && $i == 1){
+                                                        $area = true;
+                                                        $activeclass = "active";
+                                                    }
+                                                    else {
+                                                        $area = false;
+                                                        $activeclass = "";
+                                                    }
+                                                } 
+
+                                                else if ($location_value == 2){
+                                                    if($location_value == 2 && $i == 2){
+                                                        $area = true;
+                                                        $activeclass = "active";
+                                                    }
+                                                    else {
+                                                        $area = false;
+                                                        $activeclass = "";
+                                                    }
+                                                } 
+
+                                                else if($location_value == 3){
+                                                    if($location_value == 3 && $i == 3){
+                                                        $area = true;
+                                                        $activeclass = "active";
+                                                    }
+                                                    else {
+                                                        $area = false;
+                                                        $activeclass = "";
+                                                    }
+                                                } 
+
+                                                else if($location_value == 4){
+                                                    if($location_value == 4 && $i == 4){
+                                                        $area = true;
+                                                        $activeclass = "active";
+                                                    }
+                                                    else {
+                                                        $area = false;
+                                                        $activeclass = "";
+                                                    }
+                                                }
+
+                                                else {
+                                                    if($location_value == 5 && $i == 5){
+                                                        $area = true;
+                                                        $activeclass = "active";
+                                                    }
+                                                    else {
+                                                        $area = false;
+                                                        $activeclass = "";
+                                                    }
+                                                }
+                                            }
+                                            // Extra Code Added
+
+                                            ?>
+                                            <li class="nav-item <?php echo $activeclass; ?>" role="presentation">
+                                                <button class="nav-link" id="about-tab<?php echo $i; ?>" data-bs-toggle="tab" data-bs-target="#about-tab-content<?php echo $i; ?>" type="button" role="tab" aria-controls="home" aria-selected="<?php echo $area; ?>">
+                                                    <div class="locationDetailsInnr">
+                                                        <div class="ooficelocationTxt">
+                                                            <h6><svg class="svg-inline--fa fa-map-marker-alt fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg="">
+                                                                    <path fill="currentColor" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z">
+                                                                    </path>
+                                                                </svg><span class="title"><?php echo get_the_title(); ?></span></h6>
+                                                            <p><?php echo get_the_excerpt($location->ID); ?></p>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </li>
+                                    <?php }
+                                    }
+
+                                    wp_reset_postdata(); ?>
+                                    <!-- <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="about-tab2" data-bs-toggle="tab" data-bs-target="#about-tab-content2" type="button" role="tab" aria-controls="profile" aria-selected="false">
+                                            <div class="locationDetailsInnr">
+                                                <div class="ooficelocationTxt">
+                                                    <h6><svg class="svg-inline--fa fa-map-marker-alt fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg="">
+                                                            <path fill="currentColor" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z">
+                                                            </path>
+                                                        </svg>Mississauga (Head Office)</h6>
+                                                    <p>5805 Whittle Road, Suite 202, Mississauga, ON, L4Z 2J1</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </li> -->
+                                    <!-- <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="about-tab3" data-bs-toggle="tab" data-bs-target="#about-tab-content3" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                                            <div class="locationDetailsInnr">
+                                                <div class="ooficelocationTxt">
+                                                    <h6><svg class="svg-inline--fa fa-map-marker-alt fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg="">
+                                                            <path fill="currentColor" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z">
+                                                            </path>
+                                                        </svg>Richmond Hill</h6>
+                                                    <p>Unit 305, 330 Highway 7 East, Richmond Hill, ON L4B 3P8</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </li> -->
+                                    <!-- <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="about-tab4" data-bs-toggle="tab" data-bs-target="#about-tab-content4" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                                            <div class="locationDetailsInnr">
+                                                <div class="ooficelocationTxt">
+                                                    <h6><svg class="svg-inline--fa fa-map-marker-alt fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg="">
+                                                            <path fill="currentColor" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z">
+                                                            </path>
+                                                        </svg>North York</h6>
+                                                    <p>1 Concorde Gate suite 702, North York, ON M3C 3N6</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </li> -->
+                                    <!-- <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="about-tab5" data-bs-toggle="tab" data-bs-target="#about-tab-content5" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                                            <div class="locationDetailsInnr">
+                                                <div class="ooficelocationTxt">
+                                                    <h6><svg class="svg-inline--fa fa-map-marker-alt fa-w-12" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg="">
+                                                            <path fill="currentColor" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z">
+                                                            </path>
+                                                        </svg>Vaughan</h6>
+                                                    <p>3300 Highway 7, Suite 600, Vaughan, Ontario, Canada, L4K 4M3</p>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </li> -->
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="tab-content" id="myTabContent">
+                            <?php
+                            $j = 0;
+                            $args = array(
+                                'post_type' => 'locations',
+                                'posts_per_page' => -1,
+                                'post_status' => 'publish',
+                                'order' => 'DESC',
+                            );
+
+                            $location = new WP_Query($args);
+                            if ($location->have_posts()) {
+                                while ($location->have_posts()) {
+                                    $location->the_post();
+                                    $location_image = wp_get_attachment_image_src(get_post_thumbnail_id($location->ID), 'full');
+                                    $j++;
+                            ?>
+                                    <?php
+                                    if ($location_value == "") {
+                                        if ($j == 1) {
+                                            $showcls = "show";
+                                            $actcls = "active";
+                                        } else {
+                                            $showcls = "";
+                                            $actcls = "";
+                                        }
+                                    }
+                                    if($location_value != "")
+                                    {
+                                    if($location_value == 1){
+                                    if ($location_value == "1" && $j == "1") {
+                                        $showcls = "show";
+                                        $actcls = "active";
+                                    } else {
+                                        $showcls = "";
+                                        $actcls = "";
+                                    }
+                                    }
+                                    else if($location_value == 2){
+                                    if ($location_value == "2" && $j == "2") {
+                                        $showcls = "show";
+                                        $actcls = "active";
+                                    } else {
+                                        $showcls = "";
+                                        $actcls = "";
+                                    }  
+                                    }
+                                    else if($location_value == 3)
+                                    {
+                                    if ($location_value == "3" && $j == "3") {
+                                        $showcls = "show";
+                                        $actcls = "active";
+                                    } else {
+                                        $showcls = "";
+                                        $actcls = "";
+                                    }  
+                                    } 
+                                    else if($location_value == 4) {
+                                      
+                                        if ($location_value == "4" && $j == "4") {
+                                            $showcls = "show";
+                                            $actcls = "active";
+                                        } else {
+                                            $showcls = "";
+                                            $actcls = "";
+                                        } 
+                                    }
+                                    
+                                    else{
+                                        
+                                        if ($location_value == "5" && $j == "5") {
+                                            $showcls = "show";
+                                            $actcls = "active";
+                                        } else {
+                                            $showcls = "";
+                                            $actcls = "";
+                                        }
+                                    }
+                                    
+
+                                  }
+
+                                    ?>
+                                    <div class="tab-pane fade <?php echo $showcls; ?> <?php echo $actcls; ?>" id="about-tab-content<?php echo $j; ?>" role="tabpanel" aria-labelledby="about-tab<?php echo $j; ?>">
+                                        <div class="locatonMap">
+                                            <iframe src="<?php echo get_field('location_map_iframe', $location->ID); ?>" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </div>
+                                    </div>
+                            <?php }
+                            }
+
+                            wp_reset_postdata(); ?>
+                            <!-- <div class="tab-pane fade show active" id="about-tab-content2" role="tabpanel" aria-labelledby="about-tab2">
+                                <div class="locatonMap">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2895.42458716385!2d-79.6666958850003!3d43.472608872108474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b5cb3adbfffff%3A0x1ce7841210a7a2ef!2s1300%20Cornwall%20Rd%20%23201P%2C%20Oakville%2C%20ON%20L6J%207W5%2C%20Canada!5e0!3m2!1sen!2sin!4v1661956819264!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                            </div> -->
+                            <!-- <div class="tab-pane fade" id="about-tab-content3" role="tabpanel" aria-labelledby="about-tab3">
+                                <div class="locatonMap">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2895.42458716385!2d-79.6666958850003!3d43.472608872108474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b5cb3adbfffff%3A0x1ce7841210a7a2ef!2s1300%20Cornwall%20Rd%20%23201P%2C%20Oakville%2C%20ON%20L6J%207W5%2C%20Canada!5e0!3m2!1sen!2sin!4v1661956819264!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                            </div> -->
+                            <!-- <div class="tab-pane fade" id="about-tab-content4" role="tabpanel" aria-labelledby="about-tab4">
+                                <div class="locatonMap">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2895.42458716385!2d-79.6666958850003!3d43.472608872108474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b5cb3adbfffff%3A0x1ce7841210a7a2ef!2s1300%20Cornwall%20Rd%20%23201P%2C%20Oakville%2C%20ON%20L6J%207W5%2C%20Canada!5e0!3m2!1sen!2sin!4v1661956819264!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                            </div> -->
+                            <!-- <div class="tab-pane fade" id="about-tab-content5" role="tabpanel" aria-labelledby="about-tab5">
+                                <div class="locatonMap">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2895.42458716385!2d-79.6666958850003!3d43.472608872108474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b5cb3adbfffff%3A0x1ce7841210a7a2ef!2s1300%20Cornwall%20Rd%20%23201P%2C%20Oakville%2C%20ON%20L6J%207W5%2C%20Canada!5e0!3m2!1sen!2sin!4v1661956819264!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row contact-box">
+                <div class="col-lg-4">
+                    <div class="contact-box-top">
+                        <span><i class="fas fa-map-marker-alt"></i></span>
+                        <h5><?php echo get_field('location_page_contact_address_heading'); ?></h5>
+                    </div>
+                    <div class="contact-box-bottom">
+                        <p><?php echo get_field('location_page_contact_address'); ?></p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-box-top">
+                        <span><i class="fas fa-phone-alt"></i></span>
+                        <h5><?php echo get_field('location_page_phone_number_heading'); ?></h5>
+                    </div>
+                    <div class="contact-box-bottom">
+                        <a href="tel:<?php echo get_field('location_page_phone_number_one'); ?>/ tel:<?php echo get_field('location_page_phone_number_two'); ?>"><?php echo get_field('location_page_phone_number_one'); ?> / <?php echo get_field('location_page_phone_number_two'); ?></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-box-top">
+                        <span><i class="fas fa-envelope"></i></span>
+                        <h5><?php echo get_field('location_page_email_heading'); ?></h5>
+                    </div>
+                    <div class="contact-box-bottom">
+                        <a href="mailto:<?php echo get_field('location_page_email_address');?>"><?php echo get_field('location_page_email_address');?></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
+<!--content sction-->
+<script>
+    jQuery(".nav-item").click( function(){
+    jQuery(".nav-item.active").removeClass("active");
+
+});
+</script>
+<?php get_footer(); ?>
+Location Page old:

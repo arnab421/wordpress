@@ -1,0 +1,365 @@
+contact form
+process first create new form in english then click plus sign to create a from in french 
+
+access
+WORDPRESS:
+https://consultationgrsw.com/wp-admin/
+http://consultationgrsw.com/206%209ieme%20Avenue/wp-admin/
+ 
+user :                    TaktikDev
+pwd :                    GcpHIm&sdgas5%O9pNkR&NC
+access
+[_site_admin_email], jerome@taktikcom.com
+****************start**************
+<div class="row">
+                            <div class="col-lg-6">
+            [text* firstname-708 id:firstname1 class:form-control placeholder"First name"]
+</div>
+                            <div class="col-lg-6">
+            [text* surname-709 id:surname1 class:form-control placeholder"Surname"]
+                            </div>
+                            <div class="col-lg-6">
+            [email* email-258 id:email1 class:form-control placeholder"E-mail"]
+                            </div>
+                            <div class="col-lg-6">
+            [tel* tel-953 id:phone1 class:form-control placeholder"Call"]
+                            </div>
+                            <div class="col-lg-12">
+   [textarea textarea-828 id:message1 class:form-control placeholder"Enter your message..."]
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="cwrap">
+                                 <h4>Are you looking for one?</h4>
+                                 [radio  label_first default:2 "POSITION" "CANDIDATE"]
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                [submit class:btn class:submit  "Submit your application"]
+                            </div>
+                        </div>
+						
+						
+From: [firstname-708]<[email-258]>
+Subject: Contact Form
+
+Message Body:
+First Name: [firstname-708] 
+Last name: [surname-709]
+Email: [email-258] 
+Phone: [tel-953]
+Message: [textarea-828] 
+Looking for one? : [label_first]
+
+-- 
+This e-mail was sent from a contact form on [_site_title] ([_site_url])						
+****************end****************
+
+
+
+candidate form in english
+*******************start**************
+<div class="row">
+                            <div class="col-lg-6">
+            [text* firstname-708 id:firstname1 class:form-control placeholder"First name"]
+</div>
+                            <div class="col-lg-6">
+            [text* surname-709 id:surname1 class:form-control placeholder"Surname"]
+                            </div>
+                            <div class="col-lg-6">
+            [email* email-258 id:email1 class:form-control placeholder"E-mail"]
+                            </div>
+                            <div class="col-lg-6">
+            [tel* tel-953 id:phone1 class:form-control placeholder"Call"]
+                            </div>
+                            <div class="col-lg-12">
+   [textarea textarea-828 id:message1 class:form-control placeholder"Enter your message..."]
+                            </div>
+                             [hidden candidate-information class:page-value] 
+                             [hidden  page-name "CANDIDATE"]
+                            <div class="col-lg-12">
+                                [submit class:btn class:submit  "Submit"]
+                            </div>
+                        </div> 
+						
+				
+From: [firstname-708]<[email-258]>
+Subject: Contact Form
+
+Message Body:
+First Name: [firstname-708] 
+Last name: [surname-709]
+Email: [email-258] 
+Phone: [tel-953]
+Message: [textarea-828] 
+Cadidate Message : [candidate-information]
+Page Name : [page-name]
+
+-- 
+This e-mail was sent from a contact form on [_site_title] ([_site_url])				
+*******************end**************** 
+
+
+position form 
+
+****************start**************
+<div class="row">
+                            <div class="col-lg-6">
+            [text* firstname-708 id:firstname1 class:form-control placeholder"First name"]
+</div>
+                            <div class="col-lg-6">
+            [text* surname-709 id:surname1 class:form-control placeholder"Surname"]
+                            </div>
+                            <div class="col-lg-6">
+            [email* email-258 id:email1 class:form-control placeholder"E-mail"]
+                            </div>
+                            <div class="col-lg-6">
+            [tel* tel-953 id:phone1 class:form-control placeholder"Call"]
+                            </div>
+                            <div class="col-lg-12">
+   [textarea textarea-828 id:message1 class:form-control placeholder"Enter your message..."]
+                            </div>
+                             [hidden position-information class:position-value]
+                             [hidden  page-information "POSITION"]
+                            <div class="col-lg-12">
+                                [submit class:btn class:submit  "Submit"]
+                            </div>
+                        </div>  
+						
+						
+From: [firstname-708]<[email-258]>
+Subject: Contact Form
+
+Message Body:
+First Name: [firstname-708] 
+Last name : [surname-709]
+Email: [email-258] 
+Phone: [tel-953]
+Message: [textarea-828] 
+Cadidate Message : [position-information]
+Page Information : [page-information]
+
+-- 
+This e-mail was sent from a contact form on [_site_title] ([_site_url])						
+*******************end*************
+
+
+
+candidate fench from 
+************start**************
+<div class="row">
+                            <div class="col-lg-6">
+            [text* firstname-708 id:firstname1 class:form-control placeholder"First name"]
+</div>
+                            <div class="col-lg-6">
+            [text* surname-709 id:surname1 class:form-control placeholder"Surname"]
+                            </div>
+                            <div class="col-lg-6">
+            [email* email-258 id:email1 class:form-control placeholder"E-mail"]
+                            </div>
+                            <div class="col-lg-6">
+            [tel* tel-953 id:phone1 class:form-control placeholder"Call"]
+                            </div>
+                            <div class="col-lg-12">
+   [textarea textarea-828 id:message1 class:form-control placeholder"Enter your message..."]
+                            </div>
+                             [hidden candidate-information class:page-value] 
+                             [hidden  page-name "CANDIDATE"]
+                            <div class="col-lg-12">
+                                [submit class:btn class:submit  "Submit"]
+                            </div>
+                        </div>
+						
+						From: [firstname-708]<[email-258]>
+Subject: Contact Form
+
+Message Body:
+Prénom: [firstname-708] 
+Nom: [surname-709]
+Email: [email-258] 
+Tél: [tel-953]
+Message: [textarea-828] 
+Cadidate Message : [candidate-information]
+Page Name : [page-name]
+
+-- 
+This e-mail was sent from a contact form on [_site_title] ([_site_url])
+************end****************  
+
+
+contact form in french
+***********************start******************
+<div class="row">
+                            <div class="col-lg-6">
+            [text* firstname-708 id:firstname1 class:form-control placeholder"First name"]
+</div>
+                            <div class="col-lg-6">
+            [text* surname-709 id:surname1 class:form-control placeholder"Surname"]
+                            </div>
+                            <div class="col-lg-6">
+            [email* email-258 id:email1 class:form-control placeholder"E-mail"]
+                            </div>
+                            <div class="col-lg-6">
+            [tel* tel-953 id:phone1 class:form-control placeholder"Call"]
+                            </div>
+                            <div class="col-lg-12">
+   [textarea textarea-828 id:message1 class:form-control placeholder"Enter your message..."]
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="cwrap">
+                                 <h4>Are you looking for one?</h4>
+                                 [radio  label_first default:2 "POSITION" "CANDIDATE"]
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                [submit class:btn class:submit  "Submit your application"]
+                            </div>
+                        </div>
+						
+						
+						From: [firstname-708]<[email-258]>
+Subject: Contact Form
+
+Message Body:
+First Name: [firstname-708] 
+Last name: [surname-709]
+Email: [email-258] 
+Phone: [tel-953]
+Message: [textarea-828] 
+Looking for one? : [label_first]
+
+-- 
+This e-mail was sent from a contact form on [_site_title] ([_site_url])
+***********************end********************
+
+
+Final
+English Contact Form english
+******start**************
+<div class="row">
+                            <div class="col-lg-6">
+            [text* firstname-708 id:firstname1 class:form-control placeholder"First name"]
+</div>
+                            <div class="col-lg-6">
+            [text* surname-709 id:surname1 class:form-control placeholder"Surname"]
+                            </div>
+                            <div class="col-lg-6">
+            [email* email-258 id:email1 class:form-control placeholder"E-mail"]
+                            </div>
+                            <div class="col-lg-6">
+            [tel* tel-953 id:phone1 class:form-control placeholder"Call"]
+                            </div>
+                            <div class="col-lg-12">
+   [textarea textarea-828 id:message1 class:form-control placeholder"Enter your message..."]
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="cwrap">
+                                 <h4>Are you looking for one?</h4>
+                                 [radio  label_first default:2 "POSITION" "CANDIDATE"]
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                [submit class:btn class:submit  "Submit your application"]
+                            </div>
+                        </div> 
+						
+						
+From: [firstname-708]<[email-258]>
+Subject: Contact Form
+
+Message Body:
+First Name: [firstname-708] 
+Last name: [surname-709]
+Email: [email-258] 
+Phone: [tel-953]
+Message: [textarea-828] 
+Looking for one? : [label_first]
+
+-- 
+This e-mail was sent from a contact form on [_site_title] ([_site_url])						
+******end************
+candidate form English
+*****************start**************
+<div class="row">
+                            <div class="col-lg-6">
+            [text* firstname-708 id:firstname1 class:form-control placeholder"First name"]
+</div>
+                            <div class="col-lg-6">
+            [text* surname-709 id:surname1 class:form-control placeholder"Surname"]
+                            </div>
+                            <div class="col-lg-6">
+            [email* email-258 id:email1 class:form-control placeholder"E-mail"]
+                            </div>
+                            <div class="col-lg-6">
+            [tel* tel-953 id:phone1 class:form-control placeholder"Call"]
+                            </div>
+                            <div class="col-lg-12">
+   [textarea textarea-828 id:message1 class:form-control placeholder"Enter your message..."]
+                            </div>
+                             [hidden candidate-information class:page-value] 
+                             [hidden  page-name "CANDIDATE"]
+                            <div class="col-lg-12">
+                                [submit class:btn class:submit  "Submit"]
+                            </div>
+                        </div> 
+						
+
+From: [firstname-708]<[email-258]>
+Subject: Contact Form
+
+Message Body:
+First Name: [firstname-708] 
+Last name: [surname-709]
+Email: [email-258] 
+Phone: [tel-953]
+Message: [textarea-828] 
+Cadidate Message : [candidate-information]
+Page Name : [page-name]
+
+-- 
+This e-mail was sent from a contact form on [_site_title] ([_site_url])						
+***************end***********
+form-[_site_title] <wordpress@consultationgrsw.com> 
+
+
+French candidate form 
+**********************start**************
+<div class="row">
+                            <div class="col-lg-6">
+            [text* firstname-708 id:firstname1 class:form-control placeholder"First name"]
+</div>
+                            <div class="col-lg-6">
+            [text* surname-709 id:surname1 class:form-control placeholder"Surname"]
+                            </div>
+                            <div class="col-lg-6">
+            [email* email-258 id:email1 class:form-control placeholder"E-mail"]
+                            </div>
+                            <div class="col-lg-6">
+            [tel* tel-953 id:phone1 class:form-control placeholder"Call"]
+                            </div>
+                            <div class="col-lg-12">
+   [textarea textarea-828 id:message1 class:form-control placeholder"Enter your message..."]
+                            </div>
+                             [hidden candidate-information class:page-value] 
+                             [hidden  page-name "CANDIDATE"]
+                            <div class="col-lg-12">
+                                [submit class:btn class:submit  "Submit"]
+                            </div>
+                        </div>
+						
+						From: [firstname-708]<[email-258]>
+Subject: Contact Form
+
+Message Body:
+Prénom: [firstname-708] 
+Nom: [surname-709]
+Email: [email-258] 
+Tél: [tel-953]
+Message: [textarea-828] 
+Cadidate Message : [candidate-information]
+Page Name : [page-name]
+
+-- 
+This e-mail was sent from a contact form on [_site_title] ([_site_url])
+
+**********************end*****************
+

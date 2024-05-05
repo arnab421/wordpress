@@ -1,0 +1,22 @@
+URL: https://demo.weavers-web.com/arnab/
+
+Admin access of my folder in server
+USername: Firstsite@developer@180122
+Password: n0l69eOKvql9N2kN
+admin-backend-url:https://demo.weavers-web.com/arnab/wp-admin/ 
+
+Weavers-Web development server password-protected PHPMyAdmin credentials.
+URL: https://ip-128-199-28-33.server.weavers-web.com/dbadminforweaversweb
+Username: arnab.das@weavers-web.com
+Password: a?[6}G)BD
+
+Database Name: db_arnab
+UserName: usr_arnab
+Password: XNa?[6}G)BD<jNOG!+   
+
+
+how to unzip a file with php code 
+<?php system('unzip ElevateTalent.zip');
+ echo ("successfully unzipped");
+?>  
+End

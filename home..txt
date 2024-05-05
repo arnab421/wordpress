@@ -1,0 +1,194 @@
+
+1  https://www.sbigeneral.in/portal/policy-  RENEW POLICY       Body/middle              Renew Your Policy
+2                                                                Body/middle             Motor Policy
+3                                                                                        Select Policy
+4                                                                                         Two wheeler
+5                                                                                          Four wheeler
+6                                                                                          Health Policy
+7                                                                                          Arogya Plus
+8                                                                                          Arogya Premier
+9                                                                                          Arogya Top up
+10                                                                                          Critical illness
+11                                                                                          Group Health Insurance SBI
+12
+                                                                                             Health Insuarance Policy Retail
+13
+14                                                                                           Hospital Daily Cash
+15                                                                                           Individual Personal Accident
+16                                                                                           PAI Renewal
+17                                                                                           Become an Agent
+18                                                                                             Intimate Claim
+19                                                                                            Renew Policy
+20
+                       end of Renew Policy*****
+       
+                  start of   Products page   
+
+21 https://www.sbigeneral.in/portal/product      Products        Body/top                    SBI General Products    
+22                                                               Body/top                    We believe insurance was always meant to protect what one loves
+23                                                                Body/top                    Prices That Can’t Get Any Better
+24                                                                Body/middle                 Products 
+25                                                                                             Retail
+26                                                                                            Corporate
+27                                                                                              Rural
+28  https://www.sbigeneral.in/portal/product                        Body/middle                Liability
+
+29  https://www.sbigeneral.in/portal/product                        Body/middle            ovid-19 Insuarance
+30                                                                                         Shagun-Gift an insurance
+31                                                                                         Health
+32                                                                                         Home
+33                                                                                         Travel
+34                                                                                          Motor
+35  https://www.sbigeneral.in/portal/product                                                Personal Accident
+
+
+
+
+36 https://www.sbigeneral.in/portal/product/retail  Products/retail  Body/middle                   Arogya Sanjeevani Policy, SBI General Insurance Company Limited
+37                                                                   Boby/middle                   Arogya Premier Policy
+38                                                                                                 Arogya Plus Policy
+40                                                                                                 Arogya Top up Policy
+41                                                                                                  Retail Health Insurance Policy  
+42                                                                                                 Critical Illness Insurance Policy
+43                                                                                                 Hospital Daily Cash Insurance Policy
+44                                                                                                  Group Health Insurance - SBI
+45                                                   Products/retail Boby/middle                     Loan Insurance Policy 
+
+
+            corporate***************
+ 
+46 https://www.sbigeneral.in/portal/product/corporate   Products/Corporate                            Miscellaneous
+47                                                                                                    Fire
+48                                                                                                    Marine
+49                                                                                                    Packge
+50                                                                                                     motor
+51                                                                                                     Construction/Enginnering
+52                                                                                                     Others
+53                                                                                                     Money Insurance Policy
+54                                                                                                     Plate Glass Insurance Policy
+55 https://www.sbigeneral.in/portal/product/corporate   Products/corporate  Body/middle                 Burglary Insurance Policy
+56 https://www.sbigeneral.in/portal/product/corporate    products/corporate  Body/middle                Motor Trade-Road Transit
+57                                                                                                      Motor Trade-Road Risk
+58                                                                                                      Motor Trade-Internal Risk
+59                                                                                                      Group Personal Accident
+60                                                                                                      Group Health Insurance Policy
+61                                                                                                      Group Loan Insurance Policy
+62                                                                                                      Arogya Sanjeevani Group Product
+63                                                                                                      Standard Fire & Special Perils (SFSP ) Insurance Policy
+64                                                                                                      Consequential Loss (Fire) Insurance Policy
+65                                                                                                      Marine Cargo Insurance - Open Cover
+66                                                                                                      Industrial All Risks Insurance Policy
+67                                                                                                      Business Package Insurance Policy
+68                                                                                                      Latent Defects Insurance Policy
+69                                                                                                      Electronic Equipment Insurance (EEI)
+70                                                                                                      Contractors All Risks (CAR) Insurance
+71                                                                                                      Erection All Risks (EAR) Insurance
+72                                                                                                      Contractors Plant & Machinery Insurance (CPM)
+73                                                                                                      Machinery Breakdown Insurance (MB)
+74                                                                                                      Boiler & Pressure Plant Insurance
+75                                                                                                      Machinery Loss of Profit Insurance Policy
+76                                                                                                      Sign Board Insurance Policy
+77                                                                                                      Modified National Agriculture Insurance Scheme (MNAIS)
+78                                                                                                      Trade Credit Insurance Policy
+79                                                                                                      Aviation & Hull Package policy
+80                                                                                                      SME Package Insurance Policy
+81                                                                                                      Cellular Network Insurance policy
+82                                                                                                      Advance Loss of Profit Policy
+83                                                                                                      Baggage Insurance Policy
+84                                                                                                      Portable Electronic Equipment Insurance Policy
+85                                                                                                      Weather Insurance
+86                                                                                                      Mega Risk Insurance Policy
+87                                                                                                       Port Package Insurance Policy
+88                                                                                                      Delay in Start Up (DSU) Insurance
+89                                                                                                       All Risk Insurance Policy
+90                                                                                                      Kidnap, Ransom and Extortion (KRE) Insurance
+91                                                                                                      Fidelity Guarantee Insurance Policy
+92 https://www.sbigeneral.in/portal/product/corporate  Products/Corporate                                Oil & Energy Risk Insurance                                                                                                   
+                                                                                                   
+                              Products/ Rural                                                                                                                                                                                                                                                                              
+                                      ********************
+
+93 https://www.sbigeneral.in/portal/product/rural      Products/rural      body/middle                 Agricultural Pump Set
+94                                                                                                     Cattle Insurance
+95                                                                                                     Micro Insurance Policy
+96                                                                                                     Sheep and Goat Insurance
+97                                                                                                     Pradhan Mantri Fasal Bima Yojana (PMFBY)
+98                                                                                                     Gramin Samriddhi Bima 
+
+
+
+                            ********************** Products/Liablity
+
+99 https://www.sbigeneral.in/portal/product/liability  products/Liablity                               Directors & Officers Liability Insurance
+100                                                                                                    Errors and Omission Liability Insurance 
+101                                                                                                     Event Cancellation Insurance Policy
+102                                                                                                     Broad Form Liability
+103                                                                                                     Product Liability Insurance Policy 
+104                                                                                                     Product Liability Insurance Policy
+105                                                                                                     Clinical Trial (No Fault) Insurance
+106                                                                                                     Employees Compensation Policy
+107                                                                                                     Public Liability Insurance Policy
+108                                                                                                     Commercial General Liability Insurance Policy
+109                                                                                                     Cyber Defense Insurance
+110https://www.sbigeneral.in/portal/product/liability                         Body/middle               Clinical Trial (Professional Liability) Insurance
+
+
+************************ end of product page   *********************************************************************
+   
+                             Start of home page
+                          ****************************************
+
+
+
+
+111 https://www.sbigeneral.in/portal/       Home               Body/top                     Health
+112                                                                                         Home
+113                                                                                         Travel
+114                                                                                         Motor
+115                                                                                         Shagun
+116                                                                                         Buy
+117                                                                                         Renew
+118                                                                                         Claim
+119                                                                                         Select Gender
+120                                                                                         Male
+121                                                                                         Female
+122                                                                                         residing 
+123                                                                                         Select City
+124                                                                                         Ahmedabad
+125                                                                                         Bangalore
+126                                                                                         Chennai
+127                                                                                         Delhi
+128                                                                                         Hyderabad
+129                                                                                         Kolkata
+130                                                                                         Mumbai
+131                                                                                         Rest of India
+132                                                                                         buying insurance for
+133                                                                                          Select members
+134                                                                                         Self
+135                                                                                         Spouse
+136                                                                                         child 1
+137                                                  Body/top                               Child 2
+138                                                  Body/middle                             Why SBI General
+139                                                                                          We promise to support our customers in times of need and assist them to get back on their feet and to their business as quickly as possible
+140                                                                                          Customers served till date
+141                                                                                          SBI's network 
+142                                                                                          Network Hospitals
+143                                                                                          Claims handled worth over
+144                                                                                          Locations across India
+145                                                                                          Satellite Presence
+146                                                                                          Our Claims Promise
+147                                                                                          Blogs
+148                                                                                          Latest News
+149                                                                                          
+
+
+
+
+                                                                                                                                                 
+                                                                                                 
+                                                                                                                             
+                            
+  
+
+                                                                                                                                                                            
+                                                                                        
