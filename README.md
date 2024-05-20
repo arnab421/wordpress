@@ -5,32 +5,33 @@ functions.php code
 ******************************
 function load_posts_callback()
 {
+	 ob_start();
 	// Retrieve the category from the AJAX request
 	// Retrieve the category name from the AJAX request
+	$currentPage=$_REQUEST['currentPage']+1; // we need next page to be loaded
 	$category_name = $_POST['category_name'];
-    echo $category_name;
-	echo "category name";
-	
-	// Retrieve the page number from the AJAX request
-	$page = $_POST['page'];
-    echo "page number";
-	echo $page;
-	// Calculate the offset based on the page number
-	$offset = ($page - 1) * 2;
-    echo "offset";
-	echo $offset;
-	if ($category_name == 'all') {
+  
+	  if ($category_name == 'all') {
 		$args = array(
 			'post_type' => 'team_members', // Adjust post type if needed
 			'posts_per_page' => 2, // Posts per page setting
-			'offset' => $offset, // Offset for pagination
+			'paged' => $currentPage,
+		    'post_status' => 'publish',
+		    'order' => 'DESC',
 		);
-	} else {
+	 }
+	 else {
 		$args = array(
-			'post_type' => 'team_members', // Adjust post type if needed
-			'category_name' => $category_name, // Filter by category name
-			'posts_per_page' => 2, // Posts per page setting
-			'offset' => $offset, // Offset for pagination
+			'post_type' => 'team_members',
+			'posts_per_page' => 2, 
+			'paged' => $currentPage,
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'team_type',
+					'field'    => 'slug',
+					'terms'    => $category_name, 
+				),
+			),
 		);
 	}
 	// Construct the query args
@@ -38,21 +39,36 @@ function load_posts_callback()
 
 	// Run the query
 	$query = new WP_Query($args);
-	echo "<pre>";
-	print_r($query);
-	echo "</pre>";
-	die();
 	$post = [];
+	$i=0;
 	// Check if there are posts
 	if ($query->have_posts()) {
 		// Start the loop
 		while ($query->have_posts()) {
 			$query->the_post();
 			$postdata_image = wp_get_attachment_image_src(get_post_thumbnail_id($query->ID), 'full');
+			$i++;
 			$post[] = [
 				"title" => get_the_title(),
-				"image" => $postdata_image[0]
-			];
+				"image" => $postdata_image[0],
+				"excerpt" => get_the_excerpt($query->ID)
+			]; ?>
+			<div class="col-lg-4">
+              <div class="sngl-box">
+                <div class="image-box">
+                  <img src="<?php echo $postdata_image[0]; ?>">
+                </div>
+                <div class="content-box">
+                  <div class="summary">
+                    <p class="collapse" id="collapseSummary<?php echo $i; ?>">
+                      <?php echo get_the_excerpt($query->ID); ?>
+                    </p>
+                    <a class="collapsed" data-toggle="collapse" href="#collapseSummary<?php echo $i; ?>" aria-expanded="false" aria-controls="collapseSummary<?php echo $i; ?>"></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+	   <?php
 		}
 		// Restore original post data
 		wp_reset_postdata();
@@ -60,14 +76,17 @@ function load_posts_callback()
 		// If no more posts are found, return a message
 		echo 'no_more_posts';
 	}
+	$output = ob_get_contents();
+	ob_end_clean();
 	if ($post) {
 		$return = array(
 			'message'  => 'posts',
 			'status' => 1,
 			'result' => $post,
+			'resultout' => $output,
 			'maxPost' => $query->max_num_pages,
-			// 'currentPage' => $currentPage,
-			// 'req' => $_REQUEST['currentPage']
+			'currentPage' => $currentPage,
+			'req' => $_REQUEST['currentPage']
 		);
 		wp_send_json($return);
 	} else {
@@ -83,74 +102,121 @@ function load_posts_callback()
 } 
 
 add_action('wp_ajax_load_posts_callback', 'load_posts_callback');
-add_action('wp_ajax_nopriv_load_posts_callback', 'load_posts_callback'); 
-*************************************************************************
-js code 
-***************
+add_action('wp_ajax_nopriv_load_posts_callback', 'load_posts_callback');
+*******************************************************************************
+js file 
+*************************************
 jQuery(document).ready(function($) {
-    var page = 1; // Initialize page number
-    var loading = false; // Flag to prevent multiple AJAX requests
-    var category_name = 'all'; // Initialize category name
-
     // Event listener for the "Load More" button click
     jQuery('#load-more-btn').on('click', function() {
-        if (!loading) { // Check if a request is not already in progress
-            loading = true; // Set loading flag to true
-
+        // Check if a request is not already in progress
+            // Set loading flag to true
+            let currentPage=jQuery(this).attr('data-currentpage');
+            // let category_name = jQuery(.category);
+            var category_name = jQuery('.category.active').data('team');
+            console.log(category_name);
             // AJAX request to load more posts
             jQuery.ajax({
                 url: ajax.ajaxurl,
                 data: {
                     action: 'load_posts_callback',
                     category_name: category_name,
-                    page: page,
+                    currentPage:currentPage,
                 },
                 dataType: 'json',
                 type:'post',
                 success: function(response) {
-                    // if (response !== 'no_more_posts') { 
-                    //     jQuery('#posts-container').append(response); 
-                    //     page++; 
-                    // } else {
-                    //     jQuery('#load-more-btn').hide(); 
-                    // }
-                    // loading = false; 
-                    console.log(response.result);
-                },
-                // error: function(xhr, status, error) {
-                //     console.error(error); 
-                //     loading = false; 
-                // }
+                if(response){
+                        var i=0;
+                    jQuery('.load-posts').attr('data-currentpage',response.currentPage);
+                    jQuery.each(response.result, function (key, val) {
+                        i++;
+                        jQuery('.team-box').append(`<div class="col-lg-4">
+                        <div class="sngl-box">
+                          <div class="image-box">
+                            <img src="${val.image}">
+                          </div>
+                          <div class="content-box">
+                            <div class="summary">
+                              <p class="collapse" id="collapseSummary${i}">
+                                ${val.excerpt}
+                              </p>
+                              <a class="collapsed" data-toggle="collapse" href="#collapseSummary${i}" aria-expanded="false" aria-controls="collapseSummary${i}"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>`); 
+                    });
+                    if(response.currentPage == response.maxPost){
+                        jQuery('.load-posts').hide();
+                    }
+                    
+                  }
+                  else {
+					button.remove(); // if no data, remove the button as well
+				  }
+
+                }
+                  
+                
             });
-        }
+       
     });
 
-    // Event listener for category click
-    jQuery('.category').on('click', function(e) {
-        // Reset page number to 1
-        e.preventDefault()
-        page = 1;
-
-        // Get the category name
+    // ctaegory click 
+    jQuery('.category').on('click', function() {
+        jQuery('.category').removeClass('active');
+        jQuery(this).addClass('active');    
+        
+        let currentPage=jQuery(this).attr('data-currentpage');
         category_name = jQuery(this).data('team');
-        console.log("Button category clicked");
-        console.log(category_name);
-
-        // Clear existing posts
-        // jQuery('#posts-container').empty();
-
-        // Show the "Load More" button
+        // console.log(category_name);
+        jQuery('.team-box').empty();
         jQuery('#load-more-btn').show();
+        
+        jQuery.ajax({
+            url: ajax.ajaxurl,
+            data: {
+                action: 'load_posts_callback',
+                category_name: category_name,
+                currentPage:currentPage,
+            },
+            dataType: 'json',
+            type:'post',
+            success: function(response) {
 
-        // Trigger click event to load posts for the selected category
-        jQuery('#load-more-btn').click();
+                if (response) { 
+                   jQuery('.team-box').html(response.resultout); 
+                    if(response.currentPage == response.maxPost){
+                      jQuery('.load-posts').hide();
+                   }
+                } else {
+                    button.remove();
+                }
+                
+            },
+            
+        });
+      
     });
+    // category click
 });
-************************ 
 
-template page code 
+
+
+*************************************
+template 
 **********************
-<div class="categories">
+<?php
+
+        $custom_post_type = 'team_members';
+
+        // Get the categories associated with the custom post type
+        $categories = get_terms(array(
+            'taxonomy' => 'team_type', // Replace 'your_taxonomy_name' with the name of your taxonomy
+            'hide_empty' => false, // Set to true if you want to hide empty categories
+       )); ?>
+      <div class="categories">
         <a href="javascript:void(0)" class="category active" data-team="all">All</a>
         <?php 
             foreach ($categories as $category) { 
@@ -160,11 +226,13 @@ template page code
         </div>
     </div>
     <div class="team-wraper">
-      <div class="row">
+      <div class="row team-box">
         <?php
+        $paged = '1';
         $args = array(
           'post_type' => 'team_members',
-          'posts_per_page' => -1,
+          'posts_per_page' => 2,
+          'paged' => 1,
           'post_status' => 'publish',
           'order' => 'DESC',
         );
@@ -225,8 +293,14 @@ template page code
             </div>
           </div>
         </div> -->
+      </div>
+      <?php
 
-        <div class="load-posts-wrapper">
-          <a href="javascript:void(0)" id="load-more-btn" class="load-posts">Load Posts</a>
-        </div>
-**************************
+
+			// don't display the button if there are not enough posts
+			 if ($teammembers->max_num_pages > 1){?>
+      <div class="load-posts-wrapper">
+          <a href="javascript:void(0)" data-currentpage="1" id="load-more-btn" class="load-posts">Load Posts</a>
+      </div>
+      <?php } ?>
+***********************
