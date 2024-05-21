@@ -1,0 +1,520 @@
+Ajax category wise load more
+*********************************custom.js****************
+// job filter
+
+jQuery(document).ready(function($) {
+    // loadmore click
+    jQuery('#load-more-btn').on('click', function() 
+    {  
+       let currentPage=jQuery(this).attr('data-currentpage'); 
+       var category_name = jQuery('.category.active').data('jobname'); 
+       console.log(category_name);  
+        jQuery.ajax({ 
+                url: myAjax.ajaxurl, 
+                data: { 
+                action: 'category_job_filter', 
+                category_name: category_name, 
+                currentPage:currentPage, 
+                }, 
+                dataType: 'json', 
+                type:'post', 
+               success: function(response) 
+               { 
+                    if(response){ 
+                    jQuery('.load-posts').attr('data-currentpage',response.currentPage); 
+                    jQuery.each(response.result, function (key, val) { 
+                    jobdetails='';
+                    if(val.urgentopening){
+                        jobdetails='<p class="h8 fw--m">Urgent Opening</p>'; 
+                    }
+                    jQuery('.job-list').append(`<div class="swiper-container text-left c--mbBlack flow-rootX3">
+                    <div class="tag_sec">
+                        <p class="tag">${val.openposition} positions</p>
+                         ${jobdetails}
+                    </div>
+                    <div>
+                        <p class="c--mbBlack h5 fw--m">${val.title}</p>
+                    </div>
+                    <div class="detailsrow">
+                        <div class="details_clm">
+                            <p class="hxs8 c--mbBlack">Location</p>
+                            <p class="hxs8 c--mbBlack fw--m">${val.location}</p>
+                        </div>
+                        <div class="details_clm">
+                            <p class="hxs8 c--mbBlack">Experience</p>
+                            <p class="hxs8 c--mbBlack fw--m">${val.experience}</p>
+                        </div>
+                        <div class="details_clm">
+                            <p class="hxs8 c--mbBlack">Job Type</p>
+                            <p class="hxs8 c--mbBlack fw--m">${val.jobtype}</p>
+                        </div>
+                    </div>
+                    <div class="border_sec">
+                        <p class="hxs8 c--mbBlack">Posted On: <span class="fw--m"> ${val.jobpostdate}</span></p>
+                    </div>
+                    <div class="job_details_btn">
+                        <a href="javascript:void" class="c--mbBlack link__btn h8 c--mbBlack">
+                            <span class="circle">
+                                <svg class="svg_hover" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                                    <path d="M694.615-662.616 228-196.001q-6.692 6.692-15.807 6.884-9.115.193-16.192-6.884t-7.077-16q0-8.923 7.077-15.999l466.615-466.615H385.538q-9.644 0-16.168-6.58-6.524-6.58-6.524-16.307 0-9.728 6.524-16.112 6.524-6.385 16.168-6.385h325.614q12.26 0 20.553 8.294 8.294 8.293 8.294 20.553v325.614q0 9.644-6.581 16.168-6.58 6.524-16.307 6.524-9.727 0-16.112-6.524-6.384-6.524-6.384-16.168v-277.078Z" />
+                                </svg>
+                                <svg class="hover_icon" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                                    <path d="M694.615-662.616 228-196.001q-6.692 6.692-15.807 6.884-9.115.193-16.192-6.884t-7.077-16q0-8.923 7.077-15.999l466.615-466.615H385.538q-9.644 0-16.168-6.58-6.524-6.58-6.524-16.307 0-9.728 6.524-16.112 6.524-6.385 16.168-6.385h325.614q12.26 0 20.553 8.294 8.294 8.293 8.294 20.553v325.614q0 9.644-6.581 16.168-6.58 6.524-16.307 6.524-9.727 0-16.112-6.524-6.384-6.524-6.384-16.168v-277.078Z" />
+                                </svg>
+                            </span>
+                            <span>Job Details</span>
+                        </a>
+                    </div>
+                </div>`); 
+                    }); 
+                    if(response.currentPage == response.maxPost)
+                        { 
+                            jQuery('.load-posts').hide();
+                        }
+                    }
+                    else {
+                    button.remove(); // if no data, remove the button as well
+                    }
+
+                }
+
+        });
+    });
+// loadmore click
+// category click
+jQuery('.category').on('click', function() {
+    jQuery('.category').removeClass('active');
+    jQuery(this).addClass('active');    
+    let currentPage=jQuery(this).attr('data-currentpage');
+    category_name = jQuery(this).data('jobname');
+    console.log(category_name);
+    jQuery('.job-list').empty();
+    jQuery('#load-more-btn').show();
+    jQuery.ajax({
+    url: myAjax.ajaxurl,
+    data: {
+    action: 'category_job_filter',
+    category_name: category_name,
+    currentPage:currentPage,
+    },
+    dataType: 'json',
+    type:'post',
+    success: function(response) {
+    
+    if (response) { 
+    jQuery('.load-posts').attr('data-currentpage',response.currentPage);
+     jQuery('.job-list').html(response.resultout); 
+      if(response.currentPage == response.maxPost){
+        jQuery('.load-posts').hide();
+      }
+     } else {
+      button.remove();
+    }
+    
+    },
+   });
+});
+//category click
+}); 
+
+// job filter
+********************************custom.js*****************
+functions file 
+**************************
+// jobs filter 
+function category_job_filter()
+{
+	ob_start();
+	$currentPage = $_REQUEST['currentPage'] + 1;
+	$category_name = $_POST['category_name'];
+	if ($category_name == 'all') {
+		$args = array(
+			'post_type' => 'jobs', // Adjust post type if needed
+			'posts_per_page' => 2, // Posts per page setting
+			'paged' => $currentPage,
+			'post_status' => 'publish',
+			'order' => 'DESC',
+		);
+	} else {
+		$args = array(
+			'post_type' => 'jobs',
+			'posts_per_page' => 2,
+			'paged' => $currentPage,
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'jobs_type',
+					'field'    => 'slug',
+					'terms'    => $category_name,
+				),
+			),
+		);
+	}
+	$jobdata = new WP_Query($args);
+	$post = [];
+	if ($jobdata->have_posts()) {
+		while ($jobdata->have_posts()) {
+			$jobdata->the_post();
+			$post[] = [
+				"jobpostdate" => get_the_date('F d,Y'),
+				"title" => get_the_title(),
+				"permalink" => get_permalink($jobdata->ID),
+				"openposition" => get_field('number_of_open_positions', $jobdata->ID),
+				"urgentopening" => get_field('urgent_opening', $jobdata->ID),
+				"location" => get_field('location', $jobdata->ID),
+				"experience" => get_field('experience_in_year', $jobdata->ID),
+				"jobtype" => get_field('job_type', $jobdata->ID),
+			];
+	?>
+			<div class="swiper-container text-left c--mbBlack flow-rootX3">
+				<div class="tag_sec">
+					<p class="tag"><?php echo get_field('number_of_open_positions', $jobdata->ID); ?> positions</p>
+					<?php
+					$urgent_opening = get_field('urgent_opening', $jobdata->ID);
+					if ($urgent_opening) { ?>
+						<p class="h8 fw--m">Urgent Opening</p>
+					<?php }
+					?>
+				</div>
+				<div>
+					<p class="c--mbBlack h5 fw--m"><?php echo get_the_title(); ?></p>
+				</div>
+				<div class="detailsrow">
+					<div class="details_clm">
+						<p class="hxs8 c--mbBlack">Location</p>
+						<p class="hxs8 c--mbBlack fw--m"><?php echo get_field('location', $jobdata->ID); ?></p>
+					</div>
+					<div class="details_clm">
+						<p class="hxs8 c--mbBlack">Experience</p>
+						<p class="hxs8 c--mbBlack fw--m"><?php echo get_field('experience_in_year', $jobdata->ID); ?></p>
+					</div>
+					<div class="details_clm">
+						<p class="hxs8 c--mbBlack">Job Type</p>
+						<p class="hxs8 c--mbBlack fw--m"><?php echo get_field('job_type', $jobdata->ID); ?></p>
+					</div>
+				</div>
+				<div class="border_sec">
+					<p class="hxs8 c--mbBlack">Posted On: <span class="fw--m"> <?php echo get_the_date('F d, Y') ?></span></p>
+				</div>
+				<div class="job_details_btn">
+					<a href="javascript:void" class="c--mbBlack link__btn h8 c--mbBlack">
+						<span class="circle">
+							<svg class="svg_hover" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+								<path d="M694.615-662.616 228-196.001q-6.692 6.692-15.807 6.884-9.115.193-16.192-6.884t-7.077-16q0-8.923 7.077-15.999l466.615-466.615H385.538q-9.644 0-16.168-6.58-6.524-6.58-6.524-16.307 0-9.728 6.524-16.112 6.524-6.385 16.168-6.385h325.614q12.26 0 20.553 8.294 8.294 8.293 8.294 20.553v325.614q0 9.644-6.581 16.168-6.58 6.524-16.307 6.524-9.727 0-16.112-6.524-6.384-6.524-6.384-16.168v-277.078Z" />
+							</svg>
+							<svg class="hover_icon" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+								<path d="M694.615-662.616 228-196.001q-6.692 6.692-15.807 6.884-9.115.193-16.192-6.884t-7.077-16q0-8.923 7.077-15.999l466.615-466.615H385.538q-9.644 0-16.168-6.58-6.524-6.58-6.524-16.307 0-9.728 6.524-16.112 6.524-6.385 16.168-6.385h325.614q12.26 0 20.553 8.294 8.294 8.293 8.294 20.553v325.614q0 9.644-6.581 16.168-6.58 6.524-16.307 6.524-9.727 0-16.112-6.524-6.384-6.524-6.384-16.168v-277.078Z" />
+							</svg>
+						</span>
+						<span>Job Details</span>
+					</a>
+				</div>
+			</div>
+<?php }
+	}
+	wp_reset_postdata();
+    $output = ob_get_contents(); 
+    ob_end_clean(); 
+	if ($post) {
+		$return = array(
+			'message'  => 'posts',
+			'status' => 1,
+			'result' => $post,
+			'resultout' => $output,
+			'maxPost' => $jobdata->max_num_pages,
+			'currentPage' => $currentPage,
+		    'req' => $_REQUEST['currentPage']
+
+		);
+		wp_send_json($return);
+	} else {
+		$return = array(
+			'message'  => 'No Post Found',
+			'status'       => 0
+		);
+
+		wp_send_json($return);
+	}
+	// echo json_encode($age); 
+	wp_die();
+}
+add_action('wp_ajax_category_job_filter', 'category_job_filter');
+add_action('wp_ajax_nopriv_category_job_filter', 'category_job_filter');
+****************************** 
+Template page code 
+************************
+<section class="mb-blog-listing pt-0">
+                <div class="main-container">
+                    <div class="inner-container">
+                        <div class="md-blog-sec flow-rootX11">
+                            <div class="title title_sec">
+                                <div class="flow-rootX2">
+                                    <div class="blog_taging">
+                                    <?php 
+                                       $post_type = 'jobs'; 
+                                       $count_posts = wp_count_posts($post_type);
+                                       $total_posts = $count_posts->publish;
+                                    ?>
+                                    <a href="javascript:void(0)" data-jobname="all" class="text-uppercase h8 blog_tag_hover clickjob category active">ALL(<?php echo $total_posts;?>)</a>
+                                        <?php
+                                        $i = 0;
+                                        $taxonomy = 'jobs_type';
+                                        $args1 = array(
+                                            'taxonomy' => $taxonomy,
+                                            'order' => 'DESC',
+                                            'pad_counts' => true,
+                                            'hide_empty' => true,
+                                        );
+                                        $categories = get_categories($args1);
+                                        foreach ($categories as $cat) {
+                                            $i++;
+                                            
+                                            if ($cat->slug != 'uncategorized') {
+
+                                             ?>
+                                                <a href="javascript:void(0)" data-jobname="<?php echo $cat->slug; ?>" class="text-uppercase h8 blog_tag_hover clickjob category"><?php echo $cat->cat_name; ?>(<?php echo $cat->count; ?>)</a>
+                                        <?php }
+                                        }
+                                        ?>
+
+                                    </div>
+                                </div>
+
+                                <form class="search-container">
+                                    <input type="text" id="" placeholder="Search Blog" class="search-bar">
+                                    <a href="#" class="search-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/icons/search-icon.svg"></a>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="mb-profile-sec bg--mbDarkBlue">
+                <div class="main-container">
+                    <div class="inner-container flow-rootX8">
+                        <div class="title title_sec">
+                            <div class="flow-rootX2">
+                                <p class="h3 c--body">Similar Profiles.</p>
+                            </div>
+                            
+                        </div>
+                        <div class="mb-profile-slider-sec">
+                            <div class="swiper profile_slider">
+                                <div class="swiper-wrapper job-list">
+                                <?php
+                                // $curpage = $paged ? $paged : 1;
+                                $paged = '1';
+                                $args1 = array(
+                                    'post_type' => 'jobs',
+                                    'posts_per_page' => 2,
+                                    'paged' => 1,
+                                    'post_status' => 'publish',
+                                    'order' => 'DESC',
+                                 );
+                                $jobsdata = new WP_Query($args1);
+                                if ($jobsdata->have_posts()) {
+                                    while ($jobsdata->have_posts()) {
+                                        $jobsdata->the_post();
+                                     ?>
+                                    <div class="swiper-container text-left c--mbBlack flow-rootX3">
+                                        <div class="tag_sec">
+                                            <p class="tag"><?php echo get_field('number_of_open_positions' , $jobsdata->ID);?> positions</p>
+                                            <?php 
+                                              $urgent_opening = get_field('urgent_opening',$jobsdata->ID);
+                                             if($urgent_opening)
+                                             {?>
+                                            <p class="h8 fw--m">Urgent Opening</p>
+                                            <?php } 
+                                            ?>
+                                        </div>
+                                        <div>
+                                            <p class="c--mbBlack h5 fw--m"><?php echo get_the_title();?></p>
+                                        </div>
+                                        <div class="detailsrow">
+                                            <div class="details_clm">
+                                                <p class="hxs8 c--mbBlack">Location</p>
+                                                <p class="hxs8 c--mbBlack fw--m"><?php echo get_field('location',$jobsdata->ID);?></p>
+                                            </div>
+                                            <div class="details_clm">
+                                                <p class="hxs8 c--mbBlack">Experience</p>
+                                                <p class="hxs8 c--mbBlack fw--m"><?php echo get_field('experience_in_year',$jobsdata->ID);?></p>
+                                            </div>
+                                            <div class="details_clm">
+                                                <p class="hxs8 c--mbBlack">Job Type</p>
+                                                <p class="hxs8 c--mbBlack fw--m"><?php echo get_field('job_type',$jobsdata->ID);?></p>
+                                            </div>
+                                        </div>
+                                        <div class="border_sec">
+                                            <p class="hxs8 c--mbBlack">Posted On: <span class="fw--m"> <?php echo get_the_date('F d, Y')?></span></p>
+                                        </div>
+                                        <div class="job_details_btn">
+                                            <a href="javascript:void" class="c--mbBlack link__btn h8 c--mbBlack">
+                                                <span class="circle">
+                                                    <svg class="svg_hover" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                                                        <path d="M694.615-662.616 228-196.001q-6.692 6.692-15.807 6.884-9.115.193-16.192-6.884t-7.077-16q0-8.923 7.077-15.999l466.615-466.615H385.538q-9.644 0-16.168-6.58-6.524-6.58-6.524-16.307 0-9.728 6.524-16.112 6.524-6.385 16.168-6.385h325.614q12.26 0 20.553 8.294 8.294 8.293 8.294 20.553v325.614q0 9.644-6.581 16.168-6.58 6.524-16.307 6.524-9.727 0-16.112-6.524-6.384-6.524-6.384-16.168v-277.078Z" />
+                                                    </svg>
+                                                    <svg class="hover_icon" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                                                        <path d="M694.615-662.616 228-196.001q-6.692 6.692-15.807 6.884-9.115.193-16.192-6.884t-7.077-16q0-8.923 7.077-15.999l466.615-466.615H385.538q-9.644 0-16.168-6.58-6.524-6.58-6.524-16.307 0-9.728 6.524-16.112 6.524-6.385 16.168-6.385h325.614q12.26 0 20.553 8.294 8.294 8.293 8.294 20.553v325.614q0 9.644-6.581 16.168-6.58 6.524-16.307 6.524-9.727 0-16.112-6.524-6.384-6.524-6.384-16.168v-277.078Z" />
+                                                    </svg>
+                                                </span>
+                                                <span>Job Details</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <?php
+                             }
+                           }
+                             wp_reset_postdata(); ?>
+                                    <!-- <div class="swiper-container text-left c--mbBlack flow-rootX3">
+                                        <div class="tag_sec">
+                                            <p class="tag">2 positions</p>
+                                            <p class="h8 fw--m">Urgent Opening</p>
+                                        </div>
+
+                                        <div>
+                                            <p class="c--mbBlack h5 fw--m">Admin Associate</p>
+                                        </div>
+
+                                        <div class="detailsrow">
+                                            <div class="details_clm">
+                                                <p class="hxs8 c--mbBlack">Location</p>
+                                                <p class="hxs8 c--mbBlack fw--m">Kolkata, WB</p>
+                                            </div>
+
+                                            <div class="details_clm">
+                                                <p class="hxs8 c--mbBlack">Experience</p>
+                                                <p class="hxs8 c--mbBlack fw--m">2+ Year</p>
+                                            </div>
+
+                                            <div class="details_clm">
+                                                <p class="hxs8 c--mbBlack">Job Type</p>
+                                                <p class="hxs8 c--mbBlack fw--m">Full Time</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="border_sec">
+                                            <p class="hxs8 c--mbBlack">Posted On: <span class="fw--m"> March 14, 2023</span></p>
+                                        </div>
+
+                                        <div class="job_details_btn">
+                                            <a href="javascript:void" class="c--mbBlack link__btn h8 c--mbBlack">
+                                                <span class="circle">
+                                                    <svg class="svg_hover" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                                                        <path d="M694.615-662.616 228-196.001q-6.692 6.692-15.807 6.884-9.115.193-16.192-6.884t-7.077-16q0-8.923 7.077-15.999l466.615-466.615H385.538q-9.644 0-16.168-6.58-6.524-6.58-6.524-16.307 0-9.728 6.524-16.112 6.524-6.385 16.168-6.385h325.614q12.26 0 20.553 8.294 8.294 8.293 8.294 20.553v325.614q0 9.644-6.581 16.168-6.58 6.524-16.307 6.524-9.727 0-16.112-6.524-6.384-6.524-6.384-16.168v-277.078Z" />
+                                                    </svg>
+                                                    <svg class="hover_icon" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                                                        <path d="M694.615-662.616 228-196.001q-6.692 6.692-15.807 6.884-9.115.193-16.192-6.884t-7.077-16q0-8.923 7.077-15.999l466.615-466.615H385.538q-9.644 0-16.168-6.58-6.524-6.58-6.524-16.307 0-9.728 6.524-16.112 6.524-6.385 16.168-6.385h325.614q12.26 0 20.553 8.294 8.294 8.293 8.294 20.553v325.614q0 9.644-6.581 16.168-6.58 6.524-16.307 6.524-9.727 0-16.112-6.524-6.384-6.524-6.384-16.168v-277.078Z" />
+                                                    </svg>
+                                                </span>
+                                                <span>Job Details</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-container text-left c--mbBlack flow-rootX3">
+                                        <div class="tag_sec">
+                                            <p class="tag">2 positions</p>
+                                            <p class="h8 fw--m">Urgent Opening</p>
+                                        </div>
+
+                                        <div>
+                                            <p class="c--mbBlack h5 fw--m">Admin Associate</p>
+                                        </div>
+
+                                        <div class="detailsrow">
+                                            <div class="details_clm">
+                                                <p class="hxs8 c--mbBlack">Location</p>
+                                                <p class="hxs8 c--mbBlack fw--m">Kolkata, WB</p>
+                                            </div>
+
+                                            <div class="details_clm">
+                                                <p class="hxs8 c--mbBlack">Experience</p>
+                                                <p class="hxs8 c--mbBlack fw--m">2+ Year</p>
+                                            </div>
+
+                                            <div class="details_clm">
+                                                <p class="hxs8 c--mbBlack">Job Type</p>
+                                                <p class="hxs8 c--mbBlack fw--m">Full Time</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="border_sec">
+                                            <p class="hxs8 c--mbBlack">Posted On: <span class="fw--m"> March 14, 2023</span></p>
+                                        </div>
+
+                                        <div class="job_details_btn">
+                                            <a href="javascript:void" class="c--mbBlack link__btn h8 c--mbBlack">
+                                                <span class="circle">
+                                                    <svg class="svg_hover" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                                                        <path d="M694.615-662.616 228-196.001q-6.692 6.692-15.807 6.884-9.115.193-16.192-6.884t-7.077-16q0-8.923 7.077-15.999l466.615-466.615H385.538q-9.644 0-16.168-6.58-6.524-6.58-6.524-16.307 0-9.728 6.524-16.112 6.524-6.385 16.168-6.385h325.614q12.26 0 20.553 8.294 8.294 8.293 8.294 20.553v325.614q0 9.644-6.581 16.168-6.58 6.524-16.307 6.524-9.727 0-16.112-6.524-6.384-6.524-6.384-16.168v-277.078Z" />
+                                                    </svg>
+                                                    <svg class="hover_icon" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                                                        <path d="M694.615-662.616 228-196.001q-6.692 6.692-15.807 6.884-9.115.193-16.192-6.884t-7.077-16q0-8.923 7.077-15.999l466.615-466.615H385.538q-9.644 0-16.168-6.58-6.524-6.58-6.524-16.307 0-9.728 6.524-16.112 6.524-6.385 16.168-6.385h325.614q12.26 0 20.553 8.294 8.294 8.293 8.294 20.553v325.614q0 9.644-6.581 16.168-6.58 6.524-16.307 6.524-9.727 0-16.112-6.524-6.384-6.524-6.384-16.168v-277.078Z" />
+                                                    </svg>
+                                                </span>
+                                                <span>Job Details</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-container text-left c--mbBlack flow-rootX3">
+                                        <div class="tag_sec">
+                                            <p class="tag">2 positions</p>
+                                            <p class="h8 fw--m">Urgent Opening</p>
+                                        </div>
+
+                                        <div>
+                                            <p class="c--mbBlack h5 fw--m">Admin Associate</p>
+                                        </div>
+
+                                        <div class="detailsrow">
+                                            <div class="details_clm">
+                                                <p class="hxs8 c--mbBlack">Location</p>
+                                                <p class="hxs8 c--mbBlack fw--m">Kolkata, WB</p>
+                                            </div>
+
+                                            <div class="details_clm">
+                                                <p class="hxs8 c--mbBlack">Experience</p>
+                                                <p class="hxs8 c--mbBlack fw--m">2+ Year</p>
+                                            </div>
+
+                                            <div class="details_clm">
+                                                <p class="hxs8 c--mbBlack">Job Type</p>
+                                                <p class="hxs8 c--mbBlack fw--m">Full Time</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="border_sec">
+                                            <p class="hxs8 c--mbBlack">Posted On: <span class="fw--m"> March 14, 2023</span></p>
+                                        </div>
+
+                                        <div class="job_details_btn">
+                                            <a href="javascript:void" class="c--mbBlack link__btn h8 c--mbBlack">
+                                                <span class="circle">
+                                                    <svg class="svg_hover" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                                                        <path d="M694.615-662.616 228-196.001q-6.692 6.692-15.807 6.884-9.115.193-16.192-6.884t-7.077-16q0-8.923 7.077-15.999l466.615-466.615H385.538q-9.644 0-16.168-6.58-6.524-6.58-6.524-16.307 0-9.728 6.524-16.112 6.524-6.385 16.168-6.385h325.614q12.26 0 20.553 8.294 8.294 8.293 8.294 20.553v325.614q0 9.644-6.581 16.168-6.58 6.524-16.307 6.524-9.727 0-16.112-6.524-6.384-6.524-6.384-16.168v-277.078Z" />
+                                                    </svg>
+                                                    <svg class="hover_icon" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                                                        <path d="M694.615-662.616 228-196.001q-6.692 6.692-15.807 6.884-9.115.193-16.192-6.884t-7.077-16q0-8.923 7.077-15.999l466.615-466.615H385.538q-9.644 0-16.168-6.58-6.524-6.58-6.524-16.307 0-9.728 6.524-16.112 6.524-6.385 16.168-6.385h325.614q12.26 0 20.553 8.294 8.294 8.293 8.294 20.553v325.614q0 9.644-6.581 16.168-6.58 6.524-16.307 6.524-9.727 0-16.112-6.524-6.384-6.524-6.384-16.168v-277.078Z" />
+                                                    </svg>
+                                                </span>
+                                                <span>Job Details</span>
+                                            </a>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                     <?php if ($jobsdata->max_num_pages > 1){?>
+                            <div class="c2a-container text-center">
+                                <a href="javascript:void(0)"  id="load-more-btn" data-currentpage="1" class="c2a outline c--mbWhite c2a--inline hvr:bg--mbBlue hvr:c--mbWhite morejobs load-posts">
+                                    <span>MORE JOBS</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                        <path d="M774-466H186q-6 0-10-4t-4-10q0-6 4-10t10-4h588L674-594q-4-4-4.5-9.5T674-614q5-5 10-5t10 5l113 113q9 9 9 21t-9 21L694-346q-4 4-9.5 4.5T674-346q-5-5-5-10t5-10l100-100Z"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                    <?php } 
+                    ?>
+                    </div>
+                </div>
+            </section>
+******************************
