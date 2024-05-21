@@ -1,0 +1,350 @@
+*********************ajax pagination******************************
+functions.php 
+******************************************
+function category_ajax_pagination()
+{
+	ob_start(); // Start output buffering
+
+	// $category = $_POST['category']; // Category slug passed via AJAX
+	// $curpage = $paged ? $paged : 1;
+	$paged = $_POST['page']; // Page number passed via AJAX
+	$category = $_POST['category'];
+	$curpage = $paged ? $paged : 1;
+		if ($category == 'all') {
+			$args = array(
+				'post_type' => 'post',
+				'post_status' => 'publish',
+				'posts_per_page' => 3,
+				'paged' => $paged
+			);
+		} else {
+			$args = array(
+				'post_type' => 'post',
+				'post_status' => 'publish',
+				'posts_per_page' => 1,
+				'category_name' => $category,
+				'paged' => $paged
+			);
+		}
+		$posts1 = new WP_Query($args);
+	?>
+
+	<div class="blog-listing mt-0 blog-listing">
+		<?php
+			$post = [];
+			if ($posts1->have_posts()) {
+				while ($posts1->have_posts()) {
+				$posts1->the_post();
+				$image = get_field('blog_thumb_image', $posts1->ID);
+				$post = [
+					"postlink" => get_the_permalink($posts1->ID),
+					"title" => get_the_title(),
+					"image" => $image['url'],
+				];
+		?>
+			<a href="<?php echo get_the_permalink($posts1->ID) ?>" class="blog_item flow-rootX5 block">
+				<figure class="blog_item_img">
+					<?php 
+					     printf(
+							'<img data-src="%s" src="%s" alt="%s" title="%s" class="lazy"/>',
+							  $image['url'],
+							  $image['url'],
+							  $image['alt'],
+							  $image['title']
+							);
+					?>
+					
+				</figure>
+				<p class="h5 c--mbBlack"><?php echo get_the_title(); ?></p>
+				<div class="blog_tag">
+					<?php
+					$categories = get_the_category();
+					if (!empty($categories)) {
+					?>
+						<?php
+						foreach ($categories as $category) {
+						?>
+							<span class="text-uppercase h8"><?php echo $category->name; ?></span>
+					<?php }
+					} ?>
+				</div>
+			</a>
+		<?php } ?>
+		<!-- Output pagination links -->
+
+		<?php
+			wp_reset_postdata();
+		} else {
+			echo '<p>No posts found</p>';
+		}  ?>
+	</div>
+
+	<?php
+		if ($posts1->max_num_pages > 1) {
+			$next_page = $curpage + 1;
+			$prev_page = $curpage - 1;
+	?>
+		<div class="pagination_wrap">
+			<ul class="pagination_custom">
+				<?php
+					if ($curpage > 1) {
+				?>
+					<li class="prev">
+						<a href="javascript:void(0)" data-pageno="<?= $prev_page; ?>" class="page-numbers">
+							<div class="icon">
+								<svg xmlns="http://www.w3.org/2000/svg" height="50" viewBox="0 -960 960 960" width="50">
+									<path d="M774.462-457.693H122.309q-9.904 0-16.298-6.398-6.394-6.398-6.394-16.307 0-9.909 6.394-16.294 6.394-6.384 16.298-6.384h652.153L577.461-699.693q-6.563-6.595-6.628-15.759-.064-9.163 6.628-15.922 6.564-6.625 15.744-6.625 9.179 0 15.871 6.692l230.692 230.692q4.615 4.615 6.808 9.474 2.192 4.859 2.192 10.808 0 5.948-2.21 10.987-2.21 5.038-6.79 9.577L609.076-229.078q-6.596 6.693-15.759 6.693t-15.856-6.693q-7.076-6.692-6.884-15.999.192-9.308 6.884-15.615l197.001-197.001Z"></path>
+								</svg>
+							</div>
+						</a>
+					</li>
+				<?php }
+					for ($i = 1; $i <= $posts1->max_num_pages; $i++) {
+				?>
+
+					<li><a href="javascript:void(0)" data-pageno="<?= $i; ?>" class="h7 page-numbers <?= ($i == $curpage) ? 'active' : ''; ?>">0<?php echo $i; ?></a></li>
+
+				<?php } ?>
+				<?php if ($curpage < $posts1->max_num_pages) { ?>
+					<li class="next">
+						<a href="javascript:void(0)" data-pageno="<?= $next_page; ?>" class="page-numbers">
+							<div class="icon">
+								<svg xmlns="http://www.w3.org/2000/svg" height="50" viewBox="0 -960 960 960" width="50">
+									<path d="M774.462-457.693H122.309q-9.904 0-16.298-6.398-6.394-6.398-6.394-16.307 0-9.909 6.394-16.294 6.394-6.384 16.298-6.384h652.153L577.461-699.693q-6.563-6.595-6.628-15.759-.064-9.163 6.628-15.922 6.564-6.625 15.744-6.625 9.179 0 15.871 6.692l230.692 230.692q4.615 4.615 6.808 9.474 2.192 4.859 2.192 10.808 0 5.948-2.21 10.987-2.21 5.038-6.79 9.577L609.076-229.078q-6.596 6.693-15.759 6.693t-15.856-6.693q-7.076-6.692-6.884-15.999.192-9.308 6.884-15.615l197.001-197.001Z"></path>
+								</svg>
+							</div>
+						</a>
+					</li>
+				<?php }	?>
+			</ul>
+		</div>
+	<?php } ?>
+
+	<?php
+		$output = ob_get_contents(); // Get the buffered output
+		ob_end_clean(); // Clean (erase) the output buffer and turn off output buffering
+		if ($post) {
+			$return = array(
+				'message'  => 'posts',
+				'status'       => 1,
+				'result' => $output
+			);
+			wp_send_json($return);
+		} else {
+			$return = array(
+				'message'  => 'No Post Found',
+				'status'       => 0
+			);
+
+			wp_send_json($return);
+		}
+		die(); // Always include this to terminate script
+}
+add_action('wp_ajax_category_ajax_pagination', 'category_ajax_pagination');
+add_action('wp_ajax_nopriv_category_ajax_pagination', 'category_ajax_pagination');
+****************************************** 
+
+custom.js 
+****************************** 
+jQuery(document).ready(function () {
+    // Filter pagination
+        jQuery(".clickable").click(function(){
+        jQuery(this).addClass('current');
+        jQuery(this).siblings().removeClass('current');
+      });
+    jQuery(document).on("click",".clickable, .pagination_custom li a", function (e) {
+        // jQuery(".test-blog-listing").empty();     
+        e.preventDefault();
+        var category = jQuery('.current').data('catname');
+        console.log(category);
+        var page = jQuery(this).data('pageno') || 1; // Use 1 as default if data-pageno is not present
+        jQuery.ajax({
+            url: myAjax.ajaxurl,
+            data: {
+                action: 'category_ajax_pagination',
+                category: category,
+                page: page
+            },
+            dataType: 'json',
+            type: 'post',
+            // beforeSend: function () {
+            //     jQuery('#loadersold').show();
+            // },
+            success: function (response) {
+                if (response) {
+                    // console.log(response.result);
+                    
+                    jQuery(".test-blog-listing").empty();
+                    jQuery(".test-blog-listing").html(response.result);
+                }
+            },
+            complete: function () {
+                // jQuery('#loadersold').hide();
+            },
+        })
+    });
+    // Filter pagination
+    // blog search 
+    jQuery('.search-icon').on('click', function(e) {
+        e.preventDefault(); // Prevent default form submission
+        jQuery('.loader').show();
+        var searchQuery = $('#search-input').val(); // Get search query
+        
+        jQuery.ajax({
+            type: 'POST',
+            url: myAjax.ajaxurl, // WordPress ajax endpoint
+            data: {
+                action: 'custom_search', // Ajax action to call
+                search_query: searchQuery // Search query
+            },
+            success: function(response) {
+                jQuery('.loader').hide();
+                jQuery('.test-blog-listing').empty(); // Update search results
+                jQuery(".test-blog-listing").html(response);
+            }
+        });
+    });
+   // blog search
+    
+});
+********************************* 
+listing-page 
+***************************
+<section class="mb-blog-listing pt-0">
+    <div class="main-container">
+        <div class="inner-container">
+            <div class="md-blog-sec flow-rootX11">
+                <div class="title title_sec">
+                    <div class="flow-rootX2">
+                        <div class="blog_taging">
+                            <a href="javascript:void(0)" data-catname="all" class="text-uppercase h8 blog_tag_hover clickable current test">ALL</a>
+                            <?php
+                            $taxonomy = 'category';
+                            $args1 = array(
+                                'taxonomy' => $taxonomy,
+                                'order' => 'DESC',
+                                'hide_empty' => true,
+                            );
+                            $categories = get_categories($args1);
+                            foreach ($categories as $cat) {
+                                if ($cat->slug != 'uncategorized') {
+
+                            ?>
+                             <a href="javascript:void(0)" data-catname="<?php echo $cat->slug; ?>" class="text-uppercase h8 blog_tag_hover clickable"><?php echo $cat->cat_name ?>
+                            </a>
+                              <?php }
+                            }
+                            ?>
+
+                        </div>
+                    </div>
+
+                    <form class="search-container">
+                        <input type="text" id="search-input" placeholder="Search Blog" class="search-bar">
+                        <a href="javascript:void(0)" class="search-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/icons/search-icon.svg"></a>
+                        <div id="loader" class="loader" style="display:none"></div>
+                    </form> 
+                    <!-- <div id="loader" class="loader" style="display:none"></div> -->
+                </div>
+        <!-- extra wrapper div add  -->
+           <div class="test-blog-listing flow-rootX11">
+                <div class="blog-listing mt-0 blog-listing">
+                    <?php
+                    $curpage = $paged ? $paged : 1;
+                    $args1 = array(
+                        'post_type' => 'post',
+                        'posts_per_page' => 3,
+                        'paged' => $paged,
+                        'post_status' => 'publish',
+                        'order' => 'DESC',
+                        
+                    );
+
+                    $posts1 = new WP_Query($args1);
+                    if ($posts1->have_posts()) {
+                        while ($posts1->have_posts()) {
+                            $posts1->the_post();
+                            // $post_image = wp_get_attachment_image_src(get_post_thumbnail_id($posts1->ID), 'full');
+                    ?>
+                            <a href="<?php echo get_the_permalink($posts1->ID)?>" class="blog_item flow-rootX5 block">
+                                <figure class="blog_item_img">
+                                    <?php $image = get_field('blog_thumb_image', $posts1->ID);
+                                     printf(
+                                        '<img data-src="%s" src="%s" alt="%s" title="%s" class="lazy"/>',
+                                          $image['url'],
+                                          $image['url'],
+                                          $image['alt'],
+                                          $image['title']
+                                        );
+                                    ?>
+                                    
+                                </figure>
+                                <p class="h5 c--mbBlack"><?php echo get_the_title();?></p>
+                                <div class="blog_tag">
+                                          <?php 
+                                            $categories = get_the_category();
+                                                 if ( ! empty( $categories ) ) {
+                                            ?>
+                                            <?php 
+                                                   foreach( $categories as $category ) {
+                                            ?>
+                                        <span class="text-uppercase h8"><?php echo $category->name;?></span>
+                                       <?php } 
+                                      } ?>
+                                </div>
+                            </a>
+                    <?php
+                        }
+                    }
+                    wp_reset_postdata(); ?>
+                </div>
+                 <?php 
+                   if($posts1->max_num_pages > 1)
+                   { 
+                    $next_page = $curpage + 1;
+                    $prev_page = $curpage - 1;
+                    ?>
+                        <div class="pagination_wrap">
+                            <ul class="pagination_custom">
+                                <?php 
+                                     if ($curpage > 1) {
+                                ?>
+                                <li class="prev">
+                                    <a href="javascript:void(0)" data-pageno="<?= $prev_page; ?>" class="page-numbers">
+                                        <div class="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="50" viewBox="0 -960 960 960" width="50">
+                                                <path d="M774.462-457.693H122.309q-9.904 0-16.298-6.398-6.394-6.398-6.394-16.307 0-9.909 6.394-16.294 6.394-6.384 16.298-6.384h652.153L577.461-699.693q-6.563-6.595-6.628-15.759-.064-9.163 6.628-15.922 6.564-6.625 15.744-6.625 9.179 0 15.871 6.692l230.692 230.692q4.615 4.615 6.808 9.474 2.192 4.859 2.192 10.808 0 5.948-2.21 10.987-2.21 5.038-6.79 9.577L609.076-229.078q-6.596 6.693-15.759 6.693t-15.856-6.693q-7.076-6.692-6.884-15.999.192-9.308 6.884-15.615l197.001-197.001Z"></path>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </li> 
+                                <?php } 
+                                for ($i = 1; $i <= $posts1->max_num_pages; $i++) {
+                                ?>
+
+                                <li><a href="javascript:void(0)" data-pageno="<?php echo $i;?>" class="h7 page-numbers <?= ($i == $curpage) ? 'active' : ''; ?>">0<?php echo $i;?></a></li>
+                                
+                                <?php } 
+                                ?>
+                                <?php if ($curpage < $posts1->max_num_pages) {
+                                ?>
+                                <li class="next">
+                                    <a href="javascript:void(0)" data-pageno="<?= $next_page; ?>" class="page-numbers">
+                                        <div class="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="50" viewBox="0 -960 960 960" width="50">
+                                                <path d="M774.462-457.693H122.309q-9.904 0-16.298-6.398-6.394-6.398-6.394-16.307 0-9.909 6.394-16.294 6.394-6.384 16.298-6.384h652.153L577.461-699.693q-6.563-6.595-6.628-15.759-.064-9.163 6.628-15.922 6.564-6.625 15.744-6.625 9.179 0 15.871 6.692l230.692 230.692q4.615 4.615 6.808 9.474 2.192 4.859 2.192 10.808 0 5.948-2.21 10.987-2.21 5.038-6.79 9.577L609.076-229.078q-6.596 6.693-15.759 6.693t-15.856-6.693q-7.076-6.692-6.884-15.999.192-9.308 6.884-15.615l197.001-197.001Z"></path>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </li>
+                                <?php } 
+                                ?>
+                            </ul>
+                        </div> 
+                <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+****************************
