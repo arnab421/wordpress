@@ -242,7 +242,52 @@ function handle_custom_form() {
 	add_action('wp_ajax_handle_custom_form', 'handle_custom_form');
 	add_action('wp_ajax_nopriv_handle_custom_form', 'handle_custom_form');
 
-                                                                                                                                                 
+                                                                                                                                         <?php /*Template Name: Layout: Test-Page*/?>
+<?php get_header(); ?> 
+<h1>Test Page</h1>
+<form id="custom-form">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <div class="g-recaptcha" data-sitekey="6LcZuxsqAAAAAJBKRTKLMXuLd8dTojV_GBRtXT9g"></div>
+        <button type="submit">Submit</button>
+        <div id="form-message"></div>
+    </form>
+<?php get_footer(); ?> 
+
+jQuery(document).ready(function($) {
+    $('#custom-form').submit(function(event) {
+        event.preventDefault();
+
+        var formData = $(this).serialize();
+        var recaptchaResponse = grecaptcha.getResponse();
+        console.log(recaptchaResponse);
+        if (recaptchaResponse.length === 0) {
+            $('#form-message').text('Please complete the reCAPTCHA.');
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: ajaxadmin.ajax_url,
+            data: {
+                action: 'handle_custom_form',
+                form_data: formData,
+                recaptcha_response: recaptchaResponse
+            },
+            success: function(response) {
+                console.log('AJAX response:', response); // Log the response
+                if (response.success) {
+                    $('#custom-form')[0].reset();
+                     grecaptcha.reset();
+                    $('#form-message').text('Form submitted successfully.');
+                } else {
+                    // console.log(response);
+                    $('#form-message').text('Form submission failed12234.');
+                }
+            }
+        });
+    });
+});
                                                                                                  
                                                                                                                              
                             
