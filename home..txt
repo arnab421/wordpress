@@ -289,7 +289,112 @@ jQuery(document).ready(function($) {
     });
 });
                                                                                                  
-                                                                                                                             
+************************Latest Query ************************ 
+<?php
+                // $args1 = array(
+                //     'post_type' => 'services',
+                //     'posts_per_page' => -1,
+                //     'post_status' => 'publish',
+                //     'order' => 'DESC',
+                //     'tax_query' => array(
+                //         'relation' => 'AND', 
+                //         array(
+                //             'taxonomy' => 'service_type', 
+                //             'field'    => 'slug',
+                //             'terms'    => 'cattwo', 
+                //         ),
+                //         array(
+                //             'taxonomy' => 'service_tag', 
+                //             'field'    => 'slug',
+                //             'terms'    => 'tagtwo', 
+                //         ),
+                //     ),
+                //     'meta_query' => array(
+                //         array(
+                //             'key'     => 'service_status', 
+                //             'value'   => 'open', 
+                //             'compare' => '=', 
+                //         ),
+                //     ),
+                // );
+                // $services1 = new WP_Query($args1);
+                // echo "<pre>";
+                // print_r($services1);
+                // echo "</pre>";
+                // die();
+                // Initial query arguments
+                $args1 = array(
+                    'post_type' => 'services',
+                    'posts_per_page' => -1,
+                    'post_status' => 'publish',
+                    'order' => 'DESC',
+                    'tax_query' => array(
+                        'relation' => 'AND',
+                        array(
+                            'taxonomy' => 'service_type',
+                            'field'    => 'slug',
+                            'terms'    => 'cattwo',
+                        ),
+                        array(
+                            'taxonomy' => 'service_tag',
+                            'field'    => 'slug',
+                            'terms'    => 'tagtwo',
+                        ),
+                    ),
+                    'meta_query' => array(
+                        array(
+                            'key'     => 'service_status',
+                            'value'   => 'open',
+                            'compare' => '=',
+                        ),
+                    ),
+                );
+
+                // Run the first query
+                $query1 = new WP_Query($args1);
+
+                // Check if there are posts for the first query
+                if ($query1->have_posts()) {
+                    // Posts exist with the initial criteria
+                    $posts = $query1->posts;
+                } else {
+                    // No posts found with the initial criteria, so run the fallback query
+                    $args2 = array(
+                        'post_type' => 'services',
+                        'posts_per_page' => -1,
+                        'post_status' => 'publish',
+                        'order' => 'DESC',
+                        'tax_query' => array(
+                            array(
+                                'taxonomy' => 'service_type',
+                                'field'    => 'slug',
+                                'terms'    => 'cattwo',
+                            ),
+                        ),
+                        'meta_query' => array(
+                            array(
+                                'key'     => 'service_status',
+                                'value'   => 'open',
+                                'compare' => '=',
+                            ),
+                        ),
+                    );
+
+                    // Run the fallback query
+                    $query2 = new WP_Query($args2);
+                    $posts = $query2->posts;
+                }
+
+                // Process the posts (if any)
+                foreach ($posts as $post) {
+                    // Output or process each post
+                    setup_postdata($post);
+                    // Example: Output the title
+                    echo '<h2>' . get_the_title($post->ID) . '</h2>';
+                }
+                wp_reset_postdata();
+                ?>
+************************Latest Query ************************
                             
   
 
