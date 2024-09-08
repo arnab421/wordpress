@@ -395,7 +395,243 @@ jQuery(document).ready(function($) {
                 wp_reset_postdata();
                 ?>
 ************************Latest Query ************************
-                            
+*************** Sbolg page **************
+<?php /*Template Name: Layout: Blog*/ ?>
+<?php get_header(); ?>
+
+<?php
+$searchdata = '';
+if ($_GET['title'] != "") {
+    $searchdata = $_GET['title'];
+}
+?>
+<div class="breadcrumb-area text-center shadow dark text-light bg-cover" style="background-image: url(<?php echo get_field('inner_banner_image'); ?>);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <h1><?php echo get_field('inner_banner_heading'); ?></h1>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="<?php echo home_url(); ?>"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="active"><?php echo get_field('inner_banner_heading'); ?></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="blog-area right-sidebar full-blog default-padding">
+    <div class="container">
+        <div class="blog-items">
+            <div class="row">
+                <div class="blog-content col-lg-8 col-md-12">
+                    <div class="blog-item-box">
+                        <!-- Single Item -->
+                        <?php
+                        // $args = array(
+                        //   'post_type' => 'post',
+                        //   'posts_per_page' => -1,
+                        //   'post_status' => 'publish',
+                        //   'order' => 'DESC',
+                        // );
+                        $args = array(
+                            'post_type' => 'post',
+                            'post_status' => 'publish',
+                            's' => $searchdata
+                        );
+                        $postdata = new WP_Query($args);
+                        if ($postdata->have_posts()) {
+                            while ($postdata->have_posts()) {
+                                $postdata->the_post();
+                                $postdata_image = wp_get_attachment_image_src(get_post_thumbnail_id($postdata->ID), 'full');
+                        ?>
+                                <div class="single-item wow fadeInUp" data-wow-delay=".3s">
+                                    <div class="item">
+                                        <div class="thumb">
+                                            <div class="image-box">
+                                                <a href="">
+                                                    <img src="<?php echo $postdata_image[0]; ?>" alt="Thumb" class="img-fluid" />
+                                                </a>
+                                            </div>
+                                            <div class="date"><?php echo get_field('date', $postdata->ID); ?></div>
+                                        </div>
+                                        <div class="info">
+                                            <div class="meta">
+                                                <ul>
+                                                    <li>
+                                                        <img src="<?php echo get_field('author_icon', $postdata->ID); ?>" alt="Author" />
+                                                        <span>By <?php echo get_field('author_name', $postdata->ID); ?></span>
+                                                        <a href="<?php echo get_the_permalink($postdata->ID); ?>"></a>
+                                                    </li>
+                                                    <li>
+                                                        <span>In <?php echo get_field('agency_name', $postdata->ID); ?></span>
+                                                        <a href="<?php echo get_the_permalink($postdata->ID); ?>"></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <h1>
+                                                <a href="<?php echo get_the_permalink($postdata->ID); ?>"><?php echo get_the_title(); ?></a>
+                                            </h1>
+                                            <p>
+                                                <?php echo get_the_excerpt($postdata->ID); ?>
+                                            </p>
+                                            <a class="btn circle btn-theme-border btn-sm" href="<?php echo get_the_permalink($postdata->ID); ?>">Read More</a>
+                                            <button class="compare-button btn circle btn-theme-border btn-sm" data-post-id="<?php echo get_the_ID(); ?>">
+                                                Compare
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                        <?php }
+                        }
+
+                        wp_reset_postdata(); ?>
+
+                    </div>
+                </div>
+               
+                <!-- Start Sidebar -->
+                <div class="sidebar col-lg-4 col-md-12">
+                    <aside class="wow fadeInUp" data-wow-delay=".5s">
+                        <div class="sidebar-item search">
+                            <div class="sidebar-info">
+                                <form id="" class="searchform" name="" method="get">
+                                    <input type="text" value="<?php echo $searchdata; ?>" name="title" class="form-control" required placeholder="Search for posts......" />
+                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                    <!-- <input type="hidden" name="blogpagesearch" /> -->
+                                </form>
+                            </div>
+                        </div>
+                        <div class="sidebar-item recent-post">
+                            <div class="title">
+                                <h4>Recent Post</h4>
+                            </div>
+                            <ul>
+                                <?php
+                                $args = array(
+                                    'post_type' => 'post',
+                                    'posts_per_page' => 3,
+                                    'post_status' => 'publish',
+                                    'order' => 'DESC',
+                                );
+                                $postdata = new WP_Query($args);
+                                if ($postdata->have_posts()) {
+                                    while ($postdata->have_posts()) {
+                                        $postdata->the_post();
+                                        $postdata_image = wp_get_attachment_image_src(get_post_thumbnail_id($postdata->ID), 'full');
+                                ?>
+                                        <li>
+                                            <div class="thumb">
+                                                <a href="<?php echo get_the_permalink($postdata->ID); ?>">
+                                                    <img src="<?php echo $postdata_image[0]; ?>" alt="Thumb" />
+                                                </a>
+                                            </div>
+                                            <div class="info">
+                                                <div class="meta-title">
+                                                    <span class="post-date"><?php echo get_field('date', $postdata->ID); ?></span>
+                                                </div>
+                                                <a href="<?php echo get_the_permalink($postdata->ID); ?>"><?php echo get_the_title(); ?></a>
+                                            </div>
+                                        </li>
+                                <?php }
+                                }
+
+                                wp_reset_postdata(); ?>
+
+                            </ul>
+                        </div>
+
+                        <div class="sidebar-item social-sidebar">
+                            <div class="title">
+                                <h4>follow us</h4>
+                            </div>
+                            <div class="sidebar-info">
+                                <ul>
+                                    <li class="facebook">
+                                        <a href="<?php echo get_theme_value('site_facebook_link'); ?>" target="_blank">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                    </li>
+                                    <li class="twitter">
+                                        <a href="<?php echo get_theme_value('site_twitter_link'); ?>" target="_blank">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li class="pinterest">
+                                        <a href="<?php echo get_theme_value('site_pinterest_link'); ?>" target="_blank">
+                                            <i class="fab fa-pinterest"></i>
+                                        </a>
+                                    </li>
+                                    <li class="linkedin">
+                                        <a href="<?php echo get_theme_value('site_linkedin_link'); ?>" target="_blank">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+                <!-- End Start Sidebar -->
+            </div>
+            <button id="compare-selected-button" disabled>Compare Selected</button>
+        </div>
+    </div>
+</div>
+<?php get_footer(); ?>
+<script>
+// Array to hold selected post IDs
+let selectedPosts = [];
+
+// Handle compare button click
+document.querySelectorAll('.compare-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const postId = this.getAttribute('data-post-id');
+        
+        // Add or remove the post ID from the selected posts array
+        if (!selectedPosts.includes(postId)) {
+            selectedPosts.push(postId);
+            this.textContent = 'Remove from Compare';  // Change button text after adding
+        } else {
+            selectedPosts = selectedPosts.filter(id => id !== postId);
+            this.textContent = 'Compare';  // Revert button text
+        }
+
+        // Enable or disable the "Compare Selected" button based on selection
+        document.getElementById('compare-selected-button').disabled = selectedPosts.length === 0;
+    });
+});
+
+// Handle compare selected button click
+document.getElementById('compare-selected-button').addEventListener('click', function() {
+    if (selectedPosts.length > 0) {
+        // Redirect to the compare page with selected post IDs
+        const url = "<?php echo get_permalink(get_page_by_path('compare')); ?>";
+        window.location.href = url + '?post_ids[]=' + selectedPosts.join('&post_ids[]=');
+    }
+});
+</script>
+******* blog page ************** 
+
+compare page 
+*****
+<?php /*Template Name: Layout: Compare*/ ?>
+<?php get_header('');
+if (isset($_GET['post_ids'])) {
+    $post_ids = array_map('intval', $_GET['post_ids']); // Sanitize the post IDs
+} else {
+    $post_ids = [];
+}
+echo "<pre>";
+print_r($post_ids);
+echo "</pre>";
+?>
+<?php get_footer(); ?>
+******
   
 
                                                                                                                                                                             
