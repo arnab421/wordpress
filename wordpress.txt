@@ -257,7 +257,77 @@ wp_enqueue_style('custom',get_stylesheet_uri() );
 add_action('wp_enqueue_scripts','html2wp_scripts')
 ?>
 ******************
-End
+End 
+
+sweet alert js 
+*****************
+<?php
+/*
+Plugin Name: Custom AJAX Form Plugin
+Description: A plugin for AJAX form submission with SweetAlert.
+Version: 1.0
+Author: Your Name
+*/
+
+// Include necessary functions and scripts
+add_action('wp_enqueue_scripts', 'enqueue_custom_ajax_form_scripts');
+add_action('wp_ajax_handle_form_submission', 'handle_form_submission');
+add_action('wp_ajax_nopriv_handle_form_submission', 'handle_form_submission');
+
+function enqueue_custom_ajax_form_scripts() {
+    // Enqueue jQuery
+    wp_enqueue_script('jquery');
+
+    // Enqueue SweetAlert
+    wp_enqueue_script('sweetalert', 'https://cdn.jsdelivr.net/npm/sweetalert2@11', array(), null, true);
+
+    // Enqueue custom AJAX script
+    wp_enqueue_script('custom-ajax-script', plugin_dir_url(__FILE__) . 'js/custom-ajax.js', array('jquery'), null, true);
+
+    // Pass the AJAX URL to the script
+    wp_localize_script('custom-ajax-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+} 
+
+jQuery(document).ready(function($) {
+    $('#custom-form').submit(function(e) {
+        e.preventDefault(); // Prevent the form from submitting normally
+
+        var formData = $(this).serialize(); // Serialize form data
+
+        // Send AJAX request
+        $.ajax({
+            type: 'POST',
+            url: ajax_object.ajax_url, // Get the AJAX URL from the localized script
+            data: {
+                action: 'handle_form_submission', // AJAX action
+                form_data: formData // Send form data
+            },
+            success: function(response) {
+                // Show SweetAlert on success
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Your form has been submitted.',
+                    icon: 'success',
+                    showConfirmButton: false, // Hide the confirm button
+                    timer: 1000 // Close after 1 second
+                });
+
+                // Optionally clear the form
+                $('#custom-form')[0].reset();
+            },
+            error: function() {
+                // Show error message if something goes wrong
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There was a problem with your submission.',
+                    icon: 'error',
+                    confirmButtonText: 'Try Again'
+                });
+            }
+        });
+    });
+});
+******************
 
 
 
