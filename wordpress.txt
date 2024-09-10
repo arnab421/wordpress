@@ -328,6 +328,39 @@ jQuery(document).ready(function($) {
     });
 });
 ******************
+<?php get_header(); ?>
+
+<div class="taxonomy-category-type">
+    <?php
+    // Get the current taxonomy term
+    $term = get_queried_object();
+
+    // Get the ACF field for the category image
+    $category_image = get_field('your_acf_image_field_name', $term);
+
+    // Check if the category image exists
+    if ($category_image) {
+        // Output the category image
+        echo '<div class="category-image">';
+        echo '<img src="' . esc_url($category_image['url']) . '" alt="' . esc_attr($category_image['alt']) . '" />';
+        echo '</div>';
+    }
+
+    // You can then loop through posts or add additional content as needed
+    if (have_posts()) :
+        while (have_posts()) : the_post();
+            // Display post content
+            the_title('<h2>', '</h2>');
+            the_excerpt();
+        endwhile;
+    else :
+        echo '<p>No posts found in this category.</p>';
+    endif;
+    ?>
+</div>
+
+<?php get_footer(); ?> 
+**************************
 
 
 
