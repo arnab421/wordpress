@@ -362,6 +362,234 @@ jQuery(document).ready(function($) {
 <?php get_footer(); ?> 
 **************************
 
+relation between 3 postypes:
+********************************
+To create custom fields to connect your TG, Institute, and People post types in WordPress, using ACF (Advanced Custom Fields), follow these steps to set up the fields correctly and establish the relationships between the three post types.
+
+Goal:
+TG post type should have a relationship to the Institute post type.
+Institute post type should have a relationship to the People post type.
+Each TG should have one lead person (from People) linked to it.
+Steps:
+Step 1: Install and Activate ACF Plugin
+If you haven’t already installed the ACF plugin, follow these steps:
+
+Go to Plugins → Add New in your WordPress admin.
+Search for Advanced Custom Fields.
+Click Install Now and then Activate.
+Step 2: Set up Custom Fields for TG Post Type
+Go to ACF > Field Groups in your WordPress dashboard.
+Click Add New to create a new field group for the TG post type.
+Add the following fields:
+Field 1: Lead Person (Post Object)
+Field Label: Lead Person
+Field Name: tg_lead
+Field Type: Post Object
+Post Type: People
+Return Format: Post Object (select "Post Object" to link to the full post).
+Field 2: Related Institutes (Relationship Field)
+Field Label: Related Institutes
+Field Name: related_institutes
+Field Type: Relationship
+Post Type: Institute
+Return Format: Post Object.
+Under Location, set the rules:
+Show this field group if Post Type is equal to TG.
+Save the field group.
+Step 3: Set up Custom Fields for Institute Post Type
+Create a new field group for the Institute post type in ACF > Field Groups.
+Add the following field:
+Field 1: Related TGs (Relationship Field)
+Field Label: Related TGs
+Field Name: related_tgs
+Field Type: Relationship
+Post Type: TG
+Return Format: Post Object.
+Field 2: Related People (Relationship Field)
+Field Label: Related People
+Field Name: related_people
+Field Type: Relationship
+Post Type: People
+Return Format: Post Object.
+Under Location, set the rules:
+Show this field group if Post Type is equal to Institute.
+Save the field group.
+Step 4: Set up Custom Fields for People Post Type
+Create a new field group for the People post type in ACF > Field Groups.
+Add the following field:
+Field 1: Related Institute (Post Object)
+Field Label: Related Institute
+Field Name: related_institute
+Field Type: Post Object
+Post Type: Institute
+Return Format: Post Object.
+Under Location, set the rules:
+Show this field group if Post Type is equal to People.
+Save the field group.
+Summary of Fields:
+TG:
+tg_lead: Post Object (links to a single People post for the lead).
+related_institutes: Relationship (links to multiple Institute posts).
+Institute:
+related_tgs: Relationship (links to multiple TG posts).
+related_people: Relationship (links to multiple People posts).
+People:
+related_institute: Post Object (links to a single Institute post).
+Step 5: Use These Fields in the Template
+Now that you've created the necessary ACF fields to link the TG, Institute, and People posts, you can use them in your theme templates to display the data as needed.
+
+Example: Displaying the Lead Person and People on a TG page:
+php
+Copy code
+<?php
+get_header();
+
+// Get the current TG post
+if (have_posts()) : while (have_posts()) : the_post();
+    // Get the lead person for this TG
+    $tg_lead = get_field('tg_lead');
+    if ($tg_lead) :
+        $lead_id = $tg_lead->ID;
+        $lead_name = get_the_title($lead_id);
+        $lead_bio = get_the_excerpt($lead_id);
+        ?>
+        <div class="lead-card">
+            <h2><?php echo $lead_name; ?> (Lead)</h2>
+            <p><?php echo $lead_bio; ?></p> <!-- Lead short content -->
+            <small>Institute: <?php echo get_the_title(get_field('related_institute', $lead_id)); ?></small>
+        </div>
+    <?php endif; ?>
+
+    <!-- Query Institutes related to this TG -->
+    <?php
+    $related_institutes = get_field('related_institutes');
+    if ($related_institutes):
+        foreach ($related_institutes as $institute):
+            // Get the people related to this institute
+            $related_people = get_field('related_people', $institute->ID);
+            if ($related_people):
+                ?>
+                <div class="institute">
+                    <h3><?php echo get_the_title($institute->ID); ?></h3>
+                    <ul class="people-list">
+                        <?php
+                        foreach ($related_people as $person):
+                            ?>
+                            <li>
+                                <h4><?php echo get_the_title($person->ID); ?></h4>
+                                <p><?php echo get_the_excerpt($person->ID); ?></p>
+                                <small>Institute: <?php echo get_the_title($institute->ID); ?></small>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <?php
+            endif;
+        endforeach;
+    endif;
+
+endwhile; endif;
+
+get_footer();
+Explanation:
+The lead person for the TG is retrieved using get_field('tg_lead') and displayed in the "Lead Card".
+The Institutes linked to the TG are queried with get_field('related_institutes').
+The People related to each Institute are displayed, excluding the lead person if needed.
+Step 6: Add Data to the Fields
+Once the custom fields are set up, you need to go to the WordPress admin and manually assign the appropriate values to these fields:
+
+For each TG, assign a lead person and select related Institutes.
+For each Institute, select the related TG posts and the People posts associated with that Institute.
+For each Person, select the associated Institute.
+Conclusion:
+You’ve now set up the relationships between the three custom post types (TG, Institute, People) using ACF. These fields allow you to display the data on the front end and manage the relationships from the WordPress admin. The relationships help you connect TGs to Institutes and People, and ensure each TG has a lead assigned to it.
+
+
+
+
+
+
+You said:
+now how can i select from backend according to this setuo  please guide me
+ChatGPT said:
+ChatGPT
+To select and connect TG, Institute, and People posts from the WordPress backend using the ACF fields you've created, here’s a step-by-step guide:
+
+Step-by-Step Guide to Selecting and Connecting Posts from the Backend
+Create or Edit a TG Post:
+
+Go to your WordPress Admin Dashboard → Posts → Add New (or edit an existing TG post).
+Assign the Lead Person for the TG:
+
+In the ACF field group for the TG post type, you'll see the "Lead Person" field (Post Object).
+Click the field labeled "Lead Person".
+This will open a searchable dropdown where you can select a Person (from the People post type). You can either:
+Search for the person by name or
+Select from a list of available People posts.
+Once you select the lead person, save the post. This assigns the lead person to the current TG.
+Assign Institutes to the TG:
+
+In the same TG post editor, find the "Related Institutes" field (Relationship field).
+Click the field labeled "Related Institutes".
+A searchable dropdown will appear where you can select one or more Institute posts.
+You can either:
+Search for the Institute by name or
+Select from a list of available Institute posts.
+Once you select the Institutes, save the post. This links the Institutes to the current TG.
+Repeat for Institute Post Type
+Create or Edit an Institute Post:
+
+Go to your WordPress Admin Dashboard → Posts → Add New (or edit an existing Institute post).
+Assign Related TGs to the Institute:
+
+In the ACF field group for the Institute post type, you’ll see the "Related TGs" field (Relationship field).
+Click the field labeled "Related TGs".
+A searchable dropdown will appear where you can select one or more TG posts.
+You can either:
+Search for the TG by name or
+Select from a list of available TG posts.
+Once you select the TG(s), save the post. This links the TG(s) to the current Institute.
+Assign Related People to the Institute:
+
+In the same Institute post editor, find the "Related People" field (Relationship field).
+Click the field labeled "Related People".
+A searchable dropdown will appear where you can select one or more People posts.
+You can either:
+Search for the person by name or
+Select from a list of available People posts.
+Once you select the People, save the post. This links the People to the current Institute.
+Repeat for People Post Type
+Create or Edit a People Post:
+
+Go to your WordPress Admin Dashboard → Posts → Add New (or edit an existing People post).
+Assign the Related Institute to the Person:
+
+In the ACF field group for the People post type, you'll see the "Related Institute" field (Post Object field).
+Click the field labeled "Related Institute".
+A searchable dropdown will appear where you can select the Institute this person is associated with.
+You can either:
+Search for the Institute by name or
+Select from a list of available Institute posts.
+Once you select the Institute, save the post. This links the Institute to the current People post.
+Example of Backend Workflow:
+TG Post: When you create or edit a TG post, you’ll select:
+The Lead Person (from the People post type).
+One or more Institutes (from the Institute post type).
+Institute Post: When you create or edit an Institute post, you’ll select:
+One or more TG posts (using the Related TGs field).
+One or more People posts (using the Related People field).
+People Post: When you create or edit a People post, you’ll select:
+The Institute (using the Related Institute field).
+Visual Overview:
+TG → Lead Person (1 People) + Related Institutes (1+ Institutes)
+Institute → Related TGs (1+ TGs) + Related People (1+ People)
+People → Related Institute (1 Institute)
+Tips:
+Search and Filter: Use the search functionality within the ACF fields to quickly find the post types you need (TG, Institute, People).
+Multiple Selections: For Related Institutes and Related People, you can select multiple posts at once if needed.
+Post Saving: After selecting all the necessary related posts (Lead Person, Institutes, etc.), don’t forget to click Update or Publish to save your selections.
+Let me know if you need further clarification or if something is unclear!
+*********************************
 
 
 
