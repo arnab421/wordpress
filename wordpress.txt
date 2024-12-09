@@ -591,5 +591,100 @@ Post Saving: After selecting all the necessary related posts (Lead Person, Insti
 Let me know if you need further clarification or if something is unclear!
 *********************************
 
+other query
+******************
+<?php
+get_header();
 
+if (have_posts()) : while (have_posts()) : the_post();
+    ?>
+    <h1><?php the_title(); ?></h1>
+    <div><?php the_content(); ?></div>
+
+    <?php
+    // Get the lead person for this TG (using the ACF field)
+    $tg_lead = get_field('tg_lead'); // ACF field for the lead person
+    if ($tg_lead) :
+        $lead_id = $tg_lead->ID; // Get the ID of the lead person
+        ?>
+        <!-- Lead Card -->
+        <div class="lead-card">
+            <h2><?php echo get_the_title($lead_id); ?> (Lead)</h2>
+            <p><?php echo get_the_excerpt($lead_id); ?></p> <!-- Lead short content -->
+            <small><strong>Institute:</strong> <?php the_field('related_institute', $lead_id); ?></small>
+        </div>
+    <?php endif; ?>
+
+    <?php
+    // Query Institutes linked to this TG
+    $institutes = new WP_Query([
+        'post_type' => 'institute',
+        'meta_query' => [
+            [
+                'key' => 'related_tgs', // ACF field in Institute post type
+                'value' => '"' . get_the_ID() . '"', // Current TG ID (serialized value)
+                'compare' => 'LIKE', // Needed for serialized data
+            ],
+        ],
+    ]);
+
+    if ($institutes->have_posts()) :
+        while ($institutes->have_posts()) : $institutes->the_post();
+            $institute_id = get_the_ID();
+
+            // Query for other People linked to this Institute, excluding the TG lead
+            $people_query = new WP_Query([
+                'post_type' => 'people',
+                'meta_query' => [
+                    [
+                        'key' => 'related_institute',
+                        'value' => $institute_id,
+                        'compare' => '=',
+                    ],
+                    [
+                        'key' => 'ID', // Exclude the lead person from the people list
+                        'value' => $lead_id,
+                        'compare' => '!=' // Exclude the lead person by ID
+                    ],
+                ],
+            ]);
+
+            if ($people_query->have_posts()) :
+                ?>
+                <!-- Other People Section -->
+                <div class="people-section">
+                    <h3>People in <?php the_title(); ?></h3>
+                    <div class="people-row">
+                        <?php
+                        while ($people_query->have_posts()) : $people_query->the_post();
+                            // Get the associated Institute name
+                            $related_institute = get_field('related_institute');
+                            $institute_name = $related_institute ? get_the_title($related_institute) : 'Unknown Institute';
+                            ?>
+                            <div class="person-item">
+                                <h4><?php the_title(); ?></h4> <!-- Person Name -->
+                                <p><?php the_excerpt(); ?></p> <!-- Short Bio -->
+                                <small><strong>Institute:</strong> <?php echo esc_html($institute_name); ?></small> <!-- Institute Name -->
+                            </div>
+                            <?php
+                        endwhile;
+                        ?>
+                    </div>
+                </div>
+                <?php
+            else :
+                echo '<p>No other people found for this institute.</p>';
+            endif;
+
+            wp_reset_postdata(); // Reset People query
+        endwhile;
+    else :
+        echo '<p>No institutes found for this TG.</p>';
+    endif;
+
+    wp_reset_postdata(); // Reset Institutes query
+endwhile; endif;
+
+get_footer();
+********************
 
