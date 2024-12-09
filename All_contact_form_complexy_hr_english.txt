@@ -362,4 +362,56 @@ Page Name : [page-name]
 This e-mail was sent from a contact form on [_site_title] ([_site_url])
 
 **********************end*****************
+final code template 
+***********************
+<?php
+get_header();
 
+// Get the current TG post
+if (have_posts()) : while (have_posts()) : the_post();
+    // Get the lead person for this TG
+    $tg_lead = get_field('lead_person');
+    if ($tg_lead) :
+        $lead_id = $tg_lead->ID;
+        $lead_name = get_the_title($lead_id);
+        $lead_bio = get_the_excerpt($lead_id);
+        ?>
+        <div class="lead-card">
+            <h2><?php echo $lead_name; ?> (Lead)</h2>
+            <p><?php echo $lead_bio; ?></p> <!-- Lead short content -->
+            <small>Institute: <?php echo get_the_title(get_field('related_institute', $lead_id)); ?></small>
+        </div>
+    <?php endif; ?>
+
+    <!-- Query Institutes related to this TG -->
+    <?php
+    $related_institutes = get_field('related_institutes');
+    if ($related_institutes):
+        foreach ($related_institutes as $institute):
+            // Get the people related to this institute
+            $related_people = get_field('related_people', $institute->ID);
+            if ($related_people):
+                ?>
+                <div class="institute">
+                    <h3><?php echo get_the_title($institute->ID); ?></h3>
+                    <ul class="people-list">
+                        <?php
+                        foreach ($related_people as $person):
+                            ?>
+                            <li>
+                                <h4><?php echo get_the_title($person->ID); ?></h4>
+                                <p><?php echo get_the_excerpt($person->ID); ?></p>
+                                <small>Institute: <?php echo get_the_title($institute->ID); ?></small>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <?php
+            endif;
+        endforeach;
+    endif;
+
+endwhile; endif;
+
+get_footer();
+********************
