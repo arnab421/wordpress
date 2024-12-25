@@ -635,9 +635,6 @@ echo "</pre>";
   
 custom 2fA 
 *******************
-<?php
-
-// Two factor authentication
 function custom_2fa_authentication($user, $username, $password) {
 	if(is_wp_error($user)) {
 		return $user;
@@ -670,15 +667,40 @@ add_filter('authenticate', 'custom_2fa_authentication', 30, 3);
 
 
 // Create the 2FA Code Verification Page
+
 function handle_2fa_verification() {
     if (is_page('2fa-verification')) {
-		get_header();
+        if (isset($_POST['2fa_code'])) {
+            if (isset($_SESSION['2fa_user_id'])) {
+                $user_id = $_SESSION['2fa_user_id'];
+                $saved_code = get_user_meta($user_id, '2fa_code', true);
+                $entered_code = sanitize_text_field($_POST['2fa_code']);
 
-		echo '<style>
+                if ($entered_code === $saved_code) {
+                    // Clear OTP and session
+                    delete_user_meta($user_id, '2fa_code');
+                    unset($_SESSION['2fa_user_id']);
+
+                    // Authenticate user
+                    wp_set_current_user($user_id);
+                    wp_set_auth_cookie($user_id);
+
+                    // Redirect to the dashboard
+                    wp_redirect(admin_url());
+                    exit;
+                } else {
+                    echo '<p>Incorrect 2FA code. Please try again.</p>';
+                }
+            }
+        }
+
+        // Render the 2FA verification form
+        get_header();
+
+        echo '<style>
             .two-factor-auth-container {
-				padding-top: 100px;
+                padding-top: 100px;
                 margin: 0 auto;
-                
             }
             .two-factor-auth-form {
                 background-color: #f9f9f9;
@@ -692,58 +714,35 @@ function handle_2fa_verification() {
             .two-factor-auth-form h2 {
                 margin-bottom: 20px;
             }
-
-			.two-factor-auth-form .button { margin-top: 15px; }
+            .two-factor-auth-form .button {
+                margin-top: 15px;
+            }
         </style>';
 
         echo '<div class="two-factor-auth-container">';
         echo '<div class="two-factor-auth-form">';
         echo '<h2>Two-Factor Authentication</h2>';
-
-        if (isset($_POST['2fa_code'])) {
-
-            if (isset($_SESSION['2fa_user_id'])) {
-                $user_id = $_SESSION['2fa_user_id'];
-                $saved_code = get_user_meta($user_id, '2fa_code', true);
-                $entered_code = sanitize_text_field($_POST['2fa_code']);
-
-                if ($entered_code === $saved_code) {
-
-                    delete_user_meta($user_id, '2fa_code');
-                    unset($_SESSION['2fa_user_id']);
-
-                    wp_set_current_user($user_id);
-                    wp_set_auth_cookie($user_id);
-                    
-                    wp_redirect(admin_url());
-                    exit;
-                } else {
-                    echo '<p>Incorrect 2FA code. Please try again.</p>';
-                }
-            }
-        }
-
         echo '<form method="POST">';
         echo '<p>Please enter the 2FA code that we sent to you by email:</p>';
         echo '<input type="text" class="input" name="2fa_code" required />';
         echo '<input type="submit" class="button button-primary button-large" value="Sign in" />';
         echo '</form>';
-
-		echo '</div>';
+        echo '</div>';
         echo '</div>';
 
-		get_footer();
+        get_footer();
         exit;
     }
 }
-add_action('template_redirect', 'handle_2fa_verification');
+
+  add_action('template_redirect', 'handle_2fa_verification');
 
 function start_custom_session() {
     if (!session_id()) {
         session_start();
     }
 }
-add_action('init', 'start_custom_session'); 
+add_action('init', 'start_custom_session');
 ********************************************custom 2fA********************
                                                                                                                                                                             
                                                                                         
